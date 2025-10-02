@@ -27,7 +27,7 @@
               }
             ],
             "styles": [
-              "src/styles.sass"
+              "src/styles/entrypoint.sass"
             ],
             "outputMode": "static"
           },
@@ -47,7 +47,7 @@
               ],
               "outputHashing": "all"
             },
-            "development": { 
+            "development": {
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
