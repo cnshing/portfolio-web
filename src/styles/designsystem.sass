@@ -1,0 +1,61 @@
+// This file implements the design system as Tailwind compatiable utilities.
+
+$text-colors: (
+  default: var(--text-color-default),
+  accent: var(--text-color-accent),
+  secondary: var(--text-color-secondary),
+  tertiary: var(--text-color-tertiary)
+)
+
+$bg-colors: (
+  surface1: var(--bg-color-surface1),
+  surface2: var(--bg-color-surface2),
+  page: var(--bg-color-page),
+  page-gradient: var(--bg-color-page-gradient),
+  button: var(--bg-color-button)
+)
+
+$border-colors: (
+  default: var(--border-color-default),
+  strong: var(--border-color-strong),
+  button: var(--border-color-button),
+  company-icon: var(--border-color-company-icon),
+  subtle: var(--border-color-subtle),
+  medium: var(--border-color-medium)
+)
+
+$on-bg-text-colors: (
+  default: var(--on-bg-page-text-color-default),
+  secondary: var(--on-bg-page-text-color-secondary),
+  tertiary: var(--on-bg-page-text-color-tertiary),
+  accent: var(--on-bg-page-text-color-accent)
+)
+
+$on-bg-colors: (
+  button: var(--on-bg-button-color)
+)
+
+// Foreground colors
+@each $name, $value in $text-colors
+  @utility text-color-#{$name}
+    color: #{$value}
+
+// Background colors
+@each $name, $value in $bg-colors
+  @utility bg-color-#{$name}
+    background-color: #{$value}
+
+// Border colors
+@each $name, $value in $border-colors
+  @utility border-color-#{$name}
+    border-color: #{$value}
+
+// On-background text colors
+@each $name, $value in $on-bg-text-colors
+  @utility on-bg-page-text-color-#{$name}
+    color: #{$value}
+
+// On-background element colors
+@each $name, $value in $on-bg-colors
+  @utility on-bg-color-#{$name}
+    color: #{$value}
