@@ -1,33 +1,82 @@
+@use 'sass:list';
+@use 'sass:string';
+
+// You must implement the following CSS variables for a working theme.
+$required: (
+  /* Brand */
+  --color-brand,
+  --color-brand-subtle,
+
+  /* Foreground */
+  --text-color-default,
+  --text-color-accent,
+  --text-color-secondary,
+  --text-color-tertiary,
+
+  /* Background */
+  --bg-color-surface1,
+  --bg-color-surface2,
+  --bg-color-page,
+  --bg-color-page-gradient,
+  --bg-color-button,
+
+  /* Border */
+  --border-color-default,
+  --border-color-strong,
+  --border-color-button,
+  --border-color-company-icon,
+  --border-color-subtle,
+  --border-color-medium,
+
+  /* On Background */
+  --on-bg-page-text-color-default,
+  --on-bg-page-text-color-secondary,
+  --on-bg-page-text-color-tertiary,
+  --on-bg-page-text-color-accent,
+  --on-bg-color-button
+)
+
+
 @layer utilities
   [data-theme='neon']
-    /* Brand */
     --color-brand: var(--color-green-100)
     --color-brand-subtle: var(--color-green-900)
-
-    /* Foreground */
     --text-color-default: var(--color-white-0)
     --text-color-accent: var(--color-green-100)
     --text-color-secondary: var(--color-gray-100)
     --text-color-tertiary: var(--color-gray-200)
-
-    /* bg */
     --bg-color-surface1: var(--color-black-1050)
     --bg-color-surface2: var(--color-gray-900)
     --bg-color-page: var(--color-black-1150)
     --bg-color-page-gradient: var(--color-black-1000)
     --bg-color-button: var(--color-brand)
-
-    /* Border */
     --border-color-default: var(--color-gray-600)
     --border-color-strong: var(--color-brand)
     --border-color-button: var(--color-green-100)
     --border-color-company-icon: var(--color-white-0)
     --border-color-subtle: var(--color-gray-800)
     --border-color-medium: var(--color-gray-600)
-
-    /* On-bg */
     --on-bg-page-text-color-default: var(--color-white-0)
     --on-bg-page-text-color-secondary: var(--color-gray-100)
     --on-bg-page-text-color-tertiary: var(--color-gray-200)
     --on-bg-page-text-color-accent: var(--color-brand)
-    --on-bg-button-color: var(--color-black-1000)
+    --on-bg-color-button: var(--color-black-1000)
+
+
+// Converts a color design token into a tailwind compatiable utility.
+@function to-tailwind-var($key)
+  @if string.slice($key, 1, 8) == "--color-"
+    @return $key
+
+  // strip the leading `--`
+  $name: string.slice($key, 3)
+
+  // Rejoin the variables without color.
+  $parts: string.split($name, "-color-")
+  $context: list.nth($parts, 1) // From https://spectrum.adobe.com/page/design-tokens/#Naming-structure
+  $clarification: list.nth($parts, 2)
+  @return "--color-#{$context}-#{$clarification}"
+
+@theme inline
+  @each $design-token in $required
+      #{to-tailwind-var($design-token)}: var(#{$design-token})
