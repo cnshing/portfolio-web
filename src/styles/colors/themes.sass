@@ -1,6 +1,6 @@
 @use 'sass:list';
 @use 'sass:string';
-
+@use 'tailwindcss'
 // You must implement the following CSS variables for a working theme.
 $required: (
   /* Brand */
@@ -77,6 +77,24 @@ $required: (
   $clarification: list.nth($parts, 2)
   @return "--color-#{$context}-#{$clarification}"
 
+$star: "*" // Bandaid: SASS does not properly parse /* in property values.
+
 @theme inline
   @each $design-token in $required
       #{to-tailwind-var($design-token)}: var(#{$design-token})
+      #{$design-token}: var(#{$design-token}) // Bandaid: Force Tailwind to recognize variables as valid "--value"s.
+
+@utility text-color-*
+  color: --value(--text-color-#{$star})
+
+@utility bg-color-*
+  background-color: --value(--bg-color-#{$star})
+
+@utility border-color-*
+  border-color: --value(--border-color-#{$star})
+
+@utility on-bg-page-text-color-*
+  color: --value(--on-bg-page-text-color-#{$star})
+
+@utility on-bg-color-*
+  color: --value(--on-bg-#{$star}-color)
