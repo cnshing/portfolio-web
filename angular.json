@@ -26,6 +26,11 @@
                 "input": "public"
               }
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/styles"
+              ]
+            },
             "styles": [
               "src/styles/entrypoint.sass"
             ],
@@ -81,8 +86,13 @@
                 "input": "public"
               }
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/styles"
+              ]
+            },
             "styles": [
-              "src/styles.sass"
+              "src/styles/entrypoint.sass"
             ]
           }
         }
