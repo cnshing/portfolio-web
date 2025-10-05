@@ -1,0 +1,45 @@
+@use 'sass:math'
+$scale: 1.5 // Perfect Fifths
+
+@function typescale($n) // Any increment/decrement in typescale returns the following `rem` size of the corresponding scale.
+  @return math.pow($scale, $n)
+
+@theme
+  --text-xs: #{typescale(-2)}rem
+  --text-xs--letter-spacing: 0.015em
+  --text-sm: #{typescale(-1)}rem
+  --text-sm--letter-spacing: 0.01em
+  --text-base: #{typescale(0)}rem
+  --text-lg: #{typescale(1)}rem
+  --text-xl: #{typescale(2)}rem
+  --text-2xl: #{typescale(3)}rem
+  --text-3xl: #{typescale(4)}rem
+
+
+@theme
+
+  --default-font-family: Geist
+
+  h1
+    @apply text-3xl font-primary
+
+  h2
+    @apply text-3xl font-primary
+
+  h3
+    @apply text-2xl font-primary
+
+  h4
+    @apply text-xl font-primary
+
+  h5
+    @apply text-sm font-primary
+
+  p
+    @apply text-lg font-secondary
+
+  caption
+    @apply text-sm font-secondary
+
+  small
+    @apply text-xs font-tetirary
