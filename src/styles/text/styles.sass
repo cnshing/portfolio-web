@@ -2,23 +2,24 @@
 @layer base
   --default-font-family: Geist
 
+$heading-gradient: bg-gradient-to-r from-text-default to-text-secondary bg-clip-text text-transparent // Attribution https://stackoverflow.com/questions/71205457/how-to-add-a-linear-gradient-to-text-in-tailwind-css
 /* Default Text Styles */
 @layer base
 
   h1
-    @apply text-3xl font-primary
+    @apply text-3xl font-primary #{$heading-gradient}
 
   h2
-    @apply text-3xl font-primary
+    @apply text-3xl font-primary #{$heading-gradient}
 
   h3
-    @apply text-2xl font-primary
+    @apply text-2xl font-primary #{$heading-gradient}
 
   h4
-    @apply text-xl font-primary
+    @apply text-xl font-primary #{$heading-gradient}
 
   h5
-    @apply text-sm font-primary
+    @apply text-sm font-primary #{$heading-gradient}
 
   p
     @apply text-lg font-secondary
