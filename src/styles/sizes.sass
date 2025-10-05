@@ -1,0 +1,13 @@
+@use './convert.sass'
+
+@theme
+  --border-width-default: var(--border-width-md)
+  --border-width-lg: #{convert.pxToRem(4)}
+  --border-width-md: #{convert.pxToRem(1)}
+
+@utility border-width-*
+  border-width: --value(--border-width-#{"*"})
+  border-width: --value(--border-#{"*"})
+
+@utility border-*
+  border-width: --value(--border-width-#{"*"})
