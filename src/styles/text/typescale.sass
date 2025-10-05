@@ -4,6 +4,7 @@ $scale: 1.5 // Perfect Fifths
 @function typescale($n) // Any increment/decrement in typescale returns the following `rem` size of the corresponding scale.
   @return math.pow($scale, $n)
 
+/* Typeccale */
 @theme
   --text-xs: #{typescale(-2)}rem
   --text-xs--letter-spacing: 0.015em
@@ -16,9 +17,12 @@ $scale: 1.5 // Perfect Fifths
   --text-3xl: #{typescale(4)}rem
 
 
-@theme
-
+/* Font Family */
+@layer base
   --default-font-family: Geist
+
+/* Default Text Styles */
+@layer base
 
   h1
     @apply text-3xl font-primary
