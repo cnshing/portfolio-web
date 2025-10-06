@@ -56,11 +56,10 @@ $required: (
     --border-color-company-icon: var(--color-white-0)
     --border-color-subtle: var(--color-gray-800)
     --border-color-medium: var(--color-gray-600)
-    --on-bg-page-text-color-default: var(--color-white-0)
-    --on-bg-page-text-color-secondary: var(--color-gray-100)
-    --on-bg-page-text-color-tertiary: var(--color-gray-200)
-    --on-bg-page-text-color-accent: var(--color-brand)
-    --on-bg-color-button: var(--color-black-1000)
+    --on-bg-color-default: var(--color-white-0)
+    --on-bg-color-secondary: var(--color-gray-100)
+    --on-bg-color-tertiary: var(--color-gray-200)
+    --on-bg-color-accent: var(--color-brand)
 
 
 // Converts a color design token into a tailwind compatiable utility.
@@ -91,8 +90,5 @@ $required: (
 @utility border-color-*
   border-color: --value(--border-color-#{"*"})
 
-@utility on-bg-page-text-color-*
-  color: --value(--on-bg-page-text-color-#{"*"})
-
 @utility on-bg-color-*
-  color: --value(--on-bg-#{"*"}-color)
+  color: --value(--on-bg-color-#{"*"})
