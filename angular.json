@@ -26,8 +26,13 @@
                 "input": "public"
               }
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/styles"
+              ]
+            },
             "styles": [
-              "src/styles.sass"
+              "src/styles/entrypoint.sass"
             ],
             "outputMode": "static"
           },
@@ -47,7 +52,7 @@
               ],
               "outputHashing": "all"
             },
-            "development": { 
+            "development": {
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
@@ -81,8 +86,13 @@
                 "input": "public"
               }
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/styles"
+              ]
+            },
             "styles": [
-              "src/styles.sass"
+              "src/styles/entrypoint.sass"
             ]
           }
         }
