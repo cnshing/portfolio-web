@@ -1,7 +1,7 @@
 {
   "style": "css",
   "tailwind": {
-    "css": "src/styles.sass",
+    "css": "src/styles/zard.sass",
     "baseColor": "slate",
     "cssVariables": true
   },

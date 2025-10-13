@@ -1,0 +1,17 @@
+@use 'sass:math'
+$scale: 1.5 // Perfect Fifths
+
+@function typescale($n) // Any increment/decrement in typescale returns the following `rem` size of the corresponding scale.
+  @return math.pow($scale, $n)
+
+/* Typeccale */
+@theme
+  --text-xs: #{typescale(-2)}rem
+  --text-xs--letter-spacing: 0.015em
+  --text-sm: #{typescale(-1)}rem
+  --text-sm--letter-spacing: 0.01em
+  --text-base: #{typescale(0)}rem
+  --text-lg: #{typescale(1)}rem
+  --text-xl: #{typescale(2)}rem
+  --text-2xl: #{typescale(3)}rem
+  --text-3xl: #{typescale(4)}rem
