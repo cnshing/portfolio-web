@@ -38,6 +38,15 @@ importers:
       '@angular/ssr':
         specifier: ^20.3.2
         version: 20.3.3(a93a980e61db2b7cd76eabff101446a9)
+      '@fontsource-utils/scss':
+        specifier: ^0.2.2
+        version: 0.2.2
+      '@fontsource-variable/geist':
+        specifier: ^5.2.8
+        version: 5.2.8
+      '@fontsource-variable/geist-mono':
+        specifier: ^5.2.7
+        version: 5.2.7
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -591,6 +600,15 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@fontsource-utils/scss@0.2.2':
+    resolution: {integrity: sha512-by8j2nJVjXWmS5Aqzg8r8+ppwRSCK8HvYwPyuHzvigJ+4AbLXHtdb1HaVHaBDb+ObZ586lAdzvEDWFoAYQO+GQ==}
+
+  '@fontsource-variable/geist-mono@5.2.7':
+    resolution: {integrity: sha512-ZKlZ5sjtalb2TwXKs400mAGDlt/+2ENLNySPx0wTz3bP3mWARCsUW+rpxzZc7e05d2qGch70pItt3K4qttbIYA==}
+
+  '@fontsource-variable/geist@5.2.8':
+    resolution: {integrity: sha512-cJ6m9e+8MQ5dCYJsLylfZrgBh6KkG4bOLckB35Tr9J/EqdkEM6QllH5PxqP1dhTvFup+HtMRPuz9xOjxXJggxw==}
 
   '@inquirer/ansi@1.0.0':
     resolution: {integrity: sha512-JWaTfCxI1eTmJ1BIv86vUfjVatOdxwD0DAVKYevY8SazeUUZtW+tNbsdejVO1GYE0GXJW1N1ahmiC3TFd+7wZA==}
@@ -3739,6 +3757,12 @@ snapshots:
 
   '@esbuild/win32-x64@0.25.9':
     optional: true
+
+  '@fontsource-utils/scss@0.2.2': {}
+
+  '@fontsource-variable/geist-mono@5.2.7': {}
+
+  '@fontsource-variable/geist@5.2.8': {}
 
   '@inquirer/ansi@1.0.0': {}
 
