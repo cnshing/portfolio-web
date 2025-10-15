@@ -1,6 +1,21 @@
 /* Font Family */
-@layer base
-  --default-font-family: Geist
+@use "@fontsource-utils/scss" as fontsource;
+@use "@fontsource-variable/geist/scss/mixins" as GeistSans;
+@use "@fontsource-variable/geist-mono/scss/mixins" as GeistMono;
+
+@include fontsource.faces(
+  $metadata: GeistSans.$metadata,
+  $directory: "/assets/fonts"
+)
+
+@include fontsource.faces(
+  $metadata: GeistMono.$metadata,
+  $directory: "/assets/fonts"
+)
+
+@theme default
+  --font-sans: "Geist Variable"
+  --font-mono: "Geist Mono Variable"
 
 $heading-gradient: bg-gradient-to-r from-text-default to-text-secondary bg-clip-text text-transparent // Attribution https://stackoverflow.com/questions/71205457/how-to-add-a-linear-gradient-to-text-in-tailwind-css
 /* Default Text Styles */
