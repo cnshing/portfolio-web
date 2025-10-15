@@ -24,6 +24,16 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+              "glob": "**/*",
+              "input": "node_modules/@fontsource-variable/geist/files",
+              "output": "assets/fonts"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@fontsource-variable/geist-mono/files",
+                "output": "assets/fonts"
               }
             ],
             "stylePreprocessorOptions": {
@@ -88,6 +98,16 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+              "glob": "**/*",
+              "input": "node_modules/@fontsource-variable/geist/files",
+              "output": "assets/fonts"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@fontsource-variable/geist-mono/files",
+                "output": "assets/fonts"
               }
             ],
             "stylePreprocessorOptions": {
