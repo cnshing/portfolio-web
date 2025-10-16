@@ -83,14 +83,14 @@ $required: (
       #{to-tailwind-var($design-token)}: var(#{$design-token})
       #{$design-token}: var(#{$design-token}) // Bandaid: Force Tailwind to recognize variables as valid "--value"s.
 
-@utility text-color-*
-  color: --value(--text-color-#{"*"})
+// Mixin created from https://github.com/tailwindlabs/tailwindcss/discussions/18124
+@mixin utility-color($color-type, $property)
+  @utility #{$color-type}-*
+    --opacity: calc(--modifier(integer) * 1%)
+    #{$property}: --alpha(--value(--#{$color-type}-#{"*"}, [color]) / var(--opacity, 100%))
 
-@utility bg-color-*
-  background-color: --value(--bg-color-#{"*"})
-
-@utility border-color-*
-  border-color: --value(--border-color-#{"*"})
-
-@utility on-bg-color-*
-  color: --value(--on-bg-color-#{"*"})
+// Apply to each color utility
+@include utility-color('text-color', 'color')
+@include utility-color('bg-color', 'background-color')
+@include utility-color('border-color', 'border-color')
+@include utility-color('on-bg-color', 'color')
