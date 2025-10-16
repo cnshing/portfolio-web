@@ -32,14 +32,13 @@ const tokens = ["--color-brand",
   "--on-bg-color-tertiary",
   "--on-bg-color-accent",
   "--on-bg-color-button"]
-
 /**
  * Dynamically retrieves any themes defined as a `data-theme`
  * selector attribute.
  *
- * @returns {Set<string>}
+ * @returns {string[]}
  */
-function retrieveDataThemes(): Set<string> {
+function retrieveDataThemes(): string[] {
   const themes: Set<string> = new Set()
   const Exp = /data-theme=["'](.+)["']/gm
   for (const sheet of document.styleSheets) {
@@ -53,7 +52,7 @@ function retrieveDataThemes(): Set<string> {
       }
     }
   }
-  return themes
+  return Array.from(themes)
 }
 
 
@@ -66,13 +65,16 @@ function retrieveDataThemes(): Set<string> {
 @Component({
   template: `
     <div [attr.data-theme]="theme()"></div>
-  `,
-  styleUrl: './themes.sass'
+  `
 })
 class DummyTheme {
   theme = signal<string>("");
 }
 
+interface TestCaseData {
+  theme: string
+  token: string
+}
 describe("Ensuring consistency with design system coloring", () => {
   let themes = retrieveDataThemes()
   let themeFixture: ComponentFixture<DummyTheme>
@@ -88,17 +90,26 @@ describe("Ensuring consistency with design system coloring", () => {
     await themeFixture.whenRenderingDone()
     div = themeFixture.debugElement.query(By.css('[data-theme]')).nativeElement
   })
-  themes.forEach((theme: string) => { // NOTE: Dynamic test generation is supported by `forEach`. Recommended for testing code to only be in the inner loop.
-    describe(`Check ${theme}'s theme has all required semantic tokens`, () => {
-      tokens.forEach((token: string) => {
-        it(`${theme}'s theme should have ${token} defined`, async () => {
-          dummyTheme.theme.set(theme)
-          await themeFixture.whenStable()
-          const styles = window.getComputedStyle(div!)
-          const tokenProperty = styles.getPropertyValue(token)
-          expect(tokenProperty).not.toBe(undefined)
-        })
-      })
+  /**
+   * This is a very stupid work around to ensure Jasmine can detect
+   * the dynamically generated tests by reducing as much nesting as possible
+   * at the `it` keyword:
+   * See https://stackoverflow.com/questions/32397544/generating-tests-in-jasmine
+   * */
+  const tests: TestCaseData[] = []
+  for (const theme of themes) {
+    for (const token of tokens) {
+      const test = {theme: theme, token: token}
+      tests.push(test)
+    }
+  }
+  tests.forEach((test: TestCaseData) => {
+    it(`${test.theme}'s theme should have ${test.token} defined`, async () => {
+      dummyTheme.theme.set(test.theme)
+      await themeFixture.whenStable()
+      const styles = window.getComputedStyle(div!)
+      const tokenProperty = styles.getPropertyValue(test.token)
+      expect(tokenProperty).not.toBe(undefined)
     })
   })
 })
