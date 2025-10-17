@@ -1,19 +1,19 @@
 import { cva, VariantProps } from 'class-variance-authority';
 
-export const avatarVariants = cva('relative flex flex-row items-center justify-center box-content hover:bg-primary/90 cursor-default', {
+export const avatarVariants = cva('relative flex flex-row items-center justify-center box-content cursor-default', {
   variants: {
     zType: {
-      default: 'bg-primary text-primary-foreground hover:bg-primary/90',
-      destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
-      outline: 'border border-input hover:bg-accent hover:text-accent-foreground',
-      secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
-      ghost: 'hover:bg-accent hover:text-accent-foreground shadow-sm shadow-black',
+      default: 'bg-color-surface1 border border-color-default text-color-default hover:bg-color-surface1/87',
+      destructive: 'bg-destructive text-color-default hover:bg-destructive/90',
+      outline: 'border border-color-button bg-none text-border-button hover:border-color-button/50',
+      secondary: 'bg-secondary border border-color-subtle text-secondary-foreground hover:bg-secondary/50',
+      ghost: 'text-on-bg-secondary hover:bg-color-surface1 hover:text-color-secondary shadow-sm'
     },
     zSize: {
-      default: 'w-12 h-12',
-      sm: 'w-10 h-10',
-      md: 'w-18 h-18',
-      lg: 'w-37 h-37',
+      default: 'w-lg h-lg',
+      sm: 'w-lg h-lg',
+      md: 'w-xl h-xl',
+      lg: 'w-2xl h-2xl',
       full: 'w-full h-full',
     },
     zShape: {
@@ -29,7 +29,7 @@ export const avatarVariants = cva('relative flex flex-row items-center justify-c
       invisible: 'invisible',
     },
     zBorder: {
-      true: 'border border-3 border-white',
+      true: 'border-width-lg border-color-strong',
     },
     zLoading: {
       true: 'opacity-100',

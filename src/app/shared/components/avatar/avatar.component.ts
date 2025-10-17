@@ -12,7 +12,7 @@ import { ZardLoaderComponent } from '@shared/components/loader/loader.component'
   encapsulation: ViewEncapsulation.None,
   template: `
     @if (zLoading()) {
-      <z-loader />
+      <z-loader/>
     } @else {
       @if (zImage()?.fallback) {
         <span class="text-base absolute m-auto z-0">{{ zImage()?.fallback }}</span>
@@ -30,11 +30,11 @@ import { ZardLoaderComponent } from '@shared/components/loader/loader.component'
             height="24"
             viewBox="0 0 24 24"
             fill="currentColor"
-            stroke="white"
-            stroke-width="2"
+            stroke="var(--bg-color-surface2)"
+            stroke-width="var(--border-width-default)"
             stroke-linecap="round"
             stroke-linejoin="round"
-            class="absolute -right-[5px] -bottom-[5px] text-green-500 w-5 h-5 z-20"
+            class="absolute -right-[5px] -bottom-[5px] text-green-200 w-5 h-5 z-20"
           >
             <circle cx="12" cy="12" r="10" fill="currentColor" />
           </svg>
@@ -46,8 +46,8 @@ import { ZardLoaderComponent } from '@shared/components/loader/loader.component'
             height="24"
             viewBox="0 0 24 24"
             fill="currentColor"
-            stroke="white"
-            stroke-width="2"
+            stroke="var(--bg-color-surface2)"
+            stroke-width="var(--border-width-default)"
             stroke-linecap="round"
             stroke-linejoin="round"
             class="absolute -right-[5px] -bottom-[5px] text-red-500 w-5 h-5 z-20"
@@ -62,8 +62,8 @@ import { ZardLoaderComponent } from '@shared/components/loader/loader.component'
             height="24"
             viewBox="0 0 24 24"
             fill="currentColor"
-            stroke="white"
-            stroke-width="2"
+            stroke="var(--bg-color-surface2)"
+            stroke-width="var(--border-width-default)"
             stroke-linecap="round"
             stroke-linejoin="round"
             class="absolute -right-[5px] -bottom-[5px] text-red-500 w-5 h-5 z-20"
@@ -79,11 +79,11 @@ import { ZardLoaderComponent } from '@shared/components/loader/loader.component'
             height="24"
             viewBox="0 0 24 24"
             fill="currentColor"
-            stroke="white"
-            stroke-width="2"
+            stroke="var(--bg-color-surface2)"
+            stroke-width="var(--border-width-default)"
             stroke-linecap="round"
             stroke-linejoin="round"
-            class="absolute -right-[5px] -bottom-[5px] text-yellow-400 rotate-y-180 w-5 h-5 z-20"
+            class="absolute -right-[5px] -bottom-[5px] text-yellow-300 rotate-y-180 w-5 h-5 z-20"
           >
             <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" fill="currentColor" />
           </svg>
@@ -95,11 +95,11 @@ import { ZardLoaderComponent } from '@shared/components/loader/loader.component'
             height="24"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="var(--muted-foreground)"
-            stroke-width="2"
+            stroke="var(--bg-color-surface2)"
+            stroke-width="var(--border-width-default)"
             stroke-linecap="round"
             stroke-linejoin="round"
-            class="absolute -right-[5px] -bottom-[5px] text-stone-400/90 w-5 h-5 z-20"
+            class="absolute -right-[5px] -bottom-[5px] text-bg-surface2/85 w-5 h-5 z-20"
           >
             <circle cx="12" cy="12" r="10" fill="currentColor" />
           </svg>
