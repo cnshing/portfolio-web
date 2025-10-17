@@ -11,7 +11,7 @@ import { loaderVariants, ZardLoaderVariants } from './loader.variants';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   template: `
-    <div class="relative left-1/2 top-1/2 h-[inherit] w-[inherit]">
+    <div class="relative left-1/2 top-1/2 h-[inherit] w-[inherit] -translate-x-[0.25px]">
       @for (_ of bars; track $index) {
         <div
           class="absolute -left-[10%] -top-[3.9%] h-[8%] w-[24%] animate-spinner rounded-md bg-black dark:bg-white"
