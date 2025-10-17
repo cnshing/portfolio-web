@@ -1,16 +1,20 @@
 import { cva, VariantProps } from 'class-variance-authority';
 
-export const dividerVariants = cva('bg-border block', {
+export const dividerVariants = cva('bg-border-default block', {
   variants: {
     zOrientation: {
-      horizontal: 'h-px w-full',
-      vertical: 'w-px h-full inline-block',
+      horizontal: 'h-[0.03125rem] w-full',
+      vertical: 'w-[0.03125rem] h-full inline-block',
     },
     zSpacing: {
       none: '',
       sm: '',
+      md: '',
       default: '',
       lg: '',
+      xl: '',
+      '2xl': '',
+      '3xl': '',
     },
   },
   defaultVariants: {
@@ -21,32 +25,72 @@ export const dividerVariants = cva('bg-border block', {
     {
       zOrientation: 'horizontal',
       zSpacing: 'sm',
-      class: 'my-2',
+      class: 'my-xs',
     },
     {
       zOrientation: 'horizontal',
       zSpacing: 'default',
-      class: 'my-4',
+      class: 'my-sm',
+    },
+    {
+      zOrientation: 'horizontal',
+      zSpacing: 'md',
+      class: 'my-sm',
     },
     {
       zOrientation: 'horizontal',
       zSpacing: 'lg',
-      class: 'my-8',
+      class: 'my-lg',
+    },
+    {
+      zOrientation: 'horizontal',
+      zSpacing: 'xl',
+      class: 'my-xl',
+    },
+    {
+      zOrientation: 'horizontal',
+      zSpacing: '2xl',
+      class: 'my-2xl',
+    },
+    {
+      zOrientation: 'horizontal',
+      zSpacing: '3xl',
+      class: 'my-3xl',
     },
     {
       zOrientation: 'vertical',
       zSpacing: 'sm',
-      class: 'mx-2',
+      class: 'mx-xs',
     },
     {
       zOrientation: 'vertical',
       zSpacing: 'default',
-      class: 'mx-4',
+      class: 'mx-xs',
+    },
+    {
+      zOrientation: 'vertical',
+      zSpacing: 'md',
+      class: 'mx-sm',
     },
     {
       zOrientation: 'vertical',
       zSpacing: 'lg',
-      class: 'mx-8',
+      class: 'mx-lg',
+    },
+    {
+      zOrientation: 'vertical',
+      zSpacing: 'xl',
+      class: 'mx-xl',
+    },
+    {
+      zOrientation: 'vertical',
+      zSpacing: '2xl',
+      class: 'mx-2xl',
+    },
+    {
+      zOrientation: 'vertical',
+      zSpacing: '3xl',
+      class: 'mx-3xl',
     },
   ],
 });
