@@ -12,7 +12,7 @@ import { ZardLoaderComponent } from '@shared/components/loader/loader.component'
   encapsulation: ViewEncapsulation.None,
   template: `
     @if (zLoading()) {
-      <z-loader/>
+      <z-loader [zSize]="zSize()"/>
     } @else {
       @if (zImage()?.fallback) {
         <span class="text-base absolute m-auto z-0">{{ zImage()?.fallback }}</span>
