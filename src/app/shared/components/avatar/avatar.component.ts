@@ -34,7 +34,7 @@ import { ZardLoaderComponent } from '@shared/components/loader/loader.component'
             stroke-width="var(--border-width-default)"
             stroke-linecap="round"
             stroke-linejoin="round"
-            class="absolute -right-[5px] -bottom-[5px] text-green-200 w-5 h-5 z-20"
+            class="absolute -right-[5px] -bottom-[5px] text-green-200 w-5 h-5 z-20 scale-70"
           >
             <circle cx="12" cy="12" r="10" fill="currentColor" />
           </svg>
@@ -50,7 +50,7 @@ import { ZardLoaderComponent } from '@shared/components/loader/loader.component'
             stroke-width="var(--border-width-default)"
             stroke-linecap="round"
             stroke-linejoin="round"
-            class="absolute -right-[5px] -bottom-[5px] text-red-500 w-5 h-5 z-20"
+            class="absolute -right-[5px] -bottom-[5px] text-red-500 w-5 h-5 z-20 scale-70"
           >
             <circle cx="12" cy="12" r="10" fill="currentColor" />
           </svg>
@@ -66,7 +66,7 @@ import { ZardLoaderComponent } from '@shared/components/loader/loader.component'
             stroke-width="var(--border-width-default)"
             stroke-linecap="round"
             stroke-linejoin="round"
-            class="absolute -right-[5px] -bottom-[5px] text-red-500 w-5 h-5 z-20"
+            class="absolute -right-[5px] -bottom-[5px] text-red-500 w-5 h-5 z-20 scale-70"
           >
             <circle cx="12" cy="12" r="10" />
             <path d="M8 12h8" fill="currentColor" />
@@ -83,7 +83,7 @@ import { ZardLoaderComponent } from '@shared/components/loader/loader.component'
             stroke-width="var(--border-width-default)"
             stroke-linecap="round"
             stroke-linejoin="round"
-            class="absolute -right-[5px] -bottom-[5px] text-yellow-300 rotate-y-180 w-5 h-5 z-20"
+            class="absolute -right-[5px] -bottom-[5px] text-yellow-300 rotate-y-180 w-5 h-5 z-20 scale-70"
           >
             <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" fill="currentColor" />
           </svg>
@@ -99,7 +99,7 @@ import { ZardLoaderComponent } from '@shared/components/loader/loader.component'
             stroke-width="var(--border-width-default)"
             stroke-linecap="round"
             stroke-linejoin="round"
-            class="absolute -right-[5px] -bottom-[5px] text-bg-surface2/85 w-5 h-5 z-20"
+            class="absolute -right-[5px] -bottom-[5px] text-bg-surface2/85 w-5 h-5 z-20 scale-70"
           >
             <circle cx="12" cy="12" r="10" fill="currentColor" />
           </svg>
