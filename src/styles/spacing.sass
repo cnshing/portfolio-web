@@ -1,6 +1,8 @@
 @use './convert.sass'
-
+@use 'sass:math'
 @theme
+  /* Redundant preprocessing to intent --spacing-2xs is not part of design system and is half of --spacing-xs */
+  --spacing-2xs: #{convert.pxToRem(math.div(12, 2))}
   --spacing-xs: #{convert.pxToRem(12)}
   --spacing-sm: #{convert.pxToRem(20)}
   --spacing-md: #{convert.pxToRem(24)}
