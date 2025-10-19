@@ -15,7 +15,7 @@ import { ZardLoaderComponent } from '@shared/components/loader/loader.component'
   encapsulation: ViewEncapsulation.None,
   template: `
     @if (zLoading()) {
-      <z-loader zSize="sm"/>
+      <z-loader [zSize]="zSize()"/>
     }
 
     <ng-content></ng-content>
