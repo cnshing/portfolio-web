@@ -3,10 +3,15 @@ import { cva, VariantProps } from 'class-variance-authority';
 export const loaderVariants = cva('', {
   variants: {
     zSize: {
-      default: 'size-md',
-      md: 'size-md',
-      sm: 'size-sm',
-      lg: 'size-lg',
+      default: 'size-sm',
+      sm: 'size-xs',
+      md: 'size-sm',
+      lg: 'size-md',
+      xl: 'size-lg',
+      '2xl': 'size-xl',
+      '3xl': 'size-2xl',
+      icon: 'size-md', // Should be the same as lg variant
+      full: 'size-full'
     },
   },
   defaultVariants: {
