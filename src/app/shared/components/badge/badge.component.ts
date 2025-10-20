@@ -18,7 +18,7 @@ import { badgeVariants, ZardBadgeVariants } from './badge.variants';
 })
 export class ZardBadgeComponent {
   readonly zType = input<ZardBadgeVariants['zType']>('default');
-  readonly zShape = input<ZardBadgeVariants['zShape']>('default');
+  readonly zShape = input<ZardBadgeVariants['zShape']>('square');
 
   readonly class = input<ClassValue>('');
 
