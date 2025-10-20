@@ -3,10 +3,10 @@ import { cva, VariantProps } from 'class-variance-authority';
 export const avatarVariants = cva('relative flex flex-row items-center justify-center box-content cursor-default', {
   variants: {
     zType: {
-      default: 'bg-color-button text-on-bg-button hover:bg-color-button/85',
-      destructive: 'bg-destructive text-color-default hover:bg-destructive/85',
-      outline: 'border border-color-button bg-none text-border-button hover:bg-color-surface1/70',
-      secondary: 'bg-color-surface1 border border-color-default text-color-default hover:bg-color-surface1/70',
+      default: 'bg-color-button text-on-bg-button hover:bg-color-button/default',
+      destructive: 'bg-destructive text-color-default hover:bg-destructive/strong',
+      outline: 'border border-color-button bg-none text-border-button hover:bg-color-surface1/subtle',
+      secondary: 'bg-color-surface1 border border-color-default text-color-default hover:bg-color-surface1/default',
       ghost: 'text-on-bg-secondary hover:bg-color-surface1 hover:text-color-secondary shadow-sm'
     },
     zSize: {
