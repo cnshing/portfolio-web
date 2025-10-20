@@ -86,6 +86,7 @@ $required: (
 // Mixin created from https://github.com/tailwindlabs/tailwindcss/discussions/18124
 @mixin utility-color($color-type, $property)
   @utility #{$color-type}-*
+    --opacity: --modifier(--opacity-#{"*"})
     --opacity: calc(--modifier(integer) * 1%)
     #{$property}: --alpha(--value(--#{$color-type}-#{"*"}, [color]) / var(--opacity, 100%))
 
