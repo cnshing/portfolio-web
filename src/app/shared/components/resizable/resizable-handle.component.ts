@@ -119,8 +119,9 @@ export class ZardResizableHandleComponent {
 
     const leftPanel = panels[handleIndex];
     const rightPanel = panels[handleIndex + 1];
-
-    if (!leftPanel || !rightPanel) return;
+    const leftPanelSize = sizes[handleIndex]
+    const rightPanelSize = sizes[handleIndex + 1]
+    if (!leftPanel || !rightPanel || !leftPanelSize || !rightPanelSize) return;
 
     const containerSize = this.resizable.getContainerSize();
     const leftMin = this.resizable.convertToPercentage(leftPanel.zMin() || 0, containerSize);
@@ -128,14 +129,14 @@ export class ZardResizableHandleComponent {
     const rightMin = this.resizable.convertToPercentage(rightPanel.zMin() || 0, containerSize);
     const rightMax = this.resizable.convertToPercentage(rightPanel.zMax() || 100, containerSize);
 
-    let newLeftSize = sizes[handleIndex] + delta;
-    let newRightSize = sizes[handleIndex + 1] - delta;
+    let newLeftSize = leftPanelSize + delta;
+    let newRightSize = rightPanelSize - delta;
 
     newLeftSize = Math.max(leftMin, Math.min(leftMax, newLeftSize));
     newRightSize = Math.max(rightMin, Math.min(rightMax, newRightSize));
 
     const totalSize = newLeftSize + newRightSize;
-    const originalTotal = sizes[handleIndex] + sizes[handleIndex + 1];
+    const originalTotal = leftPanelSize + rightPanelSize
 
     if (Math.abs(totalSize - originalTotal) < 0.01) {
       sizes[handleIndex] = newLeftSize;
@@ -160,7 +161,9 @@ export class ZardResizableHandleComponent {
     const leftPanel = panels[handleIndex];
     const rightPanel = panels[handleIndex + 1];
 
-    if (!leftPanel || !rightPanel) return;
+    const leftPanelSize = sizes[handleIndex]
+    const rightPanelSize = sizes[handleIndex + 1]
+    if (!leftPanel || !rightPanel || !leftPanelSize || !rightPanelSize) return;
 
     const containerSize = this.resizable.getContainerSize();
     const leftMin = this.resizable.convertToPercentage(leftPanel.zMin() || 0, containerSize);
@@ -168,7 +171,7 @@ export class ZardResizableHandleComponent {
     const rightMin = this.resizable.convertToPercentage(rightPanel.zMin() || 0, containerSize);
     const rightMax = this.resizable.convertToPercentage(rightPanel.zMax() || 100, containerSize);
 
-    const totalSize = sizes[handleIndex] + sizes[handleIndex + 1];
+    const totalSize = leftPanelSize + rightPanelSize;
 
     if (toMin) {
       sizes[handleIndex] = leftMin;
