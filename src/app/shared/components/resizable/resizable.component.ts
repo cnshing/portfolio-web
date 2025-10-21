@@ -151,22 +151,23 @@ export class ZardResizableComponent implements AfterContentInit, OnDestroy {
 
     const leftPanel = panels[handleIndex];
     const rightPanel = panels[handleIndex + 1];
-
-    if (!leftPanel || !rightPanel) return;
+    const leftPanelSize = startSizes[handleIndex]
+    const rightPanelSize = startSizes[handleIndex + 1]
+    if (!leftPanel || !rightPanel || !leftPanelSize || !rightPanelSize) return;
 
     const leftMin = this.convertToPercentage(leftPanel.zMin() || 0, containerSize);
     const leftMax = this.convertToPercentage(leftPanel.zMax() || 100, containerSize);
     const rightMin = this.convertToPercentage(rightPanel.zMin() || 0, containerSize);
     const rightMax = this.convertToPercentage(rightPanel.zMax() || 100, containerSize);
 
-    let newLeftSize = startSizes[handleIndex] + deltaPercentage;
-    let newRightSize = startSizes[handleIndex + 1] - deltaPercentage;
+    let newLeftSize = leftPanelSize + deltaPercentage;
+    let newRightSize = rightPanelSize - deltaPercentage;
 
     newLeftSize = Math.max(leftMin, Math.min(leftMax, newLeftSize));
     newRightSize = Math.max(rightMin, Math.min(rightMax, newRightSize));
 
     const totalSize = newLeftSize + newRightSize;
-    const originalTotal = startSizes[handleIndex] + startSizes[handleIndex + 1];
+    const originalTotal = leftPanelSize + rightPanelSize;
 
     if (Math.abs(totalSize - originalTotal) < 0.01) {
       newSizes[handleIndex] = newLeftSize;
