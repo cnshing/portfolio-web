@@ -14,7 +14,7 @@ import { sidebarGroupLabelVariants, sidebarGroupVariants, sidebarTriggerVariants
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   template: `
-    <aside [class]="classes()" [style.width.px]="currentWidth()" [attr.data-collapsed]="zCollapsed()">
+    <aside [class]="classes()" [style.width.rem]="currentWidth()" [attr.data-collapsed]="zCollapsed()">
       <div class="flex-1 overflow-auto">
         <ng-content></ng-content>
       </div>
@@ -41,8 +41,8 @@ import { sidebarGroupLabelVariants, sidebarGroupVariants, sidebarTriggerVariants
   `,
 })
 export class SidebarComponent {
-  readonly zWidth = input<string | number>(200);
-  readonly zCollapsedWidth = input<number>(64);
+  readonly zWidth = input<string | number>(12.5);
+  readonly zCollapsedWidth = input<number>(4);
   readonly zCollapsible = input(false, { transform });
   readonly zCollapsed = input(false, { transform });
   readonly zReverseArrow = input(false, { transform });
