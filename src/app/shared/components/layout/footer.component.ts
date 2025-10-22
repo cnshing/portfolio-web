@@ -12,14 +12,14 @@ import { footerVariants } from './layout.variants';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   template: `
-    <footer [class]="classes()" [style.height.px]="zHeight()">
+    <footer [class]="classes()" [style.height.rem]="zHeight()">
       <ng-content></ng-content>
     </footer>
   `,
 })
 export class FooterComponent {
   readonly class = input<ClassValue>('');
-  readonly zHeight = input<number>(64);
+  readonly zHeight = input<number>(4);
 
   protected readonly classes = computed(() => mergeClasses(footerVariants(), this.class()));
 }

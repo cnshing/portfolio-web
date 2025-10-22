@@ -12,14 +12,14 @@ import { headerVariants } from './layout.variants';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   template: `
-    <header [class]="classes()" [style.height.px]="zHeight()">
+    <header [class]="classes()" [style.height.rem]="zHeight()">
       <ng-content></ng-content>
     </header>
   `,
 })
 export class HeaderComponent {
   readonly class = input<ClassValue>('');
-  readonly zHeight = input<number>(64);
+  readonly zHeight = input<number>(4);
 
   protected readonly classes = computed(() => mergeClasses(headerVariants(), this.class()));
 }
