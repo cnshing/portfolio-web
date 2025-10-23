@@ -16,12 +16,12 @@ import { cardBodyVariants, cardHeaderVariants, cardVariants } from './card.varia
   template: `
     @if (zTitle()) {
       <div [class]="headerClasses()">
-        <div class="text-2xl font-semibold leading-none tracking-tight">
+        <div class="text-lg font-primary text-color-default leading-none tracking-tight">
           <ng-container *zStringTemplateOutlet="zTitle()">{{ zTitle() }}</ng-container>
         </div>
 
         @if (zDescription()) {
-          <div class="text-sm text-muted-foreground">
+          <div class="text-md font-secondary text-color-secondary">
             <ng-container *zStringTemplateOutlet="zDescription()">{{ zDescription() }}</ng-container>
           </div>
         }
