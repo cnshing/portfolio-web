@@ -12,7 +12,7 @@ export const iconVariants = cva('flex items-center justify-center', {
       default: 'text-on-bg-button',
       outline: 'text-border-button',
       ghost: 'text-on-bg-secondary',
-      secondary: 'text-secondary-foreground',
+      secondary: 'text-color-secondary',
       destructive: 'text-color-default'
     }
   },
