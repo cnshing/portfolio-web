@@ -17,7 +17,7 @@ import { cardBodyVariants, cardHeaderVariants, cardVariants } from './card.varia
   template: `
     @if (zTitle()) {
     <div [class]="headerClasses()">
-      <ng-container [ngTemplateOutlet]="zAvatar()"/>
+      <ng-container [ngTemplateOutlet]="zAvatarOrIcon()"/>
         <div class="text-lg font-primary text-color-default leading-none tracking-tight">
           <ng-container *zStringTemplateOutlet="zTitle()">{{ zTitle() }}</ng-container>
         </div>
@@ -41,7 +41,7 @@ import { cardBodyVariants, cardHeaderVariants, cardVariants } from './card.varia
 export class ZardCardComponent {
   readonly zTitle = input<string | TemplateRef<void>>();
   readonly zDescription = input<string | TemplateRef<void>>();
-  readonly zAvatar = input<TemplateRef<void>>()
+  readonly zAvatarOrIcon = input<TemplateRef<void>>()
   readonly zLabel = input<TemplateRef<void>>()
 
   readonly class = input<ClassValue>('');
