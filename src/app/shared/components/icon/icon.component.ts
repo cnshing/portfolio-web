@@ -1,15 +1,16 @@
-import { ChangeDetectionStrategy, Component, computed, input, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, viewChild, ViewEncapsulation } from '@angular/core';
 import type { ClassValue } from 'clsx';
 import { NgIcon, provideIcons } from '@ng-icons/core'
 import { iconVariants, ZardIconVariants } from './icon.variants';
 import { mergeClasses } from '@shared/utils/merge-classes';
-import { ZARD_ICONS, ZardIcon } from './icons';
-
+import { RAW_ZARD_ICONS, ZardIcon } from './icons';
+import { dynamicIconLoader } from './icons';
+import { provideNgIconLoader } from '@ng-icons/core';
 @Component({
   selector: 'z-icon, [z-icon]',
   standalone: true,
   imports: [NgIcon],
-  providers: [provideIcons(ZARD_ICONS)],
+  providers: [provideIcons(RAW_ZARD_ICONS), provideNgIconLoader(dynamicIconLoader)],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   template: `<ng-icon [name]="zType()" [strokeWidth]="zStrokeWidth()" />`,
@@ -18,6 +19,8 @@ import { ZARD_ICONS, ZardIcon } from './icons';
   }
 })
 export class ZardIconComponent {
+
+  iconTemplate = viewChild.required(NgIcon)
   readonly zType = input.required<ZardIcon>();
   readonly zSize = input<ZardIconVariants['zSize']>('default');
   readonly zColor = input<ZardIconVariants['zColor']>('default');
@@ -26,11 +29,5 @@ export class ZardIconComponent {
 
   protected readonly classes = computed(() => mergeClasses(iconVariants({ zSize: this.zSize(), zColor: this.zColor()}), this.class()));
 
-  protected readonly icon = computed(() => {
-    const type = this.zType();
-    if (typeof type === 'string') {
-      return ZARD_ICONS[type as keyof typeof ZARD_ICONS];
-    }
-    return type;
-  });
+  protected readonly icon = computed(() => this.iconTemplate().svg());
 }
