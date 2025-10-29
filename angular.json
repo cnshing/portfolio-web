@@ -105,6 +105,11 @@
                 "input": "public"
               },
               {
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "assets"
+              },
+              {
               "glob": "**/*",
               "input": "node_modules/@fontsource-variable/geist/files",
               "output": "assets/fonts"
