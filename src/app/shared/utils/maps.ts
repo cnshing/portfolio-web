@@ -12,7 +12,7 @@
  * @param {(key: K, value: V) => RK} keyfn Any function that takes in the obj's key, value to return a result.
  * @returns {{ [P in RK]: RV }} A new object representing { keyfn(k, v): valuefn(k, v) for k, v in obj}
  */
-export function ObjectMap<K extends PropertyKey, V, RV, RK extends PropertyKey = K>(
+export function objectMap<K extends PropertyKey, V, RV, RK extends PropertyKey = K>(
   obj: { [P in K]: V },
   valuefn: (value: V, key: K) => RV = (value) => value as unknown as RV,   keyfn: (key: K, value: V) => RK = (key) => key as unknown as RK,
 ): { [P in RK]: RV } {
