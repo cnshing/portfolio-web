@@ -28,6 +28,4 @@ export class ZardIconComponent {
   readonly class = input<ClassValue>('');
 
   protected readonly classes = computed(() => mergeClasses(iconVariants({ zSize: this.zSize(), zColor: this.zColor()}), this.class()));
-
-  protected readonly icon = computed(() => this.iconTemplate().svg());
 }
