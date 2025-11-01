@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, computed, inject, input, ViewEncaps
 import { DatePipe } from '@angular/common';
 import { dateVariants, ZardDateVariants } from './date.variants';
 import type { ClassValue } from '@shared/utils/merge-classes';
-import { ZardIconComponent } from '../icon/icon.component';
 import { mergeClasses } from '@shared/utils/merge-classes';
 
 export type { ZardDateVariants };
@@ -13,14 +12,9 @@ export type { ZardDateVariants };
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [ZardIconComponent],
   host: {},
   template: `
-      <z-icon zType="calendar" [zSize]="zSize()" />
-      <span [class]="classes()">
-        {{ displayText() }}
-      </span>
-
+      <time [dateTime]="value().toISOString()" [class]="classes()">{{ displayText() }}</time>
   `,
   providers: [DatePipe],
 })
