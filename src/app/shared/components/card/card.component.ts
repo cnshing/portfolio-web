@@ -15,20 +15,23 @@ import { cardBodyVariants, cardHeaderVariants, cardVariants } from './card.varia
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   template: `
-    @if (zTitle()) {
     <div [class]="headerClasses()">
       <ng-container [ngTemplateOutlet]="zAvatarOrIcon()"/>
+      <div>
+        @if (zTitle()) {
         <div class="text-lg font-primary text-color-default leading-none tracking-tight">
           <ng-container *zStringTemplateOutlet="zTitle()">{{ zTitle() }}</ng-container>
         </div>
-      @if (zDescription()) {
+        }
+        @if (zDescription()) {
         <div class="text-md font-secondary text-color-secondary">
           <ng-container *zStringTemplateOutlet="zDescription()">{{ zDescription() }}</ng-container>
         </div>
         }
+      </div>
       <ng-container [ngTemplateOutlet]="zLabel()"/>
     </div>
-  }
+
 
     <div [class]="bodyClasses()">
       <ng-content></ng-content>
