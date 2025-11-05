@@ -15,7 +15,7 @@ import { ZardLoaderComponent } from '@shared/components/loader/loader.component'
       <z-loader [zSize]="zSize()"/>
     } @else {
       @if (zImage()?.fallback) {
-        <span class="text-base absolute m-auto z-0">{{ zImage()?.fallback }}</span>
+        <span class="text-[length:inherit]absolute m-auto z-0">{{ zImage()?.fallback }}</span>
       }
       @if (zImage()?.url) {
         <img [src]="zImage()?.url" [alt]="zImage()?.alt || 'Avatar'" [class]="imgClasses()" />
