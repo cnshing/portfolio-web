@@ -21,7 +21,6 @@ export type { ZardDateVariants };
 export class ZardDateComponent {
   private readonly datePipe = inject(DatePipe);
   readonly class = input<ClassValue>('');
-  readonly zType = input<ZardDateVariants['zType']>('outline');
   readonly zSize = input<ZardDateVariants['zSize']>('default');
   readonly value = input.required<Date>();
   readonly zFormat = input<string>('MMMM d, yyyy');
