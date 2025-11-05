@@ -9,7 +9,7 @@ export const iconVariants = cva('flex items-center justify-center', {
       xl: 'text-3xl',
     },
     zColor: {
-      default: 'text-on-bg-button',
+      default: 'text-inherit',
       outline: 'text-border-button',
       ghost: 'text-on-bg-secondary',
       secondary: 'text-color-secondary',
