@@ -95,11 +95,11 @@ import { ZardLoaderComponent } from '@shared/components/loader/loader.component'
             height="24"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="var(--bg-color-surface2)"
+            stroke="var(--border-color-default)"
             stroke-width="var(--border-width-default)"
             stroke-linecap="round"
             stroke-linejoin="round"
-            class="absolute -right-[5px] -bottom-[5px] text-bg-surface2/85 w-5 h-5 z-20 scale-70"
+            class="absolute -right-[5px] -bottom-[5px] text-bg-surface2/50 w-5 h-5 z-20 scale-70"
           >
             <circle cx="12" cy="12" r="10" fill="currentColor" />
           </svg>
