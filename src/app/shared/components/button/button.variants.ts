@@ -7,9 +7,9 @@ export const buttonVariants = cva(
       zType: {
         default: 'bg-color-button text-on-bg-button shadow-xs hover:bg-color-button/default',
         destructive: 'bg-destructive text-color-default shadow-xs hover:bg-destructive/strong focus-visible:ring-destructive/20',
-        outline: 'border-color-button border shadow-xs bg-color-page text-border-button hover:bg-color-surface1/subtle',
-        secondary: 'bg-color-surface1 border-color-subtle border text-secondary-foreground shadow-xs hover:bg-color-surface1/default',
-        ghost: 'text-on-bg-secondary hover:bg-color-surface1 hover:text-color-secondary',
+        outline: 'border-color-button border shadow-xs bg-color-page text-border-button hover:bg-color-surface1/default',
+        secondary: 'bg-color-surface2 border-color-subtle border text-secondary-foreground shadow-xs hover:bg-color-surface2/strong',
+        ghost: 'text-on-bg-secondary bg-none hover:bg-color-surface2 hover:text-color-secondary',
         link: 'text-on-bg-default underline-offset-4 hover:underline',
       },
       zSize: {
