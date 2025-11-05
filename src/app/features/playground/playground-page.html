@@ -1,0 +1,354 @@
+<!-- File Template was LLM generated and manually tested -->
+<div class="min-h-screen bg-color-page">
+  <main class="container mx-auto px-lg py-xl">
+    <div class="flex flex-col gap-xl">
+
+      <!-- Buttons Section -->
+      <playground-section
+        title="Buttons"
+        description="All button variants, sizes, and states"
+      >
+        <playground-card title="Button Types">
+          <div class="flex flex-wrap gap-md">
+            <button z-button>Default</button>
+            <button z-button [zType]="'destructive'">Destructive</button>
+            <button z-button [zType]="'outline'">Outline</button>
+            <button z-button [zType]="'secondary'">Secondary</button>
+            <button z-button [zType]="'ghost'">Ghost</button>
+            <button z-button [zType]="'link'">Link</button>
+          </div>
+        </playground-card>
+
+        <playground-card title="Button Sizes">
+          <div class="flex flex-wrap items-center gap-md">
+            <button z-button [zSize]="'sm'">Small</button>
+            <button z-button [zSize]="'default'">Default</button>
+            <button z-button [zSize]="'lg'">Large</button>
+            <button z-button [zSize]="'icon'">
+              <z-icon [zType]="'calendar'" />
+            </button>
+          </div>
+        </playground-card>
+
+        <playground-card title="Button Shapes">
+          <div class="flex flex-wrap gap-md">
+            <button z-button [zShape]="'default'">Default</button>
+            <button z-button [zShape]="'circle'">Circle</button>
+            <button z-button [zShape]="'square'">Square</button>
+          </div>
+        </playground-card>
+
+        <playground-card title="Button States">
+          <div class="flex flex-wrap gap-md">
+            <button z-button>Normal</button>
+            <button z-button disabled>Disabled</button>
+            <button z-button [zLoading]="true">Loading</button>
+            <button z-button [zFull]="true">Full Width</button>
+          </div>
+        </playground-card>
+
+        <playground-card title="Buttons with Icons">
+          <div class="flex flex-wrap gap-md">
+            <button z-button>
+              <z-icon [zType]="'email'" />
+              With Icon
+            </button>
+            <button z-button [zType]="'outline'">
+              <z-icon [zType]="'githubICO'" />
+              GitHub
+            </button>
+            <button z-button [zType]="'destructive'">
+              <z-icon [zType]="'phone'" />
+              Call
+            </button>
+          </div>
+        </playground-card>
+      </playground-section>
+
+      <z-divider [zSpacing]="'none'" />
+
+      <!-- Badges Section -->
+      <playground-section
+        title="Badges"
+        description="Badge variants and shapes"
+      >
+        <playground-card title="Badge Types">
+          <div class="flex flex-wrap gap-md">
+            <z-badge>Default</z-badge>
+            <z-badge [zType]="'secondary'">Secondary</z-badge>
+            <z-badge [zType]="'destructive'">Destructive</z-badge>
+            <z-badge [zType]="'outline'">Outline</z-badge>
+          </div>
+        </playground-card>
+
+        <playground-card title="Badge Shapes">
+          <div class="flex flex-wrap gap-md">
+            <z-badge [zShape]="'square'">Square</z-badge>
+            <z-badge [zShape]="'default'">Rounded</z-badge>
+          </div>
+        </playground-card>
+      </playground-section>
+
+      <z-divider [zSpacing]="'none'" />
+
+      <!-- Avatars Section -->
+      <playground-section
+        title="Avatars"
+        description="Avatar variants, sizes, and states"
+      >
+        <playground-card title="Avatar Types">
+          <div class="flex flex-wrap items-center gap-md">
+            <z-avatar [zImage]="{ fallback: 'AB' }">Default</z-avatar>
+            <z-avatar [zImage]="{ fallback: 'CD' }" [zType]="'destructive'">Destructive</z-avatar>
+            <z-avatar [zImage]="{ fallback: 'EF' }" [zType]="'outline'">Outline</z-avatar>
+            <z-avatar [zImage]="{ fallback: 'GH' }" [zType]="'secondary'">Secondary</z-avatar>
+            <z-avatar [zImage]="{ fallback: 'IJ' }" [zType]="'ghost'">Ghost</z-avatar>
+          </div>
+        </playground-card>
+
+        <playground-card title="Avatar Sizes">
+          <div class="flex flex-wrap items-center gap-md">
+            <z-avatar [zImage]="{ fallback: 'SM' }" [zSize]="'sm'">Small</z-avatar>
+            <z-avatar [zImage]="{ fallback: 'MD' }" [zSize]="'md'">Medium</z-avatar>
+            <z-avatar [zImage]="{ fallback: 'LG' }" [zSize]="'lg'">Large</z-avatar>
+          </div>
+        </playground-card>
+
+        <playground-card title="Avatar Shapes">
+          <div class="flex flex-wrap items-center gap-md">
+            <z-avatar [zImage]="{ fallback: 'DF' }" [zShape]="'default'">Default</z-avatar>
+            <z-avatar [zImage]="{ fallback: 'CR' }" [zShape]="'circle'">Circle</z-avatar>
+            <z-avatar [zImage]="{ fallback: 'SQ' }" [zShape]="'square'">Square</z-avatar>
+          </div>
+        </playground-card>
+
+        <playground-card title="Avatar States">
+          <div class="flex flex-wrap items-center gap-md">
+            <z-avatar [zImage]="{ fallback: 'ON' }" [zStatus]="'online'">Online</z-avatar>
+            <z-avatar [zImage]="{ fallback: 'OF' }" [zStatus]="'offline'">Offline</z-avatar>
+            <z-avatar [zImage]="{ fallback: 'DND' }" [zStatus]="'doNotDisturb'">DND</z-avatar>
+            <z-avatar [zImage]="{ fallback: 'AW' }" [zStatus]="'away'">Away</z-avatar>
+            <z-avatar [zImage]="{ fallback: 'HID' }" [zStatus]="'invisible'">Invisible</z-avatar>
+            <z-avatar zType="secondary" [zImage]="{ fallback: 'BR' }" [zBorder]="true">With Border</z-avatar>
+          </div>
+        </playground-card>
+      </playground-section>
+
+      <z-divider [zSpacing]="'none'" />
+
+      <!-- Icons Section -->
+      <playground-section
+        title="Icons"
+        description="Icon sizes and colors"
+      >
+        <playground-card title="Icon Sizes">
+          <div class="flex flex-wrap items-center gap-md">
+            <z-icon [zType]="'calendar'" zColor="secondary" [zSize]="'sm'" />
+            <z-icon [zType]="'calendar'" zColor="secondary" [zSize]="'default'" />
+            <z-icon [zType]="'calendar'" zColor="secondary" [zSize]="'lg'" />
+            <z-icon [zType]="'calendar'" zColor="secondary" [zSize]="'xl'" />
+          </div>
+        </playground-card>
+
+        <playground-card title="Available Icons">
+          <div class="flex flex-wrap items-center gap-md text-color-default">
+            @for (icon of ZARD_ICON_ZTYPES; track icon) {
+              <div class="flex flex-col items-center gap-xs">
+                <z-icon zColor="secondary" [zType]="icon" />
+                <span class="text-xs text-color-secondary">{{ icon }}</span>
+              </div>
+            }
+          </div>
+        </playground-card>
+      </playground-section>
+
+      <z-divider [zSpacing]="'none'" />
+
+      <!-- Cards Section -->
+      <playground-section
+        title="Cards"
+        description="Card component layouts"
+      >
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+
+          <z-card
+            [zTitle]="'Simple Card'"
+            [zDescription]="'Basic card with content'"
+          >
+            <p class="text-color-default">
+              This is a simple card component with title and description properties.
+            </p>
+          </z-card>
+
+          <z-card
+            [zTitle]="'Card with Avatar/Icon'"
+            [zDescription]="'Uses zAvatarOrIcon template'"
+            [zAvatarOrIcon]="avatarTemplate"
+          >
+            <ng-template #avatarTemplate>
+              <z-avatar zSize="md" [zImage]="{ fallback: 'UI' }" [zShape]="'circle'" />
+            </ng-template>
+            <p class="text-color-default">
+              Card with avatar template in header.
+            </p>
+          </z-card>
+
+          <z-card
+            [zTitle]="'Card with Icon Template'"
+            [zAvatarOrIcon]="iconTemplate"
+          >
+            <ng-template #iconTemplate>
+              <z-icon zColor="secondary" [zType]="'email'" [zSize]="'lg'" />
+            </ng-template>
+            <p class="text-color-default">
+              Card with icon template in header.
+            </p>
+          </z-card>
+
+          <z-card
+            [zTitle]="'Card with Label'"
+            [zDescription]="'Uses zLabel template'"
+            [zLabel]="labelTemplate"
+          >
+            <ng-template #labelTemplate>
+              <z-date class="text-color-tertiary" [value]="currentDate" [zFormat]="'MMM d, yyyy'" />
+            </ng-template>
+            <p class="text-color-default mb-md">
+              Card with date label in header.
+            </p>
+          </z-card>
+
+          <z-card [zTitle]="'Interactive Card'" zDescription="Cards can contain interactive elements and badges.">
+            <div class="flex flex-col justify-between h-full gap-y-md">
+              <div class="flex gap-xs">
+                <z-badge >New</z-badge>
+                <z-badge [zType]="'secondary'">Featured</z-badge>
+                <z-badge [zType]="'outline'">Trending</z-badge>
+              </div>
+
+              <div class="flex justify-end gap-xs">
+                <button z-button [zSize]="'sm'">Action</button>
+                <button z-button [zSize]="'sm'" [zType]="'destructive'">Cancel</button>
+              </div>
+            </div>
+          </z-card>
+
+          <z-card
+            [zTitle]="'Full Featured Card'"
+            [zDescription]="'All templates combined'"
+            [zAvatarOrIcon]="fullAvatarTemplate"
+            [zLabel]="fullLabelTemplate"
+          >
+            <ng-template #fullAvatarTemplate>
+              <z-avatar zSize="md"  [zImage]="{ fallback: 'FC' }" [zType]="'secondary'" />
+            </ng-template>
+
+            <ng-template #fullLabelTemplate>
+              <div class="flex gap-x-3xs [&>*]:flex self-start [&>*]:items-center [&>*]:text-color-tertiary [&>*]:font-secondary">
+                <z-icon class="px-0.25" zType="calendar"/>
+                <z-date [value]="specificDate" zFormat="yyyy" />
+                <span class="text-lg">-</span>
+                <z-date [value]="currentDate" zFormat="yyyy"></z-date>
+              </div>
+            </ng-template>
+
+            <div class="space-y-sm">
+              <p class="text-color-default">
+                Card using all template inputs: zAvatarOrIcon and zLabel.
+              </p>
+              <p>Demonstrates flexible card composition.</p>
+            </div>
+          </z-card>
+
+          <z-card class="flex-none w-fit"
+            [zAvatarOrIcon]="iconTemplate"
+          >
+          </z-card>
+
+        </div>
+      </playground-section>
+
+      <z-divider [zSpacing]="'none'" />
+
+      <!-- Skeleton Section -->
+      <playground-section
+        title="Skeleton Loaders"
+        description="Loading state indicators"
+      >
+        <z-card>
+          <div class="space-y-md">
+            <z-skeleton class="h-[2rem] w-3/4" />
+            <z-skeleton class="h-[1rem] w-full" />
+            <z-skeleton class="h-[1rem] w-5/6" />
+            <z-skeleton class="h-[3rem] w-1/2 rounded-full" />
+          </div>
+        </z-card>
+      </playground-section>
+
+
+      <z-divider [zSpacing]="'none'" />
+
+      <!-- Loading Spinner Section -->
+      <playground-section
+      title="Loaders"
+      description="Loading spinner components">
+        <z-card>
+          <div class="flex flex-wrap items-center gap-xl">
+            <div class="flex flex-col items-center gap-xs">
+              <z-loader [zSize]="'sm'" />
+              <span class="text-sm text-color-secondary">Small</span>
+            </div>
+
+            <div class="flex flex-col items-center gap-xs">
+              <z-loader [zSize]="'default'" />
+              <span class="text-sm text-color-secondary">Default</span>
+            </div>
+
+            <div class="flex flex-col items-center gap-xs">
+              <z-loader [zSize]="'lg'" />
+              <span class="text-sm text-color-secondary">Large</span>
+            </div>
+          </div>
+        </z-card>
+      </playground-section>
+
+      <z-divider [zSpacing]="'none'" />
+
+      <!-- Tooltip Section -->
+      <playground-section
+      title="Tooltips"
+      description="Interactive hint messages shown on hover or click">
+        <playground-card title="Tooltip Triggers" >
+          <div class="flex flex-wrap gap-md">
+            <button z-button zTooltip="Tooltip Content">Hover Me</button>
+            <button z-button zTooltip="Tooltip Content" zTrigger="click">Click Me</button>
+          </div>
+        </playground-card>
+      </playground-section>
+
+
+      <z-divider [zSpacing]="'none'" />
+
+      <!-- Typography Section -->
+      <playground-section
+        title="Typography"
+        description="Text styles and hierarchy"
+      >
+        <playground-card>
+          <h1>Heading 1</h1>
+          <h2>Heading 2</h2>
+          <h3>Heading 3</h3>
+          <h4>Heading 4</h4>
+          <h5>Heading 5</h5>
+          <z-divider [zSpacing]="'sm'" />
+          <p class="text-color-default">Default paragraph (with override to show primary color)</p>
+          <p>Secondary paragraph text (default style from global)</p>
+          <p class="text-color-tertiary">Tertiary paragraph text for minimal emphasis</p>
+          <p class="text-color-accent">Accent text for highlighting important information</p>
+          <small>Small text for supplementary non-primary information</small>
+        </playground-card>
+      </playground-section>
+
+    </div>
+  </main>
+</div>
