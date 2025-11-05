@@ -8,7 +8,7 @@ export const badgeVariants = cva(
         default: 'border-transparent bg-color-button text-on-bg-button hover:bg-color-button/default',
         secondary: 'border-transparent bg-color-surface2 text-color-secondary hover:bg-color-surface2/default',
         destructive: 'border-transparent bg-destructive text-color-default hover:bg-destructive/strong',
-        outline: 'border-color-subtle border text-on-bg-secondary hover:bg-color-surface1/subtle'
+        outline: 'border-color-subtle border bg-color-surface1 text-color-secondary hover:bg-color-surface1/default'
       },
       zShape: {
         default: 'rounded-full',
