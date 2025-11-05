@@ -20,5 +20,11 @@ import { Component, input } from '@angular/core';
   `,
 })
 export class PlaygroundCardComponent {
+  /**
+   * Title containing specific feature of a primitive component.
+   *
+   * @readonly
+   * @type {*}
+   */
   readonly title = input<string>()
 }

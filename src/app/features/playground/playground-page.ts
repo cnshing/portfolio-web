@@ -42,7 +42,26 @@ import { ZardTooltipModule } from '@shared/components/tooltip/tooltip';
   templateUrl: './playground-page.html',
 })
 export class PlaygroundPageComponent {
+  /**
+   * Sample date data for `today`.
+   *
+   * @readonly
+   * @type {*}
+   */
   readonly currentDate = new Date();
+  /**
+   * Sample date data.
+   *
+   * @readonly
+   * @type {*}
+   */
   readonly specificDate = new Date('2024-01-01');
+  /**
+   * Dynamic list of all available icon names for `ZardIconComponent`.
+   *
+   * @protected
+   * @readonly
+   * @type {{}}
+   */
   protected readonly ZARD_ICON_ZTYPES = Object.keys(RAW_ZARD_ICONS) as (keyof typeof RAW_ZARD_ICONS)[];
 }
