@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
-import { ZardButtonComponent } from '@shared/components/button/button.component';
-import { ZardAvatarComponent } from '@shared/components/avatar/avatar.component';
-import { ZardDividerComponent } from '@shared/components/divider/divider.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.html',
-  imports: [ZardButtonComponent, ZardAvatarComponent, ZardDividerComponent]
+  imports: [RouterOutlet]
 })
 export class App {}
