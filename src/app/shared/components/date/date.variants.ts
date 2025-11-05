@@ -3,9 +3,9 @@ import { cva, VariantProps } from 'class-variance-authority';
 const dateVariants = cva('text-inherit', {
   variants: {
     zSize: {
-      sm: 'text-sm',
-      default: 'text-sm',
-      lg: 'text-lg',
+      sm: 'text-md',
+      default: 'text-lg',
+      lg: 'text-xl',
     }
   },
   defaultVariants: {
