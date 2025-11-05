@@ -7,7 +7,7 @@ export const avatarVariants = cva('relative flex flex-row items-center justify-c
       destructive: 'bg-destructive text-color-default hover:bg-destructive/strong',
       outline: 'border border-color-button bg-none text-border-button hover:bg-color-surface1/subtle',
       secondary: 'bg-color-surface1 border border-color-default text-color-default hover:bg-color-surface1/default',
-      ghost: 'text-on-bg-secondary hover:bg-color-surface1 hover:text-color-secondary shadow-sm'
+      ghost: 'text-on-bg-secondary bg-none hover:bg-color-surface2 hover:text-color-secondary shadow-sm'
     },
     zSize: {
       default: 'w-lg h-lg',
