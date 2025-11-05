@@ -10,10 +10,10 @@ export const avatarVariants = cva('relative flex flex-row items-center justify-c
       ghost: 'text-on-bg-secondary bg-none hover:bg-color-surface2 hover:text-color-secondary shadow-sm'
     },
     zSize: {
-      default: 'w-lg h-lg',
-      sm: 'w-lg h-lg',
-      md: 'w-xl h-xl',
-      lg: 'w-2xl h-2xl',
+      default: 'w-lg h-lg text-base',
+      sm: 'w-lg h-lg text-base',
+      md: 'w-xl h-xl text-lg',
+      lg: 'w-2xl h-2xl text-2xl',
       full: 'w-full h-full',
     },
     zShape: {
