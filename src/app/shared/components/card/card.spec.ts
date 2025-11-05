@@ -129,7 +129,7 @@ describe("Primitive Card Tests", () => {
       const { icon } = getTestingEls()
       expect(icon).not.toBeNull()
     })
-    it("zAvatar should be a sibling of zTitle and zDescription's parents", async () => {
+    it("zIcon should be a sibling of zTitle and zDescription's parents", async () => {
       await renderCard("zIcon")
       const { title, icon } = getTestingEls()
       expect(icon!.parentElement).toBe(title!.parentElement!.parentElement)
