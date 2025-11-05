@@ -4,14 +4,29 @@ $scale: 1.5 // Perfect Fifths
 @function typescale($n) // Any increment/decrement in typescale returns the following `rem` size of the corresponding scale.
   @return math.pow($scale, $n)
 
+$default-line-height: 1
 /* Typeccale */
 @theme
+
   --text-xs: #{typescale(-2)}rem
   --text-xs--letter-spacing: 0.015em
+  --text-xs--line-height: $default-line-height
+
   --text-sm: #{typescale(-1)}rem
   --text-sm--letter-spacing: 0.01em
+  --text-sm--line-height: $default-line-height
+
   --text-base: #{typescale(0)}rem
+  --text-base--line-height: $default-line-height
+
   --text-lg: #{typescale(1)}rem
+  --text-lg--line-height: $default-line-height
+
   --text-xl: #{typescale(2)}rem
+  --text-xl--line-height: $default-line-height
+
   --text-2xl: #{typescale(3)}rem
+  --text-2xl--line-height: $default-line-height
+
   --text-3xl: #{typescale(4)}rem
+  --text-3xl--line-height: $default-line-height
