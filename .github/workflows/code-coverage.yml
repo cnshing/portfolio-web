@@ -1,4 +1,4 @@
-name: Angular Tests
+name: Code Coverage
 
 permissions:
   pull-requests: write
@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  units:
+  report:
     runs-on: ubuntu-latest
 
     steps:
