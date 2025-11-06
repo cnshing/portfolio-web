@@ -127,7 +127,8 @@
             },
             "styles": [
               "src/styles/entrypoint.sass"
-            ]
+            ],
+            "karmaConfig": "karma.conf.js"
           }
         }
       }
