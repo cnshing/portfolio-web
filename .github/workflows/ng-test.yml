@@ -25,3 +25,11 @@ jobs:
 
     - name: Run Tests
         npm run test -- --watch=false --no-progress --browsers=ChromeHeadless
+
+    - name: Test Report
+      uses: dorny/test-reporter@v2
+      if: ${{ !cancelled() }}       # run this step even if previous step failed
+      with:
+        name: Test Report           # Name of the check run which will be created
+        path: TEST-*.xml    # Path to test results
+        reporter: java-junit        # Format of test results
