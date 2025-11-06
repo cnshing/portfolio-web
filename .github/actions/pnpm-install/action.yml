@@ -1,0 +1,23 @@
+name: Install web application dependencies
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v4
+
+    - name: Install pnpm
+      uses: pnpm/action-setup@0bc9da32cd356746083d9e2b8848bad8b974c72c # TODO: Experimental cache feature. Once merged, revert back to @4
+      with:
+        version: 10
+        run_install: false
+        cache: true
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20.19.0 # See https://angular.dev/reference/versions for versions targeting
+        cache: 'pnpm'
+
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+      shell: bash
