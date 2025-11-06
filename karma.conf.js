@@ -27,6 +27,7 @@ module.exports = function (config) {
       dir: require('path').join(__dirname, './coverage/portfolio-web'),
       subdir: '.',
       reporters: [
+        { type: 'cobertura', file: 'cobertura.xml' },
         { type: 'html' },
         { type: 'text-summary' }
       ]
