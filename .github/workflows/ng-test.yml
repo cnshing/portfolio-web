@@ -24,4 +24,4 @@ jobs:
       run: npm ci
 
     - name: Run Tests
-        npm run test -- --watch=false --browsers=ChromeHeadless
+        npm run test -- --watch=false --no-progress --browsers=ChromeHeadless
