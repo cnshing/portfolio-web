@@ -24,7 +24,7 @@ jobs:
       run: npm ci
 
     - name: Run Tests
-        npm run test -- --watch=false --no-progress --browsers=ChromeHeadless
+      run: npm run test -- --watch=false --no-progress --browsers=ChromeHeadless
 
     - name: Test Report
       uses: dorny/test-reporter@v2
