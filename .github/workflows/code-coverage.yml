@@ -2,7 +2,9 @@ name: Code Coverage
 
 permissions:
   pull-requests: write
-  contents: read
+  contents: read # Allow actions/checkout
+  actions: write # Allow output code coverage to build summary
+
 
 on:
   pull_request:
