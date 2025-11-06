@@ -11,7 +11,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - uses: .github/actions/pnpm-install.yml
+    - uses: ./.github/actions/pnpm-install.yml
 
     - name: Run Tests
       run: pnpm run test --watch=false --no-progress --browsers=ChromeHeadless --reporters=junit
