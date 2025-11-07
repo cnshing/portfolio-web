@@ -35,6 +35,7 @@ jobs:
         skip-step: all
         annotations: failed-tests
         output: comment, report-markdown
+        threshold: 80
 
     - name: Write coverage to Job Summary
       run: echo ${{ steps.coverage.outputs.report }} >> $GITHUB_STEP_SUMMARY
