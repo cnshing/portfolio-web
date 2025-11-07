@@ -23,12 +23,18 @@ module.exports = function (config) {
     jasmineHtmlReporter: {
       suppressAll: true // removes the duplicated traces
     },
+    junitReporter: {
+      outputDir: require('path').join(__dirname, './reports/portfolio-web')
+    },
     coverageReporter: {
       dir: require('path').join(__dirname, './coverage/portfolio-web'),
       subdir: '.',
       reporters: [
+        { type: 'cobertura', file: 'cobertura.xml' },
         { type: 'html' },
-        { type: 'text-summary' }
+        { type: 'text-summary' },
+        { type: 'json-summary' },
+        { type: 'json' }
       ]
     },
     reporters: ['progress', 'kjhtml'],

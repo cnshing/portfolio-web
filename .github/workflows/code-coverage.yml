@@ -1,0 +1,57 @@
+name: Code Coverage
+
+permissions:
+  pull-requests: write
+  contents: read # Allow actions/checkout
+
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    env:
+      # Vite thresholds
+      LINES: 80
+      BRANCHES: 80
+      FUNCTIONS: 80
+      STATEMENTS: 80
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: ./.github/actions/pnpm-install
+
+    - name: Run Code Coverage
+      run: pnpm run test --watch=false --no-progress --browsers=ChromeHeadless --code-coverage
+
+    - name: Setup Coverage Thresholds # This writes a fake vite config file for the next action to parse.
+      run: |
+        cat > threshold-vite.config.js <<EOF
+        import { defineConfig } from 'vite';
+
+        export default defineConfig({
+          test: {
+            coverage: {
+              thresholds: {
+                lines: ${LINES},
+                branches: ${BRANCHES},
+                functions: ${FUNCTIONS},
+                statements: ${STATEMENTS}
+              }
+            }
+          }
+        });
+        EOF
+
+    - name: Code Coverage Report
+      uses:  davelosert/vitest-coverage-report-action@v2
+      if: always()
+      with:
+        json-summary-path: coverage/portfolio-web/coverage-summary.json
+        json-final-path: coverage/portfolio-web/coverage-final.json
+        vite-config-path: threshold-vite.config.js
+        file-coverage-mode: all
+        comment-on: pr
