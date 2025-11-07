@@ -3,7 +3,7 @@ name: Code Coverage
 permissions:
   pull-requests: write
   contents: read # Allow actions/checkout
-
+  checks: write
 
 on:
   pull_request:
