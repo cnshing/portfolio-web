@@ -21,25 +21,24 @@ jobs:
     - name: Run Code Coverage
       run: pnpm run test --watch=false --no-progress --browsers=ChromeHeadless --code-coverage
 
+
     - name: Code Coverage Report
-      uses: irongut/CodeCoverageSummary@v1.3.0
+      uses: ArtiomTr/jest-coverage-report-action@v2
+      if: always()
+      id: coverage
       with:
-        filename: coverage/portfolio-web/cobertura.xml
-        badge: true
-        fail_below_min: true
-        format: markdown
-        hide_branch_rate: false
-        hide_complexity: false
-        indicators: true
-        output: both
-        thresholds: '60 80' # TODO: Configure good threshold range for code coverage
+        coverage-file: coverage/portfolio-web/coverage-final.json
+        base-coverage-file: coverage/portfolio-web/coverage-final.json
+        skip-step: all
+        annotations: failed-tests
+        output: comment, report-markdown
 
     - name: Write coverage to Job Summary
-      run: cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
+      run: echo ${{ steps.coverage.outputs.report }} >> $GITHUB_STEP_SUMMARY
 
     - name: Add Coverage PR Comment
       uses: marocchino/sticky-pull-request-comment@v2
       if: github.event_name == 'pull_request'
       with:
         recreate: true
-        path: code-coverage-results.md
+        message: ${{ steps.coverage.outputs.report }}
