@@ -53,5 +53,5 @@ jobs:
         json-summary-path: coverage/portfolio-web/coverage-summary.json
         json-final-path: coverage/portfolio-web/coverage-final.json
         vite-config-path: threshold-vite.config.js
-        file-coverage-mode: changes
+        file-coverage-mode: all
         comment-on: pr
