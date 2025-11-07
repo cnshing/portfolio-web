@@ -50,8 +50,8 @@ jobs:
       uses:  davelosert/vitest-coverage-report-action@v2
       if: always()
       with:
-        json-summary-path: coverage/portfolioweb/coverage-summary.json
-        json-final-path: coverage/portfolioweb/coverage-final.json
+        json-summary-path: coverage/portfolio-web/coverage-summary.json
+        json-final-path: coverage/portfolio-web/coverage-final.json
         vite-config-path: threshold-vite.config.js
         file-coverage-mode: changes
         comment-on: pr
