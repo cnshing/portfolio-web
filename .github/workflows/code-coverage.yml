@@ -30,8 +30,8 @@ jobs:
       if: always()
       id: coverage
       with:
-        coverage-file: coverage/portfolio-web/coverage-final.json
-        base-coverage-file: coverage/portfolio-web/coverage-final.json
+        coverage-file: ./coverage/portfolio-web/coverage-final.json
+        base-coverage-file: ./coverage/portfolio-web/coverage-final.json
         skip-step: all
         annotations: failed-tests
         output: comment, report-markdown
