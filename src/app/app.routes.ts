@@ -7,7 +7,6 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'test/playground',
-    pathMatch: 'full',
+    loadComponent: () => import('@features/landing/landing-page').then(p => p.LandingPageComponent)
   },
 ];
