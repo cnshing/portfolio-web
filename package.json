@@ -36,6 +36,7 @@
     "@fontsource-utils/scss": "^0.2.2",
     "@fontsource-variable/geist": "^5.2.8",
     "@fontsource-variable/geist-mono": "^5.2.7",
+    "@fontsource/staatliches": "^5.2.8",
     "@ng-icons/core": "^32.2.0",
     "@ng-icons/phosphor-icons": "^32.2.0",
     "class-variance-authority": "^0.7.1",
