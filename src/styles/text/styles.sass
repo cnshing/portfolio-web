@@ -2,15 +2,21 @@
 @use "@fontsource-utils/scss" as fontsource;
 @use "@fontsource-variable/geist/scss/mixins" as GeistSans;
 @use "@fontsource-variable/geist-mono/scss/mixins" as GeistMono;
+@use "@fontsource/staatliches/scss/mixins" as Staatliches;
 
 @include fontsource.faces(
   $metadata: GeistSans.$metadata,
-  $directory: "/assets/fonts"
+  $directory: "/assets/fonts/geist/files"
 )
 
 @include fontsource.faces(
   $metadata: GeistMono.$metadata,
-  $directory: "/assets/fonts"
+  $directory: "/assets/fonts/geist-mono/files"
+)
+
+@include fontsource.faces(
+  $metadata: Staatliches.$metadata,
+  $directory: "/assets/fonts/staatliches/files"
 )
 
 @theme default
