@@ -1,0 +1,50 @@
+@keyframes glow
+  0%
+    filter: drop-shadow(0 0 0.125rem currentColor) drop-shadow(0 0 0.25rem currentColor)
+    opacity: 1
+
+  50%
+    filter: drop-shadow(0 0 0.1875rem currentColor) drop-shadow(0 0 0.375rem currentColor)
+    opacity: 0.92
+
+  100%
+    filter: drop-shadow(0 0 0.125rem currentColor) drop-shadow(0 0 0.25rem currentColor)
+    opacity: 1
+
+.animate-glow
+  animation: glow 4s ease-in-out infinite
+
+
+@keyframes soft-glow
+  0%
+    filter: drop-shadow(0 0 0.125rem currentColor) drop-shadow(0 0 0.25rem currentColor)
+    opacity: 0.8
+
+  50%
+    filter: drop-shadow(0 0 0.25rem currentColor) drop-shadow(0 0 0.5rem currentColor)
+    opacity: 1
+
+  100%
+    filter: drop-shadow(0 0 0.125rem currentColor) drop-shadow(0 0 0.25rem currentColor)
+    opacity: 0.8
+
+.animate-soft-glow
+  animation: soft-glow 2.5s ease-in-out infinite
+
+
+
+@keyframes high-energy
+  0%
+    filter: drop-shadow(0 0 0.1875rem currentColor) drop-shadow(0 0 0.375rem currentColor)
+    opacity: 1
+
+  50%
+    filter: drop-shadow(0 0 0.0625rem currentColor) drop-shadow(0 0 0.1875rem currentColor)
+    opacity: 0.75
+
+  100%
+    filter: drop-shadow(0 0 0.1875rem currentColor) drop-shadow(0 0 0.375rem currentColor)
+    opacity: 1
+
+.animate-high-energy
+  animation: high-energy 3.8s cubic-bezier(0.4, 0, 0.2, 1) infinite
