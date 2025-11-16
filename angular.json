@@ -31,15 +31,16 @@
                 "output": "assets"
               },
               {
-              "glob": "**/*",
-              "input": "node_modules/@fontsource-variable/geist/files",
-              "output": "assets/fonts"
+                "glob": "**/*",
+                "input": "node_modules/@fontsource-variable",
+                "output": "assets/fonts"
               },
               {
                 "glob": "**/*",
-                "input": "node_modules/@fontsource-variable/geist-mono/files",
+                "input": "node_modules/@fontsource",
                 "output": "assets/fonts"
               }
+
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
