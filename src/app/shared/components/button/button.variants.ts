@@ -1,7 +1,7 @@
 import { cva, VariantProps } from 'class-variance-authority';
 
 export const buttonVariants = cva(
-  "cursor-pointer inline-flex items-center justify-center gap-xs whitespace-nowrap rounded-xs text-md font-medium transition-all active:scale-95 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+  "cursor-pointer inline-flex items-center justify-center min-h-fit gap-xs whitespace-nowrap rounded-xs text-lg font-medium transition-all active:scale-95 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
   {
     variants: {
       zType: {
@@ -13,13 +13,13 @@ export const buttonVariants = cva(
         link: 'text-on-bg-default underline-offset-4 hover:underline',
       },
       zSize: {
-        default: 'h-lg px-sm py-md has-[>svg]:px-sm',
-        sm: 'h-md rounded-md px-xs py-sm has-[>svg]:px-xs',
-        lg: 'h-xl rounded-md px-md py-md has-[>svg]:px-md',
-        icon: 'size-lg',
+        default: 'h-xl px-md py-md has-[>svg]:px-sm',
+        sm: 'h-lg px-sm py-sm has-[>svg]:px-xs',
+        lg: 'h-2xl px-lg py-md has-[>svg]:px-md',
+        icon: 'size-xl',
       },
       zShape: {
-        default: 'rounded-xs',
+        default: 'rounded-md',
         circle: 'rounded-full',
         square: 'rounded-none',
       },
