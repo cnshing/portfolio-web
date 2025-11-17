@@ -96,40 +96,47 @@
         title="Avatars"
         description="Avatar variants, sizes, and states"
       >
+
+        <playground-card title="Avatar Group">
+          <z-avatar-group>
+            <z-avatar zFallback="AB" zSize="sm" />
+            <z-avatar zType="secondary" zFallback="CD" zSize="sm" />
+            <z-avatar zType="destructive" zFallback="EF" zSize="sm" />
+          </z-avatar-group>
+        </playground-card>
+
         <playground-card title="Avatar Types">
           <div class="flex flex-wrap items-center gap-md">
-            <z-avatar [zImage]="{ fallback: 'AB' }">Default</z-avatar>
-            <z-avatar [zImage]="{ fallback: 'CD' }" [zType]="'destructive'">Destructive</z-avatar>
-            <z-avatar [zImage]="{ fallback: 'EF' }" [zType]="'outline'">Outline</z-avatar>
-            <z-avatar [zImage]="{ fallback: 'GH' }" [zType]="'secondary'">Secondary</z-avatar>
-            <z-avatar [zImage]="{ fallback: 'IJ' }" [zType]="'ghost'">Ghost</z-avatar>
+            <z-avatar zFallback="AB">Default</z-avatar>
+            <z-avatar zFallback="CD" [zType]="'destructive'">Destructive</z-avatar>
+            <z-avatar zFallback="EF" [zType]="'outline'">Outline</z-avatar>
+            <z-avatar zFallback="GH" [zType]="'secondary'">Secondary</z-avatar>
+            <z-avatar zFallback="IJ" [zType]="'ghost'">Ghost</z-avatar>
           </div>
         </playground-card>
 
         <playground-card title="Avatar Sizes">
           <div class="flex flex-wrap items-center gap-md">
-            <z-avatar [zImage]="{ fallback: 'SM' }" [zSize]="'sm'">Small</z-avatar>
-            <z-avatar [zImage]="{ fallback: 'MD' }" [zSize]="'md'">Medium</z-avatar>
-            <z-avatar [zImage]="{ fallback: 'LG' }" [zSize]="'lg'">Large</z-avatar>
+            <z-avatar zFallback="SM" [zSize]="'sm'">Small</z-avatar>
+            <z-avatar zFallback="MD" [zSize]="'md'">Medium</z-avatar>
+            <z-avatar zFallback="LG" [zSize]="'lg'">Large</z-avatar>
           </div>
         </playground-card>
 
         <playground-card title="Avatar Shapes">
           <div class="flex flex-wrap items-center gap-md">
-            <z-avatar [zImage]="{ fallback: 'DF' }" [zShape]="'default'">Default</z-avatar>
-            <z-avatar [zImage]="{ fallback: 'CR' }" [zShape]="'circle'">Circle</z-avatar>
-            <z-avatar [zImage]="{ fallback: 'SQ' }" [zShape]="'square'">Square</z-avatar>
+            <z-avatar zFallback="CR" [zShape]="'circle'">Circle</z-avatar>
+            <z-avatar zFallback="SQ" [zShape]="'square'">Square</z-avatar>
           </div>
         </playground-card>
 
         <playground-card title="Avatar States">
           <div class="flex flex-wrap items-center gap-md">
-            <z-avatar [zImage]="{ fallback: 'ON' }" [zStatus]="'online'">Online</z-avatar>
-            <z-avatar [zImage]="{ fallback: 'OF' }" [zStatus]="'offline'">Offline</z-avatar>
-            <z-avatar [zImage]="{ fallback: 'DND' }" [zStatus]="'doNotDisturb'">DND</z-avatar>
-            <z-avatar [zImage]="{ fallback: 'AW' }" [zStatus]="'away'">Away</z-avatar>
-            <z-avatar [zImage]="{ fallback: 'HID' }" [zStatus]="'invisible'">Invisible</z-avatar>
-            <z-avatar zType="secondary" [zImage]="{ fallback: 'BR' }" [zBorder]="true">With Border</z-avatar>
+            <z-avatar zFallback="ON" [zStatus]="'online'">Online</z-avatar>
+            <z-avatar zFallback="OF" [zStatus]="'offline'">Offline</z-avatar>
+            <z-avatar zFallback="DND" [zStatus]="'doNotDisturb'">DND</z-avatar>
+            <z-avatar zFallback="AW" [zStatus]="'away'">Away</z-avatar>
+            <z-avatar zFallback="HID" [zStatus]="'invisible'">Invisible</z-avatar>
           </div>
         </playground-card>
       </playground-section>
@@ -186,7 +193,7 @@
             [zAvatarOrIcon]="avatarTemplate"
           >
             <ng-template #avatarTemplate>
-              <z-avatar zSize="md" [zImage]="{ fallback: 'UI' }" [zShape]="'circle'" />
+              <z-avatar zSize="md" zFallback="UI" [zShape]="'circle'" />
             </ng-template>
             <p class="text-color-default">
               Card with avatar template in header.
@@ -240,7 +247,7 @@
             [zLabel]="fullLabelTemplate"
           >
             <ng-template #fullAvatarTemplate>
-              <z-avatar zSize="md"  [zImage]="{ fallback: 'FC' }" [zType]="'secondary'" />
+              <z-avatar zSize="md" zFallback="FC" [zType]="'secondary'" />
             </ng-template>
 
             <ng-template #fullLabelTemplate>
