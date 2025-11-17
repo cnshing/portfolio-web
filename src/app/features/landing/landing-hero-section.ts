@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { environment } from "@environments/environment";
 import { ZardButtonComponent } from "@shared/components/button/button.component";
 import { ZardIconComponent } from "@shared/components/icon/icon.component";
 
@@ -13,7 +14,7 @@ import { ZardIconComponent } from "@shared/components/icon/icon.component";
       <h1 class="text-hero-accent">Zooming</h1>
       <h1 class="inline-block">Full Stack Developer</h1>
       </div>
-      <p class="text-xl"><span class="text-color-accent">Shing Chan</span> here — a software engineer experienced in frontend and middleware development for ROS (Robot Operating System).</p>
+      <p class="text-xl"><span class="text-color-accent">{{ name }}</span> here — a software engineer experienced in frontend and middleware development for ROS (Robot Operating System).</p>
       <button z-button class="w-min">
         <i z-icon zSize="lg" zType="resume"></i>
         View Resume
@@ -25,6 +26,6 @@ import { ZardIconComponent } from "@shared/components/icon/icon.component";
   </section>
   `
 })
-export class LandingHeroComponent {
-
+export default class LandingHeroComponent {
+  protected readonly name = environment.name
 }
