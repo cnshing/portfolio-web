@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ZardButtonComponent } from '@shared/components/button/button.component';
 import { ZardBadgeComponent } from '@shared/components/badge/badge.component';
 import { ZardAvatarComponent } from '@shared/components/avatar/avatar.component';
+import { ZardAvatarGroupComponent } from '@shared/components/avatar/avatar-group.component';
 import { ZardIconComponent } from '@shared/components/icon/icon.component';
 import { RAW_ZARD_ICONS } from '@shared/components/icon/icons';
 import { ZardCardComponent } from '@shared/components/card/card.component';
@@ -30,6 +31,7 @@ import { ZardTooltipModule } from '@shared/components/tooltip/tooltip';
     ZardButtonComponent,
     ZardBadgeComponent,
     ZardAvatarComponent,
+    ZardAvatarGroupComponent,
     ZardIconComponent,
     ZardCardComponent,
     ZardDividerComponent,
