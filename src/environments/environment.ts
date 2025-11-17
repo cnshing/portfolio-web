@@ -1,7 +1,8 @@
 export const environment = {
-  name: "FirstName LastName",
+  name: "firstName lastName",
   location: "City, State",
-  githubUsername: "github",
-  linkedinUsername: "linkedin",
-  phoneNumber: "+1 415 555 2671"
-};
+  email: "my@email.com",
+  githubUsername: "githubName",
+  linkedinUsername: "linkedinHandle",
+  phoneNumber: "+14155552671"
+} as const;
