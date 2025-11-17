@@ -15,6 +15,7 @@ export const avatarVariants = cva('relative flex flex-row items-center justify-c
       md: 'w-xl h-xl text-lg',
       lg: 'w-2xl h-2xl text-2xl',
       full: 'w-full h-full',
+      none: 'text-[10cqw]'
     },
     zShape: {
       default: 'rounded-sm',
@@ -27,9 +28,6 @@ export const avatarVariants = cva('relative flex flex-row items-center justify-c
       doNotDisturb: 'doNotDisturb',
       away: 'away',
       invisible: 'invisible',
-    },
-    zBorder: {
-      true: 'border-width-lg border-color-strong',
     },
     zLoading: {
       true: 'opacity-100',
@@ -55,11 +53,18 @@ export const imageVariants = cva('relative object-cover object-center w-full h-f
   },
 });
 
-export type ZardAvatarImage = {
-  zImage: {
-    fallback: string;
-    url?: string;
-    alt?: string;
-  };
-};
-export type ZardAvatarVariants = VariantProps<typeof avatarVariants> & ZardAvatarImage;
+export const avatarGroupVariants = cva('flex items-center [&_img]:ring-2 [&_img]:ring-background', {
+  variants: {
+    zOrientation: {
+      horizontal: 'flex-row -space-x-3',
+      vertical: 'flex-col -space-y-3',
+    },
+  },
+  defaultVariants: {
+    zOrientation: 'horizontal',
+  },
+});
+
+export type ZardImageVariants = VariantProps<typeof imageVariants>;
+export type ZardAvatarVariants = VariantProps<typeof avatarVariants>
+export type ZardAvatarGroupVariants = VariantProps<typeof avatarGroupVariants>;
