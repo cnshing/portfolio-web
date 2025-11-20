@@ -1,5 +1,7 @@
 @use './convert.sass'
 @use 'sass:math'
+
+$line-length: convert.pxToRem(264)*2.75 // Based off of --spacing-3xl
 @theme
   /**
     3xs and 2xs variants not part of design system. Each decrement halves the spacing.
@@ -13,3 +15,5 @@
   --spacing-xl: #{convert.pxToRem(62)}
   --spacing-2xl: #{convert.pxToRem(132)}
   --spacing-3xl: #{convert.pxToRem(264)}
+  --spacing-line-length: #{$line-length}
+  --spacing-max-width: #{$line-length*2.5}
