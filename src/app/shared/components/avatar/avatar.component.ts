@@ -13,7 +13,7 @@ export type ZardAvatarStatus = 'online' | 'offline' | 'doNotDisturb' | 'away' | 
   encapsulation: ViewEncapsulation.None,
   template: `
     @if (zFallback() && (!zSrc() || !imageLoaded())) {
-      <span class="text-[length:inherit]absolute m-auto z-0">{{ zFallback() }}</span>
+      <span class="text-[length:inherit] absolute m-auto z-0">{{ zFallback() }}</span>
     }
 
     @if (zSrc() && !imageError()) {
