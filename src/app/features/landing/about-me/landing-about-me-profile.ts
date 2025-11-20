@@ -1,0 +1,64 @@
+import { Component, WritableSignal, signal } from '@angular/core';
+import { ZardButtonComponent } from '@shared/components/button/button.component';
+import { ZardIconComponent } from '@shared/components/icon/icon.component';
+import { LandingAboutMeAvatarComponent, Postures, postures } from './me-avatar';
+import { environment } from '@environments/environment';
+
+@Component({
+  selector: 'landing-about-me-profile',
+  standalone: true,
+  imports: [ZardButtonComponent, ZardIconComponent, LandingAboutMeAvatarComponent],
+  template: `
+    <div class="flex flex-col gap-xl">
+      <me-avatar (click)="this.onRandomAvatar($event)" [posture]="this.posture()"></me-avatar>
+      <div class="flex flex-wrap justify-evenly gap-lg">
+        <a href="tel:{{ phone }}">
+          <button z-button zType="outline" class="w-min">
+            <i z-icon zSize="lg" zType="phone"></i>
+            {{ phone }}
+          </button>
+        </a>
+
+        <a href="https://www.openstreetmap.org/search?query={{ location }}">
+          <button z-button zType="outline" class="w-min">
+            <i z-icon zSize="lg" zType="location"></i>
+            {{ location }}
+          </button>
+        </a>
+        <a href="mailto:{{ email }}">
+          <button z-button zType="outline" class="w-min">
+            <i z-icon zSize="lg" zType="email"></i>
+            {{ email }}
+          </button>
+        </a>
+        <a href="https://github.com/{{ github }}">
+          <button z-button zType="outline" class="w-min">
+            <i z-icon zSize="lg" zType="githubICO"></i>
+            github.com/{{ github }}
+          </button>
+        </a>
+        <a href="https://linkedin.com/in/{{ linkedin }}">
+          <button z-button zType="outline" class="w-min">
+            <i z-icon zSize="lg" zType="linkedinICO"></i>
+            {{ linkedin }}
+          </button>
+        </a>
+      </div>
+    </div>
+  `,
+})
+export default class LandingAboutMeProfileComponent {
+  protected readonly location = environment.location;
+  protected readonly email = environment.email;
+  protected readonly github = environment.githubUsername;
+  protected readonly linkedin = environment.linkedinUsername;
+  protected readonly phone = environment.phoneNumber;
+  protected readonly posture: WritableSignal<Postures> = signal('thinking');
+
+  readonly onRandomAvatar = (event: Event) => {
+    event.preventDefault();
+    const avatars = postures.filter((p) => p !== this.posture());
+    const randomAvatar = avatars[Math.floor(Math.random() * avatars.length)];
+    this.posture.set(randomAvatar!);
+  };
+}
