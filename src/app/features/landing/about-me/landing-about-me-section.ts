@@ -7,7 +7,7 @@ import LandingAboutMeProfileComponent from '@features/landing/about-me/landing-a
   standalone: true,
   imports: [LandingAboutMeProfileComponent],
   template: `
-    <section class="grid">
+    <section class="grid auto-grid-line-length">
       <div class="">
         <h2>
           Hi, my name is
@@ -37,13 +37,7 @@ import LandingAboutMeProfileComponent from '@features/landing/about-me/landing-a
 
       <landing-about-me-profile class="mx-auto" />
     </section>
-  `,
-  styles: `
-  .grid
-    grid-template-columns: repeat(auto-fit, minmax(min(var(--spacing-line-length), 100%), 1fr));
-    align-content: center
-    justify-content: center
-  `,
+  `
 })
 export default class LandingAboutMeComponent {
   protected readonly name = environment.name;
