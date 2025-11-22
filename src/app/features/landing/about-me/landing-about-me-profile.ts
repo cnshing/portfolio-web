@@ -11,7 +11,7 @@ import { environment } from '@environments/environment';
   template: `
     <div class="flex flex-col gap-xl">
       <me-avatar (click)="this.onRandomAvatar($event)" [posture]="this.posture()"></me-avatar>
-      <div class="flex flex-wrap justify-evenly gap-lg">
+      <div class="flex flex-wrap justify-center-safe gap-lg">
         <a href="tel:{{ phone }}">
           <button z-button zType="outline" class="w-min">
             <i z-icon zSize="lg" zType="phone"></i>
