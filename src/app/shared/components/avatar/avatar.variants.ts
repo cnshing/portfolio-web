@@ -40,7 +40,7 @@ export const avatarVariants = cva('relative flex flex-row items-center justify-c
   },
 });
 
-export const imageVariants = cva('relative object-cover object-center w-full h-full z-10', {
+export const imageVariants = cva('relative object-contain aspect-square w-full h-full z-10', {
   variants: {
     zShape: {
       default: 'rounded-sm',
