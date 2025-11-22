@@ -12,13 +12,14 @@ export type Postures = (typeof postures)[number];
     <z-avatar
       class="rounded-full min-w-3xl w-[25%] aspect-square m-auto"
       zSize="none"
+      zShape="circle"
       [zSrc]="this.zSrc()"
       zFallback="SC"
       zType="secondary"
     />
   `,
   styles: `
-  ::ng-deep img // Pixel adjustment to correct asset offset
+  :host ::ng-deep img // Pixel adjustment to correct asset offset
     padding-left: var(--spacing-2xs)
   `,
 })
