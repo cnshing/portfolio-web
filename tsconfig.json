@@ -18,6 +18,7 @@
     "skipLibCheck": true,
     "isolatedModules": true,
     "experimentalDecorators": true,
+    "allowArbitraryExtensions": true,
     "importHelpers": true,
     "target": "esnext",
     "module": "preserve",
@@ -31,6 +32,9 @@
       ],
       "@environments/*": [
         "src/environments/*"
+      ],
+      "@content/*": [
+        "content/*"
       ]
     }
   },
