@@ -2,16 +2,18 @@ import { Component } from "@angular/core";
 import LandingHeroComponent from "@features/landing/landing-hero-section";
 import LandingTransitionComponent from "@features/landing/transition/landing-transition-section";
 import LandingAboutMeComponent  from "@features/landing/about-me/landing-about-me-section";
+import LandingCareerComponent from "@features/landing/career/landing-career-section";
 
 @Component({
   selector: 'landing-page',
   standalone: true,
-  imports: [LandingHeroComponent, LandingTransitionComponent, LandingAboutMeComponent],
+  imports: [LandingHeroComponent, LandingTransitionComponent, LandingAboutMeComponent, LandingCareerComponent],
   template: `
   <landing-hero />
   <landing-transition class=""/>
   <landing-about-me/>
   <landing-transition class="scale-y-[-1] scale-x-[-1]"/>
+  <landing-career-timeline />
   `,
   host: {
     'class': 'flex flex-col w-full bg-color-page page',
