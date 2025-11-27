@@ -6,6 +6,7 @@ import { ZardBadgeComponent } from '@shared/components/badge/badge.component';
 import { ZardIconComponent } from '@shared/components/icon/icon.component';
 import { ZardBlockQuoteComponent } from '@shared/components/blockquote/blockquote.component';
 import { MMMYYYY } from '@features/landing/career/experience/landing-career-experience.types';
+import { MarkdownComponent, provideMarkdown } from 'ngx-markdown';
 
 /**
  * A career experience card containing information about a position.
@@ -17,6 +18,7 @@ import { MMMYYYY } from '@features/landing/career/experience/landing-career-expe
 @Component({
   selector: 'landing-career-position',
   standalone: true,
+  providers: [ provideMarkdown() ],
   imports: [
     ZardCardComponent,
     ZardDateComponent,
@@ -24,6 +26,7 @@ import { MMMYYYY } from '@features/landing/career/experience/landing-career-expe
     ZardBadgeComponent,
     ZardIconComponent,
     ZardBlockQuoteComponent,
+    MarkdownComponent,
   ],
   template: `
     <z-card
@@ -50,9 +53,11 @@ import { MMMYYYY } from '@features/landing/career/experience/landing-career-expe
           <z-date [value]="this.toDate()" zFormat="MMM yyyy"></z-date>
         </div>
       </ng-template>
-      <div class="flex flex-col gap-md">
+      <div class="flex flex-col gap-lg">
         <p class="m-b-auto text-color-tertiary">{{ summary() }}</p>
-        <blockquote z-blockquote class="text-lg" [innerHTML]="this.highlights()"></blockquote>
+        <blockquote z-blockquote class="text-lg text-color-secondary">
+          <div markdown class="max-w-line-length"[data]="this.highlights()"></div>
+        </blockquote>
         <div class="flex flex-wrap justify-start gap-md m-t-auto">
           @for (skill of skills(); track $index) {
           <z-badge zShape="square" zType="secondary">{{ skill }}</z-badge>
