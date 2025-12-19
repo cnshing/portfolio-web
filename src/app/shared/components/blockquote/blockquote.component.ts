@@ -1,8 +1,12 @@
 import type { ClassValue } from 'clsx';
-
-import { ChangeDetectionStrategy, Component, computed, input, ViewEncapsulation } from '@angular/core';
-
-import { mergeClasses} from '@shared/utils/merge-classes';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  input,
+  ViewEncapsulation,
+} from '@angular/core';
+import { mergeClasses } from '@shared/utils/merge-classes';
 import { blockquoteVariants, barVariants, ZardBlockQuoteBarVariants } from './blockquote.variants';
 
 @Component({
@@ -18,7 +22,7 @@ import { blockquoteVariants, barVariants, ZardBlockQuoteBarVariants } from './bl
   `,
   host: {
     '[class]': 'classes()',
-  }
+  },
 })
 export class ZardBlockQuoteComponent {
   readonly zType = input<ZardBlockQuoteBarVariants['zType']>('default');
@@ -26,17 +30,12 @@ export class ZardBlockQuoteComponent {
 
   readonly class = input<ClassValue>('');
 
-  protected readonly classes = computed(() =>
-    mergeClasses(
-      blockquoteVariants(),
-      this.class(),
-    ),
-  );
+  protected readonly classes = computed(() => mergeClasses(blockquoteVariants(), this.class()));
 
   protected readonly barClasses = computed(() =>
     barVariants({
       zType: this.zType(),
-      zShape: this.zShape()
-    }),
+      zShape: this.zShape(),
+    })
   );
 }
