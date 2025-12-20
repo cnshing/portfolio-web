@@ -1,4 +1,4 @@
-import { Component, computed, Signal } from '@angular/core';
+import { Component, computed, inject, Signal } from '@angular/core';
 
 import { environment } from '@environments/environment';
 
@@ -6,6 +6,8 @@ import {
   LandingSkillCardComponent,
   LandingSkillCardInput,
 } from '@features/landing/skills/landing-skills-card';
+
+import { SSGMarkdownParser } from '@features/ssg/services/ssg-markdown-parser.service';
 /**
  * Section containing user's career experience.
  *
@@ -28,7 +30,7 @@ import {
         @for (skill of skills(); track skill.name) {
         <landing-skill-card
           [name]="skill.name"
-          [skillImg]="skill.skillImg"
+          [logoImg]="skill.logoImg"
           [description]="skill.description"
         />
         }
@@ -37,7 +39,28 @@ import {
   `,
 })
 export default class LandingSkillsComponent {
-  protected readonly skills: Signal<LandingSkillCardInput[]> = computed(
-    () => environment.landingSkillsContent
+
+  /**
+   * Helper service required to load career experience content
+   *
+   * @protected
+   * @readonly
+   * @type {*}
+   */
+    protected readonly markdownParser = inject(SSGMarkdownParser);
+
+  /**
+   * Parsed content containing the necessary inputs to render `LandingSkillCardInput` components.
+   *
+   * @protected
+   * @readonly
+   * @type {Signal<LandingSkillCardInput[]>}
+   */
+  protected readonly skills: Signal<LandingSkillCardInput[]> = computed(() =>
+    environment.landingSkillsContentMDs.map((md) =>
+      this.markdownParser.parseMarkdown<LandingSkillCardInput>(md, {
+        bodyKey: 'description',
+      })
+    )
   );
 }
