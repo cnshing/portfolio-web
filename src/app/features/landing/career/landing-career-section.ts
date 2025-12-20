@@ -4,9 +4,8 @@ import LandingCareerPositionComponent from '@features/landing/career/experience/
 
 import { environment } from '@environments/environment';
 
-import { LandingCareerExperienceInput } from '@features/landing/career/experience/landing-career-experience.types'
-import { LandingCareerMarkdown } from '@features/landing/career/services/landing-career-markdown.service';
-
+import { LandingCareerExperienceInput } from '@features/landing/career/experience/landing-career-experience.types';
+import { SSGMarkdownParser } from '@features/ssg/services/ssg-markdown-parser.service';
 /**
  * Section containing user's career experience.
  *
@@ -17,7 +16,7 @@ import { LandingCareerMarkdown } from '@features/landing/career/services/landing
 @Component({
   selector: 'landing-career-timeline',
   standalone: true,
-  providers: [LandingCareerMarkdown],
+  providers: [SSGMarkdownParser],
   imports: [LandingCareerPositionComponent],
   template: `
     <section>
@@ -47,7 +46,7 @@ export default class LandingCareerComponent {
    * @readonly
    * @type {*}
    */
-  protected readonly markdownParser = inject(LandingCareerMarkdown);
+  protected readonly markdownParser = inject(SSGMarkdownParser);
 
   /**
    * Parsed content containing the neccesary inputs to render `LandingCareerExperience` components.
@@ -57,6 +56,10 @@ export default class LandingCareerComponent {
    * @type {Signal<LandingCareerExperienceInput[]>}
    */
   protected readonly positions: Signal<LandingCareerExperienceInput[]> = computed(() =>
-    environment.landingCareerContentMDs.map((md) => this.markdownParser.parseMarkdown(md))
+    environment.landingCareerContentMDs.map((md) =>
+      this.markdownParser.parseMarkdown<LandingCareerExperienceInput>(md, {
+        bodyKey: 'highlights',
+      })
+    )
   );
 }
