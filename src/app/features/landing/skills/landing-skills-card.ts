@@ -2,7 +2,6 @@ import { Component, input } from '@angular/core';
 import { ZardCardComponent } from '@shared/components/card/card.component';
 import { ZardTooltipModule } from '@shared/components/tooltip/tooltip';
 
-
 /**
  * Component inputs for LandingSkillCardComponent.
  *
@@ -16,20 +15,20 @@ export interface LandingSkillCardInput {
    *
    * @type {string}
    */
-  skillImg: string
+  logoImg: string;
   /**
    * The skill name.
    *
    * @type {string}
    */
-  name: string,
+  name: string;
 
   /**
    * Optional short description of how this skill is used.
    *
    * @type {?string}
    */
-  description?: string,
+  description?: string;
 }
 
 /**
@@ -42,21 +41,19 @@ export interface LandingSkillCardInput {
 @Component({
   selector: 'landing-skill-card',
   standalone: true,
-  imports: [
-    ZardCardComponent,
-    ZardTooltipModule
-  ],
+  imports: [ZardCardComponent, ZardTooltipModule],
   template: `
     <ng-template #skillIcon>
-      <img class="m-auto" [src]="skillImg()"/>
+      <img class="m-auto" [src]="logoImg()" />
     </ng-template>
     <div>
       <z-card
-      class="aspect-square *:h-full"
-      [zAvatarOrIcon]="skillIcon"
-      [zTooltip]="description() || null"/>
-      <p class="text-center h-12 flex items-center justify-center"> {{ name() }}</p>
-  </div>
+        class="aspect-square *:h-full"
+        [zAvatarOrIcon]="skillIcon"
+        [zTooltip]="description() || null"
+      />
+      <p class="text-center m-xs flex items-center justify-center">{{ name() }}</p>
+    </div>
   `,
 })
 export class LandingSkillCardComponent {
@@ -64,9 +61,9 @@ export class LandingSkillCardComponent {
    * A asset retrievable string path of the skill's corresponding logo.
    *
    * @readonly
-   * @type {LandingSkillCardInput["skillImg"]}
+   * @type {LandingSkillCardInput["logoImg"]}
    */
-  readonly skillImg = input.required<LandingSkillCardInput["skillImg"]>()
+  readonly logoImg = input.required<LandingSkillCardInput['logoImg']>();
 
   /**
    * The skill name.
@@ -74,7 +71,7 @@ export class LandingSkillCardComponent {
    * @readonly
    * @type {LandingSkillCardInput["name"]}
    */
-  readonly name = input.required<LandingSkillCardInput["name"]>()
+  readonly name = input.required<LandingSkillCardInput['name']>();
 
   /**
    * Optional short description of how this skill is used.
@@ -82,7 +79,5 @@ export class LandingSkillCardComponent {
    * @readonly
    * @type {LandingSkillCardInput["description"]}
    */
-  readonly description = input<LandingSkillCardInput["description"]>("");
-
-
+  readonly description = input<LandingSkillCardInput['description']>('');
 }
