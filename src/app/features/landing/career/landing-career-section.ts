@@ -49,7 +49,7 @@ export default class LandingCareerComponent {
   protected readonly markdownParser = inject(SSGMarkdownParser);
 
   /**
-   * Parsed content containing the neccesary inputs to render `LandingCareerExperience` components.
+   * Parsed content containing the necessary inputs to render `LandingCareerExperience` components.
    *
    * @protected
    * @readonly
