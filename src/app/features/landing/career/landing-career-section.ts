@@ -4,8 +4,8 @@ import LandingCareerPositionComponent from '@features/landing/career/experience/
 
 import { environment } from '@environments/environment';
 
-import { LandingCareerExperienceInput } from './experience/landing-career-experience.types';
-import { LandingCareerMarkdown } from './services/landing-career-markdown.service';
+import { LandingCareerExperienceInput } from '@features/landing/career/experience/landing-career-experience.types'
+import { LandingCareerMarkdown } from '@features/landing/career/services/landing-career-markdown.service';
 
 /**
  * Section containing user's career experience.
