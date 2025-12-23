@@ -4,12 +4,13 @@ import LandingTransitionComponent from "@features/landing/transition/landing-tra
 import LandingAboutMeComponent  from "@features/landing/about-me/landing-about-me-section";
 import LandingCareerComponent from "@features/landing/career/landing-career-section";
 import LandingSkillsComponent from "@features/landing/skills/landing-skills-section";
+import LandingProjectsComponent from "@features/landing/projects/landing-projects-section";
 
 @Component({
   selector: 'landing-page',
   standalone: true,
   imports: [LandingHeroComponent, LandingTransitionComponent, LandingAboutMeComponent, LandingCareerComponent,
-  LandingSkillsComponent
+  LandingSkillsComponent, LandingProjectsComponent
   ],
   template: `
   <landing-hero />
@@ -18,6 +19,7 @@ import LandingSkillsComponent from "@features/landing/skills/landing-skills-sect
   <landing-transition class="scale-y-[-1] scale-x-[-1]"/>
   <landing-career-timeline />
   <landing-skills />
+  <landing-projects>
   `,
   host: {
     'class': 'flex flex-col w-full bg-color-page page',
