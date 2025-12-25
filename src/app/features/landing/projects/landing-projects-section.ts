@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { LandingSlugSchedulerComponent } from './slugscheduler/landing-slugscheduler-card';
+import { LandingPortfolioComponent } from './portfolio/landing-portfolio-card';
 
 /**
  * Section containing user's portfolio projects as a bento grid.
@@ -13,7 +14,7 @@ import { LandingSlugSchedulerComponent } from './slugscheduler/landing-slugsched
   selector: 'landing-projects',
   standalone: true,
   providers: [],
-  imports: [LandingSlugSchedulerComponent],
+  imports: [LandingSlugSchedulerComponent, LandingPortfolioComponent],
   template: `
     <section class="flex flex-col gap-2xl">
       <h1 class="text-center">
@@ -23,6 +24,7 @@ import { LandingSlugSchedulerComponent } from './slugscheduler/landing-slugsched
       </h1>
       <div class="flex">
         <landing-slugscheduler-card/>
+        <landing-portfolio-card />
       </div>
     </section>
   `,
