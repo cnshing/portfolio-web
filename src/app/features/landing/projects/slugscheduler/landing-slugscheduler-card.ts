@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
  * @typedef {LandingSlugSchedulerComponent}
  */
 @Component({
-  selector: 'landing-slugscheduler',
+  selector: 'landing-slugscheduler-card',
   standalone: true,
   providers: [],
   imports: [],
