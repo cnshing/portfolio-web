@@ -22,7 +22,7 @@ import { LandingSlugSchedulerComponent } from './slugscheduler/landing-slugsched
         Check out my <span class="text-color-accent">Portfolio Highlights</span>.
       </h1>
       <div class="flex">
-        <landing-slugscheduler />
+        <landing-slugscheduler-card/>
       </div>
     </section>
   `,
