@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 
-import { LandingSlugSchedulerComponent } from './slugscheduler/landing-slugscheduler-card';
-import { LandingPortfolioComponent } from './portfolio/landing-portfolio-card';
+import { LandingSlugSchedulerComponent } from '@features/landing/projects/slugscheduler/landing-slugscheduler-card';
+import { LandingPortfolioComponent } from '@features/landing/projects/portfolio/landing-portfolio-card';
+
 
 /**
  * Section containing user's portfolio projects as a bento grid.
