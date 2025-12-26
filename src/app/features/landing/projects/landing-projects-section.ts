@@ -22,7 +22,7 @@ import { LandingPortfolioComponent } from './portfolio/landing-portfolio-card';
         <br />
         Check out my <span class="text-color-accent">Portfolio Highlights</span>.
       </h1>
-      <div class="flex flex-wrap gap-lg *:hover:scale-105 *:ease-in-out *:duration-250">
+      <div class="flex flex-wrap gap-lg">
         <landing-slugscheduler-card/>
         <landing-portfolio-card />
       </div>
