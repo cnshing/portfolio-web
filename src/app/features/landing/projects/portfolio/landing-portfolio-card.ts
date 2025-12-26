@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LandingProjectsCardComponent } from "@features/landing/projects/landing-projects-card";
 
 /**
  * Portfolio Bento Card.
@@ -11,10 +12,10 @@ import { Component } from '@angular/core';
   selector: 'landing-portfolio-card',
   standalone: true,
   providers: [],
-  imports: [],
+  imports: [LandingProjectsCardComponent],
   template: `
-    <div
-      class="relative border border-color-strong rounded-lg overflow-hidden z-0"
+    <landing-projects-card
+      class="relative border border-color-strong overflow-hidden z-0"
       (mouseenter)="motorcyclist.play()"
     >
       <div
@@ -38,7 +39,7 @@ import { Component } from '@angular/core';
       >
         <source src="assets/videos/motorcyclist_no_watermark.mp4" type="video/mp4" />
       </video>
-    </div>
+    </landing-projects-card>
   `,
 })
 export class LandingPortfolioComponent {
