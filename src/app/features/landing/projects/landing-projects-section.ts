@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { LandingSlugSchedulerComponent } from '@features/landing/projects/slugscheduler/landing-slugscheduler-card';
 import { LandingPortfolioComponent } from '@features/landing/projects/portfolio/landing-portfolio-card';
+import { LandingCodeLANComponent } from "@features/landing/projects/codelan/landing-codelan-card";
 
 
 /**
@@ -15,7 +16,7 @@ import { LandingPortfolioComponent } from '@features/landing/projects/portfolio/
   selector: 'landing-projects',
   standalone: true,
   providers: [],
-  imports: [LandingSlugSchedulerComponent, LandingPortfolioComponent],
+  imports: [LandingSlugSchedulerComponent, LandingPortfolioComponent, LandingCodeLANComponent],
   template: `
     <section class="flex flex-col gap-2xl">
       <h1 class="text-center">
@@ -26,6 +27,7 @@ import { LandingPortfolioComponent } from '@features/landing/projects/portfolio/
       <div class="flex flex-wrap gap-lg">
         <landing-slugscheduler-card/>
         <landing-portfolio-card />
+        <landing-codelan-card />
       </div>
     </section>
   `,
