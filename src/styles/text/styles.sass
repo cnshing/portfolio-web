@@ -48,6 +48,10 @@ $heading-gradient: bg-gradient-to-r from-text-default to-text-secondary bg-clip-
   small
     @apply text-base font-tertiary text-color-tertiary
 
+  /** When surrounding contact information with <address></address>, don't override font style.*/
+  address
+    font-style: unset
+
 @utility text-hero-accent
   font-family: "Staatliches"
   letter-spacing: 0.1125em
