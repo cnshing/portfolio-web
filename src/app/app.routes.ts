@@ -9,4 +9,8 @@ export const routes: Routes = [
     path: '',
     loadComponent: () => import('@features/landing/landing-page').then(p => p.LandingPageComponent)
   },
+  {
+    path: 'privacy',
+    loadComponent: () => import('@features/legal/legal-privacy-policy').then(p => p.LegalPrivacyPolicyComponent),
+  }
 ];
