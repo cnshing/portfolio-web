@@ -32,6 +32,11 @@
               },
               {
                 "glob": "**/*",
+                "input": "content/resumes",
+                "output": "resumes"
+              },
+              {
+                "glob": "**/*",
                 "input": "node_modules/@fontsource-variable",
                 "output": "assets/fonts"
               },
@@ -109,6 +114,11 @@
                 "glob": "**/*",
                 "input": "src/assets",
                 "output": "assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "content/resumes",
+                "output": "resumes"
               },
               {
               "glob": "**/*",
