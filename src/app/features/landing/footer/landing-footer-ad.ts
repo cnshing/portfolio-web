@@ -15,23 +15,21 @@ import { environment } from '@environments/environment';
   providers: [],
   imports: [ZardIconComponent],
   template: `
-    <section class="flex flex-wrap justify-between gap-y-sm">
+    <section class="flex flex-wrap justify-between gap-y-sm gap-x-xl">
       <div>
-        <h4><span class="text-color-accent">Interested</span> in how this portfolio was built?</h4>
-        <p>
-          All the design files and source code are available
+        <h4 class="pb-2xs"><span class="text-color-accent">Interested</span> in how this portfolio was built?</h4>
+        <p>All the design files and source code are available
           <a href="{{ projectLink }}">
             <i
-              class="inline-block px-3xs text-color-accent"
+              class="inline-flex align-top text-color-accent"
               z-icon
-              zSize="default"
               zType="code"
-            ></i>
-            <u>here</u>.</a
+              zSize="lg"
+            ></i>&nbsp;<u>here</u>.</a
           >
         </p>
       </div>
-      <div class="flex flex-wrap gap-sm *:size-xl">
+      <div class="flex flex-wrap gap-sm *:size-xl items-center">
         <a href="https://linkedin.com/in/{{ linkedin }}">
           <img src="assets/icons/linkedin.svg"
         /></a>
