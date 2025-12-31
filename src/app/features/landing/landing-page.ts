@@ -31,7 +31,7 @@ import LandingProjectsComponent from "@features/landing/projects/landing-project
     padding: var(--spacing-2xl) var(--spacing-lg)
     margin-left: auto
     margin-right: auto
-    gap: var(--spacing-xl)
+    gap: var(--spacing-2xl)
     width: 100%
   `
 })
