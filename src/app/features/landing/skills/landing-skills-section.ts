@@ -24,7 +24,9 @@ import { SSGMarkdownParser } from '@features/ssg/services/ssg-markdown-parser.se
     <section class="flex flex-col gap-2xl">
       <div class="flex flex-wrap gap-x-2xl gap-y-xs justify-between items-center">
         <h1>Skills</h1>
-        <p>Here are all the tools I use for development.</p>
+        <p class="max-w-[calc(var(--spacing-line-length)/1.5)] text-pretty">
+        Here are the tools I use for development. They include website design, CI/CD pipelines, and hypervisor-based home lab environments.
+        </p>
       </div>
       <div class="grid grid-cols-[repeat(auto-fit,var(--spacing-2xl))] gap-lg justify-between">
         @for (skill of skills(); track skill.name) {
