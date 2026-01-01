@@ -5,14 +5,32 @@ import { Component } from "@angular/core";
  *
  * @export
  * @class LandingTransitionComponent
- * @typedef {LandingTransitionComponent}
+ * @typedef {LandingTransitionRacetrackComponent}
  */
 @Component({
-  selector: 'landing-transition',
+  selector: 'landing-transition-racetrack',
   standalone: true,
   imports: [],
-  templateUrl: './landing-transition-section.html',
+  templateUrl: './landing-transition-section-racetrack.svg',
   styleUrl: './landing-transition-section.sass',
 })
-export default class LandingTransitionComponent {
+export class LandingTransitionRacetrackComponent {
+}
+
+
+/**
+ * A small section with glowing neon 2D bottom "helmet".
+ *
+ * @export
+ * @class LandingTransitionComponent
+ * @typedef {LandingTransitionHelmetComponent}
+ */
+@Component({
+  selector: 'landing-transition-helmet',
+  standalone: true,
+  imports: [],
+  templateUrl: './landing-transition-section-helmet.svg',
+  styleUrl: './landing-transition-section.sass',
+})
+export class LandingTransitionHelmetComponent {
 }
