@@ -18,7 +18,7 @@ import { LandingProjectsCardComponent } from '@features/landing/projects/landing
       <img class="w-[calc(var(--spacing-2xl)*2.5)]" src="assets/icons/slugscheduler-logo.png" alt="SlugScheduler Logo"/>
       <p class="text-gray-700 text-center max-w-line-length">Natural Evolution-driven college plan generator</p>
       </div>
-      <img class="w-full -mb-[7.5%] brightness-[98.5%]" src="assets/graphics/class-schedule-cropped.png" alt="SlugScheduler Schedule Preview" />
+      <img class="w-full -mb-[12%] brightness-[98.5%]" src="assets/graphics/class-schedule-cropped.png" alt="SlugScheduler Schedule Preview" />
     <landing-projects-card/>
   `,
 })
