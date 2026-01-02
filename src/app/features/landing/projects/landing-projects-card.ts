@@ -29,7 +29,7 @@ export class LandingProjectsCardComponent {
    * @readonly
    * @type {string}
    */
-  protected readonly baseClass = 'hover:scale-105 ease-in-out duration-250 inline-block rounded-lg';
+  protected readonly baseClass = 'hover:scale-105 ease-in-out duration-250 inline-block rounded-lg h-full w-full';
 
   /**
    * Final computed merged class.

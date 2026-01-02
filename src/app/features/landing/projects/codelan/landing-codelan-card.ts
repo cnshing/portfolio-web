@@ -15,7 +15,7 @@ import { LandingProjectsCardComponent } from '@features/landing/projects/landing
   imports: [LandingProjectsCardComponent],
   template: `
     <landing-projects-card
-      class="relative border border-color-default z-0 aspect-square"
+      class="relative border border-color-default z-0"
     >
       <div class="flex flex-col h-full gap-md items-center justify-center p-xl text-center z-0">
         <img class="size-xl" src="assets/icons/vscode.svg" />

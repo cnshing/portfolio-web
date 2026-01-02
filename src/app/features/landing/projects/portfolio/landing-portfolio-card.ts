@@ -19,7 +19,7 @@ import { LandingProjectsCardComponent } from "@features/landing/projects/landing
       (mouseenter)="motorcyclist.play()"
     >
       <div
-        class="flex flex-col gap-lg text-center p-xl text-stroke-bg-page text-stroke-width-[0.001rem]"
+        class="flex flex-col gap-lg text-center p-xl text-stroke-bg-page h-full items-center justify-center text-stroke-width-[0.001rem]"
       >
         <h3>
           You are
@@ -35,7 +35,7 @@ import { LandingProjectsCardComponent } from "@features/landing/projects/landing
         #motorcyclist
         [muted]="'muted'"
         playsinline
-        class="absolute inset-0 -z-[1] rounded-[inherit] w-full h-full object-cover object-[center_-5%]"
+        class="absolute inset-0 -z-[1] rounded-[inherit] w-full h-full object-cover object-[center_25%]"
       >
         <source src="assets/videos/motorcyclist_no_watermark.mp4" type="video/mp4" />
       </video>
