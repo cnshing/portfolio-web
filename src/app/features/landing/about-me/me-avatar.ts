@@ -1,7 +1,18 @@
 import { Component, computed, input } from '@angular/core';
 import { ZardAvatarComponent } from '@shared/components/avatar/avatar.component';
 
-export const postures = ['presenting', 'rock-and-roll', 'thinking'] as const;
+export const postures = [
+  'concentrating',
+  'hands-up',
+  'laughing',
+  'presenting',
+  'thumbs-up',
+  'knocking',
+  'okay',
+  'pulling',
+  'thinking',
+  'waddling',
+] as const;
 export type Postures = (typeof postures)[number];
 
 @Component({
@@ -10,7 +21,7 @@ export type Postures = (typeof postures)[number];
   imports: [ZardAvatarComponent],
   template: `
     <z-avatar
-      class="rounded-full min-w-3xl w-[25%] aspect-square m-auto"
+      class="rounded-full min-w-3xl w-[25%] aspect-square m-auto *:-mb-[2.25%] overflow-hidden"
       zSize="none"
       zShape="circle"
       [zSrc]="this.zSrc()"
@@ -26,5 +37,5 @@ export type Postures = (typeof postures)[number];
 export class LandingAboutMeAvatarComponent {
   readonly posture = input.required<Postures>();
 
-  readonly zSrc = computed(() => `assets/avatars/me-${this.posture()}.png`);
+  readonly zSrc = computed(() => `assets/avatars/me-${this.posture()}.gif`);
 }
