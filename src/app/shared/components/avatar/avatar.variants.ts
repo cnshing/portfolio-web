@@ -21,6 +21,7 @@ export const avatarVariants = cva('relative flex flex-row items-center justify-c
       default: 'rounded-sm',
       circle: 'rounded-full',
       square: 'rounded-none',
+      none: ''
     },
     zStatus: {
       online: 'online',
@@ -46,6 +47,7 @@ export const imageVariants = cva('relative object-contain aspect-square w-full h
       default: 'rounded-sm',
       circle: 'rounded-full',
       square: 'rounded-none',
+      none: ''
     },
   },
   defaultVariants: {
