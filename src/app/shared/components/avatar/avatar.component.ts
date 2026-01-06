@@ -1,9 +1,42 @@
-import { ChangeDetectionStrategy, Component, computed, input, signal, ViewEncapsulation } from '@angular/core';
-
+import { ChangeDetectionStrategy, Component, computed, input, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import { avatarVariants, imageVariants, type ZardImageVariants, type ZardAvatarVariants } from './avatar.variants';
 import { mergeClasses } from '@shared/utils/merge-classes';
 
 export type ZardAvatarStatus = 'online' | 'offline' | 'doNotDisturb' | 'away' | 'invisible';
+
+@Component({
+  selector: 'z-avatar-container',
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  imports: [NgTemplateOutlet],
+  host: {
+    '[class]': 'containerClasses()',
+    '[attr.data-slot]': '"avatar"',
+    '[attr.data-status]': 'zStatus() ?? null',
+  },
+  template: `<ng-container [ngTemplateOutlet]="content()"></ng-container>`,
+})
+export class ZardAvatarContainerComponent {
+  readonly zType = input<ZardAvatarVariants['zType']>('default');
+  readonly zStatus = input<ZardAvatarStatus>();
+  readonly zShape = input<ZardImageVariants['zShape']>('circle');
+  readonly zSize = input<ZardAvatarVariants['zSize']>('default');
+  readonly class = input<string>('');
+  readonly content = input.required<TemplateRef<any>>()
+
+  protected readonly containerClasses = computed(() =>
+    mergeClasses(
+      avatarVariants({
+        zType: this.zType(),
+        zShape: this.zShape(),
+        zSize: this.zSize(),
+      }),
+      this.class()
+    )
+  );
+}
 
 @Component({
   selector: 'z-avatar, [z-avatar]',
@@ -11,7 +44,14 @@ export type ZardAvatarStatus = 'online' | 'offline' | 'doNotDisturb' | 'away' | 
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  imports: [ZardAvatarContainerComponent],
+  host: {
+    style: 'display: contents',
+    class: ''
+  },
   template: `
+    <z-avatar-container [zType]="zType()" [zStatus]="zStatus()" [zShape]="zShape()" [zSize]="zSize()" [content]="content" [class]="class()">
+    <ng-template #content>
     @if (zFallback() && (!zSrc() || !imageLoaded())) {
       <span class="text-[length:inherit] absolute m-auto z-0">{{ zFallback() }}</span>
     }
@@ -105,13 +145,9 @@ export type ZardAvatarStatus = 'online' | 'offline' | 'doNotDisturb' | 'away' | 
         }
       }
     }
-  `,
-  host: {
-    '[class]': 'containerClasses()',
-    '[attr.data-slot]': '"avatar"',
-    '[attr.data-status]': 'zStatus() ?? null',
-  },
-  imports: [],
+    </ng-template>
+  </z-avatar-container>
+  `
 })
 export class ZardAvatarComponent {
   readonly zType = input<ZardAvatarVariants['zType']>('default');
@@ -126,9 +162,6 @@ export class ZardAvatarComponent {
 
   protected readonly imageError = signal(false);
   protected readonly imageLoaded = signal(false);
-
-  protected readonly containerClasses = computed(() => mergeClasses(avatarVariants({ zType: this.zType(), zShape: this.zShape(), zSize: this.zSize() }), this.class())
-  );
 
   protected readonly imgClasses = computed(() => mergeClasses(imageVariants({ zShape: this.zShape() })));
 
