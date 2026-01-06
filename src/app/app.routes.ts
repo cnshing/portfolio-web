@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
-    path: 'test/playground',
+    path: 'playground',
     loadComponent: () => import('@features/playground/playground-page').then(p => p.PlaygroundPageComponent),
   },
   {
