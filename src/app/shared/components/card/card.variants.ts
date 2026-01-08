@@ -5,7 +5,7 @@ export const cardVariants = cva('rounded-md border border-color-default bg-color
 });
 export type ZardCardVariants = VariantProps<typeof cardVariants>;
 
-export const cardHeaderVariants = cva('flex flex-wrap gap-x-sm gap-y-lg items-center', {
+export const cardHeaderVariants = cva('flex flex-wrap gap-x-md gap-y-lg items-center', {
   variants: {},
 });
 export type ZardCardHeaderVariants = VariantProps<typeof cardHeaderVariants>;
