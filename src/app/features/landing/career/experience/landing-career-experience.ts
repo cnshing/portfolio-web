@@ -38,11 +38,11 @@ import { MarkdownComponent, provideMarkdown } from 'ngx-markdown';
     >
       <ng-template #companyIcon>
         <z-avatar
-          class="*:p-[25%] bg-white *:!rounded-none"
+          class="bg-white-0 rounded-sm p-sm *:[&_img]:p-[5%]"
           zFallback="CMP"
           [zSrc]="companyLogoImg()"
-          zShape="circle"
           zSize="md"
+          zShape="none"
         />
       </ng-template>
       <ng-template #positionTenure>
