@@ -53,7 +53,7 @@ export default class LandingAboutMeProfileComponent {
   protected readonly github = environment.githubUsername;
   protected readonly linkedin = environment.linkedinUsername;
   protected readonly phone = environment.phoneNumber;
-  protected readonly posture: WritableSignal<Postures> = signal('thinking');
+  protected readonly posture: WritableSignal<Postures> = signal('presenting');
 
   readonly onRandomAvatar = (event: Event) => {
     event.preventDefault();
