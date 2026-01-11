@@ -3,6 +3,7 @@
 @use "@fontsource-variable/geist/scss/mixins" as GeistSans;
 @use "@fontsource-variable/geist-mono/scss/mixins" as GeistMono;
 @use "@fontsource/staatliches/scss/mixins" as Staatliches;
+@use "@fontsource/nanum-pen-script/scss/mixins" as NanumPenScript
 
 @include fontsource.faces(
   $metadata: GeistSans.$metadata,
@@ -17,6 +18,11 @@
 @include fontsource.faces(
   $metadata: Staatliches.$metadata,
   $directory: "/assets/fonts/staatliches/files"
+)
+
+@include fontsource.faces(
+  $metadata: NanumPenScript.$metadata,
+  $directory: "/assets/fonts/nanum-pen-script/files"
 )
 
 @theme default

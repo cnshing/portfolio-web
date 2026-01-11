@@ -47,6 +47,9 @@ importers:
       '@fontsource-variable/geist-mono':
         specifier: ^5.2.7
         version: 5.2.7
+      '@fontsource/nanum-pen-script':
+        specifier: ^5.2.7
+        version: 5.2.7
       '@fontsource/staatliches':
         specifier: ^5.2.8
         version: 5.2.8
@@ -664,6 +667,9 @@ packages:
 
   '@fontsource-variable/geist@5.2.8':
     resolution: {integrity: sha512-cJ6m9e+8MQ5dCYJsLylfZrgBh6KkG4bOLckB35Tr9J/EqdkEM6QllH5PxqP1dhTvFup+HtMRPuz9xOjxXJggxw==}
+
+  '@fontsource/nanum-pen-script@5.2.7':
+    resolution: {integrity: sha512-gi/nJVtdjSP510Ekdo7NRZqkMtMPI1GmR1273e9tW3KczYenytKKG/F6veo9fWpPou0InqG9OUiAGG0LOYApQw==}
 
   '@fontsource/staatliches@5.2.8':
     resolution: {integrity: sha512-z52At6eCXmoQZKGSECzd6FqQSEmvWE5okTajgTaogjS2KP0fhgWCgd8KZzUQYi/phGE65u0M28AjhNdy1xbnbw==}
@@ -4410,6 +4416,8 @@ snapshots:
   '@fontsource-variable/geist-mono@5.2.7': {}
 
   '@fontsource-variable/geist@5.2.8': {}
+
+  '@fontsource/nanum-pen-script@5.2.7': {}
 
   '@fontsource/staatliches@5.2.8': {}
 
