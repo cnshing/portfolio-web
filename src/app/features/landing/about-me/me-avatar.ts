@@ -36,11 +36,7 @@ export type Postures = (typeof postures)[number];
         </video>
       </ng-template>
     </z-avatar-container>
-  `,
-  styles: `
-  :host ::ng-deep img // Pixel adjustment to correct asset offset
-    padding-left: var(--spacing-2xs)
-  `,
+  `
 })
 export class LandingAboutMeAvatarComponent {
   readonly posture = input.required<Postures>();
