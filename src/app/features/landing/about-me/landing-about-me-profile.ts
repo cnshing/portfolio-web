@@ -10,7 +10,10 @@ import { environment } from '@environments/environment';
   imports: [ZardButtonComponent, ZardIconComponent, LandingAboutMeAvatarComponent],
   template: `
     <div class="flex flex-col gap-xl">
-      <me-avatar (click)="this.onRandomAvatar($event)" [posture]="this.posture()"></me-avatar>
+      <div class="relative">
+        <p class="text-center py-sm md:absolute text-xl md:text-left md:top-1/2 md:-translate-y-1/2 md:left-[calc(62.5%+var(--spacing-xl))] font-[Nanum_Pen_Script]"><span class="hidden md:contents">↩&nbsp;&nbsp;</span>Click "me" for a surprise!</p>
+        <me-avatar (click)="this.onRandomAvatar($event)" [posture]="this.posture()"></me-avatar>
+      </div>
       <div class="flex flex-wrap justify-center-safe gap-lg">
         <a href="tel:{{ phone }}">
           <button z-button zType="outline" class="w-min">
