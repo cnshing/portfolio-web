@@ -15,7 +15,7 @@ import { LandingProjectsCardComponent } from '@features/landing/projects/landing
   imports: [LandingProjectsCardComponent],
   template: `
     <landing-projects-card
-      class="bg-[#F8BF11] p-md flex flex-col justify-center border border-color-[#202020]"
+      class="bg-[#FFCC33] p-md flex flex-col justify-center border border-color-[#202020]"
     >
       <h2
         class="inline-flex flex-wrap text-[#202020] justify-center gap-y-xs items-center text-right max-[31.875rem]:text-center"
