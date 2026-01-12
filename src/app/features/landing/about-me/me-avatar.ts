@@ -27,6 +27,7 @@ export type Postures = (typeof postures)[number];
       zFallback="SC"
       zType="secondary"
       [content]="video"
+      tabindex="0"
     >
       <ng-template #video>
         <video playsinline muted autoplay #avatarVideo>
