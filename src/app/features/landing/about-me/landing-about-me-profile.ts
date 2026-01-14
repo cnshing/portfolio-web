@@ -22,37 +22,56 @@ import { environment } from '@environments/environment';
           </button>
         </div>
       </div>
-      <div class="flex flex-wrap justify-center-safe gap-lg">
-        <a target="_blank" rel="noopener noreferrer" href="tel:{{ phone }}">
-          <button z-button zType="outline" class="w-min">
-            <i z-icon zSize="lg" zType="phone"></i>
-            {{ phone }}
-          </button>
+      <div class="flex flex-wrap justify-center-safe gap-lg *:w-min">
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="tel:{{ phone }}"
+          z-button
+          zType="outline"
+        >
+          <i z-icon zSize="lg" zType="phone"></i>
+          {{ phone }}
         </a>
-
-        <a target="_blank" rel="noopener noreferrer" href="https://www.openstreetmap.org/search?query={{ location }}">
-          <button z-button zType="outline" class="w-min">
-            <i z-icon zSize="lg" zType="location"></i>
-            {{ location }}
-          </button>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.openstreetmap.org/search?query={{ location }}"
+          z-button
+          zType="outline"
+        >
+          <i z-icon zSize="lg" zType="location"></i>
+          {{ location }}
         </a>
-        <a target="_blank" rel="noopener noreferrer" href="mailto:{{ email }}">
-          <button z-button zType="outline" class="w-min">
-            <i z-icon zSize="lg" zType="email"></i>
-            {{ email }}
-          </button>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="mailto:{{ email }}"
+          z-button
+          zType="outline"
+        >
+          <i z-icon zSize="lg" zType="email"></i>
+          {{ email }}
         </a>
-        <a target="_blank" rel="noopener noreferrer" href="https://github.com/{{ github }}">
-          <button z-button zType="outline" class="w-min">
-            <i z-icon zSize="lg" zType="githubICO"></i>
-            github.com/{{ github }}
-          </button>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://github.com/{{ github }}"
+          z-button
+          zType="outline"
+        >
+          <i z-icon zSize="lg" zType="githubICO"></i>
+          github.com/{{ github }}
         </a>
-        <a target="_blank" rel="noopener noreferrer" href="https://linkedin.com/in/{{ linkedin }}">
-          <button z-button zType="outline" class="w-min">
-            <i z-icon zSize="lg" zType="linkedinICO"></i>
-            {{ linkedin }}
-          </button>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://linkedin.com/in/{{ linkedin }}"
+          z-button
+          zType="outline"
+        >
+          <i z-icon zSize="lg" zType="linkedinICO"></i>
+          {{ linkedin }}
         </a>
       </div>
     </div>
