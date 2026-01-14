@@ -19,7 +19,7 @@ import { ZardIconComponent } from '@shared/components/icon/icon.component';
     <section>
       <div class="m-auto text-center py-3xl">
          <h1 class="mb-lg" >Any questions?  I’d be happy to answer any inquiries.</h1>
-         <a href="mailto:{{ email }}">
+         <a target="_blank" rel="noopener noreferrer" href="mailto:{{ email }}">
           <button z-button class="w-min">
             <i z-icon zSize="lg" zType="email"></i>
             {{ email }}

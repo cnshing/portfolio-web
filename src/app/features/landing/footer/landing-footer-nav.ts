@@ -20,20 +20,20 @@ import { environment } from '@environments/environment';
     <div class="flex flex-wrap justify-between gap-xl">
       <landing-nav-group title="Contact">
         <address>
-          <a href="tel:{{ phone }}">
+          <a target="_blank" rel="noopener noreferrer" href="tel:{{ phone }}">
             <li>Phone</li>
           </a>
 
-          <a href="mailto:{{ email }}">
+          <a target="_blank" rel="noopener noreferrer" href="mailto:{{ email }}">
             <li>Email</li>
           </a>
         </address>
       </landing-nav-group>
       <landing-nav-group title="About Me">
-        <a [href]="resumeDownload()" download><li>Resume Download</li></a>
+        <a target="_blank" rel="noopener noreferrer" [href]="resumeDownload()" download><li>Resume Download</li></a>
       </landing-nav-group>
       <landing-nav-group title="Legal Information">
-        <a href="/privacy"><li>Privacy Policy</li></a>
+        <a target="_blank" rel="noopener noreferrer" href="/privacy"><li>Privacy Policy</li></a>
       </landing-nav-group>
     </div>
   `,

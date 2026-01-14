@@ -19,7 +19,7 @@ import { environment } from '@environments/environment';
       <div>
         <h4 class="pb-2xs"><span class="text-color-accent">Interested</span> in how this portfolio was built?</h4>
         <p>All the design files and source code are available
-          <a href="{{ projectLink }}">
+          <a target="_blank" rel="noopener noreferrer" href="{{ projectLink }}">
             <i
               class="inline-flex align-top text-color-accent"
               z-icon
@@ -30,10 +30,10 @@ import { environment } from '@environments/environment';
         </p>
       </div>
       <div class="flex flex-wrap gap-sm *:size-xl items-center">
-        <a href="https://linkedin.com/in/{{ linkedin }}">
+        <a target="_blank" rel="noopener noreferrer" href="https://linkedin.com/in/{{ linkedin }}">
           <img src="assets/icons/linkedin.svg"
         /></a>
-        <a href="https://github.com/{{ github }}">
+        <a target="_blank" rel="noopener noreferrer" href="https://github.com/{{ github }}">
           <img src="assets/icons/github-mark-white.svg"
         /></a>
       </div>
