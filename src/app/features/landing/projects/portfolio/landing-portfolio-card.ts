@@ -19,6 +19,7 @@ import { LandingProjectsCardComponent } from '@features/landing/projects/landing
       class="relative border border-color-strong overflow-hidden z-0"
       href="https://github.com/cnshing/portfolio-web"
       (mouseenter)="motorcyclist.play()"
+      (focus)="motorcyclist.play()"
     >
       <div
         class="flex flex-col gap-lg text-center p-xl text-stroke-bg-page h-full items-center justify-center text-stroke-width-[0.001rem]"
