@@ -21,13 +21,12 @@ export type Postures = (typeof postures)[number];
   imports: [ZardAvatarContainerComponent],
   template: `
     <z-avatar-container
-      class="rounded-full min-w-3xl w-[25%] aspect-square m-auto *:-mb-[2.25%] overflow-hidden"
+      class="rounded-full min-w-3xl w-[25%] aspect-square *:-mb-[2.25%] overflow-hidden"
       zSize="none"
       zShape="circle"
       zFallback="SC"
       zType="secondary"
       [content]="video"
-      tabindex="0"
     >
       <ng-template #video>
         <video playsinline muted autoplay #avatarVideo>
