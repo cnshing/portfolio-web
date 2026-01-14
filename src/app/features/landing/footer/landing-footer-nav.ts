@@ -1,4 +1,4 @@
-import { Component, computed } from '@angular/core';
+import { Component } from '@angular/core';
 import { ZardDividerComponent } from '@shared/components/divider/divider.component';
 import { LandingNavGroupComponent } from '@features/landing/footer/landing-footer-nav-group';
 import { environment } from '@environments/environment';
@@ -30,7 +30,7 @@ import { environment } from '@environments/environment';
         </address>
       </landing-nav-group>
       <landing-nav-group title="About Me">
-        <a target="_blank" rel="noopener noreferrer" [href]="resumeDownload()" download><li>Resume Download</li></a>
+        <a target="_blank" rel="noopener noreferrer" [href]="'resumes/' + name.replace(' ', '_') + '_Resume.pdf'"><li>Resume Download</li></a>
       </landing-nav-group>
       <landing-nav-group title="Legal Information">
         <a target="_blank" rel="noopener noreferrer" href="/privacy"><li>Privacy Policy</li></a>
@@ -46,10 +46,8 @@ export class LandingFooterNavComponent {
    * @readonly
    * @type {*}
    */
-  protected readonly resumeDownload = computed(
-    () => `resumes/${environment.name.replace(' ', '_')}_Resume.pdf`
-  );
 
+  protected readonly name = environment.name
   protected readonly phone = environment.phoneNumber;
   protected readonly email = environment.email;
 }
