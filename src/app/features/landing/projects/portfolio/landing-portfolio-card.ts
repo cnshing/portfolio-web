@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LandingProjectsCardComponent } from "@features/landing/projects/landing-projects-card";
+import { LandingProjectsCardComponent } from '@features/landing/projects/landing-projects-card';
 
 /**
  * Portfolio Bento Card.
@@ -14,8 +14,10 @@ import { LandingProjectsCardComponent } from "@features/landing/projects/landing
   providers: [],
   imports: [LandingProjectsCardComponent],
   template: `
-    <landing-projects-card
+    <a
+      landing-projects-card
       class="relative border border-color-strong overflow-hidden z-0"
+      href="https://github.com/cnshing/portfolio-web"
       (mouseenter)="motorcyclist.play()"
     >
       <div
@@ -39,7 +41,7 @@ import { LandingProjectsCardComponent } from "@features/landing/projects/landing
       >
         <source src="assets/videos/motorcyclist_no_watermark.mp4" type="video/mp4" />
       </video>
-    </landing-projects-card>
+    </a>
   `,
 })
 export class LandingPortfolioComponent {

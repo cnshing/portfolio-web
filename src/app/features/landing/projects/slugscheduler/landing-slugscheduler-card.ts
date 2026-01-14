@@ -13,7 +13,11 @@ import { LandingProjectsCardComponent } from '@features/landing/projects/landing
   providers: [],
   imports: [LandingProjectsCardComponent],
   template: `
-    <landing-projects-card class="bg-white-0 overflow-hidden flex flex-col justify-between">
+    <a
+      landing-projects-card
+      class="bg-white-0 overflow-hidden flex flex-col justify-between"
+      href="https://github.com/yang0613/Ultimate-Course-Scheduler"
+    >
       <div
         class="flex flex-col items-center gap-lg pt-xl pb-[calc(var(--spacing-xl)-1.5rem)] px-xl "
       >
@@ -31,7 +35,7 @@ import { LandingProjectsCardComponent } from '@features/landing/projects/landing
         src="assets/graphics/class-schedule-cropped.png"
         alt="SlugScheduler Schedule Preview"
       />
-    </landing-projects-card>
+    </a>
   `,
 })
 export class LandingSlugSchedulerComponent {}
