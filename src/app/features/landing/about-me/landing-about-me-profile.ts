@@ -14,7 +14,7 @@ import { environment } from '@environments/environment';
         <p
           class="text-center py-sm md:absolute text-xl md:text-left md:top-1/2 md:-translate-y-1/2 md:left-[calc(62.5%+var(--spacing-xl))] font-[Nanum_Pen_Script]"
         >
-          <span class="hidden md:contents">↩&nbsp;&nbsp;</span>Give me a boop – see what happens!
+          <span class="hidden md:contents">↩&nbsp;&nbsp;</span>Give me a boop to see what happens!
         </p>
         <div class="flex justify-center">
           <button class="w-min rounded-full" (click)="this.onRandomAvatar($event)">
