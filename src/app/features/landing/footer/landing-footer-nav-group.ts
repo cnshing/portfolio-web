@@ -15,7 +15,7 @@ import { Component, input } from '@angular/core';
   template: `
     <section class="flex flex-col gap-xs">
       <h4>{{ title() }}</h4>
-      <ul class="flex flex-col gap-2xs text-secondary text-lg font-secondary">
+      <ul class="flex flex-col gap-2xs text-secondary text-lg font-secondary [&_li]:whitespace-nowrap">
         <ng-content />
       </ul>
     </section>
