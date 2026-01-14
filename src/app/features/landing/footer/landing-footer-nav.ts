@@ -30,7 +30,12 @@ import { environment } from '@environments/environment';
         </address>
       </landing-nav-group>
       <landing-nav-group title="About Me">
-        <a target="_blank" rel="noopener noreferrer" [href]="'resumes/' + name.replace(' ', '_') + '_Resume.pdf'"><li>Resume Download</li></a>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          [href]="'resumes/' + name.replace(' ', '_') + '_Resume.pdf'"
+          ><li>Resume Download</li></a
+        >
       </landing-nav-group>
       <landing-nav-group title="Legal Information">
         <a target="_blank" rel="noopener noreferrer" href="/privacy"><li>Privacy Policy</li></a>
@@ -47,7 +52,7 @@ export class LandingFooterNavComponent {
    * @type {*}
    */
 
-  protected readonly name = environment.name
+  protected readonly name = environment.name;
   protected readonly phone = environment.phoneNumber;
   protected readonly email = environment.email;
 }
