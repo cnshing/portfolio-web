@@ -10,17 +10,15 @@ import { ClassValue } from 'clsx';
  * @typedef {LandingProjectsCardComponent}
  */
 @Component({
-  selector: 'landing-projects-card',
+  selector: 'a[landing-projects-card]',
   standalone: true,
   providers: [],
   template: ` <ng-content /> `,
   host: {
-    '[attr.tabindex]': '0',
     '[class]': 'classes()',
   },
 })
 export class LandingProjectsCardComponent {
-
   readonly class = input<ClassValue>('');
 
   /**
@@ -30,7 +28,8 @@ export class LandingProjectsCardComponent {
    * @readonly
    * @type {string}
    */
-  protected readonly baseClass = 'hover:scale-105 focus:scale-105 ease-in-out duration-250 inline-block rounded-lg h-full w-full';
+  protected readonly baseClass =
+    'hover:scale-105 focus:scale-105 ease-in-out duration-250 inline-block rounded-lg h-full w-full';
 
   /**
    * Final computed merged class.

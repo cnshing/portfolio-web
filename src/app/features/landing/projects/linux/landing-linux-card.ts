@@ -14,15 +14,17 @@ import { LandingProjectsCardComponent } from '@features/landing/projects/landing
   providers: [],
   imports: [LandingProjectsCardComponent],
   template: `
-    <landing-projects-card
+    <a
+      landing-projects-card
       class="bg-[#FFCC33] p-md flex flex-col justify-center border border-color-[#202020]"
+      href="https://github.com/cnshing/debian-livecd"
     >
       <h2
         class="inline-flex flex-wrap text-[#202020] justify-center gap-y-xs items-center text-right max-[31.875rem]:text-center"
       >
         Custom<br class="md:hidden" />OS<img class="size-2xl" src="assets/icons/linux.svg" />
       </h2>
-    </landing-projects-card>
+    </a>
   `,
 })
 export class LandingLinuxComponent {}

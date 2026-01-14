@@ -14,8 +14,10 @@ import { LandingSnoobotComponent } from '@features/landing/projects/snoospoof/sn
   providers: [],
   imports: [LandingProjectsCardComponent, LandingSnoobotComponent],
   template: `
-    <landing-projects-card
+    <a
+      landing-projects-card
       class="bg-linear-to-b from-bg-surface2 from-0% to-bg-surface1 to-100% overflow-hidden flex flex-col justify-between"
+      href="https://snoospoof.app/"
     >
       <div class="flex flex-col gap-md pt-xl px-xl text-left text-xl">
         <h2 class="font-medium text-2xl">
@@ -28,10 +30,12 @@ import { LandingSnoobotComponent } from '@features/landing/projects/snoospoof/sn
           <span class="font-medium"> Next.js</span>, and <span class="font-medium">Python</span>.
         </h3>
       </div>
-      <div class="w-full h-full scale-[150%] max-[64rem]:pt-[13%] max-[64rem]:-mb-[12.5%] -mb-[25%] ml-[7.5%]">
+      <div
+        class="w-full h-full scale-[150%] max-[64rem]:pt-[13%] max-[64rem]:-mb-[12.5%] -mb-[25%] ml-[7.5%]"
+      >
         <landing-snoobot class="text-[#FF4400] -rotate-15 w-full h-full" [isGlowing]="true" />
       </div>
-    </landing-projects-card>
+    </a>
   `,
 })
 export class LandingSnoospoofComponent {}
