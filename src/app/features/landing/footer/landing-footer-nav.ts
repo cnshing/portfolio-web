@@ -17,18 +17,17 @@ import { environment } from '@environments/environment';
   imports: [ZardDividerComponent, LandingNavGroupComponent],
   template: `
     <z-divider zSpacing="xl" />
-    <div class="flex flex-wrap justify-between gap-xl">
-      <landing-nav-group title="Contact">
-        <address>
+    <div class="flex flex-wrap justify-between gap-xl [&_a]:inline-block [&_a]:w-min">
+      <address>
+        <landing-nav-group title="Contact">
           <a target="_blank" rel="noopener noreferrer" href="tel:{{ phone }}">
             <li>Phone</li>
           </a>
-
           <a target="_blank" rel="noopener noreferrer" href="mailto:{{ email }}">
             <li>Email</li>
           </a>
-        </address>
-      </landing-nav-group>
+        </landing-nav-group>
+      </address>
       <landing-nav-group title="About Me">
         <a
           target="_blank"
