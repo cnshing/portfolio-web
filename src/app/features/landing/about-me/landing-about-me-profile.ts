@@ -23,32 +23,32 @@ import { environment } from '@environments/environment';
         </div>
       </div>
       <div class="flex flex-wrap justify-center-safe gap-lg">
-        <a href="tel:{{ phone }}">
+        <a target="_blank" rel="noopener noreferrer" href="tel:{{ phone }}">
           <button z-button zType="outline" class="w-min">
             <i z-icon zSize="lg" zType="phone"></i>
             {{ phone }}
           </button>
         </a>
 
-        <a href="https://www.openstreetmap.org/search?query={{ location }}">
+        <a target="_blank" rel="noopener noreferrer" href="https://www.openstreetmap.org/search?query={{ location }}">
           <button z-button zType="outline" class="w-min">
             <i z-icon zSize="lg" zType="location"></i>
             {{ location }}
           </button>
         </a>
-        <a href="mailto:{{ email }}">
+        <a target="_blank" rel="noopener noreferrer" href="mailto:{{ email }}">
           <button z-button zType="outline" class="w-min">
             <i z-icon zSize="lg" zType="email"></i>
             {{ email }}
           </button>
         </a>
-        <a href="https://github.com/{{ github }}">
+        <a target="_blank" rel="noopener noreferrer" href="https://github.com/{{ github }}">
           <button z-button zType="outline" class="w-min">
             <i z-icon zSize="lg" zType="githubICO"></i>
             github.com/{{ github }}
           </button>
         </a>
-        <a href="https://linkedin.com/in/{{ linkedin }}">
+        <a target="_blank" rel="noopener noreferrer" href="https://linkedin.com/in/{{ linkedin }}">
           <button z-button zType="outline" class="w-min">
             <i z-icon zSize="lg" zType="linkedinICO"></i>
             {{ linkedin }}
