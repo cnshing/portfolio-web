@@ -37,6 +37,7 @@ import { LandingProjectsCardComponent } from '@features/landing/projects/landing
       <video
         #motorcyclist
         [muted]="'muted'"
+        [attr.autoplay]="isTouchDevice ? '' : null"
         playsinline
         class="absolute inset-0 -z-[1] rounded-[inherit] w-full h-full object-cover object-[center_25%]"
       >
@@ -55,4 +56,6 @@ export class LandingPortfolioComponent {
    */
   protected readonly highlightClasses =
     'rounded-sm px-2xs text-color-accent bg-color-page border border-color-strong';
+
+  protected readonly isTouchDevice = matchMedia('(hover: hover)').matches // https://stackoverflow.com/questions/52742466/detect-if-a-client-device-supports-hover-and-focus-states
 }
