@@ -27,7 +27,7 @@ import { LandingProjectsCardComponent } from '@features/landing/projects/landing
           via LAN
         </h3>
       </div>
-      <video
+      <video disableRemotePlayback
         autoplay
         muted="muted"
         loop

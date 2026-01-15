@@ -29,7 +29,7 @@ import { ZardIconComponent } from '@shared/components/icon/icon.component';
           View Resume
         </a>
       </div>
-      <video autoplay loop class="max-w-full">
+      <video disableRemotePlayback  autoplay loop class="max-w-full">
         <source src="assets/videos/motorcycle.mp4" type="video/mp4" />
       </video>
     </section>

@@ -34,7 +34,7 @@ import { LandingProjectsCardComponent } from '@features/landing/projects/landing
           <span class="text-color-accent">Angular</span>.
         </h4>
       </div>
-      <video
+      <video disableRemotePlayback
         #motorcyclist
         [muted]="'muted'"
         [attr.autoplay]="isTouchDevice ? '' : null"
