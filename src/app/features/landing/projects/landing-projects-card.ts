@@ -16,7 +16,7 @@ import { ClassValue } from 'clsx';
   template: ` <ng-content /> `,
   host: {
     '[class]': 'classes()',
-  },
+  }
 })
 export class LandingProjectsCardComponent {
   readonly class = input<ClassValue>('');
@@ -29,7 +29,7 @@ export class LandingProjectsCardComponent {
    * @type {string}
    */
   protected readonly baseClass =
-    'hover:scale-105 focus:scale-105 ease-in-out duration-250 inline-block rounded-lg h-full w-full';
+    'hover:scale-105 focus:scale-105 sm:hover:scale-102 sm:focus:scale-102 ease-in-out duration-250 inline-block rounded-lg h-full w-full';
 
   /**
    * Final computed merged class.
