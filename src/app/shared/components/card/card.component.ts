@@ -18,7 +18,7 @@ import { cardBodyVariants, cardHeaderVariants, cardVariants } from './card.varia
     <div [class]="headerClasses()">
       <ng-container [ngTemplateOutlet]="zAvatarOrIcon()"/>
       @if (zTitle()) {
-      <div class="mr-auto flex flex-col gap-2xs">
+      <div class="mr-auto flex flex-col gap-3xs">
         <div class="text-xl font-primary text-color-default tracking-tight">
           <ng-container *zStringTemplateOutlet="zTitle()">{{ zTitle() }}</ng-container>
         </div>
