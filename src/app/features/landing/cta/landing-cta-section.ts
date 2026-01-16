@@ -18,7 +18,7 @@ import { ZardIconComponent } from '@shared/components/icon/icon.component';
   template: `
     <section>
       <div class="m-auto text-center py-3xl">
-        <h1 class="mb-lg">Any questions? I’d be happy to answer any inquiries.</h1>
+        <h1 class="mb-xl">Any questions? I’d be happy to answer any inquiries.</h1>
         <a
           target="_blank"
           rel="noopener noreferrer"
