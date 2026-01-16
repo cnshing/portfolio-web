@@ -65,7 +65,7 @@ import { ZardDividerComponent } from '@shared/components/divider/divider.compone
         </blockquote>
       </div>
       <z-divider
-        class="opacity-20 mt-[calc(var(--spacing-lg)*0.75)] mb-[calc(var(--spacing-lg)*0.75)]"
+        class="opacity-25 mt-[calc(var(--spacing-lg)*0.75)] mb-[calc(var(--spacing-lg)*0.75)]"
         zSpacing="none"
       />
       <div class="flex flex-wrap justify-start gap-md m-t-auto">
