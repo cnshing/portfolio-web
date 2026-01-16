@@ -7,6 +7,7 @@ import { ZardIconComponent } from '@shared/components/icon/icon.component';
 import { ZardBlockQuoteComponent } from '@shared/components/blockquote/blockquote.component';
 import { MMMYYYY } from '@features/landing/career/experience/landing-career-experience.types';
 import { MarkdownComponent, provideMarkdown } from 'ngx-markdown';
+import { ZardDividerComponent } from '@shared/components/divider/divider.component';
 
 /**
  * A career experience card containing information about a position.
@@ -18,7 +19,7 @@ import { MarkdownComponent, provideMarkdown } from 'ngx-markdown';
 @Component({
   selector: 'landing-career-position',
   standalone: true,
-  providers: [ provideMarkdown() ],
+  providers: [provideMarkdown()],
   imports: [
     ZardCardComponent,
     ZardDateComponent,
@@ -27,6 +28,7 @@ import { MarkdownComponent, provideMarkdown } from 'ngx-markdown';
     ZardIconComponent,
     ZardBlockQuoteComponent,
     MarkdownComponent,
+    ZardDividerComponent,
   ],
   template: `
     <z-card
@@ -34,7 +36,6 @@ import { MarkdownComponent, provideMarkdown } from 'ngx-markdown';
       [zDescription]="this.position()"
       [zAvatarOrIcon]="companyIcon"
       [zLabel]="positionTenure"
-      class="gap-y-lg"
     >
       <ng-template #companyIcon>
         <z-avatar
@@ -46,23 +47,31 @@ import { MarkdownComponent, provideMarkdown } from 'ngx-markdown';
         />
       </ng-template>
       <ng-template #positionTenure>
-        <div class="flex text-color-tertiary gap-x-xs font-tertiary items-center">
-          <z-icon class="" [zType]="'calendar'" class="text-inherit" zSize="lg" />
+        <div class="flex text-color-tertiary gap-x-xs font-tertiary items-center text-center max-[31.25rem]:*:w-min">
+          <z-icon [zType]="'calendar'" class="text-inherit" zSize="lg" />
           <z-date [value]="this.fromDate()" zFormat="MMM yyyy" />
           <span class="text-lg">-</span>
           <z-date [value]="this.toDate()" zFormat="MMM yyyy"></z-date>
         </div>
       </ng-template>
-      <div class="flex flex-col gap-lg">
-        <p class="m-b-auto text-color-tertiary">{{ summary() }}</p>
-        <blockquote z-blockquote class="text-lg text-color-secondary">
-          <div markdown class="max-w-line-length"[data]="this.highlights()"></div>
+      <div class="flex flex-col gap-md">
+        <p class="m-b-auto text-color-default">{{ summary() }}</p>
+        <blockquote z-blockquote class="text-lg">
+          <div
+            markdown
+            class="max-w-line-length text-color-default"
+            [data]="this.highlights()"
+          ></div>
         </blockquote>
-        <div class="flex flex-wrap justify-start gap-md m-t-auto">
-          @for (skill of skills(); track $index) {
-          <z-badge zShape="square" zType="secondary">{{ skill }}</z-badge>
-          }
-        </div>
+      </div>
+      <z-divider
+        class="opacity-20 mt-[calc(var(--spacing-lg)*0.75)] mb-[calc(var(--spacing-lg)*0.75)]"
+        zSpacing="none"
+      />
+      <div class="flex flex-wrap justify-start gap-md m-t-auto">
+        @for (skill of skills(); track $index) {
+        <z-badge zShape="square" zType="secondary">{{ skill }}</z-badge>
+        }
       </div>
     </z-card>
   `,
@@ -116,7 +125,7 @@ export default class LandingCareerPositionComponent {
    * @readonly
    * @type {*}
    */
-  readonly to = input<MMMYYYY | "Present">("Present");
+  readonly to = input<MMMYYYY | 'Present'>('Present');
   /**
    * A asset retrievable string path of the company's corresponding logo.
    *
@@ -134,7 +143,6 @@ export default class LandingCareerPositionComponent {
    */
   protected readonly fromDate = computed(() => new Date(this.from()));
 
-
   /**
    * Helps compute `toDate()`.
    *
@@ -143,7 +151,7 @@ export default class LandingCareerPositionComponent {
    * @returns {Date} A Date object representing "Present" or `value`.
    */
   private parseToDate(value: string): Date {
-    return value === "Present" ? new Date() : new Date(value);
+    return value === 'Present' ? new Date() : new Date(value);
   }
 
   /**
@@ -153,5 +161,4 @@ export default class LandingCareerPositionComponent {
    * @type {*}
    */
   protected readonly toDate = computed(() => this.parseToDate(this.to()));
-
 }
