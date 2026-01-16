@@ -28,7 +28,7 @@ import { SSGMarkdownParser } from '@features/ssg/services/ssg-markdown-parser.se
         Here are the tools I use for development. They include website design, CI/CD pipelines, and hypervisor-based home lab environments.
         </p>
       </div>
-      <div class="grid grid-cols-[repeat(auto-fit,var(--spacing-2xl))] gap-lg justify-between">
+      <div class="grid grid-cols-[repeat(auto-fit,var(--spacing-2xl))] gap-lg justify-evenly">
         @for (skill of skills(); track skill.name) {
         <landing-skill-card
           [name]="skill.name"
