@@ -22,7 +22,7 @@ import { SSGMarkdownParser } from '@features/ssg/services/ssg-markdown-parser.se
   imports: [LandingSkillCardComponent],
   template: `
     <section class="flex flex-col gap-2xl">
-      <div class="flex flex-wrap gap-x-2xl gap-y-xs text-center justify-center sm:justify-between sm:text-left items-center">
+      <div class="flex flex-wrap gap-x-2xl gap-y-xs text-center justify-center min-[27rem]:justify-between min-[27rem]:text-left items-center">
         <h1>Skills</h1>
         <p class="max-w-[calc(var(--spacing-line-length)/1.5)] text-pretty">
         Here are the tools I use for development. They include website design, CI/CD pipelines, and hypervisor-based home lab environments.
