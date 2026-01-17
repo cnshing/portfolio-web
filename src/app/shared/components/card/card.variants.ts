@@ -1,6 +1,6 @@
 import { cva, VariantProps } from 'class-variance-authority';
 
-export const cardVariants = cva('rounded-md border border-color-default bg-color-surface1 text-color-primary shadow-sm min-w-fit w-full p-lg flex flex-col gap-y-lg', {
+export const cardVariants = cva('rounded-md border border-color-default bg-color-surface1 text-color-primary shadow-sm w-full p-lg flex flex-col gap-y-lg', {
   variants: {},
 });
 export type ZardCardVariants = VariantProps<typeof cardVariants>;
