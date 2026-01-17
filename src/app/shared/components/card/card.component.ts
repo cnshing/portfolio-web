@@ -23,7 +23,7 @@ import { cardBodyVariants, cardHeaderVariants, cardVariants } from './card.varia
           <ng-container *zStringTemplateOutlet="zTitle()">{{ zTitle() }}</ng-container>
         </div>
         @if (zDescription()) {
-        <div class="text-lg font-secondary text-color-secondary">
+        <div class="text-lg font-secondary text-color-tertiary">
           <ng-container *zStringTemplateOutlet="zDescription()">{{ zDescription() }}</ng-container>
         </div>
         }
