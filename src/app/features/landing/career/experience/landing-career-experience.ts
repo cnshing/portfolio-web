@@ -70,7 +70,7 @@ import { ZardDividerComponent } from '@shared/components/divider/divider.compone
       />
       <div class="flex flex-wrap justify-start gap-md m-t-auto">
         @for (skill of skills(); track $index) {
-        <z-badge zShape="square" zType="secondary">{{ skill }}</z-badge>
+        <z-badge zShape="square" zType="secondary" class="text-md">{{ skill }}</z-badge>
         }
       </div>
     </z-card>
