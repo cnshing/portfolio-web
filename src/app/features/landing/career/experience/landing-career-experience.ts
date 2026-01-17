@@ -47,7 +47,7 @@ import { ZardDividerComponent } from '@shared/components/divider/divider.compone
         />
       </ng-template>
       <ng-template #positionTenure>
-        <div class="flex text-color-tertiary gap-x-xs font-tertiary items-center text-center max-[31.25rem]:*:w-min">
+        <div class="flex flex-wrap text-color-tertiary gap-x-xs font-tertiary items-center text-center">
           <z-icon [zType]="'calendar'" class="text-inherit" zSize="lg" />
           <z-date [value]="this.fromDate()" zFormat="MMM yyyy" />
           <span class="text-lg">-</span>
