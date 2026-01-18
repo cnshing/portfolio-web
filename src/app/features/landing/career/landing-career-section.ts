@@ -20,7 +20,7 @@ import { SSGMarkdownParser } from '@features/ssg/services/ssg-markdown-parser.se
   imports: [LandingCareerPositionComponent],
   template: `
     <section class="flex flex-col">
-      <h1 class="text-center -translate-y-1/2">Career Timeline</h1>
+      <h1 class="text-center lg:-translate-y-1/2">Career Timeline</h1>
       <div class="grid auto-grid-[100%] gap-xl">
         @for (position of positions(); track position.company) {
         <landing-career-position
