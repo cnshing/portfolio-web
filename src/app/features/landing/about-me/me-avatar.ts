@@ -21,7 +21,7 @@ export type Postures = (typeof postures)[number];
   imports: [ZardAvatarContainerComponent],
   template: `
     <z-avatar-container
-      class="rounded-full min-w-3xl w-[25%] aspect-square *:-mb-[2.25%] overflow-hidden"
+      class="rounded-full aspect-square overflow-hidden"
       zSize="none"
       zShape="circle"
       zFallback="SC"

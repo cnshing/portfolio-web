@@ -12,12 +12,12 @@ import { environment } from '@environments/environment';
     <div class="flex flex-col gap-xl">
       <div class="relative">
         <p
-          class="text-center py-sm md:absolute text-xl md:text-left md:top-1/2 md:-translate-y-1/2 md:left-[calc(62.5%+var(--spacing-xl))] font-[Nanum_Pen_Script]"
+          class="text-center py-sm md:absolute text-xl md:text-left md:top-1/2 md:-translate-y-1/2 font-[Nanum_Pen_Script] md:left-(--avatar-label-offset)"
         >
           <span class="hidden md:contents">↩&nbsp;&nbsp;</span>Give me a boop to see what happens!
         </p>
         <div class="flex justify-center">
-          <button class="w-min rounded-full" (click)="this.onRandomAvatar($event)">
+          <button class="w-(--avatar-width) rounded-full" (click)="this.onRandomAvatar($event)">
             <me-avatar [posture]="this.posture()"></me-avatar>
           </button>
         </div>
@@ -75,6 +75,15 @@ import { environment } from '@environments/environment';
         </a>
       </div>
     </div>
+  `,
+  styles: `
+  :host
+    --avatar-width: min(
+  max(55%, calc(var(--spacing-2xl) + 6rem)),
+  calc(var(--spacing-3xl) * 2))
+
+    --avatar-label-offset: calc(50% + var(--avatar-width) / 2 + var(--spacing-md)) /* Location of avatar plus spacing offset */
+
   `,
 })
 export default class LandingAboutMeProfileComponent {
