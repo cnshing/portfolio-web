@@ -31,7 +31,7 @@ import { LandingSnoobotComponent } from '@features/landing/projects/snoospoof/sn
         </h3>
       </div>
       <div
-        class="w-full h-full scale-[150%] max-[64rem]:pt-[13%] max-[64rem]:-mb-[12.5%] -mb-[25%] ml-[7.5%]"
+        class="w-full h-full scale-[150%] ml-[7.5%] -mb-[48%] sm:-mb-[42.5%] md:-mb-[25%]"
       >
         <landing-snoobot class="text-[#FF4400] -rotate-15 w-full h-full" [isGlowing]="true" />
       </div>

@@ -61,7 +61,7 @@ import { LandingSnoospoofComponent } from '@features/landing/projects/snoospoof/
   @media (max-width: 64rem)
     .bento
       grid-template-columns: 1fr
-      grid-template-rows: repeat(3, 1fr) repeat(2, 0.425fr) repeat(2, 1fr) 0.5fr 0.5fr
+      grid-template-rows: repeat(3, 0.9fr) repeat(2, 0.425fr) repeat(2, 1fr) 0.5fr 0.5fr
       grid-template-areas: (
         "snoo"
         "snoo"
