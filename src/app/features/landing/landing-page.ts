@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ViewEncapsulation } from "@angular/core";
 import LandingHeroComponent from "@features/landing/landing-hero-section";
 import { LandingTransitionRacetrackComponent, LandingTransitionHelmetComponent } from "@features/landing/transition/landing-transition-section";
 import LandingAboutMeComponent  from "@features/landing/about-me/landing-about-me-section";
@@ -11,6 +11,7 @@ import LandingCTAComponent from "@features/landing/cta/landing-cta-section";
 @Component({
   selector: 'landing-page',
   standalone: true,
+  encapsulation: ViewEncapsulation.None, // NOTE: This is required for `body` selector
   imports: [LandingHeroComponent, LandingTransitionRacetrackComponent, LandingAboutMeComponent, LandingCareerComponent,
     LandingSkillsComponent, LandingProjectsComponent, LandingFooterComponent, LandingCTAComponent, LandingTransitionHelmetComponent],
   template: `
@@ -26,11 +27,13 @@ import LandingCTAComponent from "@features/landing/cta/landing-cta-section";
   <landing-footer/>
   `,
   host: {
-    'class': 'flex flex-col w-full bg-color-page page',
+    'class': 'flex flex-col w-full bg-color-page landing-page',
   },
   styles: `
+  body
+    background: var(--bg-color-page) // Ensures blank space left by overflowed elements consistent with landing page
 
-  ::ng-deep .page > :not(landing-transition-helmet, landing-transition-racetrack) > *
+  .landing-page > :not(landing-transition-helmet, landing-transition-racetrack) > *
     max-width: var(--spacing-max-width)
     padding: var(--spacing-2xl) var(--spacing-lg)
     margin-left: auto
