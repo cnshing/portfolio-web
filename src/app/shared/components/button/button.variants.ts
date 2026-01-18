@@ -10,7 +10,7 @@ export const buttonVariants = cva(
         outline: 'border-color-button border shadow-xs bg-color-page text-border-button hover:bg-color-surface1/default focus-visible:ring-border-button/60',
         secondary: 'bg-color-surface2 border-color-subtle border text-secondary-foreground shadow-xs hover:bg-color-surface2/strong',
         ghost: 'text-on-bg-secondary bg-none hover:bg-color-surface2 hover:text-color-secondary',
-        link: 'text-on-bg-default underline-offset-4 hover:underline',
+        link: 'text-on-bg-default underline-offset-4 hover:underline focus:underline',
       },
       zSize: {
         default: 'h-xl px-md py-md has-[>svg]:px-sm',
