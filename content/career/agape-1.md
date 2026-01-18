@@ -6,9 +6,9 @@ summary: Provided full-stack development and technical leadership in a startup e
 from: Apr 2024
 to: Jun 2025
 skills:
-  - Python
-  - Docker
   - Svelte
+  - Docker
+  - Python
 ---
 Kick-started agile practices, code reviews, and CI/CD pipelines from scratch
 <br/>
