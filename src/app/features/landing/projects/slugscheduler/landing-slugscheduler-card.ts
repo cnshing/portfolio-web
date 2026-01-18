@@ -15,7 +15,7 @@ import { LandingProjectsCardComponent } from '@features/landing/projects/landing
   template: `
     <a
       landing-projects-card
-      class="bg-white-0 overflow-hidden flex flex-col justify-between"
+      class="bg-white-0 overflow-hidden flex flex-col"
       href="https://github.com/yang0613/Ultimate-Course-Scheduler"
     >
       <div
@@ -30,11 +30,13 @@ import { LandingProjectsCardComponent } from '@features/landing/projects/landing
           Natural Evolution-driven college plan generator
         </p>
       </div>
-      <img
-        class="-mb-[12%] brightness-[98.5%]"
-        src="assets/graphics/class-schedule-cropped.png"
-        alt="SlugScheduler Schedule Preview"
-      />
+      <div class="flex-1">
+        <img
+          class="h-full w-full object-cover object-left-top translate-y-[8%] brightness-[98.5%]"
+          src="assets/graphics/class-schedule-cropped.png"
+          alt="SlugScheduler Schedule Preview"
+        />
+      </div>
     </a>
   `,
 })
