@@ -19,7 +19,7 @@ import { LandingSnoobotComponent } from '@features/landing/projects/snoospoof/sn
       class="bg-linear-to-b from-bg-surface2 from-0% to-bg-surface1 to-100% overflow-hidden flex flex-col justify-between"
       href="https://snoospoof.app/"
     >
-      <div class="flex flex-col gap-md pt-xl px-xl text-left text-xl">
+      <div class="flex flex-col gap-md pt-xl px-lg sm:px-xl text-left text-xl">
         <h2 class="font-medium text-2xl">
           Talk to and emulate any
           <br />

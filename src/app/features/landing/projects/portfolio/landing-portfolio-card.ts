@@ -22,7 +22,7 @@ import { LandingProjectsCardComponent } from '@features/landing/projects/landing
       (focus)="motorcyclist.play()"
     >
       <div
-        class="flex flex-col gap-lg text-center p-xl text-stroke-bg-page h-full items-center justify-center text-stroke-width-[0.001rem]"
+        class="flex flex-col gap-lg text-center p-lg sm:p-xl text-stroke-bg-page h-full items-center justify-center text-stroke-width-[0.001rem]"
       >
         <h3>
           You are
