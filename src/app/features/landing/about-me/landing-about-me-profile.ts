@@ -60,8 +60,7 @@ import { environment } from '@environments/environment';
           z-button
           zType="outline"
         >
-          <i z-icon zSize="lg" zType="githubICO"></i>
-          github.com/{{ github }}
+          <i z-icon zSize="lg" zType="githubICO"></i>{{ github }}
         </a>
         <a
           target="_blank"
