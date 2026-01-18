@@ -8,7 +8,7 @@ import LandingAboutMeProfileComponent from '@features/landing/about-me/landing-a
   imports: [LandingAboutMeProfileComponent],
   template: `
     <section class="grid auto-grid-line-length">
-      <div class="">
+      <div class="m-auto">
         <h2>
           Hi, my name is
           <br />
