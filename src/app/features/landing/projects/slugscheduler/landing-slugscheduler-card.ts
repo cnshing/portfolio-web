@@ -19,7 +19,7 @@ import { LandingProjectsCardComponent } from '@features/landing/projects/landing
       href="https://github.com/yang0613/Ultimate-Course-Scheduler"
     >
       <div
-        class="flex flex-col items-center gap-lg pt-xl pb-[calc(var(--spacing-xl)-1.5rem)] px-xl "
+        class="flex flex-col items-center gap-lg pt-xl pb-[calc(var(--spacing-xl)-1.5rem)] px-lg sm:px-xl "
       >
         <img
           class="w-[calc(var(--spacing-2xl)*2.5)]"
