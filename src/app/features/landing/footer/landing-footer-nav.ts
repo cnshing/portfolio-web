@@ -39,6 +39,11 @@ import { environment } from '@environments/environment';
       <landing-nav-group title="Legal Information">
         <a target="_blank" rel="noopener noreferrer" href="/privacy"><li>Privacy Policy</li></a>
       </landing-nav-group>
+      <landing-nav-group title="Miscellaneous">
+        <a target="_blank" rel="noopener noreferrer" href="/playground"
+          ><li>UI Components</li></a
+        >
+      </landing-nav-group>
     </div>
   `,
 })
