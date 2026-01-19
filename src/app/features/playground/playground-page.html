@@ -2,12 +2,8 @@
 <div class="min-h-screen bg-color-page">
   <main class="container mx-auto px-lg py-xl">
     <div class="flex flex-col gap-xl">
-
       <!-- Buttons Section -->
-      <playground-section
-        title="Buttons"
-        description="All button variants, sizes, and states"
-      >
+      <playground-section title="Buttons" description="All button variants, sizes, and states">
         <playground-card title="Button Types">
           <div class="flex flex-wrap gap-md">
             <button z-button>Default</button>
@@ -68,10 +64,7 @@
       <z-divider [zSpacing]="'none'" />
 
       <!-- Badges Section -->
-      <playground-section
-        title="Badges"
-        description="Badge variants and shapes"
-      >
+      <playground-section title="Badges" description="Badge variants and shapes">
         <playground-card title="Badge Types">
           <div class="flex flex-wrap gap-md">
             <z-badge>Default</z-badge>
@@ -92,11 +85,7 @@
       <z-divider [zSpacing]="'none'" />
 
       <!-- Avatars Section -->
-      <playground-section
-        title="Avatars"
-        description="Avatar variants, sizes, and states"
-      >
-
+      <playground-section title="Avatars" description="Avatar variants, sizes, and states">
         <playground-card title="Avatar Group">
           <z-avatar-group>
             <z-avatar zFallback="AB" zSize="sm" />
@@ -146,10 +135,7 @@
       <z-divider [zSpacing]="'none'" />
 
       <!-- Icons Section -->
-      <playground-section
-        title="Icons"
-        description="Icon sizes and colors"
-      >
+      <playground-section title="Icons" description="Icon sizes and colors">
         <playground-card title="Icon Sizes">
           <div class="flex flex-wrap items-center gap-md">
             <z-icon [zType]="'calendar'" zColor="secondary" [zSize]="'sm'" />
@@ -162,10 +148,10 @@
         <playground-card title="Available Icons">
           <div class="flex flex-wrap items-center gap-md text-color-default">
             @for (icon of ZARD_ICON_ZTYPES; track icon) {
-              <div class="flex flex-col items-center gap-xs">
-                <z-icon zColor="secondary" [zType]="icon" />
-                <span class="text-xs text-color-secondary">{{ icon }}</span>
-              </div>
+            <div class="flex flex-col items-center gap-xs">
+              <z-icon zColor="secondary" [zType]="icon" />
+              <span class="text-xs text-color-secondary">{{ icon }}</span>
+            </div>
             }
           </div>
         </playground-card>
@@ -174,16 +160,9 @@
       <z-divider [zSpacing]="'none'" />
 
       <!-- Cards Section -->
-      <playground-section
-        title="Cards"
-        description="Card component layouts"
-      >
+      <playground-section title="Cards" description="Card component layouts">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
-
-          <z-card
-            [zTitle]="'Simple Card'"
-            [zDescription]="'Basic card with content'"
-          >
+          <z-card [zTitle]="'Simple Card'" [zDescription]="'Basic card with content'">
             <p class="text-color-default">
               This is a simple card component with title and description properties.
             </p>
@@ -197,21 +176,14 @@
             <ng-template #avatarTemplate>
               <z-avatar zSize="md" zFallback="UI" [zShape]="'circle'" />
             </ng-template>
-            <p class="text-color-default">
-              Card with avatar template in header.
-            </p>
+            <p class="text-color-default">Card with avatar template in header.</p>
           </z-card>
 
-          <z-card
-            [zTitle]="'Card with Icon Template'"
-            [zAvatarOrIcon]="iconTemplate"
-          >
+          <z-card [zTitle]="'Card with Icon Template'" [zAvatarOrIcon]="iconTemplate">
             <ng-template #iconTemplate>
               <z-icon zColor="secondary" [zType]="'email'" [zSize]="'lg'" />
             </ng-template>
-            <p class="text-color-default">
-              Card with icon template in header.
-            </p>
+            <p class="text-color-default">Card with icon template in header.</p>
           </z-card>
 
           <z-card
@@ -222,15 +194,17 @@
             <ng-template #labelTemplate>
               <z-date class="text-color-tertiary" [value]="currentDate" [zFormat]="'MMM d, yyyy'" />
             </ng-template>
-            <p class="text-color-default mb-md">
-              Card with date label in header.
-            </p>
+            <p class="text-color-default mb-md">Card with date label in header.</p>
           </z-card>
 
-          <z-card [zTitle]="'Interactive Card'" zDescription="Cards can contain interactive elements and badges." class="gap-y-xs">
+          <z-card
+            [zTitle]="'Interactive Card'"
+            zDescription="Cards can contain interactive elements and badges."
+            class="gap-y-xs"
+          >
             <div class="flex flex-col justify-between h-full gap-y-md">
               <div class="flex gap-xs">
-                <z-badge >New</z-badge>
+                <z-badge>New</z-badge>
                 <z-badge [zType]="'secondary'">Featured</z-badge>
                 <z-badge [zType]="'outline'">Trending</z-badge>
               </div>
@@ -253,8 +227,10 @@
             </ng-template>
 
             <ng-template #fullLabelTemplate>
-              <div class="flex gap-x-3xs [&>*]:flex self-start [&>*]:items-center [&>*]:text-color-tertiary [&>*]:font-secondary">
-                <z-icon class="px-0.25" zType="calendar"/>
+              <div
+                class="flex gap-x-3xs [&>*]:flex self-start [&>*]:items-center [&>*]:text-color-tertiary [&>*]:font-secondary"
+              >
+                <z-icon class="px-0.25" zType="calendar" />
                 <z-date [value]="specificDate" zFormat="yyyy" />
                 <span class="text-lg">-</span>
                 <z-date [value]="currentDate" zFormat="yyyy"></z-date>
@@ -269,21 +245,14 @@
             </div>
           </z-card>
 
-          <z-card class="flex-none w-fit"
-            [zAvatarOrIcon]="iconTemplate"
-          >
-          </z-card>
-
+          <z-card class="flex-none w-fit" [zAvatarOrIcon]="iconTemplate"> </z-card>
         </div>
       </playground-section>
 
       <z-divider [zSpacing]="'none'" />
 
       <!-- Skeleton Section -->
-      <playground-section
-        title="Skeleton Loaders"
-        description="Loading state indicators"
-      >
+      <playground-section title="Skeleton Loaders" description="Loading state indicators">
         <z-card>
           <div class="space-y-md">
             <z-skeleton class="h-[2rem] w-3/4" />
@@ -294,13 +263,10 @@
         </z-card>
       </playground-section>
 
-
       <z-divider [zSpacing]="'none'" />
 
       <!-- Loading Spinner Section -->
-      <playground-section
-      title="Loaders"
-      description="Loading spinner components">
+      <playground-section title="Loaders" description="Loading spinner components">
         <z-card>
           <div class="flex flex-wrap items-center gap-xl">
             <div class="flex flex-col items-center gap-xs">
@@ -325,9 +291,10 @@
 
       <!-- Tooltip Section -->
       <playground-section
-      title="Tooltips"
-      description="Interactive hint messages shown on hover or click">
-        <playground-card title="Tooltip Triggers" >
+        title="Tooltips"
+        description="Interactive hint messages shown on hover or click"
+      >
+        <playground-card title="Tooltip Triggers">
           <div class="flex flex-wrap gap-md">
             <button z-button zTooltip="Tooltip Content">Hover Me</button>
             <button z-button zTooltip="Tooltip Content" zTrigger="click">Click Me</button>
@@ -335,14 +302,10 @@
         </playground-card>
       </playground-section>
 
-
       <z-divider [zSpacing]="'none'" />
 
       <!-- Typography Section -->
-      <playground-section
-        title="Typography"
-        description="Text styles and hierarchy"
-      >
+      <playground-section title="Typography" description="Text styles and hierarchy">
         <playground-card>
           <h1>Heading 1</h1>
           <h2>Heading 2</h2>
@@ -358,6 +321,64 @@
         </playground-card>
       </playground-section>
 
+      <z-divider [zSpacing]="'none'" />
+
+      <!-- Blockquotes Section -->
+      <playground-section title="Blockquotes" description="Blockquote variants and shapes">
+        <playground-card title="Blockquote Types">
+          <div class="flex flex-col gap-lg">
+            <blockquote z-blockquote class="max-w-[67.5ch]">
+              <h4>Default Blockquote</h4>
+              <p>
+                This is a default blockquote with subtle brand styling. It references or quotes
+                material from a known source, with visual indentation to separate itself from
+                regular text.
+              </p>
+            </blockquote>
+
+            <blockquote z-blockquote [zType]="'outline'" class="max-w-[67.5ch]">
+              <h4>Outline Blockquote</h4>
+              <p>This is an outline style blockquote using an strong accent scheme.</p>
+            </blockquote>
+
+            <blockquote z-blockquote [zType]="'secondary'" class="max-w-[67.5ch]">
+              <h4>Secondary Blockquote</h4>
+              <p>This is a secondary blockquote meant for 2nd level surfaces.</p>
+            </blockquote>
+
+            <blockquote z-blockquote [zType]="'ghost'" class="max-w-[67.5ch]">
+              <h4>Ghost Blockquote</h4>
+              <p>This is a ghost style blockquote with a revealable bar and gray accent.</p>
+            </blockquote>
+          </div>
+        </playground-card>
+
+        <playground-card title="Blockquote Shapes">
+          <div class="flex flex-col gap-lg">
+            <blockquote z-blockquote [zShape]="'circle'" class="max-w-[67.5ch]">
+              <h4>Circle Shape</h4>
+              <p>Blockquote with rounded corners on the accent bar.</p>
+            </blockquote>
+
+            <blockquote z-blockquote [zShape]="'square'" class="max-w-[67.5ch]">
+              <h4>Square Shape</h4>
+              <p>Blockquote with sharp square corners on the accent bar.</p>
+            </blockquote>
+          </div>
+        </playground-card>
+
+        <playground-card title="Blockquote with Rich Content">
+          <blockquote z-blockquote class="max-w-[67.5ch]">
+            <h3>Design Philosophy</h3>
+            <p class="mt-sm">
+              "Good design is as little design as possible. Less, but better – because it
+              concentrates on the essential aspects, and the products are not burdened with
+              non-essentials."
+            </p>
+            <footer class="mt-lg text-lg text-color-tertiary">— Dieter Rams</footer>
+          </blockquote>
+        </playground-card>
+      </playground-section>
     </div>
   </main>
 </div>

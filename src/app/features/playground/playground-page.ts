@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PlaygroundCardComponent } from './playground-card';
+import { PlaygroundCardComponent } from '@features/playground/playground-card';
 import { CommonModule } from '@angular/common';
 import { ZardButtonComponent } from '@shared/components/button/button.component';
 import { ZardBadgeComponent } from '@shared/components/badge/badge.component';
@@ -12,8 +12,9 @@ import { ZardSkeletonComponent } from '@shared/components/skeleton/skeleton.comp
 import { ZardDividerComponent } from '@shared/components/divider/divider.component';
 import { ZardLoaderComponent } from '@shared/components/loader/loader.component';
 import { ZardDateComponent } from '@shared/components/date/date.component';
-import { PlaygroundSectionComponent } from './playground-section';
+import { PlaygroundSectionComponent } from '@features/playground/playground-section';
 import { ZardTooltipModule } from '@shared/components/tooltip/tooltip';
+import { ZardBlockQuoteComponent } from '@shared/components/blockquote/blockquote.component';
 
 /**
  * Playground Page to visually display all primitive components.
@@ -30,6 +31,7 @@ import { ZardTooltipModule } from '@shared/components/tooltip/tooltip';
     PlaygroundCardComponent,
     ZardButtonComponent,
     ZardBadgeComponent,
+    ZardBlockQuoteComponent,
     ZardAvatarComponent,
     ZardAvatarGroupComponent,
     ZardIconComponent,
@@ -65,5 +67,7 @@ export class PlaygroundPageComponent {
    * @readonly
    * @type {{}}
    */
-  protected readonly ZARD_ICON_ZTYPES = Object.keys(RAW_ZARD_ICONS) as (keyof typeof RAW_ZARD_ICONS)[];
+  protected readonly ZARD_ICON_ZTYPES = Object.keys(
+    RAW_ZARD_ICONS
+  ) as (keyof typeof RAW_ZARD_ICONS)[];
 }
