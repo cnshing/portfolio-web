@@ -23,7 +23,7 @@ import { cva, VariantProps } from 'class-variance-authority';
  */
 
 export const blockquoteVariants = cva(
-  `relative px-[1.125em] py-[1.125em]`
+  `group relative px-[1.125em] py-[1.125em]`
 );
 
 export const barVariants = cva(
@@ -34,7 +34,7 @@ export const barVariants = cva(
         default: 'bg-brand-subtle',
         outline: 'bg-color-button',
         secondary: 'bg-color-surface2',
-        ghost: 'bg-gray-400'
+        ghost: 'group-focus:bg-gray-400 group-hover:bg-gray-400'
       },
       zShape: {
         none: '',
