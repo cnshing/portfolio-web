@@ -37,14 +37,14 @@ export const barVariants = cva(
         ghost: 'bg-gray-400'
       },
       zShape: {
-        default: 'rounded-xs',
+        none: '',
         circle: 'rounded-lg',
         square: 'rounded-none',
       },
     },
     defaultVariants: {
       zType: 'default',
-      zShape: 'default',
+      zShape: 'circle',
     },
   },
 );

@@ -26,7 +26,7 @@ import { blockquoteVariants, barVariants, ZardBlockQuoteBarVariants } from './bl
 })
 export class ZardBlockQuoteComponent {
   readonly zType = input<ZardBlockQuoteBarVariants['zType']>('default');
-  readonly zShape = input<ZardBlockQuoteBarVariants['zShape']>('default');
+  readonly zShape = input<ZardBlockQuoteBarVariants['zShape']>('circle');
 
   readonly class = input<ClassValue>('');
 
