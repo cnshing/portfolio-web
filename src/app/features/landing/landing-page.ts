@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from "@angular/core";
-import LandingHeroComponent from "@features/landing/landing-hero-section";
+import LandingHeroComponent from "@features/hero/landing-hero-section";
 import { LandingTransitionRacetrackComponent, LandingTransitionHelmetComponent } from "@features/landing/transition/landing-transition-section";
 import LandingAboutMeComponent  from "@features/landing/about-me/landing-about-me-section";
 import LandingCareerComponent from "@features/landing/career/landing-career-section";
