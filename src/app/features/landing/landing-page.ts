@@ -30,8 +30,9 @@ import LandingCTAComponent from "@features/landing/cta/landing-cta-section";
     'class': 'flex flex-col w-full bg-color-page landing-page',
   },
   styles: `
-  body
+  html, body
     background: var(--bg-color-page) // Ensures blank space left by overflowed elements consistent with landing page
+    overflow-x: hidden
 
   .landing-page > :not(landing-transition-helmet, landing-transition-racetrack) > *
     max-width: var(--spacing-max-width)
