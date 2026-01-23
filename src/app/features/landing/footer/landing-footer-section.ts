@@ -16,7 +16,7 @@ import { LandingFooterDisclaimerComponent } from "./landing-footer-disclaimer";
   providers: [],
   imports: [LandingFooterNavComponent, LandingFooterAdComponent, LandingFooterDisclaimerComponent],
   template: `
-    <section class="flex flex-col gap-2xl">
+    <section class="flex flex-col gap-2xl !pb-sm">
       <landing-footer-nav />
       <landing-footer-ad />
       <landing-footer-disclaimer />
