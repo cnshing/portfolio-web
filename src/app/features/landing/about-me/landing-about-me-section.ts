@@ -10,34 +10,44 @@ import LandingAboutMeProfileComponent from '@features/landing/about-me/landing-a
     <section class="grid auto-grid-line-length">
       <div class="m-auto">
         <h2>
-          Hi, my name is
-          <br />
-          <span class="text-color-accent">{{ name }}</span
-          >.<span class="text-color-accent"> 👋</span>
+          Hi — <span class="text-color-accent">{{ name }}</span> here!<span
+            class="text-color-accent"
+          >
+            👋</span
+          >
         </h2>
         <br />
         <br />
         <p>
-          I’m a developer that finds all aspects of software development fascinating. It’s why I
-          spent a disproportionate amount of time towards web design simply because I was horrendous
-          at it.
+          I’m a full stack engineer who’s out to get hands-on and grasp every aspect of product
+          development. It's why I spent a disproportionate amount of time towards web design,
+          precisely because I was initially horrendous at it.
         </p>
         <br />
         <br />
         <p>
-          My previous position had me contribute not only as a software engineer but also as a
-          <span class="text-color-accent">leader</span>. From technical decision-making to
-          <span class="text-color-accent">Agile processes</span>, I did what I thought would help
-          the team feel confident to do their best.
+          My previous role at a <span class="text-color-accent">robotics startup</span> centered
+          around development for security monitoring software, including middleware sensor
+          integration and <span class="text-color-accent">A.I.</span>-driven proof-of-concept threat
+          analysis.
         </p>
         <br />
         <br />
-        <p>You can read more about my career in the next section.</p>
+        <p>
+          This startup also gave me an opportunity to serve as a
+          <span class="text-color-accent">team lead</span>, where I led software architecture
+          decisions, jumpstarted many key <span class="text-color-accent">Agile processes</span>,
+          and actively mentored the team. I simply did what I would help the team feel confident to
+          do their best.
+        </p>
+        <br />
+        <br />
+        <p>You can read more about my experience in the next section.</p>
       </div>
 
       <landing-about-me-profile class="mx-auto" />
     </section>
-  `
+  `,
 })
 export default class LandingAboutMeComponent {
   protected readonly name = environment.name;
