@@ -15,7 +15,7 @@ import LandingCTAComponent from "@features/landing/cta/landing-cta-section";
   imports: [LandingHeroComponent, LandingTransitionRacetrackComponent, LandingAboutMeComponent, LandingCareerComponent,
     LandingSkillsComponent, LandingProjectsComponent, LandingFooterComponent, LandingCTAComponent, LandingTransitionHelmetComponent],
   template: `
-  <landing-hero class="min-h-[102.5vh]"/> <!-- Extra 2.5vh due to y-overflow from landing-transition-racetrack -->
+  <landing-hero class="h-[102.5vh] max-h-[calc(var(--spacing-3xl)*10)] min-h-fit"/> <!-- Extra 2.5vh due to y-overflow from landing-transition-racetrack -->
   <landing-transition-racetrack />
   <landing-about-me/>
   <landing-transition-racetrack class="scale-y-[-1] scale-x-[-1]"/>
@@ -34,7 +34,7 @@ import LandingCTAComponent from "@features/landing/cta/landing-cta-section";
     background: var(--bg-color-page) // Ensures blank space left by overflowed elements consistent with landing page
     overflow-x: hidden
 
-  .landing-page > :not(landing-transition-helmet, landing-transition-racetrack) > *
+  .landing-page > :not(landing-transition-helmet, landing-transition-racetrack) > :first-child // NOTE: This fixes any landing sections with multiple siblings
     max-width: var(--spacing-max-width)
     padding: var(--spacing-2xl) var(--spacing-lg)
     margin-left: auto
