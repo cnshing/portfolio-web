@@ -77,14 +77,13 @@ export class LandingHeroMotorcyclistComponent {
 
         const config = (): ScrollTrigger.StaticVars => ({
           trigger: motorcyclist,
-          start: (_) => { // If already passed the top, the new start equivalent to the viewport top. This prevents an sudden jump if the user scroll position is already in the middle of the tween progress.
+          start: (_) => { // Weird trick to pin the start position to the current y of trigger element.
             const triggerTop = motorcyclist.getBoundingClientRect().top;
             const triggerBot = motorcyclist.getBoundingClientRect().bottom
-            console.log(triggerBot)
-            if (triggerTop < 0 && triggerBot > 0) {
+            if (triggerTop < window.innerHeight/2 && triggerBot > 0) {
               return window.pageYOffset;
             }
-            return 'top top';
+            return 'top center';
           },
           end: 'bottom top',
           scrub: 2.5,
@@ -100,7 +99,7 @@ export class LandingHeroMotorcyclistComponent {
         });
 
         animation.call(() => {
-            ScrollTrigger.create(config()); // Only enable ScrollTrigger after animation is done
+            ScrollTrigger.create(config())
           },
           undefined,
           'vehcileEnterDone-=0.75'
