@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { LandingProjectsCardComponent } from '@features/landing/projects/landing-projects-card';
-
+import { VideoAutoplayDirective } from '@shared/directives/autoplay.directive';
 /**
  * CodeLAN Bento Card.
  *
@@ -12,7 +12,7 @@ import { LandingProjectsCardComponent } from '@features/landing/projects/landing
   selector: 'landing-codelan-card',
   standalone: true,
   providers: [],
-  imports: [LandingProjectsCardComponent],
+  imports: [LandingProjectsCardComponent, VideoAutoplayDirective],
   template: `
     <a
       landing-projects-card
@@ -29,7 +29,7 @@ import { LandingProjectsCardComponent } from '@features/landing/projects/landing
       </div>
       <video disableRemotePlayback
         autoplay
-        muted="muted"
+        muted
         loop
         playsinline
         class="absolute opacity-20 hover:opacity-45 duration-50 ease-in-out  inset-0 -z-[1] rounded-[inherit] size-full object-cover"
