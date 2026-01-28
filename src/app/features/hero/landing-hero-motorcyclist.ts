@@ -47,13 +47,13 @@ export class LandingHeroMotorcyclistComponent {
     afterNextRender(() => {
       const context = gsap.context(() => {
         const motorcyclist = this.video().nativeElement;
-        const startDuration = 7;
+        const startDuration = 2.5;
         const bounce = (frequency: number, repeat: number) => {
           return {
-            yPercent: '+=0.65',
+            yPercent: '+=0.5',
             duration: 1 / frequency,
-            ease: 'rough({strength: 10, template: elastic.out(1,0.3), randomize:true, taper: out})',
-            repeat: Math.floor((repeat * frequency) / 2) * 2,
+            ease: 'rough({strength: 10, template: bounce.out})',
+            repeat: repeat * frequency,
             yoyo: true,
           };
         };
@@ -62,64 +62,50 @@ export class LandingHeroMotorcyclistComponent {
         animation.from(
           motorcyclist,
           {
-            xPercent: 150,
+            xPercent: 125,
             duration: startDuration,
-            ease: 'power3.out',
+            ease: 'rough({strength: 25, template:power1.out, randomize: true})',
           },
           0
         );
 
         animation.add('vehcileEnterDone', '>');
+        animation.to(motorcyclist, bounce(12, (3.5 / 4) * startDuration), 0);
 
-        animation
-          .to(motorcyclist, bounce(14, (0.75 / 4) * startDuration), 0)
-          .to(motorcyclist, bounce(6, (1.54 / 4) * startDuration), 0);
-
-        const config = (): ScrollTrigger.StaticVars => ({
+        const config = (
+          animation: () => ScrollTrigger.StaticVars['animation']
+        ): ScrollTrigger.StaticVars => ({
           trigger: motorcyclist,
-          start: (_) => { // Weird trick to pin the start position to the current y of trigger element.
-            const triggerTop = motorcyclist.getBoundingClientRect().top;
-            const triggerBot = motorcyclist.getBoundingClientRect().bottom
-            if (triggerTop < window.innerHeight/2 && triggerBot > 0) {
-              return window.pageYOffset;
-            }
-            return 'top center';
+          start: (_) => {
+            return window.pageYOffset;
           },
-          end: 'bottom top',
-          scrub: 2.5,
+          end: (_) => {
+            return window.innerHeight;
+          },
+          scrub: 5,
           markers: true,
-          animation: gsap.to(motorcyclist, {
-            xPercent: -102.5,
-            x: '-100vw',
-            ease: 'circ.out',
-          }),
+          animation: animation(),
           onEnterBack: () => {
             ScrollTrigger.refresh(); // Re-evaluate `start()` on back
           },
         });
 
-        animation.call(() => {
-            ScrollTrigger.create(config())
+        animation.call(
+          () => {
+            ScrollTrigger.create(
+              config(() =>
+                gsap.to(motorcyclist, {
+                  xPercent: -102.5,
+                  x: '-100vw',
+                })
+              )
+            );
+            ScrollTrigger.create(config(() => gsap.to(motorcyclist, bounce(12, 12))));
           },
           undefined,
-          'vehcileEnterDone-=0.75'
+          'vehcileEnterDone'
         );
-
-        // console.log(vehcileLeaveTrigger)
-
-        // vechileLeave.to(
-        //   motorcyclist,
-        //   {
-        //     yPercent: '+=0.5',
-        //     duration: 1 / 14,
-        //     ease: 'rough({strength: 10, template: elastic.out(1,0.3), randomize:true, taper: out})',
-        //     repeat: -1,
-        //     yoyo: true,
-        //   },
-        //   0
-        // );
       });
-
       this.animate.set(context);
     });
 
