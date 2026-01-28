@@ -1,6 +1,6 @@
 import { Component, computed, ElementRef, input, viewChild } from '@angular/core';
 import { ZardAvatarContainerComponent } from '@shared/components/avatar/avatar.component';
-
+import { VideoAutoplayDirective } from '@shared/directives/autoplay.directive';
 export const postures = [
   'concentrating',
   'hands-up',
@@ -18,7 +18,7 @@ export type Postures = (typeof postures)[number];
 @Component({
   selector: 'me-avatar',
   standalone: true,
-  imports: [ZardAvatarContainerComponent],
+  imports: [ZardAvatarContainerComponent, VideoAutoplayDirective],
   template: `
     <z-avatar-container
       class="rounded-full aspect-square overflow-hidden"
