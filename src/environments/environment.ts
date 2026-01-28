@@ -11,6 +11,7 @@ import Proxmox from '@content/skills/proxmox.md' with { loader: 'text' }
 import React from '@content/skills/react.md' with { loader: 'text' }
 import Angular from '@content/skills/angular.md' with { loader: 'text' }
 import Figma from '@content/skills/figma.md' with { loader: 'text' }
+import GSAP from '@content/skills/gsap.md' with { loader: 'text' }
 import PrivacyPolicy from "@content/legal/privacypolicy.md"  with { loader: 'text' }
 
 export const environment = {
@@ -22,7 +23,7 @@ export const environment = {
   phoneNumber: "+14155552671",
   landingCareerContentMDs: [AgapeOne, Intelcon, UCSC],
   landingSkillsContentMDs: [
-    Docker, NextJS, Svelte, GithubActions, Python, Typescript, Proxmox, React, Angular, Figma
+    Docker, NextJS, Svelte, GithubActions, Python, Typescript, Proxmox, React, Angular, Figma, GSAP
   ],
   legalPrivacyPolicyMD: PrivacyPolicy
 } as const;
