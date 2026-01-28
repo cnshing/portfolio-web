@@ -9,14 +9,65 @@ import {
 } from '@angular/core';
 import { VideoAutoplayDirective } from '@shared/directives/autoplay.directive';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { GSDevTools } from 'gsap/GSDevTools';
-import { CustomEase } from 'gsap/CustomEase';
+import { relativeScroll, TimelineScrollTrigger, vibrate } from '@shared/utils/gsap';
 
-gsap.registerPlugin(ScrollTrigger);
-gsap.registerPlugin(CustomEase);
-gsap.registerPlugin(GSDevTools);
+/**
+ * Animate the motorcycle in the Hero Section.
+ *
+ * @param {HTMLElement} element Element to animate
+ * @param {number} [enterDuration=2.5] The time it takes for the motorcycle to enter the hero section.
+ * @returns {gsap.Context}
+ */
+const animateMotorcycle = (element: HTMLElement, enterDuration: number =2.5): gsap.Context => gsap.context(() => {
+  const animation = gsap.timeline();
 
+  animation.from(
+    element,
+    {
+      xPercent: 125,
+      duration: enterDuration,
+      ease: 'rough({strength: 25, template:power1.out, randomize: true})',
+    },
+    0
+  );
+
+  animation.add('vehcileEnterDone', '>');
+  animation.to(element, { yPercent: '+=0.5', ...vibrate(12, 0.875 * enterDuration) }, 0);
+
+  const triggerConfig: ScrollTrigger.StaticVars = {
+    trigger: element,
+    ...relativeScroll,
+    scrub: 5,
+    onEnterBack: () => {
+      ScrollTrigger.refresh(); // Re-evaluate `start()` on back
+    },
+  }
+
+  const scrollTriggerTL = TimelineScrollTrigger(animation)
+
+  scrollTriggerTL.to(element, {
+    xPercent: -102.5,
+    x: '-100vw',
+    scrollTrigger: triggerConfig
+  }, 'vehcileEnterDone')
+
+
+  scrollTriggerTL.to(element,
+    {
+      yPercent: '+=0.5',
+      scrollTrigger: triggerConfig,
+      ...vibrate(12, 12)
+    },
+    'vehcileEnterDone'
+  )
+});
+/**
+ * Motorcyclist element with built-in animations.
+ *
+ * @export
+ * @class LandingHeroMotorcyclistComponent
+ * @typedef {LandingHeroMotorcyclistComponent}
+ */
 @Component({
   selector: 'landing-hero-motorcyclist',
   standalone: true,
@@ -43,75 +94,34 @@ gsap.registerPlugin(GSDevTools);
   },
 })
 export class LandingHeroMotorcyclistComponent {
+  /**
+   * Creates an instance of LandingHeroMotorcyclistComponent and loads animation code.
+   *
+   * @constructor
+   */
   constructor() {
     afterNextRender(() => {
-      const context = gsap.context(() => {
-        const motorcyclist = this.video().nativeElement;
-        const startDuration = 2.5;
-        const bounce = (frequency: number, repeat: number) => {
-          return {
-            yPercent: '+=0.5',
-            duration: 1 / frequency,
-            ease: 'rough({strength: 10, template: bounce.out})',
-            repeat: repeat * frequency,
-            yoyo: true,
-          };
-        };
-        const animation = gsap.timeline();
-
-        animation.from(
-          motorcyclist,
-          {
-            xPercent: 125,
-            duration: startDuration,
-            ease: 'rough({strength: 25, template:power1.out, randomize: true})',
-          },
-          0
-        );
-
-        animation.add('vehcileEnterDone', '>');
-        animation.to(motorcyclist, bounce(12, (3.5 / 4) * startDuration), 0);
-
-        const config = (
-          animation: () => ScrollTrigger.StaticVars['animation']
-        ): ScrollTrigger.StaticVars => ({
-          trigger: motorcyclist,
-          start: (_) => {
-            return window.pageYOffset;
-          },
-          end: (_) => {
-            return window.innerHeight;
-          },
-          scrub: 5,
-          markers: true,
-          animation: animation(),
-          onEnterBack: () => {
-            ScrollTrigger.refresh(); // Re-evaluate `start()` on back
-          },
-        });
-
-        animation.call(
-          () => {
-            ScrollTrigger.create(
-              config(() =>
-                gsap.to(motorcyclist, {
-                  xPercent: -102.5,
-                  x: '-100vw',
-                })
-              )
-            );
-            ScrollTrigger.create(config(() => gsap.to(motorcyclist, bounce(12, 12))));
-          },
-          undefined,
-          'vehcileEnterDone'
-        );
-      });
-      this.animate.set(context);
+      this.animate.set(animateMotorcycle(this.video().nativeElement));
     });
 
     inject(DestroyRef).onDestroy(() => this.animate()?.revert()); // Do not evalute this.animate() directly
   }
+
+  /**
+   * Animation container.
+   *
+   * @protected
+   * @readonly
+   * @type {*}
+   */
   protected readonly animate = signal<gsap.Context | null>(null);
 
+  /**
+   * Motorcycle element to animate.
+   *
+   * @protected
+   * @readonly
+   * @type {*}
+   */
   protected readonly video = viewChild.required<ElementRef<HTMLVideoElement>>('heroMotorcyclist');
 }
