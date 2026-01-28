@@ -15,7 +15,7 @@ import LandingCTAComponent from "@features/landing/cta/landing-cta-section";
   imports: [LandingHeroComponent, LandingTransitionRacetrackComponent, LandingAboutMeComponent, LandingCareerComponent,
     LandingSkillsComponent, LandingProjectsComponent, LandingFooterComponent, LandingCTAComponent, LandingTransitionHelmetComponent],
   template: `
-  <landing-hero class="h-[102.5vh] max-h-[calc(var(--spacing-3xl)*10)] min-h-fit"/> <!-- Extra 2.5vh due to y-overflow from landing-transition-racetrack -->
+  <landing-hero class="h-[102.5dvh] max-h-[calc(var(--spacing-3xl)*10)] min-h-fit"/> <!-- Extra 2.5dvh due to y-overflow from landing-transition-racetrack, max-height restriction for zoomed-out views -->
   <landing-transition-racetrack />
   <landing-about-me/>
   <landing-transition-racetrack class="scale-y-[-1] scale-x-[-1]"/>
