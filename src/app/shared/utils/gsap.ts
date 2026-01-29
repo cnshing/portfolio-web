@@ -6,7 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
  * @param {number} duration Duration of vibration
  * @returns {gsap.TweenVars}  Tween configuration to make an animation go back and forth.
  */
-export const vibrate = (frequency: number, duration: number): gsap.TweenVars => ({
+export const vibrate = (frequency: number, duration: number) => ({
   duration: 1 / frequency,
   ease: 'rough({strength: 10, template: bounce.out})',
   repeat: duration * frequency,
@@ -18,7 +18,7 @@ export const vibrate = (frequency: number, duration: number): gsap.TweenVars => 
  *
  * @type {ScrollTrigger.StaticVars} Overrides `start` and `end` values.
  */
-export const relativeScroll: ScrollTrigger.StaticVars = {
+export const relativeScroll = {
   start: () => window.pageYOffset,
   end: () => window.pageYOffset + window.innerHeight,
 };
