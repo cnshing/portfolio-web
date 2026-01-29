@@ -1,4 +1,3 @@
-import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 /**
@@ -22,35 +21,6 @@ export const relativeScroll = {
   start: () => window.pageYOffset,
   end: () => window.pageYOffset + window.innerHeight,
 };
-
-/**
- * Workaround-helper for position-aware scrollTriggers.
- *
- * @param {gsap.core.Timeline} timeline An existing timeline
- */
-export const TimelineScrollTrigger = (timeline: gsap.core.Timeline) => {
-  gsap.registerPlugin(ScrollTrigger);
-  return {
-    /**
-     * Identical to timeline's `to()`, except the scroll trigger will not initialize until `position`.
-     *
-     */
-    to(targets: gsap.TweenTarget, vars: gsap.TweenVars, position?: gsap.Position) {
-      timeline.call(
-        () => {
-          const { scrollTrigger, ...tweenVars } = vars;
-          ScrollTrigger.create({
-            ...(scrollTrigger ?? {}),
-            animation: gsap.to(targets, tweenVars),
-          });
-        },
-        undefined,
-        position
-      );
-    },
-  };
-};
-
 
 /**
  * Hacky workaround to only allow forward scrubbing for a timeline.
