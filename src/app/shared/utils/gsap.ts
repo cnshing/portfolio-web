@@ -50,3 +50,17 @@ export const TimelineScrollTrigger = (timeline: gsap.core.Timeline) => {
     },
   };
 };
+
+
+/**
+ * Hacky workaround to only allow forward scrubbing for a timeline.
+ *
+ *
+ * @param {gsap.core.Timeline} timeline A completely paused timeline. The function forces the ScrollTrigger playhead in control of the timeline, so any conflicts will result in unknown behavior.
+ * @returns {ScrollTrigger.StaticVars} Overrides `onUpdate()`
+ */
+export const disableReverseScrub = (timeline: gsap.core.Timeline) => ({
+  onUpdate(self: ScrollTrigger) { // From https://gsap.com/community/forums/topic/25050-looking-for-scrolltrigger-equivalent-to-scrollmagics-reverse-false/
+    timeline.progress() < self.progress ? timeline.progress(self.progress) : null
+  },
+})
