@@ -9,7 +9,9 @@ import {
 } from '@angular/core';
 import { VideoAutoplayDirective } from '@shared/directives/autoplay.directive';
 import { gsap } from 'gsap';
-import { relativeScroll, TimelineScrollTrigger, vibrate } from '@shared/utils/gsap';
+import { relativeScroll, vibrate } from '@shared/utils/gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger)
 
 /**
  * Animate the motorcycle in the Hero Section.
@@ -19,47 +21,87 @@ import { relativeScroll, TimelineScrollTrigger, vibrate } from '@shared/utils/gs
  * @returns {gsap.Context}
  */
 const animateMotorcycle = (element: HTMLElement, enterDuration: number =2.5): gsap.Context => gsap.context(() => {
-  const animation = gsap.timeline();
 
-  animation.from(
+  const reverse = gsap.quickSetter(element, "scaleX", "%")
+  const scaleX = gsap.getProperty(element, "scaleX") as number
+  const setDirection = (direction: 1 | -1) => {
+    reverse(scaleX*100*direction)
+  }
+
+  const transitionFrame = gsap.timeline();
+
+  transitionFrame.call(() => {
+    setDirection(1)
+  }, undefined, 0)
+  transitionFrame.fromTo(
     element,
     {
-      xPercent: 125,
+      xPercent:125,
+      x: 0
+    },
+    {
+      xPercent:0,
+      x: 0,
       duration: enterDuration,
       ease: 'rough({strength: 25, template:power1.out, randomize: true})',
     },
     0
-  );
+  ).add('vehcileEnterDone', '>');
 
-  animation.add('vehcileEnterDone', '>');
-  animation.to(element, { yPercent: '+=0.5', ...vibrate(12, 0.875 * enterDuration) }, 0);
+  const vibrateTween = gsap.to(element, { yPercent: '+=0.5', id: "vibrate", ...vibrate(12, -1/12) })
 
+  transitionFrame.call(() => {vibrateTween.pause()}, undefined, "<87.5%")
+
+  let scrollVehcile: gsap.core.Timeline;
+  let isLeaving = false;
   const triggerConfig: ScrollTrigger.StaticVars = {
     trigger: element,
     ...relativeScroll,
+    markers: true,
     scrub: 5,
+    onEnter: () => vibrateTween.play(),
+    onUpdate: (self) => {
+      if (!isLeaving) {
+        setDirection(self.direction as 1 | -1)
+      }
+    },
+    onLeaveBack: (self) => {
+      isLeaving = true
+      scrollVehcile.pause()
+      self.disable(true)
+      gsap.to(
+        element,
+        {
+          xPercent: 75,
+          duration: enterDuration*1.3,
+          overwrite: 'auto',
+          ease: 'rough({strength: 25, template:power1.in, randomize: true})',
+          onComplete: () => {transitionFrame.restart()}
+        }
+
+      )
+    },
     onEnterBack: () => {
       ScrollTrigger.refresh(); // Re-evaluate `start()` on back
     },
   }
 
-  const scrollTriggerTL = TimelineScrollTrigger(animation)
+  transitionFrame.call(() => {
+    scrollVehcile = gsap.timeline({
+      scrollTrigger: triggerConfig
+    })
+    isLeaving = false
+    scrollVehcile.to(
+      element, {
+        xPercent: -102.5,
+        x: '-100vw',
+        ease: 'rough({strength: 25, template:power1.out, randomize: true})'},
+        0
+    )
+    scrollVehcile.scrollTrigger!.enable()
+    transitionFrame.pause()
+  },undefined,'vehcileEnterDone')
 
-  scrollTriggerTL.to(element, {
-    xPercent: -102.5,
-    x: '-100vw',
-    scrollTrigger: triggerConfig
-  }, 'vehcileEnterDone')
-
-
-  scrollTriggerTL.to(element,
-    {
-      yPercent: '+=0.5',
-      scrollTrigger: triggerConfig,
-      ...vibrate(12, 12)
-    },
-    'vehcileEnterDone'
-  )
 });
 /**
  * Motorcyclist element with built-in animations.
