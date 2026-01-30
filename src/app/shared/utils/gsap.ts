@@ -34,3 +34,33 @@ export const disableReverseScrub = (timeline: gsap.core.Timeline) => ({
     timeline.progress() < self.progress ? timeline.progress(self.progress) : null
   },
 })
+
+export type ProgressCallback = {
+  [key: number]: (self: ScrollTrigger) => void
+}
+export const progressMonitor = (onProgress: ProgressCallback) => {
+  const thresholds = Object.keys(onProgress)
+    .map(Number)
+    .sort((a, b) => a - b);
+
+  let prevProgress = 0
+
+  return {
+    onUpdate(self: ScrollTrigger) {
+
+      for (const threshold of thresholds) {
+        const crossedForward =
+          prevProgress < threshold && self.progress >= threshold;
+
+        const crossedBackward =
+          prevProgress > threshold && self.progress <= threshold;
+
+        if (crossedForward || crossedBackward) {
+          onProgress[threshold]!(self);
+        }
+      }
+
+      prevProgress = self.progress;
+    },
+  };
+};
