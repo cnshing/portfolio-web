@@ -15,6 +15,27 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger)
 
 /**
+ * Function factory to flip the vehcile.
+ *
+ * @param {HTMLElement} element
+ * @returns {(direction: 1 | -1) => void} A function to flip the vehcile.
+ */
+const vehcileFlipper = (element: HTMLElement) => {
+  const reverse = gsap.quickSetter(element, "scaleX", "%")
+  const scaleX = gsap.getProperty(element, "scaleX") as number
+
+  /**
+   *
+   * Turns the vehcile.
+   * @param {("1" | "-1")} direction 1 for left, -1 for right
+   */
+  const setDirection = (direction: 1 | -1) => {
+    reverse(scaleX*100*direction)
+  }
+  return setDirection
+}
+
+/**
  * Animate the motorcycle in the Hero Section.
  *
  * @param {HTMLElement} element Element to animate
@@ -23,16 +44,12 @@ gsap.registerPlugin(ScrollTrigger)
  */
 const animateMotorcycle = (element: HTMLElement, enterDuration: number =2.5): gsap.Context => gsap.context(() => {
 
-  const reverse = gsap.quickSetter(element, "scaleX", "%")
-  const scaleX = gsap.getProperty(element, "scaleX") as number
-  const setDirection = (direction: 1 | -1) => {
-    reverse(scaleX*100*direction)
-  }
+  const flipVechile = vehcileFlipper(element)
 
   const transitionFrame = gsap.timeline();
 
   transitionFrame.call(() => {
-    setDirection(1)
+    flipVechile(1)
   }, undefined, 0)
   transitionFrame.fromTo(
     element,
@@ -68,7 +85,7 @@ const animateMotorcycle = (element: HTMLElement, enterDuration: number =2.5): gs
         hasPassed = true;
       }
       if (!isLeaving) {
-        setDirection(self.direction as 1 | -1)
+        flipVechile(self.direction as 1 | -1)
       }
     },
     onLeaveBack: (self) => {
