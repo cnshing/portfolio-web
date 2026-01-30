@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { VideoAutoplayDirective } from '@shared/directives/autoplay.directive';
 import { gsap } from 'gsap';
-import { relativeScroll, vibrate } from '@shared/utils/gsap';
+import { progressMonitor, relativeScroll, vibrate } from '@shared/utils/gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -59,16 +59,9 @@ const vibrateVechile = (element: HTMLElement): gsap.core.Tween =>
 const animateMotorcycle = (element: HTMLElement, enterDuration: number = 2.5): gsap.Context =>
   gsap.context(() => {
     const flipVechile = vehcileFlipper(element);
-
+    const vibrateTween = vibrateVechile(element)
     const transitionFrame = gsap.timeline();
 
-    transitionFrame.call(
-      () => {
-        flipVechile(1);
-      },
-      undefined,
-      0
-    );
     transitionFrame
       .fromTo(
         element,
@@ -81,12 +74,11 @@ const animateMotorcycle = (element: HTMLElement, enterDuration: number = 2.5): g
           x: 0,
           duration: enterDuration,
           ease: 'rough({strength: 25, template:power1.out, randomize: true})',
+          onStart: () => flipVechile(1)
         },
         0
       )
       .add('vehcileEnterDone', '>');
-
-    const vibrateTween = vibrateVechile(element)
 
     transitionFrame.call(
       () => {
@@ -96,9 +88,21 @@ const animateMotorcycle = (element: HTMLElement, enterDuration: number = 2.5): g
       '<87.5%'
     );
 
-    let scrollVehcile: gsap.core.Timeline;
-    let isLeaving = false;
-    let hasPassed = false;
+
+    let vehicle = {
+      started: false,
+      startThreshold: 0.25
+    }
+
+    const vehicleDefaults = {...vehicle}
+    const markstartThreshold = progressMonitor({
+      [vehicle.startThreshold]: (_) => {
+        if (!vehicle.started) {
+          vehicle.started = true
+        }
+      }
+    })
+
     const triggerConfig: ScrollTrigger.StaticVars = {
       trigger: element,
       start: relativeScroll.start,
@@ -107,18 +111,13 @@ const animateMotorcycle = (element: HTMLElement, enterDuration: number = 2.5): g
       scrub: 2.5,
       onEnter: () => vibrateTween.play(),
       onUpdate: (self) => {
-        if (self.progress > 0.25 && !hasPassed) {
-          hasPassed = true;
-        }
-        if (!isLeaving) {
-          flipVechile(self.direction as 1 | -1);
-        }
+        markstartThreshold.onUpdate(self)
+        flipVechile(self.direction as 1 | -1);
       },
-      onLeaveBack: (self) => {
-        if (hasPassed) {
-          isLeaving = true;
-          scrollVehcile.pause();
+      onLeaveBack: function(self)  {
+        if (vehicle.started) {
           self.disable(true);
+          flipVechile(-1)
           gsap.to(element, {
             xPercent: '-30',
             x: window.innerWidth - element.getBoundingClientRect().left,
@@ -131,18 +130,26 @@ const animateMotorcycle = (element: HTMLElement, enterDuration: number = 2.5): g
           });
         }
       },
-      onEnterBack: () => {
-        ScrollTrigger.refresh(); // Re-evaluate `start()` on back
+      onEnterBack: (self) => {
+        self.refresh(); // Re-evaluate `start()` on back
       },
     };
 
+    const scrollVehcile = gsap.timeline({
+      scrollTrigger: triggerConfig,
+    });
+    scrollVehcile.scrollTrigger!.disable()
+
+    const resetScrollVehcile = () => {
+      vehicle = vehicleDefaults
+      scrollVehcile.invalidate()
+      scrollVehcile.scrollTrigger!.enable()
+    }
+
     transitionFrame.call(
       () => {
-        scrollVehcile = gsap.timeline({
-          scrollTrigger: triggerConfig,
-        });
-        isLeaving = false;
-        hasPassed = false;
+        transitionFrame.pause()
+        resetScrollVehcile()
         scrollVehcile.to(
           element,
           {
@@ -151,8 +158,6 @@ const animateMotorcycle = (element: HTMLElement, enterDuration: number = 2.5): g
           },
           0
         );
-        scrollVehcile.scrollTrigger!.enable();
-        transitionFrame.pause();
       },
       undefined,
       'vehcileEnterDone'
