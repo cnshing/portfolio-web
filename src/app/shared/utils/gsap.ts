@@ -35,9 +35,25 @@ export const disableReverseScrub = (timeline: gsap.core.Timeline) => ({
   },
 })
 
+
+/**
+ * Containing instructions to call function `value` at progress `key`
+ *
+ * @export
+ * @typedef {ProgressCallback}
+ */
 export type ProgressCallback = {
   [key: number]: (self: ScrollTrigger) => void
 }
+
+
+
+/**
+ * ScrollTrigger helper to call any arbitrary function whenever the progress of animation passes a certain point.
+ *
+ * @param {ProgressCallback} onProgress Each key represents a certain progress percentage, that, when passes, calls it's corresponding value as a function.
+ * @returns {ScrollTrigger.StaticVars} Overrides `onUpdate()`
+ */
 export const progressMonitor = (onProgress: ProgressCallback) => {
   const thresholds = Object.keys(onProgress)
     .map(Number)
