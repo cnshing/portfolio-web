@@ -11,6 +11,7 @@ import { VideoAutoplayDirective } from '@shared/directives/autoplay.directive';
 import { gsap } from 'gsap';
 import { relativeScroll, vibrate } from '@shared/utils/gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
 gsap.registerPlugin(ScrollTrigger)
 
 /**
@@ -43,7 +44,7 @@ const animateMotorcycle = (element: HTMLElement, enterDuration: number =2.5): gs
       xPercent:0,
       x: 0,
       duration: enterDuration,
-      ease: 'rough({strength: 25, template:power1.out, randomize: true})',
+      ease: 'rough({strength: 25, template:power1.out, randomize: true})'
     },
     0
   ).add('vehcileEnterDone', '>');
@@ -54,32 +55,40 @@ const animateMotorcycle = (element: HTMLElement, enterDuration: number =2.5): gs
 
   let scrollVehcile: gsap.core.Timeline;
   let isLeaving = false;
+  let hasPassed = false
   const triggerConfig: ScrollTrigger.StaticVars = {
     trigger: element,
-    ...relativeScroll,
+    start: relativeScroll.start,
+    end: () => relativeScroll.start() + Math.max(window.innerHeight, window.innerWidth),
     markers: true,
-    scrub: 5,
+    scrub: 2.5,
     onEnter: () => vibrateTween.play(),
     onUpdate: (self) => {
+      if (self.progress > 0.25 && !hasPassed) {
+        hasPassed = true;
+      }
       if (!isLeaving) {
         setDirection(self.direction as 1 | -1)
       }
     },
     onLeaveBack: (self) => {
+      if (hasPassed) {
       isLeaving = true
       scrollVehcile.pause()
       self.disable(true)
       gsap.to(
         element,
         {
-          xPercent: 75,
-          duration: enterDuration*1.3,
+          xPercent: "-30",
+          x: window.innerWidth - element.getBoundingClientRect().left,
+          duration: enterDuration,
           overwrite: 'auto',
           ease: 'rough({strength: 25, template:power1.in, randomize: true})',
           onComplete: () => {transitionFrame.restart()}
         }
 
       )
+    }
     },
     onEnterBack: () => {
       ScrollTrigger.refresh(); // Re-evaluate `start()` on back
@@ -91,11 +100,12 @@ const animateMotorcycle = (element: HTMLElement, enterDuration: number =2.5): gs
       scrollTrigger: triggerConfig
     })
     isLeaving = false
+    hasPassed = false
     scrollVehcile.to(
       element, {
-        xPercent: -102.5,
-        x: '-100vw',
-        ease: 'rough({strength: 25, template:power1.out, randomize: true})'},
+        x: -1 * element.getBoundingClientRect().right,
+        id: 'drive'
+      },
         0
     )
     scrollVehcile.scrollTrigger!.enable()
