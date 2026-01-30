@@ -12,7 +12,7 @@ import { gsap } from 'gsap';
 import { relativeScroll, vibrate } from '@shared/utils/gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(ScrollTrigger);
 
 /**
  * Function factory to flip the vehcile.
@@ -21,8 +21,8 @@ gsap.registerPlugin(ScrollTrigger)
  * @returns {(direction: 1 | -1) => void} A function to flip the vehcile.
  */
 const vehcileFlipper = (element: HTMLElement) => {
-  const reverse = gsap.quickSetter(element, "scaleX", "%")
-  const scaleX = gsap.getProperty(element, "scaleX") as number
+  const reverse = gsap.quickSetter(element, 'scaleX', '%');
+  const scaleX = gsap.getProperty(element, 'scaleX') as number;
 
   /**
    *
@@ -30,10 +30,24 @@ const vehcileFlipper = (element: HTMLElement) => {
    * @param {("1" | "-1")} direction 1 for left, -1 for right
    */
   const setDirection = (direction: 1 | -1) => {
-    reverse(scaleX*100*direction)
-  }
-  return setDirection
-}
+    reverse(scaleX * 100 * direction);
+  };
+  return setDirection;
+};
+
+
+/**
+ * When this function is call, make the vehcile vibrate up and down.
+ *
+ * @param {HTMLElement} element
+ * @returns {gsap.core.Tween}
+ */
+const vibrateVechile = (element: HTMLElement): gsap.core.Tween =>
+  gsap.to(element, {
+    yPercent: '+=0.5',
+    id: 'vibrate',
+    ...vibrate(12, -1 / 12),
+  });
 
 /**
  * Animate the motorcycle in the Hero Section.
@@ -42,94 +56,108 @@ const vehcileFlipper = (element: HTMLElement) => {
  * @param {number} [enterDuration=2.5] The time it takes for the motorcycle to enter the hero section.
  * @returns {gsap.Context}
  */
-const animateMotorcycle = (element: HTMLElement, enterDuration: number =2.5): gsap.Context => gsap.context(() => {
+const animateMotorcycle = (element: HTMLElement, enterDuration: number = 2.5): gsap.Context =>
+  gsap.context(() => {
+    const flipVechile = vehcileFlipper(element);
 
-  const flipVechile = vehcileFlipper(element)
+    const transitionFrame = gsap.timeline();
 
-  const transitionFrame = gsap.timeline();
-
-  transitionFrame.call(() => {
-    flipVechile(1)
-  }, undefined, 0)
-  transitionFrame.fromTo(
-    element,
-    {
-      xPercent:125,
-      x: 0
-    },
-    {
-      xPercent:0,
-      x: 0,
-      duration: enterDuration,
-      ease: 'rough({strength: 25, template:power1.out, randomize: true})'
-    },
-    0
-  ).add('vehcileEnterDone', '>');
-
-  const vibrateTween = gsap.to(element, { yPercent: '+=0.5', id: "vibrate", ...vibrate(12, -1/12) })
-
-  transitionFrame.call(() => {vibrateTween.pause()}, undefined, "<87.5%")
-
-  let scrollVehcile: gsap.core.Timeline;
-  let isLeaving = false;
-  let hasPassed = false
-  const triggerConfig: ScrollTrigger.StaticVars = {
-    trigger: element,
-    start: relativeScroll.start,
-    end: () => relativeScroll.start() + Math.max(window.innerHeight, window.innerWidth),
-    markers: true,
-    scrub: 2.5,
-    onEnter: () => vibrateTween.play(),
-    onUpdate: (self) => {
-      if (self.progress > 0.25 && !hasPassed) {
-        hasPassed = true;
-      }
-      if (!isLeaving) {
-        flipVechile(self.direction as 1 | -1)
-      }
-    },
-    onLeaveBack: (self) => {
-      if (hasPassed) {
-      isLeaving = true
-      scrollVehcile.pause()
-      self.disable(true)
-      gsap.to(
+    transitionFrame.call(
+      () => {
+        flipVechile(1);
+      },
+      undefined,
+      0
+    );
+    transitionFrame
+      .fromTo(
         element,
         {
-          xPercent: "-30",
-          x: window.innerWidth - element.getBoundingClientRect().left,
+          xPercent: 125,
+          x: 0,
+        },
+        {
+          xPercent: 0,
+          x: 0,
           duration: enterDuration,
-          overwrite: 'auto',
-          ease: 'rough({strength: 25, template:power1.in, randomize: true})',
-          onComplete: () => {transitionFrame.restart()}
-        }
-
-      )
-    }
-    },
-    onEnterBack: () => {
-      ScrollTrigger.refresh(); // Re-evaluate `start()` on back
-    },
-  }
-
-  transitionFrame.call(() => {
-    scrollVehcile = gsap.timeline({
-      scrollTrigger: triggerConfig
-    })
-    isLeaving = false
-    hasPassed = false
-    scrollVehcile.to(
-      element, {
-        x: -1 * element.getBoundingClientRect().right,
-        id: 'drive'
-      },
+          ease: 'rough({strength: 25, template:power1.out, randomize: true})',
+        },
         0
-    )
-    scrollVehcile.scrollTrigger!.enable()
-    transitionFrame.pause()
-  },undefined,'vehcileEnterDone')
+      )
+      .add('vehcileEnterDone', '>');
 
-});
+    const vibrateTween = vibrateVechile(element)
+
+    transitionFrame.call(
+      () => {
+        vibrateTween.pause();
+      },
+      undefined,
+      '<87.5%'
+    );
+
+    let scrollVehcile: gsap.core.Timeline;
+    let isLeaving = false;
+    let hasPassed = false;
+    const triggerConfig: ScrollTrigger.StaticVars = {
+      trigger: element,
+      start: relativeScroll.start,
+      end: () => relativeScroll.start() + Math.max(window.innerHeight, window.innerWidth),
+      markers: true,
+      scrub: 2.5,
+      onEnter: () => vibrateTween.play(),
+      onUpdate: (self) => {
+        if (self.progress > 0.25 && !hasPassed) {
+          hasPassed = true;
+        }
+        if (!isLeaving) {
+          flipVechile(self.direction as 1 | -1);
+        }
+      },
+      onLeaveBack: (self) => {
+        if (hasPassed) {
+          isLeaving = true;
+          scrollVehcile.pause();
+          self.disable(true);
+          gsap.to(element, {
+            xPercent: '-30',
+            x: window.innerWidth - element.getBoundingClientRect().left,
+            duration: enterDuration,
+            overwrite: 'auto',
+            ease: 'rough({strength: 25, template:power1.in, randomize: true})',
+            onComplete: () => {
+              transitionFrame.restart();
+            },
+          });
+        }
+      },
+      onEnterBack: () => {
+        ScrollTrigger.refresh(); // Re-evaluate `start()` on back
+      },
+    };
+
+    transitionFrame.call(
+      () => {
+        scrollVehcile = gsap.timeline({
+          scrollTrigger: triggerConfig,
+        });
+        isLeaving = false;
+        hasPassed = false;
+        scrollVehcile.to(
+          element,
+          {
+            x: -1 * element.getBoundingClientRect().right,
+            id: 'drive',
+          },
+          0
+        );
+        scrollVehcile.scrollTrigger!.enable();
+        transitionFrame.pause();
+      },
+      undefined,
+      'vehcileEnterDone'
+    );
+  });
 /**
  * Motorcyclist element with built-in animations.
  *
