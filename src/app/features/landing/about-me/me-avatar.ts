@@ -1,6 +1,6 @@
 import { Component, computed, ElementRef, input, viewChild } from '@angular/core';
 import { ZardAvatarContainerComponent } from '@shared/components/avatar/avatar.component';
-import { VideoAutoplayDirective } from '@shared/directives/autoplay.directive';
+import { AutoplayOnVisibleDirective, VideoAutoplayDirective } from '@shared/directives/autoplay.directive';
 
 export const postures = [
   'concentrating',
@@ -19,7 +19,7 @@ export type Postures = (typeof postures)[number];
 @Component({
   selector: 'me-avatar',
   standalone: true,
-  imports: [ZardAvatarContainerComponent, VideoAutoplayDirective],
+  imports: [ZardAvatarContainerComponent, VideoAutoplayDirective, AutoplayOnVisibleDirective],
   template: `
     <z-avatar-container
       class="rounded-full aspect-square overflow-hidden"
@@ -30,7 +30,7 @@ export type Postures = (typeof postures)[number];
       [content]="video"
     >
       <ng-template #video>
-        <video disableRemotePlayback  playsinline autoplay #avatarVideo>
+        <video disableRemotePlayback  playsinline autoplay autoplayOnVisible #avatarVideo>
           <source type="video/quicktime; codecs=hvc1.1.6.H120.b0" [src] = "avatarSrc() + '.mp4'" />
           <source type="video/webm; codecs=vp09.00.41.08" [src] = "avatarSrc() + '.webm'" />
           <img [src]="avatarSrc() + '.png'" [alt]="this.posture()"/>
