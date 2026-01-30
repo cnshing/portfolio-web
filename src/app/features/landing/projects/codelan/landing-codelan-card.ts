@@ -29,7 +29,6 @@ import { VideoAutoplayDirective } from '@shared/directives/autoplay.directive';
       </div>
       <video disableRemotePlayback
         autoplay
-        muted
         loop
         playsinline
         class="absolute opacity-20 hover:opacity-45 duration-50 ease-in-out  inset-0 -z-[1] rounded-[inherit] size-full object-cover"
