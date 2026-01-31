@@ -32,6 +32,7 @@ import { SSGMarkdownParser } from '@features/ssg/services/ssg-markdown-parser.se
           [from]="position.from"
           [to]="position.to"
           [companyLogoImg]="position.companyLogoImg"
+          [aboutURL]="position.aboutURL"
         />
         }
       </div>

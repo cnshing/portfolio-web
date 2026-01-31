@@ -48,4 +48,5 @@ export interface LandingCareerExperienceInput {
   to: MMMYYYY | "Present"
   skills?: string[]
   highlights?: string
+  aboutURL?: string
 }
