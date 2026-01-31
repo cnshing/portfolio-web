@@ -39,7 +39,7 @@ import { ZardDividerComponent } from '@shared/components/divider/divider.compone
     >
       <ng-template #companyIcon>
         <z-avatar
-          class="bg-white-0 rounded-sm p-sm *:[&_img]:p-[5%]"
+          class="bg-white-0 rounded-sm p-sm *:[&_img]:p-[5%] hover:!bg-white-0"
           zFallback="CMP"
           [zSrc]="companyLogoImg()"
           zSize="md"
