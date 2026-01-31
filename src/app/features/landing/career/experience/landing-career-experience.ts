@@ -5,7 +5,11 @@ import { ZardAvatarComponent } from '@shared/components/avatar/avatar.component'
 import { ZardBadgeComponent } from '@shared/components/badge/badge.component';
 import { ZardIconComponent } from '@shared/components/icon/icon.component';
 import { ZardBlockQuoteComponent } from '@shared/components/blockquote/blockquote.component';
-import { MMMYYYY, mmmYYYYToDate } from '@features/landing/career/experience/landing-career-experience.types';
+import { CommonModule } from '@angular/common';
+import {
+  MMMYYYY,
+  mmmYYYYToDate,
+} from '@features/landing/career/experience/landing-career-experience.types';
 import { MarkdownComponent, provideMarkdown } from 'ngx-markdown';
 import { ZardDividerComponent } from '@shared/components/divider/divider.component';
 
@@ -29,6 +33,7 @@ import { ZardDividerComponent } from '@shared/components/divider/divider.compone
     ZardBlockQuoteComponent,
     MarkdownComponent,
     ZardDividerComponent,
+    CommonModule,
   ],
   template: `
     <z-card
@@ -38,16 +43,27 @@ import { ZardDividerComponent } from '@shared/components/divider/divider.compone
       [zLabel]="positionTenure"
     >
       <ng-template #companyIcon>
-        <z-avatar
-          class="bg-white-0 rounded-sm p-sm *:[&_img]:p-[5%] hover:!bg-white-0"
-          zFallback="CMP"
-          [zSrc]="companyLogoImg()"
-          zSize="md"
-          zShape="none"
-        />
+        <a
+          class="focus-visible:ring-white-0/50 focus-visible:ring-[0.46875rem] focus-visible:outline-none rounded-sm"
+          [ngClass]="
+            aboutURL() &&
+            'hover:scale-110 focus:scale-110 sm:hover:scale-105 sm:focus:scale-105 duration-175 ease-in-out'
+          "
+          [attr.href]="aboutURL() ? aboutURL() : undefined"
+        >
+          <z-avatar
+            class="bg-white-0 rounded-sm p-sm *:[&_img]:p-[5%] pointer-events-none"
+            zFallback="CMP"
+            [zSrc]="companyLogoImg()"
+            zSize="md"
+            zShape="none"
+          />
+        </a>
       </ng-template>
       <ng-template #positionTenure>
-        <div class="flex flex-wrap text-color-tertiary gap-x-xs font-tertiary items-center text-center">
+        <div
+          class="flex flex-wrap text-color-tertiary gap-x-xs font-tertiary items-center text-center"
+        >
           <z-icon [zType]="'calendar'" class="text-inherit" zSize="lg" />
           <z-date [value]="this.fromDate()" zFormat="MMM yyyy" />
           <span class="text-lg">-</span>
@@ -119,6 +135,13 @@ export default class LandingCareerPositionComponent {
    * @type {*}
    */
   readonly from = input.required<MMMYYYY>();
+  /**
+   * Company page.
+   *
+   * @readonly
+   * @type {*}
+   */
+  readonly aboutURL = input<string>();
   /**
    * When you ended the position, or "Present" if still currently at that position. Defaults to "Present"
    *
