@@ -5,7 +5,7 @@ import { ZardAvatarComponent } from '@shared/components/avatar/avatar.component'
 import { ZardBadgeComponent } from '@shared/components/badge/badge.component';
 import { ZardIconComponent } from '@shared/components/icon/icon.component';
 import { ZardBlockQuoteComponent } from '@shared/components/blockquote/blockquote.component';
-import { MMMYYYY } from '@features/landing/career/experience/landing-career-experience.types';
+import { MMMYYYY, mmmYYYYToDate } from '@features/landing/career/experience/landing-career-experience.types';
 import { MarkdownComponent, provideMarkdown } from 'ngx-markdown';
 import { ZardDividerComponent } from '@shared/components/divider/divider.component';
 
@@ -141,17 +141,17 @@ export default class LandingCareerPositionComponent {
    * @readonly
    * @type {*}
    */
-  protected readonly fromDate = computed(() => new Date(this.from()));
+  protected readonly fromDate = computed(() => new Date(mmmYYYYToDate(this.from())));
 
   /**
    * Helps compute `toDate()`.
    *
    * @private
-   * @param {string} value Any string compatiable with new Date(), or "Present"
-   * @returns {Date} A Date object representing "Present" or `value`.
+   * @param {string} value Any MMMYYY date string, or "Present"
+   * @returns {Date} A Date object representing or `value` or present day.
    */
-  private parseToDate(value: string): Date {
-    return value === 'Present' ? new Date() : new Date(value);
+  private parseToDate(value: MMMYYYY | 'Present'): Date {
+    return value === 'Present' ? new Date() : mmmYYYYToDate(value);
   }
 
   /**
