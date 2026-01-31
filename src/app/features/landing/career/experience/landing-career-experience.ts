@@ -45,10 +45,6 @@ import { ZardDividerComponent } from '@shared/components/divider/divider.compone
       <ng-template #companyIcon>
         <a
           class="focus-visible:ring-white-0/50 focus-visible:ring-[0.46875rem] focus-visible:outline-none rounded-sm"
-          [ngClass]="
-            aboutURL() &&
-            'hover:scale-110 focus:scale-110 sm:hover:scale-105 sm:focus:scale-105 duration-175 ease-in-out'
-          "
           [attr.href]="aboutURL() ? aboutURL() : undefined"
         > <!-- NOTE: Do not render accessibility styles if no link exists -->
           <z-avatar
