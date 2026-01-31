@@ -1,6 +1,6 @@
 ---
 company: Agape-1 Technologies Inc.
-companyLogoImg: assets/icons/Agape-2048x1707.png
+companyLogoImg: assets/icons/Agape-1280x1067.svg
 position: Software Engineer
 summary: Provided full-stack development and technical leadership in a startup environment.
 from: Apr 2024
