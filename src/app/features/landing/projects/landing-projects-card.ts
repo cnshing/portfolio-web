@@ -29,7 +29,7 @@ export class LandingProjectsCardComponent {
    * @type {string}
    */
   protected readonly baseClass =
-    'hover:scale-105 focus:scale-105 sm:hover:scale-102 sm:focus:scale-102 ease-in-out duration-250 inline-block rounded-lg h-full w-full';
+    'lg:hover:scale-105 lg:focus:scale-105 hover:scale-102 focus:scale-102 ease-in-out duration-250 inline-block rounded-lg h-full w-full';
 
   /**
    * Final computed merged class.
