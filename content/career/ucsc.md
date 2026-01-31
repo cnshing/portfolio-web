@@ -7,6 +7,7 @@ from: Aug 2018
 to: Jun 2022
 skills:
   - Python
+aboutURL: https://engineering.ucsc.edu/departments/computer-science-and-engineering/
 ---
 Bachelor of Science (BS) in <span class="on-bg-color-accent">Computer Science</span>
 <br/>
