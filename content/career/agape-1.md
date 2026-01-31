@@ -9,6 +9,7 @@ skills:
   - Svelte
   - Docker
   - Python
+aboutURL: https://agape-1.ai/
 ---
 Kick-started agile practices, code reviews, and CI/CD pipelines from scratch
 <br/>
