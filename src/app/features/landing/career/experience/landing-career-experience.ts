@@ -50,7 +50,7 @@ import { ZardDividerComponent } from '@shared/components/divider/divider.compone
             'hover:scale-110 focus:scale-110 sm:hover:scale-105 sm:focus:scale-105 duration-175 ease-in-out'
           "
           [attr.href]="aboutURL() ? aboutURL() : undefined"
-        >
+        > <!-- NOTE: Do not render accessibility styles if no link exists -->
           <z-avatar
             class="bg-white-0 rounded-sm p-sm *:[&_img]:p-[5%] pointer-events-none"
             zFallback="CMP"
