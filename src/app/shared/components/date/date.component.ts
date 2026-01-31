@@ -23,7 +23,7 @@ export class ZardDateComponent {
   readonly class = input<ClassValue>('');
   readonly zSize = input<ZardDateVariants['zSize']>('default');
   readonly value = input.required<Date>();
-  readonly zFormat = input<string>('MMMM d, yyyy');
+  readonly zFormat = input<string>('MMMM dd, yyyy');
 
   protected readonly classes = computed(() =>
     mergeClasses(
