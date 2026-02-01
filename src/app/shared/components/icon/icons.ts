@@ -4,6 +4,7 @@ import {
   phosphorLinkedinLogoDuotone,
   phosphorEnvelopeDuotone,
   phosphorEnvelopeOpenDuotone,
+  phosphorArrowArcLeftDuotone
 } from '@ng-icons/phosphor-icons/duotone'
 import {
   phosphorCode,
@@ -20,7 +21,8 @@ export const RAW_ZARD_ICONS = {
   linkedinICO: phosphorLinkedinLogoDuotone,
   email: phosphorEnvelopeDuotone,
   emailOpen: phosphorEnvelopeOpenDuotone,
-  code: phosphorCode
+  code: phosphorCode,
+  arrowArcLeft: phosphorArrowArcLeftDuotone
 } as const;
 
 export const DYNAMIC_ZARD_ICONS = {
