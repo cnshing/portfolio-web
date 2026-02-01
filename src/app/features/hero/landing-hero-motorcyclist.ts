@@ -13,6 +13,7 @@ import { progressMonitor, relativeScroll, vibrate } from '@shared/utils/gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.config({ ignoreMobileResize: true });
 
 /**
  * Function factory to flip the vehcile.
@@ -134,7 +135,6 @@ const animateMotorcycle = (element: HTMLElement, enterDuration: number = 2.5): g
         self.refresh(); // Re-evaluate `start()` on back
       },
     };
-
     const scrollVehcile = gsap.timeline({
       scrollTrigger: triggerConfig,
     });
