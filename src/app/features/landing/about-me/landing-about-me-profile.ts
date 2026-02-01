@@ -14,9 +14,22 @@ import { environment } from '@environments/environment';
         <p
           class="text-center py-sm md:absolute text-xl md:text-left md:top-1/2 md:-translate-y-1/2 font-[Nanum_Pen_Script] md:left-(--avatar-label-offset)"
         >
-          <span class="hidden md:contents">↩&nbsp;&nbsp;</span>Give me a boop to see what happens!
+          <i
+            class="hidden md:contents md:static md:inline-flex md:align-baseline md:*:-rotate-5"
+            z-icon
+            zSize="lg"
+            zType="arrowArcLeft"
+          ></i
+          >&nbsp;Give me a boop to see what happens!
         </p>
-        <div class="flex justify-center">
+        <div class="flex relative justify-center">
+          <i
+            class="absolute top-1/4 left-35/100 translate-x-(--mobile-arrow-x-offset) -translate-y-(--mobile-arrow-y-offset) *:-rotate-100 text-xl *:-scale-y-100 text-color-secondary md:hidden"
+            z-icon
+            zSize="lg"
+            zType="arrowArcLeft"
+          ></i>
+          <!-- Hacky workaround that uses duplicate icon elements for mobile/desktop call to action -->
           <button class="w-(--avatar-width) rounded-full" (click)="this.onRandomAvatar($event)">
             <me-avatar [posture]="this.posture()"></me-avatar>
           </button>
@@ -77,12 +90,14 @@ import { environment } from '@environments/environment';
   `,
   styles: `
   :host
-    --avatar-width: min(
-  max(55%, calc(var(--spacing-2xl) + 6rem)),
-  calc(var(--spacing-3xl) * 2))
+    --avatar-width: min(max(50cqw,
+  var(--spacing-2xl) + 6rem),
+  var(--spacing-3xl) * 2)
 
     --avatar-label-offset: calc(50% + var(--avatar-width) / 2 + var(--spacing-md)) /* Location of avatar plus spacing offset */
 
+    --mobile-arrow-x-offset: calc(var(--avatar-width)*0.5*cos(45deg))
+    --mobile-arrow-y-offset: calc(var(--avatar-width)*0.5*sin(45deg))
   `,
 })
 export default class LandingAboutMeProfileComponent {
