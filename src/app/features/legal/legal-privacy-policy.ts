@@ -21,7 +21,7 @@ import { ZardDividerComponent } from "@shared/components/divider/divider.compone
     <z-divider />
     <p class="text-center">Last Updated: <time class="text-color-secondary"> {{ lastUpdatedDate().toLocaleDateString('en-CA') }}</time></p>
     <z-divider />
-    <markdown [data]="this.policy().content"></markdown>
+    <markdown class="px-md" [data]="this.policy().content"></markdown>
   `,
   host: {
     'class': 'flex flex-col w-full bg-color-page min-h-[100vh] ul',
