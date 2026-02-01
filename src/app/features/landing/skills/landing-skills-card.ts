@@ -46,15 +46,13 @@ export interface LandingSkillCardInput {
     <ng-template #skillIcon>
       <img class="m-auto aspect-square" [src]="logoImg()" />
     </ng-template>
-    <div>
-      <z-card
-        class="aspect-square *:h-full"
+    <z-card
         [zAvatarOrIcon]="skillIcon"
         [zTooltip]="description() || null"
       />
-      <p class="text-center m-xs flex items-center justify-center">{{ name() }}</p>
-    </div>
-  `,
+    <p class="text-center m-xs flex items-center justify-center">{{ name() }}</p>
+  `
+  ,
 })
 export class LandingSkillCardComponent {
   /**
