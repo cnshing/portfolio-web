@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from "@angular/core";
+import { Component } from "@angular/core";
 import LandingHeroComponent from "@features/hero/landing-hero-section";
 import { LandingTransitionRacetrackComponent, LandingTransitionHelmetComponent } from "@features/landing/transition/landing-transition-section";
 import LandingAboutMeComponent  from "@features/landing/about-me/landing-about-me-section";
@@ -11,7 +11,6 @@ import LandingCTAComponent from "@features/landing/cta/landing-cta-section";
 @Component({
   selector: 'landing-page',
   standalone: true,
-  encapsulation: ViewEncapsulation.None, // NOTE: This is required for `body` selector
   imports: [LandingHeroComponent, LandingTransitionRacetrackComponent, LandingAboutMeComponent, LandingCareerComponent,
     LandingSkillsComponent, LandingProjectsComponent, LandingFooterComponent, LandingCTAComponent, LandingTransitionHelmetComponent],
   template: `
@@ -30,9 +29,6 @@ import LandingCTAComponent from "@features/landing/cta/landing-cta-section";
     'class': 'flex flex-col w-full bg-color-page landing-page',
   },
   styles: `
-  html, body
-    overflow-x: hidden
-
   .landing-page > :not(landing-transition-helmet, landing-transition-racetrack) > :first-child // NOTE: This fixes any landing sections with multiple siblings
     max-width: var(--spacing-max-width)
     padding: var(--spacing-2xl) var(--spacing-lg)
