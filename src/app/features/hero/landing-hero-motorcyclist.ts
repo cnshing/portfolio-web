@@ -177,7 +177,7 @@ const animateMotorcycle = (element: HTMLElement, enterDuration: number = 2.5): g
   template: `
     <video
       src="assets/videos/motorcycleman/test_motorcycle_idle_flipped.webm"
-      class="brightness-75 w-full ml-[50vw] origin-bottom scale-[250%] max-h-[min((100%-var(--spacing-2xl)+4.25%)/2.5,var(--spacing-2xl)*4)] overflow-x-hidden"
+      class="brightness-75 w-full ml-[50vw] origin-bottom scale-[250%] max-h-[min((100%-var(--spacing-2xl)+4.25%)/2.5,var(--spacing-2xl)*4)]"
       disableRemotePlayback
       muted
       playsinline
@@ -192,7 +192,7 @@ const animateMotorcycle = (element: HTMLElement, enterDuration: number = 2.5): g
     </video>
   `,
   host: {
-    class: 'absolute bottom-0 size-full flex flex-col justify-end pl-lg',
+    class: 'absolute bottom-0 size-full flex flex-col justify-end pl-lg overflow-x-hidden overflow-y-hidden',
   },
 })
 export class LandingHeroMotorcyclistComponent {
