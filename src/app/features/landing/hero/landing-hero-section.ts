@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { environment } from '@environments/environment';
 import { ZardButtonComponent } from '@shared/components/button/button.component';
 import { ZardIconComponent } from '@shared/components/icon/icon.component';
-import { LandingHeroMotorcyclistComponent } from '@features/hero/landing-hero-motorcyclist';
+import { LandingHeroMotorcyclistComponent } from '@features/landing/hero/landing-hero-motorcyclist';
 @Component({
   selector: 'landing-hero',
   standalone: true,
