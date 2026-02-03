@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { Component, inject, signal } from "@angular/core";
+import { Platform, PlatformModule } from '@angular/cdk/platform';
 import LandingHeroComponent from "@features/hero/landing-hero-section";
 import { LandingTransitionRacetrackComponent, LandingTransitionHelmetComponent } from "@features/landing/transition/landing-transition-section";
 import LandingAboutMeComponent  from "@features/landing/about-me/landing-about-me-section";
@@ -12,9 +13,9 @@ import LandingCTAComponent from "@features/landing/cta/landing-cta-section";
   selector: 'landing-page',
   standalone: true,
   imports: [LandingHeroComponent, LandingTransitionRacetrackComponent, LandingAboutMeComponent, LandingCareerComponent,
-    LandingSkillsComponent, LandingProjectsComponent, LandingFooterComponent, LandingCTAComponent, LandingTransitionHelmetComponent],
+    LandingSkillsComponent, LandingProjectsComponent, LandingFooterComponent, LandingCTAComponent, LandingTransitionHelmetComponent, PlatformModule],
   template: `
-  <landing-hero class="min-h-[102.5lvh] max-h-[calc(var(--spacing-3xl)*10)] "/> <!-- Extra 2.5dvh due to y-overflow from landing-transition-racetrack, max-height restriction for zoomed-out views -->
+  <landing-hero class="min-h-min h-custom-screen max-h-[calc(var(--spacing-3xl)*10)] "/> <!-- Extra 2.5dvh due to y-overflow from landing-transition-racetrack, max-height restriction for zoomed-out views -->
   <landing-transition-racetrack/>
   <landing-about-me/>
   <landing-transition-racetrack class="scale-y-[-1] scale-x-[-1]"/>
@@ -27,9 +28,15 @@ import LandingCTAComponent from "@features/landing/cta/landing-cta-section";
   `,
   host: {
     'class': 'flex flex-col w-full bg-color-page landing-page',
+    '[style.--inner-height.px]': 'needsVHFix ? innerHeight()*1.05: undefined',
+    '(window:resize)': "needsVHFix ? onResize() : undefined"
   },
   styles: `
-  .landing-page > :not(landing-transition-helmet, landing-transition-racetrack) > :first-child // NOTE: This fixes any landing sections with multiple siblings
+  .h-custom-screen
+    height: 102.5dvh
+    height: var(--inner-height)
+
+  ::ng-deep .landing-page > :not(landing-transition-helmet, landing-transition-racetrack) > :first-child // NOTE: This fixes any landing sections with multiple siblings
     max-width: var(--spacing-max-width)
     padding: var(--spacing-2xl) var(--spacing-lg)
     margin-left: auto
@@ -40,4 +47,17 @@ import LandingCTAComponent from "@features/landing/cta/landing-cta-section";
 })
 export class LandingPageComponent {
 
+  readonly platform = inject(Platform)
+  readonly needsVHFix = this.platform.IOS && (!this.platform.SAFARI || navigator.userAgent.match('CriOS') || this.platform.EDGE) // For certain iOS browsers, scrolling down dynamically changes the viewport(by hiding the tab) resulting in landing-hero's being shifted during scroll, causing a negative experience
+
+  readonly innerHeight = signal<number>(window.innerHeight)
+  readonly innerWidth = signal<number>(window.innerWidth)
+
+  protected readonly onResize = () => {
+    if (this.innerWidth() != window.innerWidth) {
+      this.innerHeight.set(window.innerHeight)
+      this.innerWidth.set(window.innerWidth)
+    }
+  }
 }
+
