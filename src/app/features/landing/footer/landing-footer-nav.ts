@@ -17,32 +17,38 @@ import { environment } from '@environments/environment';
   imports: [ZardDividerComponent, LandingNavGroupComponent],
   template: `
     <z-divider zSpacing="xl" />
-    <div class="flex flex-wrap justify-between gap-xl [&_a]:inline-block [&_a]:w-min">
+    <div
+      class="flex flex-wrap justify-between gap-xl [&_a]:inline-block [&_a]:w-min *:focus-visible:outline-none"
+    >
       <address>
         <landing-nav-group title="Contact">
-          <a target="_blank" rel="noopener noreferrer" href="tel:{{ phone }}">
-            <li>Phone</li>
-          </a>
-          <a target="_blank" rel="noopener noreferrer" href="mailto:{{ email }}">
-            <li>Email</li>
-          </a>
+          <li>
+            <a target="_blank" rel="noopener noreferrer" href="tel:{{ phone }}">Phone</a>
+          </li>
+          <li>
+            <a target="_blank" rel="noopener noreferrer" href="mailto:{{ email }}">Email</a>
+          </li>
         </landing-nav-group>
       </address>
       <landing-nav-group title="About Me">
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          [href]="'resumes/' + name.replace(' ', '_') + '_Resume.pdf'"
-          ><li>Resume Download</li></a
-        >
+        <li>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            [href]="'resumes/' + name.replace(' ', '_') + '_Resume.pdf'"
+            >Resume Download</a
+          >
+        </li>
       </landing-nav-group>
       <landing-nav-group title="Legal Information">
-        <a target="_blank" rel="noopener noreferrer" href="/privacy"><li>Privacy Policy</li></a>
+        <li>
+          <a target="_blank" rel="noopener noreferrer" href="/privacy">Privacy Policy</a>
+        </li>
       </landing-nav-group>
       <landing-nav-group title="Miscellaneous">
-        <a target="_blank" rel="noopener noreferrer" href="/playground"
-          ><li>UI Components</li></a
-        >
+        <li>
+          <a target="_blank" rel="noopener noreferrer" href="/playground">UI Components</a>
+        </li>
       </landing-nav-group>
     </div>
   `,
