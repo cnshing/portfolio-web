@@ -36,7 +36,6 @@ const vehcileFlipper = (element: HTMLElement) => {
   return setDirection;
 };
 
-
 /**
  * When this function is call, make the vehcile vibrate up and down.
  *
@@ -60,7 +59,7 @@ const vibrateVechile = (element: HTMLElement): gsap.core.Tween =>
 const animateMotorcycle = (element: HTMLElement, enterDuration: number = 2.5): gsap.Context =>
   gsap.context(() => {
     const flipVechile = vehcileFlipper(element);
-    const vibrateTween = vibrateVechile(element)
+    const vibrateTween = vibrateVechile(element);
     const transitionFrame = gsap.timeline();
 
     transitionFrame
@@ -75,7 +74,7 @@ const animateMotorcycle = (element: HTMLElement, enterDuration: number = 2.5): g
           x: 0,
           duration: enterDuration,
           ease: 'rough({strength: 25, template:power1.out, randomize: true})',
-          onStart: () => flipVechile(1)
+          onStart: () => flipVechile(1),
         },
         0
       )
@@ -89,36 +88,34 @@ const animateMotorcycle = (element: HTMLElement, enterDuration: number = 2.5): g
       '<87.5%'
     );
 
-
     let vehicle = {
       started: false,
-      startThreshold: 0.25
-    }
+      startThreshold: 0.25,
+    };
 
-    const vehicleDefaults = {...vehicle}
+    const vehicleDefaults = { ...vehicle };
     const markstartThreshold = progressMonitor({
       [vehicle.startThreshold]: (_) => {
         if (!vehicle.started) {
-          vehicle.started = true
+          vehicle.started = true;
         }
-      }
-    })
+      },
+    });
 
     const triggerConfig: ScrollTrigger.StaticVars = {
       trigger: element,
       start: relativeScroll.start,
       end: () => relativeScroll.start() + Math.max(window.innerHeight, window.innerWidth),
-      markers: true,
       scrub: 2.5,
       onEnter: () => vibrateTween.play(),
       onUpdate: (self) => {
-        markstartThreshold.onUpdate(self)
+        markstartThreshold.onUpdate(self);
         flipVechile(self.direction as 1 | -1);
       },
-      onLeaveBack: function(self)  {
+      onLeaveBack: function (self) {
         if (vehicle.started) {
           self.disable(true);
-          flipVechile(-1)
+          flipVechile(-1);
           gsap.to(element, {
             xPercent: '-30',
             x: window.innerWidth - element.getBoundingClientRect().left,
@@ -138,18 +135,18 @@ const animateMotorcycle = (element: HTMLElement, enterDuration: number = 2.5): g
     const scrollVehcile = gsap.timeline({
       scrollTrigger: triggerConfig,
     });
-    scrollVehcile.scrollTrigger!.disable()
+    scrollVehcile.scrollTrigger!.disable();
 
     const resetScrollVehcile = () => {
-      vehicle = vehicleDefaults
-      scrollVehcile.invalidate()
-      scrollVehcile.scrollTrigger!.enable()
-    }
+      vehicle = vehicleDefaults;
+      scrollVehcile.invalidate();
+      scrollVehcile.scrollTrigger!.enable();
+    };
 
     transitionFrame.call(
       () => {
-        transitionFrame.pause()
-        resetScrollVehcile()
+        transitionFrame.pause();
+        resetScrollVehcile();
         scrollVehcile.to(
           element,
           {
@@ -176,8 +173,7 @@ const animateMotorcycle = (element: HTMLElement, enterDuration: number = 2.5): g
   imports: [VideoAutoplayDirective],
   template: `
     <video
-      src="assets/videos/motorcycleman/test_motorcycle_idle_flipped.webm"
-      class="brightness-75 w-full ml-[50vw] origin-bottom scale-[250%] max-h-[min((100%-var(--spacing-2xl)+4.25%)/2.5,var(--spacing-2xl)*4)]"
+      class="brightness-75 w-full ml-[50vw] origin-bottom scale-x-[-250%] scale-y-[250%] max-h-[min((100%-var(--spacing-2xl)+4.25%)/2.5,var(--spacing-2xl)*4)] overflow-x-hidden"
       disableRemotePlayback
       muted
       playsinline
@@ -185,14 +181,14 @@ const animateMotorcycle = (element: HTMLElement, enterDuration: number = 2.5): g
       autoplay
       #heroMotorcyclist
     >
-      <source
-        type="video/quicktime; codecs=hvc1.1.6.H120.b0"
-        src="assets/videos/motorcycleman/test_motorcycle_idle_flipped.webm"
-      />
+      <source type="video/quicktime; codecs=hvc1.1.6.H120.b0" [src]="motorcycleSrc() + '.mp4'" />
+      <source type="video/webm; codecs=vp09.00.41.08" [src]="motorcycleSrc() + '.webm'" />
+      <img [src]="motorcycleSrc() + '.png'" alt="Motorcycle" />
     </video>
   `,
   host: {
-    class: 'absolute bottom-0 size-full flex flex-col justify-end pl-lg overflow-x-hidden overflow-y-hidden',
+    class:
+      'absolute bottom-0 size-full flex flex-col justify-end pl-lg overflow-x-hidden overflow-y-hidden',
   },
 })
 export class LandingHeroMotorcyclistComponent {
@@ -203,7 +199,10 @@ export class LandingHeroMotorcyclistComponent {
    */
   constructor() {
     afterNextRender(() => {
-      this.animate.set(animateMotorcycle(this.video().nativeElement));
+      const vehcile = this.video().nativeElement;
+      vehcile.load() // TODO: When possible make a directive to fix Angular video loading with multiple sources
+      vehcile.play()
+      this.animate.set(animateMotorcycle(vehcile));
     });
 
     inject(DestroyRef).onDestroy(() => this.animate()?.revert()); // Do not evalute this.animate() directly
@@ -226,4 +225,14 @@ export class LandingHeroMotorcyclistComponent {
    * @type {*}
    */
   protected readonly video = viewChild.required<ElementRef<HTMLVideoElement>>('heroMotorcyclist');
+
+
+  /**
+   * Src string of the motorcycle asset.
+   *
+   * @protected
+   * @readonly
+   * @type {str}
+   */
+  protected readonly motorcycleSrc = signal<string>('assets/videos/motorcycle');
 }
