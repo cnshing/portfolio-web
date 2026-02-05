@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet, NgOptimizedImage } from '@angular/common';
 import { avatarVariants, imageVariants, type ZardImageVariants, type ZardAvatarVariants } from './avatar.variants';
 import { mergeClasses } from '@shared/utils/merge-classes';
 
@@ -44,7 +44,7 @@ export class ZardAvatarContainerComponent {
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [ZardAvatarContainerComponent],
+  imports: [ZardAvatarContainerComponent, NgOptimizedImage],
   host: {
     style: 'display: contents',
     class: ''
@@ -57,7 +57,11 @@ export class ZardAvatarContainerComponent {
     }
 
     @if (zSrc() && !imageError()) {
-      <img [src]="zSrc()" [alt]="zAlt()" [class]="imgClasses()" [hidden]="!imageLoaded()" (load)="onImageLoad()" (error)="onImageError()" />
+      @if (isSvg()) {
+        <img [src]="zSrc()" [alt]="zAlt()" [class]="imgClasses()" [hidden]="!imageLoaded()" (load)="onImageLoad()" (error)="onImageError()" />
+      } @else {
+        <img [ngSrc]="zSrc()!" [alt]="zAlt()" [class]="imgClasses()" [hidden]="!imageLoaded()" (load)="onImageLoad()" (error)="onImageError()" width="100" height="100" loading="auto" decoding="async"/>
+      }
     }
 
     @if (zStatus()) {
@@ -164,6 +168,11 @@ export class ZardAvatarComponent {
   protected readonly imageLoaded = signal(false);
 
   protected readonly imgClasses = computed(() => mergeClasses(imageVariants({ zShape: this.zShape() })));
+
+  protected readonly isSvg = computed(() => {
+    const src = this.zSrc();
+    return src ? src.toLowerCase().endsWith('.svg') : false;
+  });
 
   protected onImageLoad(): void {
     this.imageLoaded.set(true);
