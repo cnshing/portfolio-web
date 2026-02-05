@@ -15,6 +15,7 @@ import LandingCTAComponent from "@features/landing/cta/landing-cta-section";
   imports: [LandingHeroComponent, LandingTransitionRacetrackComponent, LandingAboutMeComponent, LandingCareerComponent,
     LandingSkillsComponent, LandingProjectsComponent, LandingFooterComponent, LandingCTAComponent, LandingTransitionHelmetComponent, PlatformModule],
   template: `
+  <main class="flex flex-col w-full bg-color-page landing-page">
   <landing-hero class="min-h-min h-custom-screen max-h-[calc(var(--spacing-3xl)*10)] "/> <!-- Extra 2.5dvh due to y-overflow from landing-transition-racetrack, max-height restriction for zoomed-out views -->
   <landing-transition-racetrack/>
   <landing-about-me/>
@@ -24,10 +25,10 @@ import LandingCTAComponent from "@features/landing/cta/landing-cta-section";
   <landing-transition-helmet />
   <landing-projects/>
   <landing-cta/>
+  </main>
   <landing-footer/>
   `,
   host: {
-    'class': 'flex flex-col w-full bg-color-page landing-page',
     '[style.--inner-height.px]': 'needsVHFix ? innerHeight()*1.05: undefined',
     '(window:resize)': "needsVHFix ? onResize() : undefined"
   },
