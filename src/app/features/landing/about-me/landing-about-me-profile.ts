@@ -13,6 +13,7 @@ import { environment } from '@environments/environment';
       <div class="relative">
         <p
           class="text-center py-sm md:absolute text-xl md:text-left md:top-1/2 md:-translate-y-1/2 font-[Nanum_Pen_Script] md:left-(--avatar-label-offset)"
+          id="callToBoop"
         >
           <i
             class="hidden md:contents md:static md:inline-flex md:align-baseline md:*:-rotate-5"
@@ -30,7 +31,7 @@ import { environment } from '@environments/environment';
             zType="arrowArcLeft"
           ></i>
           <!-- Hacky workaround that uses duplicate icon elements for mobile/desktop call to action -->
-          <button class="w-(--avatar-width) rounded-full" (click)="this.onRandomAvatar($event)">
+          <button aria-labelledby="callToBoop" class="w-(--avatar-width) rounded-full" (click)="this.onRandomAvatar($event)">
             <me-avatar [posture]="this.posture()"></me-avatar>
           </button>
         </div>
