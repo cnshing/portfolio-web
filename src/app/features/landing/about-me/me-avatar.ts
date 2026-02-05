@@ -27,6 +27,7 @@ export type Postures = (typeof postures)[number];
       zShape="circle"
       zFallback="SC"
       zType="secondary"
+      zAlt="Avatar"
       [content]="video"
     >
       <ng-template #video>
