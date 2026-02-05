@@ -31,10 +31,10 @@ import { environment } from '@environments/environment';
       </div>
       <div class="flex flex-wrap gap-sm *:size-xl items-center">
         <a target="_blank" aria-label="Take a look at my Linkedin profile" rel="noopener noreferrer" href="https://linkedin.com/in/{{ linkedin }}">
-          <img src="assets/icons/linkedin.svg" alt="Linkedin"
+          <img class="size-full" src="assets/icons/linkedin.svg" alt="Linkedin"
         /></a>
         <a target="_blank" aria-label="Take a look at my Github profile" rel="noopener noreferrer" href="https://github.com/{{ github }}">
-          <img src="assets/icons/github-mark-white.svg" alt="Github"
+          <img class="size-full" src="assets/icons/github-mark-white.svg" alt="Github"
         /></a>
       </div>
     </section>

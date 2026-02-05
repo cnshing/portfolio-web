@@ -45,7 +45,7 @@ export interface LandingSkillCardInput {
   imports: [ZardCardComponent, ZardTooltipModule, AltFromSrcPipe],
   template: `
     <ng-template #skillIcon>
-      <img class="m-auto aspect-square" [src]="logoImg()" [alt]="logoImg() | altFromSrc" />
+      <img class="m-auto aspect-square size-full" [src]="logoImg()" [alt]="logoImg() | altFromSrc" />
     </ng-template>
     <z-card
         [zAvatarOrIcon]="skillIcon"
