@@ -20,7 +20,7 @@ import { VideoAutoplayDirective } from '@shared/directives/autoplay.directive';
       href="https://github.com/cnshing/code-server-lan"
     >
       <div class="flex flex-col h-full gap-md items-center justify-center p-xl text-center z-0">
-        <img class="size-xl" src="assets/icons/vscode.svg" />
+        <img class="size-xl" src="assets/icons/vscode.svg" alt="VSCode"/>
         <h3 [class]="headlineGradientClasses">
           Code
           <br />
