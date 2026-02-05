@@ -22,7 +22,7 @@ import { LandingProjectsCardComponent } from '@features/landing/projects/landing
         class="flex flex-col items-center gap-lg pt-xl pb-[calc(var(--spacing-xl)-1.5rem)] px-lg sm:px-xl "
       >
         <img
-          class="w-[calc(var(--spacing-2xl)*2.5)]"
+          class="w-[calc(var(--spacing-2xl)*2.5)] h-full"
           src="assets/icons/slugscheduler-logo.png"
           alt="SlugScheduler Logo"
         />
