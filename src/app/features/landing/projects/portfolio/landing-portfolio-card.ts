@@ -38,10 +38,11 @@ import { LandingProjectsCardComponent } from '@features/landing/projects/landing
         #motorcyclist
         [muted]="'muted'"
         [attr.autoplay]="isTouchDevice ? '' : null"
+        poster="assets/videos/motorcyclist.png"
         playsinline
         class="absolute inset-0 -z-[1] rounded-[inherit] w-full h-full object-cover object-[center_25%]"
       >
-        <source src="assets/videos/motorcyclist_no_watermark.mp4" type="video/mp4" />
+        <source src="assets/videos/motorcyclist.mp4" type="video/mp4" />
       </video>
     </a>
   `,
