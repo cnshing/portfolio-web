@@ -28,13 +28,12 @@ export type Postures = (typeof postures)[number];
       zFallback="SC"
       zType="secondary"
       zAlt="Avatar"
-      [content]="video"
+      [content]="videoTemplate"
     >
-      <ng-template #video>
-        <video disableRemotePlayback  playsinline autoplay autoplayOnVisible #avatarVideo>
+      <ng-template #videoTemplate>
+        <video disableRemotePlayback  playsinline autoplay autoplayOnVisible [poster]="avatarSrc()+'.png'" #avatarVideo>
           <source type="video/quicktime; codecs=hvc1.1.6.H120.b0" [src] = "avatarSrc() + '.mp4'" />
           <source type="video/webm; codecs=vp09.00.41.08" [src] = "avatarSrc() + '.webm'" />
-          <img [src]="avatarSrc() + '.png'" [alt]="this.posture()"/>
         </video>
       </ng-template>
     </z-avatar-container>
