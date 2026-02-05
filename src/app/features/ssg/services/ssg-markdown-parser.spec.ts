@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { SSGMarkdownParser } from './ssg-markdown-parser.service';
-import { LandingCareerExperienceInput } from '@features/landing/career/experience/landing-career-experience.types';
+import { LandingCareerExperienceInput, MMMYYYY } from '@features/landing/career/experience/landing-career-experience.types';
 import { provideZonelessChangeDetection } from '@angular/core';
 
 describe('SSGMarkdownParser', () => {
@@ -50,8 +50,8 @@ ${body}`;
       position: 'QA Lead',
       description: 'Testing everything thoroughly.',
       summary: 'Ensured system-wide stability.',
-      from: 'Jan 2020',
-      to: 'Dec 2024',
+      from: 'Jan 2020' as MMMYYYY,
+      to: 'Dec 2024' as MMMYYYY,
       skills: ['Angular', 'TypeScript', 'Testing'],
       highlights: 'Performed extensive test automation and tooling.',
     };
@@ -70,7 +70,7 @@ ${body}`;
       company: 'MiniCorp',
       companyLogoImg: '/mini.svg',
       position: 'Intern',
-      from: 'Feb 2021',
+      from: 'Feb 2021' as MMMYYYY,
       to: 'Present',
     };
     const markdown = generateMarkdown(frontmatter, 'Basic highlight');
@@ -132,7 +132,7 @@ ${body}`;
       company: 'BackCompat Inc',
       companyLogoImg: '/logo.png',
       position: 'Developer',
-      from: 'Jan 2023',
+      from: 'Jan 2023' as MMMYYYY,
       to: 'Present',
       highlights: 'Built amazing things.',
     };
