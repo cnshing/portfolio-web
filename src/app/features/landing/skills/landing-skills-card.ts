@@ -1,6 +1,7 @@
 import { Component, input } from '@angular/core';
 import { ZardCardComponent } from '@shared/components/card/card.component';
 import { ZardTooltipModule } from '@shared/components/tooltip/tooltip';
+import { AltFromSrcPipe } from '@shared/utils/accessibility';
 
 /**
  * Component inputs for LandingSkillCardComponent.
@@ -41,10 +42,10 @@ export interface LandingSkillCardInput {
 @Component({
   selector: 'landing-skill-card',
   standalone: true,
-  imports: [ZardCardComponent, ZardTooltipModule],
+  imports: [ZardCardComponent, ZardTooltipModule, AltFromSrcPipe],
   template: `
     <ng-template #skillIcon>
-      <img class="m-auto aspect-square" [src]="logoImg()" />
+      <img class="m-auto aspect-square" [src]="logoImg()" [alt]="logoImg() | altFromSrc" />
     </ng-template>
     <z-card
         [zAvatarOrIcon]="skillIcon"

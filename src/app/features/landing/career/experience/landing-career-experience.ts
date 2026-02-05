@@ -12,6 +12,7 @@ import {
 } from '@features/landing/career/experience/landing-career-experience.types';
 import { MarkdownComponent, provideMarkdown } from 'ngx-markdown';
 import { ZardDividerComponent } from '@shared/components/divider/divider.component';
+import { AltFromSrcPipe } from '@shared/utils/accessibility';
 
 /**
  * A career experience card containing information about a position.
@@ -34,6 +35,7 @@ import { ZardDividerComponent } from '@shared/components/divider/divider.compone
     MarkdownComponent,
     ZardDividerComponent,
     CommonModule,
+    AltFromSrcPipe
   ],
   template: `
     <z-card
@@ -45,6 +47,7 @@ import { ZardDividerComponent } from '@shared/components/divider/divider.compone
       <ng-template #companyIcon>
         <a
           class="focus-visible:ring-white-0/50 focus-visible:ring-[0.46875rem] focus-visible:outline-none rounded-sm"
+          [aria-label]="aboutURL() ? 'Learn more about '+ company() : undefined"
           [attr.href]="aboutURL() ? aboutURL() : undefined"
         > <!-- NOTE: Do not render accessibility styles if no link exists -->
           <z-avatar
@@ -53,6 +56,7 @@ import { ZardDividerComponent } from '@shared/components/divider/divider.compone
             [zSrc]="companyLogoImg()"
             zSize="md"
             zShape="none"
+            [zAlt]="companyLogoImg() | altFromSrc"
           />
         </a>
       </ng-template>
