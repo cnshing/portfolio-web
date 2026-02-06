@@ -174,6 +174,7 @@ const animateMotorcycle = (element: HTMLElement, enterDuration: number = 2.5): g
   template: `
     <video
       class="brightness-75 w-full ml-[50vw] origin-bottom scale-x-[-250%] scale-y-[250%] max-h-[min((100%-var(--spacing-2xl)+4.25%)/2.5,var(--spacing-2xl)*4)] overflow-x-hidden"
+      [poster]="motorcycleSrc() + '.png'"
       disableRemotePlayback
       muted
       playsinline
@@ -183,7 +184,6 @@ const animateMotorcycle = (element: HTMLElement, enterDuration: number = 2.5): g
     >
       <source type="video/quicktime; codecs=hvc1.1.6.H120.b0" [src]="motorcycleSrc() + '.mp4'" />
       <source type="video/webm; codecs=vp09.00.41.08" [src]="motorcycleSrc() + '.webm'" />
-      <img [src]="motorcycleSrc() + '.png'" alt="Motorcycle" />
     </video>
   `,
   host: {
