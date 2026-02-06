@@ -40,8 +40,8 @@ import { LandingProjectsCardComponent } from '@features/landing/projects/landing
         [attr.autoplay]="isTouchDevice ? '' : null"
         poster="assets/videos/motorcyclist.png"
         playsinline
-        class="absolute inset-0 -z-[1] rounded-[inherit] w-full h-full object-cover object-[center_25%]"
-      >
+        class="absolute size-full inset-0 -z-[1] rounded-[inherit] object-cover object-[center_25%]"
+      > <!-- TODO: Resolve layout shift from poster attribute -->
         <source src="assets/videos/motorcyclist.mp4" type="video/mp4" />
       </video>
     </a>
