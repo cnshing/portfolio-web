@@ -31,7 +31,7 @@ import { VideoAutoplayDirective } from '@shared/directives/autoplay.directive';
         autoplay
         loop
         playsinline
-        poster="assets/videos/codevialan-preview.png"
+        poster="assets/videos/codevialan-preview@0.25x.avif"
         class="absolute opacity-20 hover:opacity-45 duration-50 ease-in-out  inset-0 -z-[1] rounded-[inherit] size-full object-cover"
       >
         <!-- TODO: Fix hover not triggering due to z-index and allow for other events like focus, etc. -->

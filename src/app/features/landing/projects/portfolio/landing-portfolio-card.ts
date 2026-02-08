@@ -38,7 +38,7 @@ import { LandingProjectsCardComponent } from '@features/landing/projects/landing
         #motorcyclist
         [muted]="'muted'"
         [attr.autoplay]="isTouchDevice ? '' : null"
-        poster="assets/videos/motorcyclist.png"
+        poster="assets/videos/motorcyclist@0.5x.avif"
         playsinline
         class="absolute size-full inset-0 -z-[1] rounded-[inherit] object-cover object-[center_25%]"
       > <!-- TODO: Resolve layout shift from poster attribute -->
