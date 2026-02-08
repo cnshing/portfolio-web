@@ -19,7 +19,6 @@ export function pixelDensityImageLoader(
   config: ImageLoaderConfig
 ): string {
   const { src, width, loaderParams } = config
-  console.log(src, width)
 
   // Safety fallback
   if (!width || !(loaderParams && 'baseWidth' in loaderParams)) {
