@@ -1,6 +1,7 @@
 import {
   afterNextRender,
   Component,
+  computed,
   DestroyRef,
   ElementRef,
   inject,
@@ -172,9 +173,10 @@ const animateMotorcycle = (element: HTMLElement, enterDuration: number = 2.5): g
   standalone: true,
   imports: [VideoAutoplayDirective],
   template: `
+    <link rel="preload" as="image" [href]="motorcyclePoster()" fetchpriority="high" />
     <video
       class="brightness-75 w-full ml-[50vw] origin-bottom scale-x-[-250%] scale-y-[250%] max-h-[min((100%-var(--spacing-2xl)+4.25%)/2.5,var(--spacing-2xl)*4)] overflow-x-hidden"
-      [poster]="motorcycleSrc() + '@0.25x.avif'"
+      [poster]="motorcyclePoster()"
       disableRemotePlayback
       muted
       playsinline
@@ -201,8 +203,8 @@ export class LandingHeroMotorcyclistComponent {
   constructor() {
     afterNextRender(() => {
       const vehcile = this.video().nativeElement;
-      vehcile.load() // TODO: When possible make a directive to fix Angular video loading with multiple sources
-      vehcile.play()
+      vehcile.load(); // TODO: When possible make a directive to fix Angular video loading with multiple sources
+      vehcile.play();
       this.animate.set(animateMotorcycle(vehcile));
     });
 
@@ -227,7 +229,6 @@ export class LandingHeroMotorcyclistComponent {
    */
   protected readonly video = viewChild.required<ElementRef<HTMLVideoElement>>('heroMotorcyclist');
 
-
   /**
    * Src string of the motorcycle asset.
    *
@@ -236,4 +237,13 @@ export class LandingHeroMotorcyclistComponent {
    * @type {str}
    */
   protected readonly motorcycleSrc = signal<string>('assets/videos/motorcycle');
+
+  /**
+   * Src string of the motorcycle image preview.
+   *
+   * @protected
+   * @readonly
+   * @type {str}
+   */
+  protected readonly motorcyclePoster = computed(() => this.motorcycleSrc() + '@0.25x.avif');
 }
