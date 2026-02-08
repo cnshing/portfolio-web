@@ -14,7 +14,7 @@ import { environment } from '@environments/environment';
   providers: [],
   imports: [],
   template: `
-    <section class="text-color-tertiary flex flex-wrap justify-between gap-y-2xs">
+    <section class="text-color-tertiary flex flex-wrap justify-between gap-y-xs">
       <small>Developed by {{ copyrightOwner }} via Angular.</small>
       <small>© {{ copyrightYears }} {{ copyrightOwner }}. All Rights Reserved.</small>
     </section>
