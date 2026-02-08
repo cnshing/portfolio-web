@@ -24,6 +24,9 @@
     "module": "preserve",
     "baseUrl": "./",
     "paths": {
+      "@core/*": [
+        "src/app/core/*"
+      ],
       "@shared/*": [
         "src/app/shared/*"
       ],
