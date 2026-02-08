@@ -1,4 +1,4 @@
 ---
 name: Python
-logoImg: assets/icons/python-logo-only.svg
+logoImg: /assets/icons/python-logo-only.svg
 ---

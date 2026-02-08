@@ -43,7 +43,7 @@ export class LandingAboutMeAvatarComponent {
   readonly posture = input.required<Postures>();
   protected readonly video = viewChild.required<ElementRef>('avatarVideo')
   readonly avatarSrc = computed(() => {
-    const src = `assets/avatars/me-${this.posture()}`
+    const src = `/assets/avatars/me-${this.posture()}`
     const videoElement: HTMLVideoElement = this.video().nativeElement
     videoElement.load() // Dynamic binding in Angularv20 to <source>'s src tag fails: https://stackoverflow.com/questions/39180415/angular-2-change-videos-src-after-clicking-on-div#comment112049463_39237248
     videoElement.playbackRate = 0.91
