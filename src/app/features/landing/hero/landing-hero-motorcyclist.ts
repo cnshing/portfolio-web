@@ -180,6 +180,7 @@ const animateMotorcycle = (element: HTMLElement, enterDuration: number = 2.5): g
       playsinline
       loop
       autoplay
+      fetchpriority="high"
       #heroMotorcyclist
     >
       <source type="video/quicktime; codecs=hvc1.1.6.H120.b0" [src]="motorcycleSrc() + '.mp4'" />
