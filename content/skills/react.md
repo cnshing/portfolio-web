@@ -1,4 +1,4 @@
 ---
 name: React
-logoImg: assets/icons/reactjs.svg
+logoImg: /assets/icons/reactjs.svg
 ---

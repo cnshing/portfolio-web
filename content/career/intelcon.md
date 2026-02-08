@@ -1,6 +1,6 @@
 ---
 company: Intelcon.us, Inc.
-companyLogoImg: assets/icons/IntelconSVG.svg
+companyLogoImg: /assets/icons/IntelconSVG.svg
 position: Frontend Engineer
 summary: Developed their job platform to connect skilled construction workers where previous traditional recruiting falls short.
 from: Oct 2023

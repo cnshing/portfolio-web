@@ -24,7 +24,7 @@ import { NgOptimizedImage } from '@angular/common';
       >
         <img
           class="relative w-[max(62.5%,var(--spacing-2xl)*2.5)]"
-          ngSrc="assets/icons/slugscheduler-logo.png"
+          ngSrc="/assets/icons/slugscheduler-logo.png"
           [loaderParams]="{baseWidth: 1552}"
           width="1552"
           height="780"
@@ -40,7 +40,7 @@ import { NgOptimizedImage } from '@angular/common';
       <div class="flex-1">
         <img
           class="size-full object-cover object-left-top translate-y-[8%] brightness-[98.5%]"
-          ngSrc="assets/graphics/class-schedule-cropped.png"
+          ngSrc="/assets/graphics/class-schedule-cropped.png"
           sizes="auto"
           [loaderParams]="{baseWidth: 886}"
           alt="SlugScheduler Schedule Preview"

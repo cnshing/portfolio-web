@@ -22,7 +22,7 @@ import { LandingProjectsCardComponent } from '@features/landing/projects/landing
       <h2
         class="inline-flex flex-wrap text-[#202020] justify-center gap-y-xs items-center text-right max-[31.875rem]:text-center"
       >
-        Custom<br class="md:hidden" />OS<img class="size-2xl" src="assets/icons/linux.svg" alt="Linux"/>
+        Custom<br class="md:hidden" />OS<img class="size-2xl" src="/assets/icons/linux.svg" alt="Linux"/>
       </h2>
     </a>
   `,

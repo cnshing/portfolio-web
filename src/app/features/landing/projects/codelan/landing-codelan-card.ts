@@ -20,7 +20,7 @@ import { VideoAutoplayDirective } from '@shared/directives/autoplay.directive';
       href="https://github.com/cnshing/code-server-lan"
     >
       <div class="flex flex-col h-full gap-md items-center justify-center p-xl text-center z-0">
-        <img class="size-xl" src="assets/icons/vscode.svg" alt="VSCode"/>
+        <img class="size-xl" src="/assets/icons/vscode.svg" alt="VSCode"/>
         <h3 [class]="headlineGradientClasses">
           Code
           <br />
@@ -31,11 +31,11 @@ import { VideoAutoplayDirective } from '@shared/directives/autoplay.directive';
         autoplay
         loop
         playsinline
-        poster="assets/videos/codevialan-preview@0.25x.avif"
+        poster="/assets/videos/codevialan-preview@0.25x.avif"
         class="absolute opacity-20 hover:opacity-45 duration-50 ease-in-out  inset-0 -z-[1] rounded-[inherit] size-full object-cover"
       >
         <!-- TODO: Fix hover not triggering due to z-index and allow for other events like focus, etc. -->
-        <source src="assets/videos/codevialan-preview.mp4" type="video/mp4" />
+        <source src="/assets/videos/codevialan-preview.mp4" type="video/mp4" />
       </video>
     </a>
   `,

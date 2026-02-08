@@ -1,6 +1,6 @@
 ---
 company: University of California, Santa Cruz
-companyLogoImg: assets/icons/fiat-slug.png
+companyLogoImg: /assets/icons/fiat-slug.png
 position: College Undergraduate
 summary: Certifications include CompTIA A+ and Network+ completed post-graduation. 
 from: Aug 2018
