@@ -31,7 +31,7 @@ export type Postures = (typeof postures)[number];
       [content]="videoTemplate"
     >
       <ng-template #videoTemplate>
-        <video disableRemotePlayback  playsinline autoplay autoplayOnVisible [poster]="avatarSrc()+'.png'" #avatarVideo>
+        <video disableRemotePlayback  playsinline autoplay autoplayOnVisible [poster]="avatarSrc()+'@0.5x.avif'" #avatarVideo>
           <source type="video/quicktime; codecs=hvc1.1.6.H120.b0" [src] = "avatarSrc() + '.mp4'" />
           <source type="video/webm; codecs=vp09.00.41.08" [src] = "avatarSrc() + '.webm'" />
         </video>
