@@ -8,12 +8,9 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { VideoAutoplayDirective } from '@shared/directives/autoplay.directive';
 import { gsap } from 'gsap';
 import { progressMonitor, relativeScroll, vibrate } from '@shared/utils/gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { SafeResourceUrlPipe } from '@shared/utils/sanitizers';
-import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { TransparentVideoLinkComponent } from "@shared/directives/link.directive";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -174,9 +171,8 @@ const animateMotorcycle = (element: HTMLElement, enterDuration: number = 2.5): g
 @Component({
   selector: 'landing-hero-motorcyclist',
   standalone: true,
-  imports: [VideoAutoplayDirective, PlatformModule, TransparentVideoLinkComponent, SafeResourceUrlPipe],
+  imports: [TransparentVideoLinkComponent],
   template: `
-    <link rel="preload" as="image" [href]="motorcyclePoster() | sanitizeResourceUrl" fetchpriority="high"/>
     <link selectTransparent rel="preload" as="video" [zWebkitSrc]="motorcycleSrc() + '.mp4'" [zFallbackSrc]="motorcycleSrc() + 'webm'" fetchpriority="high"/> <!-- TODO: Figure out why <link rel=preload> has an invalid href value -->
     <video
       class="brightness-75 w-full ml-[50vw] origin-bottom scale-x-[-250%] scale-y-[250%] max-h-[min((100%-var(--spacing-2xl)+4.25%)/2.5,var(--spacing-2xl)*4)] overflow-x-hidden"
@@ -185,8 +181,8 @@ const animateMotorcycle = (element: HTMLElement, enterDuration: number = 2.5): g
       muted
       playsinline
       loop
-      autoplay
       fetchpriority="high"
+      preload='metadata'
       #heroMotorcyclist
     >
       <source type="video/quicktime; codecs=hvc1.1.6.H120.b0" [src]="motorcycleSrc() + '.mp4'" />
@@ -250,6 +246,4 @@ export class LandingHeroMotorcyclistComponent {
    * @type {str}
    */
   protected readonly motorcyclePoster = computed(() => this.motorcycleSrc() + '@0.25x.avif');
-
-  protected readonly isWebkit = inject(Platform).WEBKIT
 }
