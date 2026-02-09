@@ -1,8 +1,8 @@
 import { Component, computed, ElementRef, inject, input, viewChild } from '@angular/core';
 import { ZardAvatarContainerComponent } from '@shared/components/avatar/avatar.component';
 import { AutoplayOnVisibleDirective, VideoAutoplayDirective } from '@shared/directives/autoplay.directive';
-import { SafeResourceUrlPipe } from '@shared/utils/sanitizers';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
+import { TransparentVideoLinkComponent } from "@shared/directives/link.directive";
 
 export const postures = [
   'concentrating',
@@ -21,15 +21,10 @@ export type Postures = (typeof postures)[number];
 @Component({
   selector: 'me-avatar',
   standalone: true,
-  imports: [ZardAvatarContainerComponent, VideoAutoplayDirective, AutoplayOnVisibleDirective, SafeResourceUrlPipe, PlatformModule],
+  imports: [ZardAvatarContainerComponent, VideoAutoplayDirective, AutoplayOnVisibleDirective, PlatformModule, TransparentVideoLinkComponent],
   template: `
     @for (avatar of postures; track avatar) {
-      @if (isWebkit) {
-        <link rel="prefetch" [href]="avatarSrcPath(avatar) + '.mp4' | sanitizeResourceUrl"/>
-      }
-      @else {
-        <link rel="prefetch" [href]="avatarSrcPath(avatar) + '.webm' | sanitizeResourceUrl" />
-      }
+      <link selectTransparent rel="prefetch" as="video" [zWebkitSrc]="avatarSrcPath(avatar) + '.mp4'" [zFallbackSrc]="avatarSrcPath(avatar) + '.webm'" />
     }
     <z-avatar-container
       class="rounded-full aspect-square overflow-hidden"
