@@ -213,7 +213,7 @@ export class LandingHeroMotorcyclistComponent {
       const vehcile = this.video().nativeElement;
       vehcile.load(); // TODO: When possible make a directive to fix Angular video loading with multiple sources
       vehcile.play();
-      this.animate.set(animateMotorcycle(vehcile, 1.5));
+      this.animate.set(animateMotorcycle(vehcile, 2.0));
     });
 
     inject(DestroyRef).onDestroy(() => this.animate()?.revert()); // Do not evalute this.animate() directly
