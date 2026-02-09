@@ -1,7 +1,6 @@
-import { Component, computed, ElementRef, inject, input, viewChild } from '@angular/core';
+import { Component, computed, ElementRef, input, viewChild } from '@angular/core';
 import { ZardAvatarContainerComponent } from '@shared/components/avatar/avatar.component';
 import { AutoplayOnVisibleDirective, VideoAutoplayDirective } from '@shared/directives/autoplay.directive';
-import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { TransparentVideoLinkComponent } from "@shared/directives/link.directive";
 
 export const postures = [
@@ -21,7 +20,7 @@ export type Postures = (typeof postures)[number];
 @Component({
   selector: 'me-avatar',
   standalone: true,
-  imports: [ZardAvatarContainerComponent, VideoAutoplayDirective, AutoplayOnVisibleDirective, PlatformModule, TransparentVideoLinkComponent],
+  imports: [ZardAvatarContainerComponent, VideoAutoplayDirective, AutoplayOnVisibleDirective,  TransparentVideoLinkComponent],
   template: `
     @for (avatar of postures; track avatar) {
       <link selectTransparent rel="prefetch" as="video" [zWebkitSrc]="avatarSrcPath(avatar) + '.mp4'" [zFallbackSrc]="avatarSrcPath(avatar) + '.webm'" />
@@ -66,5 +65,4 @@ export class LandingAboutMeAvatarComponent {
 
   protected readonly postures = postures
 
-  protected readonly isWebkit = inject(Platform).WEBKIT
 }
