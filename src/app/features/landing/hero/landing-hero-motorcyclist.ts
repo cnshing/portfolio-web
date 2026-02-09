@@ -12,6 +12,7 @@ import { gsap } from 'gsap';
 import { progressMonitor, relativeScroll, vibrate } from '@shared/utils/gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { TransparentVideoLinkComponent } from "@shared/directives/link.directive";
+import { VideoAutoplayDirective } from '@shared/directives/autoplay.directive';
 
 gsap.registerPlugin(ScrollTrigger);
 ScrollTrigger.config({ ignoreMobileResize: true });
@@ -171,9 +172,9 @@ const animateMotorcycle = (element: HTMLElement, enterDuration: number = 2.5): g
 @Component({
   selector: 'landing-hero-motorcyclist',
   standalone: true,
-  imports: [TransparentVideoLinkComponent],
+  imports: [VideoAutoplayDirective, TransparentVideoLinkComponent],
   template: `
-    <link selectTransparent rel="preload" as="video" [zWebkitSrc]="motorcycleSrc() + '.mp4'" [zFallbackSrc]="motorcycleSrc() + 'webm'" fetchpriority="high"/> <!-- TODO: Figure out why <link rel=preload> has an invalid href value -->
+    <link selectTransparent rel="preload" as="video" zWebkitSrc="/assets/videos/motorcycle.mp4" zFallbackSrc="/assets/videos/motorcycle.webm" fetchpriority="high"/> <!-- TODO: The following code for rel=preload doesn't work. Figure out why <link rel=preload> has an invalid href value -->
     <video
       class="brightness-75 w-full ml-[50vw] origin-bottom scale-x-[-250%] scale-y-[250%] max-h-[min((100%-var(--spacing-2xl)+4.25%)/2.5,var(--spacing-2xl)*4)] overflow-x-hidden"
       [poster]="motorcyclePoster()"
@@ -183,6 +184,7 @@ const animateMotorcycle = (element: HTMLElement, enterDuration: number = 2.5): g
       loop
       fetchpriority="high"
       preload='metadata'
+      autoplay
       #heroMotorcyclist
     >
       <source type="video/quicktime; codecs=hvc1.1.6.H120.b0" [src]="motorcycleSrc() + '.mp4'" />
