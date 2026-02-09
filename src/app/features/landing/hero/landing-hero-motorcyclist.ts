@@ -244,7 +244,7 @@ export class LandingHeroMotorcyclistComponent {
    * @readonly
    * @type {str}
    */
-  protected readonly motorcycleSrc = signal<string>('assets/videos/motorcycle');
+  protected readonly motorcycleSrc = signal<string>('/assets/videos/motorcycle');
 
   /**
    * Src string of the motorcycle image preview.
