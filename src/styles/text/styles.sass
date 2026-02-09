@@ -15,17 +15,15 @@
   $directory: "/assets/fonts/geist-mono/files"
 )
 
-@layer base // This forces font-face evaluation at <style> for production builds and loads the font early
-  @include fontsource.faces(
-    $metadata: Staatliches.$metadata,
-    $directory: "/assets/fonts/staatliches/files"
-  )
+@include fontsource.faces(
+  $metadata: Staatliches.$metadata,
+  $directory: "/assets/fonts/staatliches/files"
+)
 
-@layer base
-  @include fontsource.faces(
-    $metadata: NanumPenScript.$metadata,
-    $directory: "/assets/fonts/nanum-pen-script/files"
-  )
+@include fontsource.faces(
+  $metadata: NanumPenScript.$metadata,
+  $directory: "/assets/fonts/nanum-pen-script/files"
+)
 
 @theme default
   --font-sans: "Geist Variable"
