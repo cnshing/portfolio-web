@@ -76,8 +76,8 @@ import { AltFromSrcPipe } from '@shared/utils/accessibility';
           <div
             markdown
             class="max-w-line-length text-color-default"
-            [data]="this.highlights()"
-          ></div>
+            ngPreserveWhitespace
+          >{{ highlights() }}</div>
         </blockquote>
       </div>
       <z-divider

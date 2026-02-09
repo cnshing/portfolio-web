@@ -4,6 +4,7 @@ import { environment } from '@environments/environment';
 import { SSGMarkdownParser } from '@features/ssg/services/ssg-markdown-parser.service';
 import { LegalPrivacyPolicyContent } from '@features/legal/legal-privacy-policy.types';
 import { ZardDividerComponent } from "@shared/components/divider/divider.component";
+import { CommonModule } from '@angular/common';
 
 /**
  * A career experience card containing information about a position.
@@ -16,12 +17,12 @@ import { ZardDividerComponent } from "@shared/components/divider/divider.compone
   selector: 'legal-privacy-policy',
   standalone: true,
   providers: [provideMarkdown()],
-  imports: [MarkdownComponent, ZardDividerComponent],
+  imports: [MarkdownComponent, ZardDividerComponent, CommonModule],
   template: `
     <z-divider />
     <p class="text-center">Last Updated: <time class="text-color-secondary"> {{ lastUpdatedDate().toLocaleDateString('en-CA') }}</time></p>
     <z-divider />
-    <markdown class="px-xl pt-lg" [data]="this.policy().content"></markdown>
+    <markdown class="px-xl pt-lg" ngPreserveWhitespace>{{ policy().content }}</markdown>
   `,
   host: {
     'class': 'flex flex-col w-full bg-color-page min-h-[100vh] ul',
