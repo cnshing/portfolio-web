@@ -85,7 +85,7 @@ has_alpha() {
 }
 
 encode_without_alpha() {
-  ./ffmpeg \
+  ffmpeg \
     -nostdin \
     $FF_OVERWRITE \
     -i "$INPUT" \
@@ -99,7 +99,7 @@ encode_without_alpha() {
 }
 
 encode_with_alpha() {
-  ./ffmpeg \
+  ffmpeg \
     -nostdin \
     $FF_OVERWRITE \
     -i "$INPUT" \
