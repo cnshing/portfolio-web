@@ -58,5 +58,5 @@ export class LandingPortfolioComponent {
   protected readonly highlightClasses =
     'rounded-sm px-2xs text-color-accent bg-color-page border border-color-strong';
 
-  protected readonly isTouchDevice = matchMedia('(hover: hover)').matches // https://stackoverflow.com/questions/52742466/detect-if-a-client-device-supports-hover-and-focus-states
+  protected readonly isTouchDevice = matchMedia('(pointer:coarse)').matches // https://stackoverflow.com/a/14457567
 }
