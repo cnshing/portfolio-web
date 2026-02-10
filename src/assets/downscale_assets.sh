@@ -9,12 +9,11 @@ set -euo pipefail
 IMAGE_EXTENSIONS="jpg jpeg png webp tif tiff bmp gif"
 DEFAULT_FORMAT="avif"
 
-AVIF_CRF=24        # 0–32 (lower = better)
-AVIF_SPEED=0       # 0 = slow/best, 10 = fast/worst
-
-OVERWRITE=false
-PARALLEL=false
-PARALLEL_JOBS=$(nproc)
+: "${AVIF_CRF:=24}" # 0–32 (lower = better)
+: "${AVIF_SPEED:=0}" # 0 = slow/best, 10 = fast/worst
+: "${OVERWRITE:=false}"
+: "${PARALLEL:=false}"
+: "${PARALLEL_JOBS:=$(nproc)}"
 
 #######################################
 # Helpers
