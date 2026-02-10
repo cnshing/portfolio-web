@@ -247,5 +247,5 @@ export class LandingHeroMotorcyclistComponent {
    * @readonly
    * @type {str}
    */
-  protected readonly motorcyclePoster = computed(() => this.motorcycleSrc() + '@0.25x.avif');
+  protected readonly motorcyclePoster = computed(() => this.motorcycleSrc() + '@0.125x.avif');
 }
