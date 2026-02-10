@@ -1,7 +1,7 @@
 import { Component, computed, ElementRef, input, viewChild } from '@angular/core';
 import { ZardAvatarContainerComponent } from '@shared/components/avatar/avatar.component';
 import { AutoplayOnVisibleDirective, VideoAutoplayDirective } from '@shared/directives/autoplay.directive';
-import { TransparentVideoLinkComponent } from "@shared/directives/link.directive";
+
 
 export const postures = [
   'concentrating',
@@ -28,11 +28,8 @@ export const avatarSrcPath = (posture: Postures) => `/assets/avatars/me-${postur
 @Component({
   selector: 'me-avatar',
   standalone: true,
-  imports: [ZardAvatarContainerComponent, VideoAutoplayDirective, AutoplayOnVisibleDirective,  TransparentVideoLinkComponent],
+  imports: [ZardAvatarContainerComponent, VideoAutoplayDirective, AutoplayOnVisibleDirective],
   template: `
-    @for (avatar of postures; track avatar) {
-      <link selectTransparent rel="prefetch" as="video" [zWebkitSrc]="avatarSrcPath(avatar) + '.mp4'" [zFallbackSrc]="avatarSrcPath(avatar) + '.webm'" />
-    }
     <z-avatar-container
       class="rounded-full aspect-square overflow-hidden"
       zSize="none"
@@ -43,7 +40,7 @@ export const avatarSrcPath = (posture: Postures) => `/assets/avatars/me-${postur
       [content]="videoTemplate"
     >
       <ng-template #videoTemplate>
-        <video disableRemotePlayback  playsinline autoplay autoplayOnVisible [poster]="avatarSrc()+'@0.125x.avif'" #avatarVideo>
+        <video disableRemotePlayback  playsinline autoplay autoplayOnVisible [poster]="avatarSrc()+'@0.75x.avif'" class="size-full" #avatarVideo>
           <source type="video/quicktime; codecs=hvc1.1.6.H120.b0" [src] = "avatarSrc() + '.mp4'" />
           <source type="video/webm; codecs=vp09.00.41.08" [src] = "avatarSrc() + '.webm'" />
         </video>
