@@ -3,6 +3,7 @@ import { ZardButtonComponent } from '@shared/components/button/button.component'
 import { ZardIconComponent } from '@shared/components/icon/icon.component';
 import { LandingAboutMeAvatarComponent, Postures, postures } from './me-avatar';
 import { environment } from '@environments/environment';
+import { avatarSrcPath } from '@features/landing/about-me/me-avatar';
 
 @Component({
   selector: 'landing-about-me-profile',
@@ -31,7 +32,12 @@ import { environment } from '@environments/environment';
             zType="arrowArcLeft"
           ></i>
           <!-- Hacky workaround that uses duplicate icon elements for mobile/desktop call to action -->
-          <button aria-labelledby="callToBoop" class="w-(--avatar-width) rounded-full" (click)="this.onRandomAvatar($event)">
+          <button
+            aria-labelledby="callToBoop"
+            class="w-(--avatar-width) rounded-full"
+            (click)="this.onRandomAvatar($event)"
+            (mouseenter)="this.onHoverload()"
+          >
             <me-avatar [posture]="this.posture()"></me-avatar>
           </button>
         </div>
@@ -102,17 +108,85 @@ import { environment } from '@environments/environment';
   `,
 })
 export default class LandingAboutMeProfileComponent {
+
   protected readonly location = environment.location;
   protected readonly email = environment.email;
   protected readonly github = environment.githubUsername;
   protected readonly linkedin = environment.linkedinUsername;
   protected readonly phone = environment.phoneNumber;
+
+  /**
+   * The current avatar posture.
+   *
+   * @protected
+   * @readonly
+   * @type {WritableSignal<Postures>}
+   */
   protected readonly posture: WritableSignal<Postures> = signal('presenting');
 
-  readonly onRandomAvatar = (event: Event) => {
+  /**
+   * Any avatars that have been fetched once before.
+   *
+   * @protected
+   * @readonly
+   * @type {*}
+   */
+  protected readonly loadedAvatars = new Set<Postures>(['presenting']);
+
+  /**
+   * Randomly selects a posture except for `exclude`
+   *
+   * @private
+   * @param {Postures} exclude This posture will not be selected
+   * @returns {Postures} A randomly selected posture
+   */
+  protected readonly selectRandomPosture = (exclude: Postures): Postures => {
+    const availablePostures = postures.filter((p) => p !== exclude);
+    return availablePostures[Math.floor(Math.random() * availablePostures.length)]!;
+  }
+
+  /**
+   * The next avatar posture to play when requested.
+   *
+   * @private
+   * @readonly
+   * @type {WritableSignal<Postures>}
+   */
+  protected readonly nextPosture: WritableSignal<Postures> = signal(
+    this.selectRandomPosture('presenting')
+  );
+
+  /**
+   * Attempts to fetch the video resource for `posture`
+   *
+   * @private
+   * @param {Postures} posture
+   */
+  protected readonly loadAvatar = (posture: Postures): void => {
+    if (!this.loadedAvatars.has(posture)) {
+      fetch(`${avatarSrcPath(posture)}.mp4`, {
+        method: 'GET',
+        cache: 'force-cache',
+        priority: 'low',
+      } as RequestInit);
+
+      fetch(`${avatarSrcPath(posture)}.webm`, {
+        method: 'GET',
+        cache: 'force-cache',
+        priority: 'low',
+      } as RequestInit);
+
+      this.loadedAvatars.add(posture);
+    }
+  }
+
+  protected readonly onHoverload = () => {
+    this.loadAvatar(this.nextPosture());
+  };
+
+  protected readonly onRandomAvatar = (event: Event) => {
     event.preventDefault();
-    const avatars = postures.filter((p) => p !== this.posture());
-    const randomAvatar = avatars[Math.floor(Math.random() * avatars.length)];
-    this.posture.set(randomAvatar!);
+    this.posture.set(this.nextPosture());
+    this.nextPosture.set(this.selectRandomPosture(this.nextPosture()));
   };
 }
