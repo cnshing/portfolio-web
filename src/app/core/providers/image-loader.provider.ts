@@ -5,7 +5,7 @@ import { IMAGE_LOADER, ImageLoaderConfig } from '@angular/common';
  *
  * @type {number[]}
  */
-const AVAILABLE_DENSITIES = [0.125, 0.25, 0.5, 0.75, 1.0];
+const AVAILABLE_DENSITIES = [0.125, 0.25, 0.5, 0.75, 1.0] as const;
 
 
 /**
@@ -13,10 +13,12 @@ const AVAILABLE_DENSITIES = [0.125, 0.25, 0.5, 0.75, 1.0];
  *
  * @export
  * @param {ImageLoaderConfig} config
+ * @param {number} [fallbackOffset=1] Selectively steps down the best pixel density by `fallbackOffset` if loaderParams did not specify a `stepDownOffset`.
  * @returns {string} String path of pixel density `density` equivalent to `src`.
  */
 export function pixelDensityImageLoader(
-  config: ImageLoaderConfig
+  config: ImageLoaderConfig,
+  fallbackOffset: number = 0
 ): string {
   const { src, width, loaderParams } = config
 
@@ -26,9 +28,16 @@ export function pixelDensityImageLoader(
   }
 
   const baseWidth = loaderParams['baseWidth']
+  const stepDownOffset = 'stepDownOffset' in loaderParams ? loaderParams['stepDownOffset'] : fallbackOffset
   const bestDensity = findBestDensityByWidth(width, baseWidth);
 
-  return withDensity(src, bestDensity);
+  const index = AVAILABLE_DENSITIES.indexOf(bestDensity);
+
+  const stepDown =
+    index-stepDownOffset > 0
+      ? AVAILABLE_DENSITIES[index - stepDownOffset]
+      : AVAILABLE_DENSITIES[0];
+  return withDensity(src, stepDown!);
 }
 
 /**
@@ -38,11 +47,10 @@ export function pixelDensityImageLoader(
 function findBestDensityByWidth(
   requestedWidth: number,
   baseWidth: number
-): number {
+) {
   return AVAILABLE_DENSITIES.reduce((best, density) => {
     const bestWidth = baseWidth * best;
     const currentWidth = baseWidth * density;
-
     return Math.abs(currentWidth - requestedWidth) <
       Math.abs(bestWidth - requestedWidth)
       ? density
