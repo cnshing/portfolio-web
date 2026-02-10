@@ -17,6 +17,14 @@ export const postures = [
 ] as const;
 export type Postures = (typeof postures)[number];
 
+/**
+ *
+ *
+ * @param {Postures} posture
+ * @returns {string} Avatar source path of `posture`
+ */
+export const avatarSrcPath = (posture: Postures) => `/assets/avatars/me-${posture}`
+
 @Component({
   selector: 'me-avatar',
   standalone: true,
@@ -53,16 +61,6 @@ export class LandingAboutMeAvatarComponent {
     videoElement.playbackRate = 0.91
     return src
   });
-
-
-  /**
-   *
-   *
-   * @param {Postures} posture
-   * @returns {string} Avatar source path of `posture`
-   */
-  protected readonly avatarSrcPath = (posture: Postures) => `/assets/avatars/me-${posture}`
-
   protected readonly postures = postures
-
+  protected readonly avatarSrcPath = avatarSrcPath
 }
