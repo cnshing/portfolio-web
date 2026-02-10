@@ -50,7 +50,7 @@ import LandingCTAComponent from '@features/landing/cta/landing-cta-section';
   },
   styles: `
   .h-custom-screen
-    height: var(--inner-height, 102.5lvh)
+    height: var(--inner-height, 102.5dvh)
 
   ::ng-deep .landing-page > :not(landing-transition-helmet, landing-transition-racetrack) > :first-child // NOTE: This fixes any landing sections with multiple siblings
     max-width: var(--spacing-max-width)
