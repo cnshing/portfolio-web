@@ -60,7 +60,7 @@ export class ZardAvatarContainerComponent {
       @if (isSvg()) {
         <img [src]="zSrc()" [alt]="zAlt()" [class]="imgClasses()" [hidden]="!imageLoaded()" (load)="onImageLoad()" (error)="onImageError()" />
       } @else {
-        <img [ngSrc]="zSrc()!" [alt]="zAlt()" [class]="imgClasses()" [hidden]="!imageLoaded()" (load)="onImageLoad()" (error)="onImageError()" sizes="auto" [loaderParams]="{baseWidth: 100, stepDownOffset: 3}" width="100" height="100" loading="auto" decoding="async"/>
+        <img [ngSrc]="zSrc()!" [alt]="zAlt()" [class]="imgClasses()" [hidden]="!imageLoaded()" (load)="onImageLoad()" (error)="onImageError()" sizes="auto" [loaderParams]="{baseWidth: 100, stepDownOffset: 2}" width="100" height="100" loading="auto" decoding="async"/>
       }
     }
 
