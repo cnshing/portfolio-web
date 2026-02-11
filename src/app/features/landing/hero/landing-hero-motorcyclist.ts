@@ -106,8 +106,7 @@ const animateMotorcycle = (element: HTMLElement, enterDuration: number = 2.5): g
 
     const triggerConfig: ScrollTrigger.StaticVars = {
       trigger: element,
-      start: relativeScroll.start,
-      end: () => relativeScroll.start() + Math.max(window.innerHeight, window.innerWidth),
+      ...relativeScroll(() => Math.max(window.innerHeight, window.innerWidth)),
       scrub: 2.5,
       onEnter: () => vibrateTween.play(),
       onUpdate: (self) => {
