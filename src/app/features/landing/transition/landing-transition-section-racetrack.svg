@@ -18,7 +18,7 @@
         <path d="M 1700 0 L 1400 250" stroke="url(#tube-highlight)" stroke-width="0.1875rem" stroke-linecap="round" />
       </symbol>
       <symbol id="tube-bottom">
-        <path d="M 1400 250 H 0" stroke="currentColor" stroke-opacity="0.85" stroke-width="0.24375em" stroke-linecap="round" />
+        <path d="M 1400 250 H 0" stroke="currentColor" stroke-opacity="0.85" stroke-width="0.24375rem" stroke-linecap="round" />
         <path d="M 1400 250 H 0" stroke="url(#tube-highlight)" stroke-width="0.24375rem" stroke-linecap="round" />
       </symbol>
     </defs>
