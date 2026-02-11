@@ -15,12 +15,15 @@ export const vibrate = (frequency: number, duration: number) => ({
 /**
  * Forces the trigger to be relative to the viewport, starting at the current vertical scroll position and ending at the bottom of the viewport.
  *
- * @type {ScrollTrigger.StaticVars} Overrides `start` and `end` values.
+ * @param {(number | (() => number))} [endOffset=() => window.innerHeight] The total scroll length to complete the animation. Can be a direct number or a function returning a number. Defaults to one viewport.
+ * @returns {number)) => { start: () => any; end: () => any; }} Overrides `start` and `end` values.
  */
-export const relativeScroll = {
-  start: () => window.pageYOffset,
-  end: () => window.pageYOffset + window.innerHeight,
-};
+export const relativeScroll = (endOffset: number | (() => number) = () => window.innerHeight) => (
+  {
+    start: () => window.pageYOffset, // TODO: Figure out bug where scrolling past and back the 'start' line really fast causes mismatch pageYOffset
+    end: () => window.pageYOffset + (typeof endOffset === "number" ? endOffset: endOffset())
+  }
+)
 
 /**
  * Hacky workaround to only allow forward scrubbing for a timeline.
