@@ -30,7 +30,7 @@ import { LandingSnoobotComponent } from '@features/landing/projects/snoospoof/sn
           <span class="font-medium"> Next.js</span>, and <span class="font-medium">Python</span>.
         </h3>
       </div>
-      <div class="size-full origin-top-right scale-[114%] ml-[12.6875%]">
+      <div class="size-full origin-top-right scale-[107.5%] ml-[9.75%] -mt-[4.25%]">
         <landing-snoobot
           class="text-[#FF4400] [&_svg]:-rotate-15 size-full overflow-visible"
           [isGlowing]="true"
