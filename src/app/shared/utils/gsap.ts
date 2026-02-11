@@ -20,8 +20,16 @@ export const vibrate = (frequency: number, duration: number) => ({
  */
 export const relativeScroll = (endOffset: number | (() => number) = () => window.innerHeight) => (
   {
-    start: () => window.pageYOffset, // TODO: Figure out bug where scrolling past and back the 'start' line really fast causes mismatch pageYOffset
-    end: () => window.pageYOffset + (typeof endOffset === "number" ? endOffset: endOffset())
+    start: () => {
+      console.log(window.pageYOffset, "relativeScroll: start pageYOffset")
+      return window.pageYOffset
+    }, // TODO: Figure out bug where scrolling past and back the 'start' line really fast causes mismatch pageYOffset
+    end: () => {
+      console.log(window.pageYOffset, "relativeScroll: end pageYOffset")
+      const endScroll = window.pageYOffset + (typeof endOffset === "number" ? endOffset: endOffset())
+      console.log(endScroll, "relativeScroll: endScroll")
+      return endScroll
+    }
   }
 )
 
