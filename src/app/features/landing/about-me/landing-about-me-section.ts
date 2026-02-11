@@ -34,11 +34,10 @@ import LandingAboutMeProfileComponent from '@features/landing/about-me/landing-a
         <br />
         <br />
         <p>
-          This startup also gave me an opportunity to serve as a
+          The position also presented an opportunity to serve as a
           <span class="text-color-accent">team lead</span>, where I led software architecture
           decisions, jumpstarted many key <span class="text-color-accent">Agile processes</span>,
-          and actively mentored the team. I simply did what I would help the team feel confident to
-          do their best.
+          and actively mentored the team.
         </p>
         <br />
         <br />
