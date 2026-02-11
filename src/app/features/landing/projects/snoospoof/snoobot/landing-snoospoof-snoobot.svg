@@ -1,5 +1,5 @@
-<svg width="989" height="978" [attr.class]="class()" viewBox="0 0 989 978" fill="none" xmlns="http://www.w3.org/2000/svg">
-<defs>
+<svg width="989" height="978" [attr.class]="class()" viewBox="0 0 989 978" fill="none" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+<defs> <!-- preserveAspectRatio equivalent of object-fit:cover from https://stackoverflow.com/questions/43348351/fullscreen-svg-similar-to-object-fit-cover-->
 
   <radialGradient
     id="snoospoof-eye-glow"

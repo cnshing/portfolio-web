@@ -19,7 +19,7 @@ import { LandingSnoobotComponent } from '@features/landing/projects/snoospoof/sn
       class="bg-linear-to-b from-bg-surface2 from-0% to-bg-surface1 to-100% overflow-hidden flex flex-col justify-between"
       href="https://snoospoof.app/"
     >
-      <div class="flex flex-col gap-md pt-xl px-lg sm:px-xl text-left text-xl">
+      <div class="flex flex-col gap-lg px-lg sm:px-xl text-left text-xl py-xl">
         <h2 class="font-medium text-2xl">
           Talk to and emulate any
           <br />
@@ -30,12 +30,15 @@ import { LandingSnoobotComponent } from '@features/landing/projects/snoospoof/sn
           <span class="font-medium"> Next.js</span>, and <span class="font-medium">Python</span>.
         </h3>
       </div>
-      <div
-        class="w-full h-full scale-[150%] ml-[7.5%] -mb-[48%] sm:-mb-[42.5%] md:-mb-[25%]"
-      >
-        <landing-snoobot class="text-[#FF4400] -rotate-15 w-full h-full" [isGlowing]="true" />
+      <div class="size-full origin-top-right scale-[114%] ml-[12.6875%]">
+        <landing-snoobot
+          class="text-[#FF4400] [&_svg]:-rotate-15 size-full overflow-visible"
+          [isGlowing]="true"
+        />
       </div>
     </a>
   `,
 })
 export class LandingSnoospoofComponent {}
+
+// ml-[7.5%] -mb-[48%] sm:-mb-[42.5%] md:-mb-[10%]
