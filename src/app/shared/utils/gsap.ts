@@ -18,7 +18,7 @@ export const vibrate = (frequency: number, duration: number) => ({
  * @param {ScrollTrigger} self
  * @returns {number}
  */
-const safetyScrollThreshold = (self: ScrollTrigger) => self.getVelocity() / 4 + 10; // NOTE: Add 10 pixels on the off chance velocity is zero
+const safetyScrollThreshold = (self: ScrollTrigger) => Math.abs(self.getVelocity() / 4) + 10; // NOTE: Add 10 pixels on the off chance velocity is zero
 
 /**
  * Forces the trigger to be relative to the viewport, starting at the current vertical scroll position and ending at the bottom of the viewport.
