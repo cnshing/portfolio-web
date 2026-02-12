@@ -12,14 +12,13 @@ export const vibrate = (frequency: number, duration: number) => ({
   yoyo: true,
 });
 
-
 /**
  * When users quickly scroll back and fourth near the ScrollTrigger start line with `relativeScroll`, unexpected animation jumping occurs. This function uses a heuristic to pad the starting line to account for scroll speed.
  *
  * @param {ScrollTrigger} self
  * @returns {number}
  */
-const safetyScrollThreshold = (self: ScrollTrigger) => self.getVelocity()/4
+const safetyScrollThreshold = (self: ScrollTrigger) => self.getVelocity() / 4 + 10; // NOTE: Add 10 pixels on the off chance velocity is zero
 
 /**
  * Forces the trigger to be relative to the viewport, starting at the current vertical scroll position and ending at the bottom of the viewport.
@@ -27,20 +26,18 @@ const safetyScrollThreshold = (self: ScrollTrigger) => self.getVelocity()/4
  * @param {(number | (() => number))} [endOffset=() => window.innerHeight] The total scroll length to complete the animation. Can be a direct number or a function returning a number. Defaults to one viewport.
  * @returns {number)) => { start: () => any; end: () => any; }} Overrides `start` and `end` values.
  */
-export const relativeScroll = (endOffset: number | (() => number) = () => window.innerHeight) => (
-  {
-    start: (self: ScrollTrigger) => {
-      console.log(window.scrollY + safetyScrollThreshold(self), "relativeScroll: start scrollY")
-      return window.scrollY+25
-    },
-    end: (self: ScrollTrigger) => {
-      console.log(window.scrollY+safetyScrollThreshold(self), "relativeScroll: end scrollY")
-      const endScroll = window.scrollY + safetyScrollThreshold(self) + (typeof endOffset === "number" ? endOffset: endOffset())
-      console.log(endScroll, "relativeScroll: endScroll")
-      return endScroll
-    }
-  }
-)
+export const relativeScroll = (endOffset: number | (() => number) = () => window.innerHeight) => ({
+  start: (self: ScrollTrigger) => {
+    return window.scrollY + safetyScrollThreshold(self);
+  },
+  end: (self: ScrollTrigger) => {
+    return (
+      window.scrollY +
+      safetyScrollThreshold(self) +
+      (typeof endOffset === 'number' ? endOffset : endOffset())
+    );
+  },
+});
 
 /**
  * Hacky workaround to only allow forward scrubbing for a timeline.
@@ -50,11 +47,11 @@ export const relativeScroll = (endOffset: number | (() => number) = () => window
  * @returns {ScrollTrigger.StaticVars} Overrides `onUpdate()`
  */
 export const disableReverseScrub = (timeline: gsap.core.Timeline) => ({
-  onUpdate(self: ScrollTrigger) { // From https://gsap.com/community/forums/topic/25050-looking-for-scrolltrigger-equivalent-to-scrollmagics-reverse-false/
-    timeline.progress() < self.progress ? timeline.progress(self.progress) : null
+  onUpdate(self: ScrollTrigger) {
+    // From https://gsap.com/community/forums/topic/25050-looking-for-scrolltrigger-equivalent-to-scrollmagics-reverse-false/
+    timeline.progress() < self.progress ? timeline.progress(self.progress) : null;
   },
-})
-
+});
 
 /**
  * Containing instructions to call function `value` at progress `key`
@@ -63,10 +60,8 @@ export const disableReverseScrub = (timeline: gsap.core.Timeline) => ({
  * @typedef {ProgressCallback}
  */
 export type ProgressCallback = {
-  [key: number]: (self: ScrollTrigger) => void
-}
-
-
+  [key: number]: (self: ScrollTrigger) => void;
+};
 
 /**
  * ScrollTrigger helper to call any arbitrary function whenever the progress of animation passes a certain point.
@@ -79,17 +74,14 @@ export const progressMonitor = (onProgress: ProgressCallback) => {
     .map(Number)
     .sort((a, b) => a - b);
 
-  let prevProgress = 0
+  let prevProgress = 0;
 
   return {
     onUpdate(self: ScrollTrigger) {
-
       for (const threshold of thresholds) {
-        const crossedForward =
-          prevProgress < threshold && self.progress >= threshold;
+        const crossedForward = prevProgress < threshold && self.progress >= threshold;
 
-        const crossedBackward =
-          prevProgress > threshold && self.progress <= threshold;
+        const crossedBackward = prevProgress > threshold && self.progress <= threshold;
 
         if (crossedForward || crossedBackward) {
           onProgress[threshold]!(self);
