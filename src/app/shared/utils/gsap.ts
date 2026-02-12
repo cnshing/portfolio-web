@@ -12,6 +12,15 @@ export const vibrate = (frequency: number, duration: number) => ({
   yoyo: true,
 });
 
+
+/**
+ * When users quickly scroll back and fourth near the ScrollTrigger start line with `relativeScroll`, unexpected animation jumping occurs. This function uses a heuristic to pad the starting line to account for scroll speed.
+ *
+ * @param {ScrollTrigger} self
+ * @returns {number}
+ */
+const safetyScrollThreshold = (self: ScrollTrigger) => self.getVelocity()/4
+
 /**
  * Forces the trigger to be relative to the viewport, starting at the current vertical scroll position and ending at the bottom of the viewport.
  *
@@ -20,13 +29,13 @@ export const vibrate = (frequency: number, duration: number) => ({
  */
 export const relativeScroll = (endOffset: number | (() => number) = () => window.innerHeight) => (
   {
-    start: () => {
-      console.log(window.pageYOffset, "relativeScroll: start pageYOffset")
-      return window.pageYOffset
-    }, // TODO: Figure out bug where scrolling past and back the 'start' line really fast causes mismatch pageYOffset
-    end: () => {
-      console.log(window.pageYOffset, "relativeScroll: end pageYOffset")
-      const endScroll = window.pageYOffset + (typeof endOffset === "number" ? endOffset: endOffset())
+    start: (self: ScrollTrigger) => {
+      console.log(window.scrollY + safetyScrollThreshold(self), "relativeScroll: start scrollY")
+      return window.scrollY+25
+    },
+    end: (self: ScrollTrigger) => {
+      console.log(window.scrollY+safetyScrollThreshold(self), "relativeScroll: end scrollY")
+      const endScroll = window.scrollY + safetyScrollThreshold(self) + (typeof endOffset === "number" ? endOffset: endOffset())
       console.log(endScroll, "relativeScroll: endScroll")
       return endScroll
     }
