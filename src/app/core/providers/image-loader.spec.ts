@@ -286,6 +286,75 @@ describe('pixelDensityImageLoader', () => {
       expect(result).toBe('/assets/image@1x.avif');
     });
   });
+
+  describe('fallbackOffset parameter', () => {
+    it('should step down by 1 when fallbackOffset is 1', () => {
+      const result = pixelDensityImageLoader({
+        src: '/assets/image.png',
+        width: 1000,
+        loaderParams: { baseWidth: 1000 }
+      }, 1);
+
+      // Best density is 1.0 (index 4), step down by 1 -> 0.75 (index 3)
+      expect(result).toBe('/assets/image@0.75x.avif');
+    });
+
+    it('should step down by 2 when fallbackOffset is 2', () => {
+      const result = pixelDensityImageLoader({
+        src: '/assets/image.png',
+        width: 750,
+        loaderParams: { baseWidth: 1000 }
+      }, 2);
+
+      // Best density is 0.75 (index 3), step down by 2 -> 0.25 (index 1)
+      expect(result).toBe('/assets/image@0.25x.avif');
+    });
+
+    it('should not step below minimum density when fallbackOffset is large', () => {
+      const result = pixelDensityImageLoader({
+        src: '/assets/image.png',
+        width: 250,
+        loaderParams: { baseWidth: 1000 }
+      }, 999);
+
+      // Best density is 0.25 (index 1), step down by 5 would be negative, should use 0.125 (index 0)
+      expect(result).toBe('/assets/image@0.125x.avif');
+    });
+
+    it('should prefer stepDownOffset from loaderParams over fallbackOffset', () => {
+      const result = pixelDensityImageLoader({
+        src: '/assets/image.png',
+        width: 1000,
+        loaderParams: { baseWidth: 1000, stepDownOffset: 2 }
+      }, 1);
+
+      // Best density is 1.0 (index 4), stepDownOffset of 2 should override fallbackOffset of 1
+      // Step down by 2 -> 0.5 (index 2)
+      expect(result).toBe('/assets/image@0.5x.avif');
+    });
+
+    it('should use stepDownOffset of 0 from loaderParams even when fallbackOffset is provided', () => {
+      const result = pixelDensityImageLoader({
+        src: '/assets/image.png',
+        width: 500,
+        loaderParams: { baseWidth: 1000, stepDownOffset: 0 }
+      }, 2);
+
+      // Best density is 0.5, stepDownOffset of 0 should override fallbackOffset of 2
+      expect(result).toBe('/assets/image@0.5x.avif');
+    });
+
+    it('should handle fallbackOffset with small densities', () => {
+      const result = pixelDensityImageLoader({
+        src: '/assets/image.png',
+        width: 125,
+        loaderParams: { baseWidth: 1000 }
+      }, 1);
+
+      // Best density is 0.125 (index 0), step down by 1 would be negative, should stay at 0.125
+      expect(result).toBe('/assets/image@0.125x.avif');
+    });
+  });
 });
 
 describe('IMAGE_LOADER_PROVIDER', () => {
