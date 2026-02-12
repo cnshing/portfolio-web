@@ -3,10 +3,11 @@ import { cva, VariantProps } from 'class-variance-authority';
 export const iconVariants = cva('flex items-center justify-center', {
   variants: {
     zSize: {
-      sm: 'text-md',
-      default: 'text-lg',
-      lg: 'text-2xl',
-      xl: 'text-3xl',
+      default: "text-[length:inherit]",
+      sm: "text-md",
+      md: "text-lg",
+      lg: "text-xl",
+      xl: "text-2xl",
     },
     zColor: {
       default: 'text-inherit',

@@ -2,15 +2,27 @@
 @use "@fontsource-utils/scss" as fontsource;
 @use "@fontsource-variable/geist/scss/mixins" as GeistSans;
 @use "@fontsource-variable/geist-mono/scss/mixins" as GeistMono;
+@use "@fontsource/staatliches/scss/mixins" as Staatliches;
+@use "@fontsource/nanum-pen-script/scss/mixins" as NanumPenScript
 
 @include fontsource.faces(
   $metadata: GeistSans.$metadata,
-  $directory: "/assets/fonts"
+  $directory: "/assets/fonts/geist/files"
 )
 
 @include fontsource.faces(
   $metadata: GeistMono.$metadata,
-  $directory: "/assets/fonts"
+  $directory: "/assets/fonts/geist-mono/files"
+)
+
+@include fontsource.faces(
+  $metadata: Staatliches.$metadata,
+  $directory: "/assets/fonts/staatliches/files"
+)
+
+@include fontsource.faces(
+  $metadata: NanumPenScript.$metadata,
+  $directory: "/assets/fonts/nanum-pen-script/files"
 )
 
 @theme default
@@ -41,3 +53,12 @@ $heading-gradient: bg-gradient-to-r from-text-default to-text-secondary bg-clip-
 
   small
     @apply text-base font-tertiary text-color-tertiary
+
+  /** When surrounding contact information with <address></address>, don't override font style.*/
+  address
+    font-style: unset
+
+@utility text-hero-accent
+  font-family: "Staatliches"
+  letter-spacing: 0.1125em
+  color: var(--text-color-accent)

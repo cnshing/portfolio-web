@@ -38,6 +38,12 @@ testem.log
 /typings
 /reports
 
+# Assets
+/src/assets/**/*@*x.*
+/src/assets/**/*.log
+/src/assets/**/*.log.cutree
+/src/assets/**/*.log.mbtree
+
 # System files
 .DS_Store
 Thumbs.db
