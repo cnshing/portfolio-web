@@ -1,32 +1,50 @@
 @use 'sass:math'
-$scale: 1.5 // Perfect Fifths
+@use 'convert'
 
-@function typescale($n) // Any increment/decrement in typescale returns the following `rem` size of the corresponding scale.
-  @return math.pow($scale, $n)
+$mobile-scale: math.div(3.75, 3)
+$mobile-size: 1rem
+$desktop-scale: 1.5
+$desktop-size: 1rem
+$mobile-bp: convert.pxToRem(400) // True target breakpoint is 320px
+$desktop-bp: convert.pxToRem(720)
+
+@function typescale($n, $size, $scale) // Any increment/decrement in typescale returns the following `rem` size of the corresponding scale.
+  @return $size * math.pow($scale, $n)
+
+@function fluid-typescale($n)
+  @return clamped(typescale($n, $mobile-size, $mobile-scale), typescale($n,$desktop-size, $desktop-scale))
+
+// Linearly interpolate in rems between mobile and desktop sizes. Modified from https://www.aleksandrhovhannisyan.com/blog/fluid-type-scale-with-css-clamp/
+@function clamped($mobile-rem, $max-rem, $min-bp: $mobile-bp, $max-bp: $desktop-bp)
+  $slope: math.div($max-rem - $mobile-rem, $max-bp - $min-bp)
+  $slope-vw: $slope * 100
+  $intercept-rems: $mobile-rem - $slope * $min-bp
+  @return clamp(#{$mobile-rem}, #{$slope-vw}vw + #{$intercept-rems}, #{$max-rem})
 
 $default-line-height: 1
-/* Typeccale */
+/* Typescale */
 @theme
 
-  --text-xs: #{typescale(-2)}rem
+  --text-xs: #{fluid-typescale(-2)}
   --text-xs--letter-spacing: 0.015em
   --text-xs--line-height: $default-line-height
 
-  --text-sm: #{typescale(-1)}rem
+  --text-sm: #{fluid-typescale(-1)}
   --text-sm--letter-spacing: 0.01em
   --text-sm--line-height: $default-line-height
 
-  --text-base: #{typescale(0)}rem
+  --text-base: #{fluid-typescale(0)}
   --text-base--line-height: $default-line-height
 
-  --text-lg: #{typescale(1)}rem
+  --text-lg: #{fluid-typescale(1)}
+  --text-lg--letter-spacing: 0.005em
   --text-lg--line-height: $default-line-height
 
-  --text-xl: #{typescale(2)}rem
+  --text-xl: #{fluid-typescale(2)}
   --text-xl--line-height: $default-line-height
 
-  --text-2xl: #{typescale(3)}rem
+  --text-2xl: #{fluid-typescale(3)}
   --text-2xl--line-height: $default-line-height
 
-  --text-3xl: #{typescale(4)}rem
+  --text-3xl: #{fluid-typescale(4)}
   --text-3xl--line-height: $default-line-height

@@ -18,22 +18,33 @@
     "skipLibCheck": true,
     "isolatedModules": true,
     "experimentalDecorators": true,
+    "allowArbitraryExtensions": true,
     "importHelpers": true,
     "target": "esnext",
     "module": "preserve",
     "baseUrl": "./",
     "paths": {
+      "@core/*": [
+        "src/app/core/*"
+      ],
       "@shared/*": [
         "src/app/shared/*"
       ],
       "@features/*": [
         "src/app/features/*"
+      ],
+      "@environments/*": [
+        "src/environments/*"
+      ],
+      "@content/*": [
+        "content/*"
       ]
     }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
+    "strictStandalone": true,
     "strictInputAccessModifiers": true,
     "typeCheckHostBindings": true,
     "strictTemplates": true

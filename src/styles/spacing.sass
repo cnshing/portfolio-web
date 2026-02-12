@@ -1,5 +1,8 @@
 @use './convert.sass'
 @use 'sass:math'
+
+$line-length: 67.5ch
+
 @theme
   /**
     3xs and 2xs variants not part of design system. Each decrement halves the spacing.
@@ -13,3 +16,15 @@
   --spacing-xl: #{convert.pxToRem(62)}
   --spacing-2xl: #{convert.pxToRem(132)}
   --spacing-3xl: #{convert.pxToRem(264)}
+  --spacing-line-length: #{$line-length}
+  --spacing-max-width: #{$line-length*2.5}
+
+
+@utility auto-grid-*
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(
+      min(--value(--spacing-#{"*"}, [length], [percentage], [number]), 100%),
+      1fr
+    )
+  )

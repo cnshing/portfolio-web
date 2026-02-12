@@ -95,3 +95,13 @@ $required: (
 @include utility-color('bg-color', 'background-color')
 @include utility-color('border-color', 'border-color')
 @include utility-color('on-bg-color', 'color')
+
+
+// Attribution from https://github.com/tailwindlabs/tailwindcss/discussions/1056#discussioncomment-13553336
+@utility text-stroke-*
+   -webkit-text-stroke-color: --value(--color-#{"*"})
+   -webkit-text-stroke-color: --value([#{"*"}])
+
+@utility text-stroke-width-*
+   -webkit-text-stroke-width: calc(--value(integer) * 1px)
+   -webkit-text-stroke-width: --value([#{"*"}])

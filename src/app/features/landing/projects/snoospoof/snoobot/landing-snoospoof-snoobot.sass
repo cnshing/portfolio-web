@@ -1,0 +1,21 @@
+@use 'sass:math'
+$glow-in-duration: 2500ms
+$glow-out-duration: 4000ms
+$glow-total: $glow-in-duration + $glow-out-duration
+$glow-split: math.div($glow-in-duration, $glow-total) * 100%
+$ease: cubic-bezier(0, 0.5, 0.5, 1)
+
+@keyframes glow-in-out
+  0%
+    opacity: 0
+    animation-timing-function: $ease
+
+  #{$glow-split}
+    opacity: 1
+    animation-timing-function: $ease
+
+  100%
+    opacity: 0
+
+.animate-glow
+  animation: glow-in-out $glow-total infinite

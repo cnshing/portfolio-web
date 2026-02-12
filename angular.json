@@ -28,18 +28,25 @@
               {
                 "glob": "**/*",
                 "input": "src/assets",
-                "output": "assets"
-              },
-              {
-              "glob": "**/*",
-              "input": "node_modules/@fontsource-variable/geist/files",
-              "output": "assets/fonts"
+                "output": "assets",
+                "ignore": ["**/*.bak"]
               },
               {
                 "glob": "**/*",
-                "input": "node_modules/@fontsource-variable/geist-mono/files",
+                "input": "content/resumes",
+                "output": "resumes"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@fontsource-variable",
+                "output": "assets/fonts"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@fontsource",
                 "output": "assets/fonts"
               }
+
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
@@ -69,7 +76,9 @@
                   "maximumError": "8kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "optimization": true,
+              "aot": true
             },
             "development": {
               "optimization": false,
@@ -107,7 +116,13 @@
               {
                 "glob": "**/*",
                 "input": "src/assets",
-                "output": "assets"
+                "output": "assets",
+                "ignore": ["**/*.bak"]
+              },
+              {
+                "glob": "**/*",
+                "input": "content/resumes",
+                "output": "resumes"
               },
               {
               "glob": "**/*",
