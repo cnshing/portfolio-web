@@ -14,7 +14,7 @@ jobs:
     - uses: ./.github/actions/pnpm-install
 
     - name: Run Tests
-      run: pnpm run test --watch=false --no-progress --browsers=ChromeHeadless --reporters=junit --output-file=junit.xml
+      run: pnpm run test --watch=false --no-progress --browsers=ChromiumHeadless --reporters=junit --output-file=junit.xml
 
     - name: Test Report
       uses: dorny/test-reporter@v2

@@ -19,7 +19,7 @@ jobs:
     - uses: ./.github/actions/pnpm-install
 
     - name: Run Code Coverage
-      run: pnpm run test --watch=false --no-progress --browsers=ChromeHeadless --coverage-reporters json --coverage-reporters json-summary
+      run: pnpm run test --watch=false --no-progress --browsers=ChromiumHeadless --coverage --coverage-reporters json --coverage-reporters json-summary
 
     - name: Code Coverage Report
       uses:  davelosert/vitest-coverage-report-action@v2
