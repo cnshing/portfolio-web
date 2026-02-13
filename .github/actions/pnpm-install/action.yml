@@ -24,3 +24,4 @@ runs:
 
     - name: Playwright Post Install
       run: pnpm exec playwright install chromium --with-deps
+      shell: bash
