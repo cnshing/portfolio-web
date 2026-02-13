@@ -104,46 +104,10 @@
           "builder": "@angular/build:extract-i18n"
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular/build:unit-test",
           "options": {
             "tsConfig": "tsconfig.spec.json",
-            "inlineStyleLanguage": "sass",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              },
-              {
-                "glob": "**/*",
-                "input": "src/assets",
-                "output": "assets",
-                "ignore": ["**/*.bak"]
-              },
-              {
-                "glob": "**/*",
-                "input": "content/resumes",
-                "output": "resumes"
-              },
-              {
-              "glob": "**/*",
-              "input": "node_modules/@fontsource-variable/geist/files",
-              "output": "assets/fonts"
-              },
-              {
-                "glob": "**/*",
-                "input": "node_modules/@fontsource-variable/geist-mono/files",
-                "output": "assets/fonts"
-              }
-            ],
-            "stylePreprocessorOptions": {
-              "includePaths": [
-                "src/styles"
-              ]
-            },
-            "styles": [
-              "src/styles/entrypoint.sass"
-            ],
-            "karmaConfig": "karma.conf.js"
+            "buildTarget": "::development"
           }
         }
       }
