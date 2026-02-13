@@ -1,6 +1,5 @@
 import { defineConfig } from 'vitest/config'
-import { preview } from '@vitest/browser-preview'
-import path from 'path'
+import { playwright } from '@vitest/browser-playwright'
 
 export default defineConfig({
   test: {
@@ -8,20 +7,12 @@ export default defineConfig({
     globals: true,
     watch: true,
     browser: {
-      provider: preview(),
+      provider: playwright(),
       enabled: true,
       // at least one instance is required
       instances: [
         { browser: 'chromium' },
       ],
-    },
-    reporters: [
-      'default',
-      ['junit', { suiteName: 'portfolio-web' }]
-    ],
-
-    outputFile: {
-      junit: path.join(__dirname, './reports/portfolio-web/junit.xml')
     },
     coverage: {
       thresholds: {
@@ -30,15 +21,7 @@ export default defineConfig({
         statements: 80,
         functions: 80
       },
-      provider: 'v8',
-      reportsDirectory: path.join(__dirname, './coverage/portfolio-web'),
-      reporter: [
-        'cobertura',
-        'html',
-        'text-summary',
-        'json-summary',
-        'json'
-      ]
+      reportOnFailure: true,
     }
   }
 })
