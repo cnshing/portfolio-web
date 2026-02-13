@@ -62,6 +62,7 @@
     "@types/express": "^5.0.1",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^20.17.19",
+    "@vitest/coverage-v8": "^4.0.18",
     "happy-dom": "^20.6.1",
     "jasmine-core": "~5.9.0",
     "karma": "~6.4.0",
