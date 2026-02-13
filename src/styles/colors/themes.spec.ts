@@ -80,7 +80,7 @@ describe("Ensuring consistency with design system coloring", () => {
   let themeFixture: ComponentFixture<DummyTheme>
   let dummyTheme: DummyTheme
   let div: HTMLElement
-  const undefined = ""
+
   beforeEach(async () => {
     TestBed.configureTestingModule({
       providers: [provideZonelessChangeDetection()]
@@ -90,27 +90,24 @@ describe("Ensuring consistency with design system coloring", () => {
     await themeFixture.whenRenderingDone()
     div = themeFixture.debugElement.query(By.css('[data-theme]')).nativeElement
   })
-  /**
-   * This is a very stupid work around to ensure Jasmine can detect
-   * the dynamically generated tests by reducing as much nesting as possible
-   * at the `it` keyword:
-   * See https://stackoverflow.com/questions/32397544/generating-tests-in-jasmine
-   * */
-  const tests: TestCaseData[] = []
+
+  const tokenThemes: TestCaseData[] = []
+
   for (const theme of themes) {
     for (const token of tokens) {
-      const test = {theme: theme, token: token}
-      tests.push(test)
+      tokenThemes.push({ theme, token })
     }
   }
-  tests.forEach((test: TestCaseData) => {
-    it(`${test.theme}'s theme should have ${test.token} defined`, async () => {
-      dummyTheme.theme.set(test.theme)
+
+  test.each(tokenThemes)(
+    "$theme's theme should have $token defined",
+    async ({ theme, token }) => {
+      dummyTheme.theme.set(theme)
       await themeFixture.whenStable()
       const styles = window.getComputedStyle(div!)
-      const tokenProperty = styles.getPropertyValue(test.token)
-      expect(tokenProperty).not.toBe(undefined)
-    })
-  })
+      const tokenProperty = styles.getPropertyValue(token)
+      expect(tokenProperty).not.toBe("")
+    }
+  )
 })
 

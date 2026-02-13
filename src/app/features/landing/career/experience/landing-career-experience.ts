@@ -5,7 +5,7 @@ import { ZardAvatarComponent } from '@shared/components/avatar/avatar.component'
 import { ZardBadgeComponent } from '@shared/components/badge/badge.component';
 import { ZardIconComponent } from '@shared/components/icon/icon.component';
 import { ZardBlockQuoteComponent } from '@shared/components/blockquote/blockquote.component';
-import { CommonModule } from '@angular/common';
+
 import {
   MMMYYYY,
   mmmYYYYToDate,
@@ -34,9 +34,8 @@ import { AltFromSrcPipe } from '@shared/utils/accessibility';
     ZardBlockQuoteComponent,
     MarkdownComponent,
     ZardDividerComponent,
-    CommonModule,
     AltFromSrcPipe
-  ],
+],
   template: `
     <z-card
       [zTitle]="this.company()"

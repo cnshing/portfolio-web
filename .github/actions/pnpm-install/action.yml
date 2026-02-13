@@ -21,3 +21,7 @@ runs:
     - name: Install dependencies
       run: pnpm install --frozen-lockfile
       shell: bash
+
+    - name: Playwright Post Install
+      run: pnpm dlx playwright install chromium --with-deps # Issues with `pnpm exec`. See https://github.com/microsoft/playwright/issues/32503
+      shell: bash

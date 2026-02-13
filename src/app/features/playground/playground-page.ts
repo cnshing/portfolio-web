@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { PlaygroundCardComponent } from '@features/playground/playground-card';
-import { CommonModule } from '@angular/common';
+
 import { ZardButtonComponent } from '@shared/components/button/button.component';
 import { ZardBadgeComponent } from '@shared/components/badge/badge.component';
 import { ZardAvatarComponent } from '@shared/components/avatar/avatar.component';
@@ -40,9 +40,8 @@ import { ZardBlockQuoteComponent } from '@shared/components/blockquote/blockquot
     ZardSkeletonComponent,
     ZardLoaderComponent,
     ZardDateComponent,
-    ZardTooltipModule,
-    CommonModule
-  ],
+    ZardTooltipModule
+],
   templateUrl: './playground-page.html',
 })
 export class PlaygroundPageComponent {
