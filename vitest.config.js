@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitest/config'
+import { preview } from '@vitest/browser-preview'
 import path from 'path'
 
 export default defineConfig({
@@ -6,7 +7,14 @@ export default defineConfig({
     environment: 'happy-dom',
     globals: true,
     watch: true,
-
+    browser: {
+      provider: preview(),
+      enabled: true,
+      // at least one instance is required
+      instances: [
+        { browser: 'chromium' },
+      ],
+    },
     reporters: [
       'default',
       ['junit', { suiteName: 'portfolio-web' }]
