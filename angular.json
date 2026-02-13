@@ -107,8 +107,7 @@
           "builder": "@angular/build:unit-test",
           "options": {
             "tsConfig": "tsconfig.spec.json",
-            "buildTarget": "::development",
-            "browsers": ["chromium"]
+            "buildTarget": "::development"
           }
         }
       }
