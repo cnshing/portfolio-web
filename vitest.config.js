@@ -23,8 +23,13 @@ export default defineConfig({
     outputFile: {
       junit: path.join(__dirname, './reports/portfolio-web/junit.xml')
     },
-
     coverage: {
+      thresholds: {
+        lines: 80,
+        branches: 80,
+        statements: 80,
+        functions: 80
+      },
       provider: 'v8',
       reportsDirectory: path.join(__dirname, './coverage/portfolio-web'),
       reporter: [
