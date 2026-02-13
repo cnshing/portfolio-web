@@ -23,5 +23,5 @@ runs:
       shell: bash
 
     - name: Playwright Post Install
-      run: pnpm exec playwright install chromium --with-deps
+      run: npx playwright install chromium --with-deps # Must use npx. See https://github.com/microsoft/playwright/issues/32503
       shell: bash
