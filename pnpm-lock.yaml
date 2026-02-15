@@ -53,6 +53,9 @@ importers:
       '@fontsource/staatliches':
         specifier: ^5.2.8
         version: 5.2.8
+      '@lottiefiles/dotlottie-web':
+        specifier: ^0.63.0
+        version: 0.63.0
       '@ng-icons/core':
         specifier: ^33.1.0
         version: 33.1.0(@angular-devkit/schematics@21.1.4(chokidar@5.0.0))(@angular/common@21.1.4(@angular/core@21.1.4(@angular/compiler@21.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@21.1.4(@angular/compiler@21.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(@schematics/angular@21.1.4(chokidar@5.0.0))(rxjs@7.8.2)
@@ -77,6 +80,9 @@ importers:
       lucide-static:
         specifier: ^0.563.0
         version: 0.563.0
+      ngx-lottie:
+        specifier: ^21.2.0
+        version: 21.2.0(@angular/core@21.1.4(@angular/compiler@21.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(lottie-web@5.13.0)
       ngx-markdown:
         specifier: 21.1.0
         version: 21.1.0(@angular/common@21.1.4(@angular/core@21.1.4(@angular/compiler@21.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@21.1.4(@angular/compiler@21.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@21.1.4(@angular/animations@21.1.4(@angular/core@21.1.4(@angular/compiler@21.1.4)(rxjs@7.8.2)(zone.js@0.15.1)))(@angular/common@21.1.4(@angular/core@21.1.4(@angular/compiler@21.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@21.1.4(@angular/compiler@21.1.4)(rxjs@7.8.2)(zone.js@0.15.1)))(marked@16.4.2)(rxjs@7.8.2)(zone.js@0.15.1)
@@ -1088,6 +1094,9 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@lottiefiles/dotlottie-web@0.63.0':
+    resolution: {integrity: sha512-oYIkvu6E4n8fZH7ciQsVqamlUDeBnd6JbNYa1UWC/npkNzEHqM5saL3vk/nNorqdfjYwdcdmhLtYbnuwVy+3/Q==}
+
   '@mermaid-js/parser@0.6.3':
     resolution: {integrity: sha512-lnjOhe7zyHjc+If7yT4zoedx2vo4sHaTmtkl1+or8BRTnCtDmcTpAjpzDSfCZrshM5bCoz0GyidzadJAH1xobA==}
 
@@ -1581,6 +1590,9 @@ packages:
     resolution: {integrity: sha512-mxRFDdHIWRxg3UfIIAwCm6NzvxG0jDX/wBN6KsQFTvKFqqg9vTrWUE68qEjHt19A5wwx5X5aUi2zuZT7YR0jrA==}
     cpu: [x64]
     os: [win32]
+
+  '@scarf/scarf@1.4.0':
+    resolution: {integrity: sha512-xxeapPiUXdZAE3che6f3xogoJPeZgig6omHEy1rIY5WVsB3H2BHNnZH+gHG6x91SCWyQCzWGsuL2Hh3ClO5/qQ==}
 
   '@schematics/angular@21.1.4':
     resolution: {integrity: sha512-I1zdSNzdbrVCWpeE2NsZQmIoa9m0nlw4INgdGIkqUH6FgwvoGKC0RoOxKAmm6HHVJ48FE/sPI13dwAeK89ow5A==}
@@ -3119,6 +3131,9 @@ packages:
     resolution: {integrity: sha512-1somDdy9sChrr9/f4UlzhdaGfDR2c/SaD2a4T7qEkG4jTS57/B3qmnjLYePwQ8cqWnUHZI0iAKxMBpCZICiZ2g==}
     engines: {node: '>=8.0'}
 
+  lottie-web@5.13.0:
+    resolution: {integrity: sha512-+gfBXl6sxXMPe8tKQm7qzLnUy5DUPJPKIyRHwtpCpyUEYjHYRJC/5gjUvdkuO2c3JllrPtHXH5UJJK8LRYl5yQ==}
+
   lru-cache@11.2.6:
     resolution: {integrity: sha512-ESL2CrkS/2wTPfuend7Zhkzo2u0daGJ/A2VucJOgQ/C48S/zB8MMeMHSGKYpXhIjbPxfuezITkaBH1wqv00DDQ==}
     engines: {node: 20 || >=22}
@@ -3281,6 +3296,12 @@ packages:
   negotiator@1.0.0:
     resolution: {integrity: sha512-8Ofs/AUQh8MaEcrlq5xOX0CQ9ypTF5dl78mjlMNfOK08fzpgTHQRQPBxcPlEtIw0yRpws+Zo/3r+5WRby7u3Gg==}
     engines: {node: '>= 0.6'}
+
+  ngx-lottie@21.2.0:
+    resolution: {integrity: sha512-x0EaM0CXT98/gDVw7cxbvo46mOTg6QeZxUqzTelpszCy6J66zFryy/++x8cg4q8QKTfpTKvlpFDV4rZACpTQOQ==}
+    peerDependencies:
+      '@angular/core': '>=21'
+      lottie-web: '>=5.9.2'
 
   ngx-markdown@21.1.0:
     resolution: {integrity: sha512-qiyn9Je20F9yS4/q0p1Xhk2b/HW0rHWWlJNRm8DIzJKNck9Rmn/BfFxq0webmQHPPyYkg2AjNq/ZeSqDTQJbsQ==}
@@ -5112,6 +5133,8 @@ snapshots:
   '@lmdb/lmdb-win32-x64@3.4.4':
     optional: true
 
+  '@lottiefiles/dotlottie-web@0.63.0': {}
+
   '@mermaid-js/parser@0.6.3':
     dependencies:
       langium: 3.3.1
@@ -5490,6 +5513,8 @@ snapshots:
 
   '@rollup/rollup-win32-x64-msvc@4.57.1':
     optional: true
+
+  '@scarf/scarf@1.4.0': {}
 
   '@schematics/angular@21.1.4(chokidar@5.0.0)':
     dependencies:
@@ -7406,6 +7431,8 @@ snapshots:
       - supports-color
     optional: true
 
+  lottie-web@5.13.0: {}
+
   lru-cache@11.2.6: {}
 
   lru-cache@5.1.1:
@@ -7594,6 +7621,13 @@ snapshots:
     optional: true
 
   negotiator@1.0.0: {}
+
+  ngx-lottie@21.2.0(@angular/core@21.1.4(@angular/compiler@21.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(lottie-web@5.13.0):
+    dependencies:
+      '@angular/core': 21.1.4(@angular/compiler@21.1.4)(rxjs@7.8.2)(zone.js@0.15.1)
+      '@scarf/scarf': 1.4.0
+      lottie-web: 5.13.0
+      tslib: 2.8.1
 
   ngx-markdown@21.1.0(@angular/common@21.1.4(@angular/core@21.1.4(@angular/compiler@21.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@21.1.4(@angular/compiler@21.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@21.1.4(@angular/animations@21.1.4(@angular/core@21.1.4(@angular/compiler@21.1.4)(rxjs@7.8.2)(zone.js@0.15.1)))(@angular/common@21.1.4(@angular/core@21.1.4(@angular/compiler@21.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@21.1.4(@angular/compiler@21.1.4)(rxjs@7.8.2)(zone.js@0.15.1)))(marked@16.4.2)(rxjs@7.8.2)(zone.js@0.15.1):
     dependencies:
