@@ -12,7 +12,7 @@ import LandingAboutMeProfileComponent from '@features/landing/about-me/landing-a
       <div class="m-auto">
         <h2>
           Hi — <span class="text-color-accent">{{ name }}</span> here! <i class="relative inline-flex  align-top size-[calc(var(--text-2xl)*1.35)] has-[landing-about-me-wave]:[&>img]:opacity-0">
-          <img class="absolute size-full delay-[75ms] pointer-events-none" src="/assets/graphics/waving.svg"/> <!-- NOTE: Placeholder elements being inserted out of DOM causes flickering, even if the placeholder element is a poster. This implementation uses a delay to purposely overlap the elements to prevent flickering. -->
+          <img class="absolute size-full delay-[500ms] pointer-events-none" src="/assets/graphics/waving.svg"/> <!-- NOTE: Placeholder elements being inserted out of DOM causes flickering, even if the placeholder element is a poster. This implementation uses a delay to purposely overlap the elements to prevent flickering. -->
           @defer (on viewport) {
             <landing-about-me-wave class="z-[1]"/>
           }
