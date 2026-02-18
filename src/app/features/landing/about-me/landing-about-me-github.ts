@@ -34,4 +34,11 @@ import {
   `,
 })
 export default class LandingAboutMeGithubComponent {
+  /**
+   * Control playback mechanism for the github animation.
+   *
+   * @readonly
+   * @type {*}
+   */
+  readonly animation = viewChild<OptimizedLottieComponent>('github');
 }
