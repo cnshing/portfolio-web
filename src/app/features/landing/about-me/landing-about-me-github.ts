@@ -33,7 +33,7 @@ import {
     </ng-template>
   `,
 })
-export default class LandingAboutMeGithubComponent {
+export class LandingAboutMeGithubComponent {
   /**
    * Control playback mechanism for the github animation.
    *
