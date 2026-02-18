@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
   OptimizedLottieComponent,
-  DeferredLottieComponent,
+  PreviewLottieComponent,
 } from '@shared/components/lottie/lottie.component';
 
 /**
@@ -13,14 +13,14 @@ import {
  */
 @Component({
   selector: 'landing-about-me-wave',
-  imports: [OptimizedLottieComponent, DeferredLottieComponent],
+  imports: [OptimizedLottieComponent, PreviewLottieComponent],
   template: `
-    <deferred-lottie
+    <lottie-with-poster
       class="align-top inline-flex size-[calc(var(--text-2xl)*1.35)]"
       [poster]="poster"
       [dotLottieTemplate]="animation"
     >
-    </deferred-lottie>
+    </lottie-with-poster>
 
     <ng-template #poster>
       <img src="/assets/graphics/waving.svg" />

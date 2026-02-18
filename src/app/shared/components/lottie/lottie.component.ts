@@ -6,8 +6,8 @@ import { DotLottieWorker } from '@lottiefiles/dotlottie-web';
 import { DotLottieComponent, DotLottieWorkerComponent } from 'ngx-lottie/dotlottie-web';
 
 @Component({
-  selector: 'deferred-lottie',
-  exportAs: 'deferredLottie',
+  selector: 'lottie-with-poster',
+  exportAs: 'posterLottie',
   template: `
     <ng-container *ngTemplateOutlet="poster()"></ng-container>
 
@@ -25,7 +25,7 @@ import { DotLottieComponent, DotLottieWorkerComponent } from 'ngx-lottie/dotlott
   imports: [NgTemplateOutlet],
   styleUrl: 'lottie.component.sass',
 })
-export class DeferredLottieComponent {
+export class PreviewLottieComponent {
   readonly class = input<ClassValue>('');
   readonly poster = input.required<TemplateRef<any>>();
   readonly dotLottieTemplate = input.required<TemplateRef<DotLottieWorkerComponent | DotLottieComponent>>();
