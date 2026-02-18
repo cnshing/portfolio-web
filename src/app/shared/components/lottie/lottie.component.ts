@@ -3,17 +3,17 @@ import type { ClassValue } from 'clsx';
 import { mergeClasses } from '@shared/utils/merge-classes';
 import { NgTemplateOutlet } from '@angular/common';
 import { DotLottieWorker } from '@lottiefiles/dotlottie-web';
-import { DotLottieWorkerComponent } from 'ngx-lottie/dotlottie-web';
+import { DotLottieComponent, DotLottieWorkerComponent } from 'ngx-lottie/dotlottie-web';
 
 @Component({
   selector: 'deferred-lottie',
   exportAs: 'deferredLottie',
   template: `
-    <ng-container *ngTemplateOutlet="placeholder()"></ng-container>
+    <ng-container *ngTemplateOutlet="poster()"></ng-container>
 
     @defer (on viewport) {
     <div class="show-dotlottie">
-      <ng-container *ngTemplateOutlet="content()"></ng-container>
+      <ng-container *ngTemplateOutlet="dotLottieTemplate()"></ng-container>
     </div>
     } @placeholder {
     <div class="absolute size-full"></div>
@@ -27,8 +27,8 @@ import { DotLottieWorkerComponent } from 'ngx-lottie/dotlottie-web';
 })
 export class DeferredLottieComponent {
   readonly class = input<ClassValue>('');
-  readonly placeholder = input.required<TemplateRef<any>>();
-  readonly content = input.required<TemplateRef<any>>();
+  readonly poster = input.required<TemplateRef<any>>();
+  readonly dotLottieTemplate = input.required<TemplateRef<DotLottieWorkerComponent | DotLottieComponent>>();
 
   protected readonly classes = computed(() =>
     mergeClasses(

@@ -17,8 +17,8 @@ import {
   template: `
     <deferred-lottie
       class="align-top inline-flex size-[calc(var(--text-2xl)*1.35)]"
-      [placeholder]="poster"
-      [content]="animation"
+      [poster]="poster"
+      [dotLottieTemplate]="animation"
     >
     </deferred-lottie>
 
