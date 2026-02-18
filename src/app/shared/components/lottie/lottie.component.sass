@@ -1,9 +1,9 @@
-@keyframes reappear
-  from
-    opacity: 0
-  to
-    opacity: 1
+:host
+  --animate-appear: appear 0s linear 500ms forwards
 
-.show-dotlottie
-  opacity: 0
-  animation: reappear 0s linear 0.1s forwards
+@layer components
+  @keyframes appear
+    from
+      opacity: 0
+    to
+      opacity: 1
