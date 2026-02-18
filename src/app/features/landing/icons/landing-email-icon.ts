@@ -5,8 +5,8 @@ import { ZardIconComponent } from '@shared/components/icon/icon.component';
  * Animated email icon.
  *
  * @export
- * @class LandingAboutMeEmailComponent
- * @typedef {LandingAboutMeEmailComponent}
+ * @class LandingEmailIconComponent
+ * @typedef {LandingEmailIconComponent}
  */
 @Component({
   selector: 'landing-about-me-email-icon',
@@ -23,7 +23,7 @@ import { ZardIconComponent } from '@shared/components/icon/icon.component';
   `,
   styles: ``
 })
-export class LandingAboutMeEmailComponent {
+export class LandingEmailIconComponent {
 
 
   /**

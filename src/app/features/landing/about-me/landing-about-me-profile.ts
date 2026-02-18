@@ -4,8 +4,8 @@ import { ZardIconComponent } from '@shared/components/icon/icon.component';
 import { LandingAboutMeAvatarComponent, Postures, postures } from './me-avatar';
 import { environment } from '@environments/environment';
 import { avatarSrcPath } from '@features/landing/about-me/me-avatar';
-import { LandingAboutMeEmailComponent } from '@features/landing/about-me/landing-about-me-email';
-import { LandingAboutMeGithubComponent } from '@features/landing/about-me/landing-about-me-github';
+import { LandingEmailIconComponent } from '@features/landing/icons/landing-email-icon';
+import { LandingGithubIconComponent } from '@features/landing/icons/landing-github-icon';
 
 @Component({
   selector: 'landing-about-me-profile',
@@ -14,8 +14,8 @@ import { LandingAboutMeGithubComponent } from '@features/landing/about-me/landin
     ZardButtonComponent,
     ZardIconComponent,
     LandingAboutMeAvatarComponent,
-    LandingAboutMeEmailComponent,
-    LandingAboutMeGithubComponent,
+    LandingEmailIconComponent,
+    LandingGithubIconComponent,
   ],
   template: `
     <div class="flex flex-col gap-xl">
