@@ -29,7 +29,7 @@ import {
     </ng-template>
 
     <ng-template #animation>
-      <optimized-lottie #github src="/assets/icons/github.lottie" loop [speed]="3.0" />
+      <optimized-lottie #github src="/assets/icons/github.lottie" loop [speed]="0.9" mode="bounce" />
     </ng-template>
   `,
 })
