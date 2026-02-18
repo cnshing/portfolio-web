@@ -84,6 +84,7 @@ export class PreviewLottieComponent {
       [src]="src()"
       [loop]="loop()"
       [speed]="speed()"
+      [mode]="mode()"
       (dotLottieCreated)="onCreated($event)"
     />
   `,
@@ -95,6 +96,7 @@ export class OptimizedLottieComponent {
   readonly src = input<string>();
   readonly loop = input(false, { transform: booleanAttribute });
   readonly speed = input<number>(1.0);
+  readonly mode = input<'forward' | 'reverse' | 'bounce' | 'reverse-bounce'>('forward')
 
   onCreated(dotLottie: DotLottieWorker): void {
     this.dotLottie = dotLottie;
