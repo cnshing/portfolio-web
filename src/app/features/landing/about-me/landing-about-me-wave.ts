@@ -1,6 +1,8 @@
-import { Component, NgZone } from "@angular/core";
-import { DotLottieWorker } from '@lottiefiles/dotlottie-web'
-import { DotLottieWorkerComponent } from 'ngx-lottie/dotlottie-web'
+import { Component } from '@angular/core';
+import {
+  OptimizedLottieComponent,
+  DeferredLottieComponent,
+} from '@shared/components/lottie/lottie.component';
 
 /**
  * Animated Hand Wave component.
@@ -11,41 +13,28 @@ import { DotLottieWorkerComponent } from 'ngx-lottie/dotlottie-web'
  */
 @Component({
   selector: 'landing-about-me-wave',
-  imports: [
-    DotLottieWorkerComponent
-  ],
+  imports: [OptimizedLottieComponent, DeferredLottieComponent],
   template: `
-    <ng-dotlottie-worker
-      src="/assets/graphics/waving.lottie"
-      loop
-      (dotLottieCreated)="onCreated($event)"
-      (mouseover)="this.play()"
-      (mouseleave)="this.pause()"
-    />
-  `
+    <deferred-lottie
+      class="align-top inline-flex size-[calc(var(--text-2xl)*1.35)]"
+      [placeholder]="poster"
+      [content]="animation"
+    >
+    </deferred-lottie>
+
+    <ng-template #poster>
+      <img src="/assets/graphics/waving.svg" />
+    </ng-template>
+
+    <ng-template #animation>
+      <optimized-lottie
+        #wave
+        src="/assets/graphics/waving.lottie"
+        loop
+        (mouseenter)="wave.play()"
+        (mouseleave)="wave.pause()"
+      />
+    </ng-template>
+  `,
 })
-export class LandingAboutMeWaveComponent {
-  // Optimizations from https://github.com/ngx-lottie/ngx-lottie/blob/master/docs/ngx-lottie.md#optimizations
-
-  protected dotLottie: DotLottieWorker | null = null;
-
-  constructor(private ngZone: NgZone) {}
-
-  onCreated(dotLottie: DotLottieWorker): void {
-    this.dotLottie = dotLottie;
-  }
-
-  /** Plays animation. */
-  play(): void {
-    this.ngZone.runOutsideAngular(() => {
-      this.dotLottie?.play();
-    });
-  }
-
-  /** Pauses animation. */
-  pause(): void {
-    this.ngZone.runOutsideAngular(() => {
-      this.dotLottie?.pause();
-    });
-  }
-}
+export class LandingAboutMeWaveComponent {}
