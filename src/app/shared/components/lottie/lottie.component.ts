@@ -11,7 +11,7 @@ import { DotLottieComponent, DotLottieWorkerComponent } from 'ngx-lottie/dotlott
   template: `
     <ng-container *ngTemplateOutlet="poster()"></ng-container>
 
-    @defer (on hover) {
+    @defer (on viewport) {
     <div class="opacity-0 animate-(--animate-appear)">
       <ng-container *ngTemplateOutlet="dotLottieTemplate()"></ng-container>
     </div>
@@ -21,6 +21,7 @@ import { DotLottieComponent, DotLottieWorkerComponent } from 'ngx-lottie/dotlott
   `,
   host: {
     '[class]': 'classes()',
+    '[style.--defer-transition]': "deferTransitionMS()+'ms'"
   },
   imports: [NgTemplateOutlet],
   styleUrl: 'lottie.component.sass',
@@ -30,9 +31,11 @@ export class PreviewLottieComponent {
   readonly poster = input.required<TemplateRef<any>>();
   readonly dotLottieTemplate = input.required<TemplateRef<DotLottieWorkerComponent | DotLottieComponent>>();
 
+  readonly deferTransitionMS = input<number>(375)
+
   protected readonly classes = computed(() =>
     mergeClasses(
-      'relative has-[ng-dotlottie-worker]:[&>*:first-child]:invisible has-[ng-dotlottie-worker]:[&>*:first-child]:absolute [&>*:first-child]:delay-[500ms]',
+      'relative has-[ng-dotlottie-worker]:[&>*:first-child]:invisible has-[ng-dotlottie-worker]:[&>*:first-child]:absolute [&>*:first-child]:delay-(--defer-transition)',
       this.class()
     )
   );
