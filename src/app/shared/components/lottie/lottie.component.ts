@@ -5,6 +5,13 @@ import { NgTemplateOutlet } from '@angular/common';
 import { DotLottieWorker } from '@lottiefiles/dotlottie-web';
 import { DotLottieComponent, DotLottieWorkerComponent } from 'ngx-lottie/dotlottie-web';
 
+/**
+ * Shows a poster preview of the dotLottie component before the dotLottie is fully loaded. Helpful in reducing the bundle size when a dotLottie component is not immediately neccesary to render. Due to Angular implementation, dotlottie components are only able to be deferred on viewport.
+ *
+ * @export
+ * @class PreviewLottieComponent
+ * @typedef {PreviewLottieComponent}
+ */
 @Component({
   selector: 'lottie-with-poster',
   exportAs: 'posterLottie',
@@ -27,10 +34,30 @@ import { DotLottieComponent, DotLottieWorkerComponent } from 'ngx-lottie/dotlott
   styleUrl: 'lottie.component.sass',
 })
 export class PreviewLottieComponent {
+
   readonly class = input<ClassValue>('');
+  /**
+   * Element to render while the dotLottie is loading.
+   *
+   * @readonly
+   * @type {*}
+   */
   readonly poster = input.required<TemplateRef<any>>();
+
+  /**
+   * Template to render the dotLottie.
+   *
+   * @readonly
+   * @type {*}
+   */
   readonly dotLottieTemplate = input.required<TemplateRef<DotLottieWorkerComponent | DotLottieComponent>>();
 
+  /**
+   * Minimium number of milliseconds to wait until it transitions to the dotLottie element once it is ready.
+   *
+   * @readonly
+   * @type {*}
+   */
   readonly deferTransitionMS = input<number>(375)
 
   protected readonly classes = computed(() =>
@@ -41,6 +68,13 @@ export class PreviewLottieComponent {
   );
 }
 
+/**
+ * 'Optimized' Lottie component modified from the ngx-lottie [documentation](https://github.com/ngx-lottie/ngx-lottie/blob/master/docs/ngx-lottie-dotlottie.md#optimizations)
+ *
+ * @export
+ * @class OptimizedLottieComponent
+ * @typedef {OptimizedLottieComponent}
+ */
 @Component({
   selector: 'optimized-lottie',
   exportAs: 'optimizedLottie',
@@ -55,10 +89,9 @@ export class PreviewLottieComponent {
   `,
 })
 export class OptimizedLottieComponent {
+
   protected dotLottie: DotLottieWorker | null = null;
-
   constructor(private ngZone: NgZone) {}
-
   readonly src = input<string>();
   readonly loop = input(false, { transform: booleanAttribute });
   readonly speed = input<number>(1.0);
