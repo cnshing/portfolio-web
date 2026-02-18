@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ZardButtonComponent } from '@shared/components/button/button.component';
 import { environment } from '@environments/environment';
-import { LandingAboutMeEmailComponent } from "@features/landing/about-me/landing-about-me-email";
+import { LandingEmailIconComponent } from "@features/landing/icons/landing-email-icon";
 
 /**
  * Section containing a CTA advertisement.
@@ -14,7 +14,7 @@ import { LandingAboutMeEmailComponent } from "@features/landing/about-me/landing
   selector: 'landing-cta',
   standalone: true,
   providers: [],
-  imports: [ZardButtonComponent, LandingAboutMeEmailComponent],
+  imports: [ZardButtonComponent, LandingEmailIconComponent],
   template: `
     <section>
       <div class="m-auto text-center py-3xl">
