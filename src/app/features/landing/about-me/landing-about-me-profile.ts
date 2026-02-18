@@ -57,8 +57,9 @@ import { LandingGithubIconComponent } from '@features/landing/icons/landing-gith
           href="tel:{{ phone }}"
           z-button
           zType="outline"
+          class="group"
         >
-          <i class="animate-phone" z-icon zSize="lg" zType="phone"></i>
+          <i class="group-hover:animate-(--animate-phone) group-focus:animate-(--animate-phone)" z-icon zSize="lg" zType="phone"></i>
           {{ phone }}
         </a>
         <a
@@ -67,8 +68,9 @@ import { LandingGithubIconComponent } from '@features/landing/icons/landing-gith
           href="https://www.openstreetmap.org/search?query={{ location }}"
           z-button
           zType="outline"
+          class="group"
         >
-          <i class="animate-location" z-icon zSize="lg" zType="location"></i>
+          <i class="group-hover:animate-(--animate-location) group-focus:animate-(--animate-location)" z-icon zSize="lg" zType="location"></i>
           {{ location }}
         </a>
         <a
@@ -82,7 +84,13 @@ import { LandingGithubIconComponent } from '@features/landing/icons/landing-gith
           (focus)="emailIcon.open()"
           (focusout)="emailIcon.close()"
         >
-          <i z-icon animate-email-icon #emailIcon="animateEmailIcon" zSize="lg" [zType]="emailIcon.zType()">
+          <i
+            z-icon
+            animate-email-icon
+            #emailIcon="animateEmailIcon"
+            zSize="lg"
+            [zType]="emailIcon.zType()"
+          >
           </i>
           {{ email }}
         </a>
@@ -106,8 +114,9 @@ import { LandingGithubIconComponent } from '@features/landing/icons/landing-gith
           href="https://linkedin.com/in/{{ linkedin }}"
           z-button
           zType="outline"
+          class="group"
         >
-          <i class="animate-linkedin" z-icon zSize="lg" zType="linkedinICO"></i>
+          <i class="group-hover:animate-(--animate-linkedin) group-focus:animate-(--animate-linkedin)" z-icon zSize="lg" zType="linkedinICO"></i>
           {{ linkedin }}
         </a>
       </div>
@@ -124,7 +133,11 @@ import { LandingGithubIconComponent } from '@features/landing/icons/landing-gith
     --mobile-arrow-x-offset: calc(var(--avatar-width)*0.5*cos(45deg))
     --mobile-arrow-y-offset: calc(var(--avatar-width)*0.5*sin(45deg))
   `,
-  styleUrls: ['landing-about-me-profile-animations.sass'],
+  styleUrls: [
+    '../icons/landing-icons-animate-linkedin.sass',
+    '../icons/landing-icons-animate-location.sass',
+    '../icons/landing-icons-animate-phone.sass',
+  ],
 })
 export default class LandingAboutMeProfileComponent {
   protected readonly location = environment.location;
