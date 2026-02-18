@@ -4,11 +4,19 @@ import { ZardIconComponent } from '@shared/components/icon/icon.component';
 import { LandingAboutMeAvatarComponent, Postures, postures } from './me-avatar';
 import { environment } from '@environments/environment';
 import { avatarSrcPath } from '@features/landing/about-me/me-avatar';
+import { LandingAboutMeEmailComponent } from '@features/landing/about-me/landing-about-me-email';
+import { LandingAboutMeGithubComponent } from '@features/landing/about-me/landing-about-me-github';
 
 @Component({
   selector: 'landing-about-me-profile',
   standalone: true,
-  imports: [ZardButtonComponent, ZardIconComponent, LandingAboutMeAvatarComponent],
+  imports: [
+    ZardButtonComponent,
+    ZardIconComponent,
+    LandingAboutMeAvatarComponent,
+    LandingAboutMeEmailComponent,
+    LandingAboutMeGithubComponent,
+  ],
   template: `
     <div class="flex flex-col gap-xl">
       <div class="relative">
@@ -50,7 +58,7 @@ import { avatarSrcPath } from '@features/landing/about-me/me-avatar';
           z-button
           zType="outline"
         >
-          <i z-icon zSize="lg" zType="phone"></i>
+          <i class="animate-phone" z-icon zSize="lg" zType="phone"></i>
           {{ phone }}
         </a>
         <a
@@ -60,7 +68,7 @@ import { avatarSrcPath } from '@features/landing/about-me/me-avatar';
           z-button
           zType="outline"
         >
-          <i z-icon zSize="lg" zType="location"></i>
+          <i class="animate-location" z-icon zSize="lg" zType="location"></i>
           {{ location }}
         </a>
         <a
@@ -69,8 +77,12 @@ import { avatarSrcPath } from '@features/landing/about-me/me-avatar';
           href="mailto:{{ email }}"
           z-button
           zType="outline"
+          (mouseenter)="emailIcon.open()"
+          (mouseleave)="emailIcon.close()"
+          (focus)="emailIcon.open()"
+          (focusout)="emailIcon.close()"
         >
-          <i z-icon zSize="lg" zType="email"></i>
+          <landing-about-me-email-icon #emailIcon />
           {{ email }}
         </a>
         <a
@@ -79,8 +91,13 @@ import { avatarSrcPath } from '@features/landing/about-me/me-avatar';
           href="https://github.com/{{ github }}"
           z-button
           zType="outline"
+          (mouseenter)="githubIcon.animation()?.play()"
+          (mouseleave)="githubIcon.animation()?.pause()"
+          (focus)="githubIcon.animation()?.play()"
+          (focusout)="githubIcon.animation()?.pause()"
         >
-          <i z-icon zSize="lg" zType="githubICO"></i>{{ github }}
+          <landing-about-me-github-icon #githubIcon />
+          {{ github }}
         </a>
         <a
           target="_blank"
@@ -89,7 +106,7 @@ import { avatarSrcPath } from '@features/landing/about-me/me-avatar';
           z-button
           zType="outline"
         >
-          <i z-icon zSize="lg" zType="linkedinICO"></i>
+          <i class="animate-linkedin" z-icon zSize="lg" zType="linkedinICO"></i>
           {{ linkedin }}
         </a>
       </div>
@@ -106,9 +123,9 @@ import { avatarSrcPath } from '@features/landing/about-me/me-avatar';
     --mobile-arrow-x-offset: calc(var(--avatar-width)*0.5*cos(45deg))
     --mobile-arrow-y-offset: calc(var(--avatar-width)*0.5*sin(45deg))
   `,
+  styleUrls: ['landing-about-me-profile-animations.sass'],
 })
 export default class LandingAboutMeProfileComponent {
-
   protected readonly location = environment.location;
   protected readonly email = environment.email;
   protected readonly github = environment.githubUsername;
@@ -143,7 +160,7 @@ export default class LandingAboutMeProfileComponent {
   protected readonly selectRandomPosture = (exclude: Postures): Postures => {
     const availablePostures = postures.filter((p) => p !== exclude);
     return availablePostures[Math.floor(Math.random() * availablePostures.length)]!;
-  }
+  };
 
   /**
    * The next avatar posture to play when requested.
@@ -178,7 +195,7 @@ export default class LandingAboutMeProfileComponent {
 
       this.loadedAvatars.add(posture);
     }
-  }
+  };
 
   protected readonly onHoverload = () => {
     this.loadAvatar(this.nextPosture());
