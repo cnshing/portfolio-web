@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ZardButtonComponent } from '@shared/components/button/button.component';
 import { environment } from '@environments/environment';
-import { ZardIconComponent } from '@shared/components/icon/icon.component';
+import { LandingAboutMeEmailComponent } from "@features/landing/about-me/landing-about-me-email";
 
 /**
  * Section containing a CTA advertisement.
@@ -14,7 +14,7 @@ import { ZardIconComponent } from '@shared/components/icon/icon.component';
   selector: 'landing-cta',
   standalone: true,
   providers: [],
-  imports: [ZardButtonComponent, ZardIconComponent],
+  imports: [ZardButtonComponent, LandingAboutMeEmailComponent],
   template: `
     <section>
       <div class="m-auto text-center py-3xl">
@@ -25,8 +25,12 @@ import { ZardIconComponent } from '@shared/components/icon/icon.component';
           href="mailto:{{ email }}"
           z-button
           class="w-min"
+          (mouseenter)="icon.open()"
+          (mouseleave)="icon.close()"
+          (focus)="icon.open()"
+          (focusout)="icon.close()"
         >
-          <i z-icon zSize="lg" zType="email"></i>
+          <landing-about-me-email-icon #icon />
           {{ email }}
         </a>
       </div>
