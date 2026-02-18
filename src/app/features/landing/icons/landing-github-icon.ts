@@ -1,7 +1,7 @@
 import { Component, viewChild } from '@angular/core';
 import { ZardIconComponent } from '@shared/components/icon/icon.component';
 import {
-  DeferredLottieComponent,
+  PreviewLottieComponent,
   OptimizedLottieComponent,
 } from '@shared/components/lottie/lottie.component';
 
@@ -15,14 +15,14 @@ import {
 @Component({
   selector: 'landing-about-me-github-icon',
   standalone: true,
-  imports: [ZardIconComponent, DeferredLottieComponent, OptimizedLottieComponent],
+  imports: [ZardIconComponent, PreviewLottieComponent, OptimizedLottieComponent],
   template: `
-    <deferred-lottie
+    <lottie-with-poster
       class="inline-flex align-top size-(--text-xl)"
       [poster]="poster"
       [dotLottieTemplate]="animation"
     >
-    </deferred-lottie>
+    </lottie-with-poster>
 
     <ng-template #poster>
       <i z-icon zType="githubICO" zSize="lg"> </i>
