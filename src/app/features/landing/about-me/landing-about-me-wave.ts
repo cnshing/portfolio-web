@@ -23,7 +23,7 @@ import {
     </lottie-with-poster>
 
     <ng-template #poster>
-      <img src="/assets/graphics/waving.svg" />
+      <img alt="Hand Waving" src="/assets/graphics/waving.svg" />
     </ng-template>
 
     <ng-template #animation>
