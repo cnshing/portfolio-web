@@ -9,8 +9,8 @@ import {
  * Animated Github Icon
  *
  * @export
- * @class LandingAboutMeGithubComponent
- * @typedef {LandingAboutMeGithubComponent}
+ * @class LandingGithubIconComponent
+ * @typedef {LandingGithubIconComponent}
  */
 @Component({
   selector: 'landing-about-me-github-icon',
@@ -33,7 +33,7 @@ import {
     </ng-template>
   `,
 })
-export class LandingAboutMeGithubComponent {
+export class LandingGithubIconComponent {
   /**
    * Control playback mechanism for the github animation.
    *
