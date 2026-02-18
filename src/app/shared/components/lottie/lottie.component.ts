@@ -11,8 +11,8 @@ import { DotLottieComponent, DotLottieWorkerComponent } from 'ngx-lottie/dotlott
   template: `
     <ng-container *ngTemplateOutlet="poster()"></ng-container>
 
-    @defer (on viewport) {
-    <div class="show-dotlottie">
+    @defer (on hover) {
+    <div class="opacity-0 animate-(--animate-appear)">
       <ng-container *ngTemplateOutlet="dotLottieTemplate()"></ng-container>
     </div>
     } @placeholder {
@@ -32,7 +32,7 @@ export class PreviewLottieComponent {
 
   protected readonly classes = computed(() =>
     mergeClasses(
-      'relative has-[ng-dotlottie-worker]:[&>*:first-child]:invisible has-[ng-dotlottie-worker]:[&>*:first-child]:absolute [&>*:first-child]:delay-[0.1s]',
+      'relative has-[ng-dotlottie-worker]:[&>*:first-child]:invisible has-[ng-dotlottie-worker]:[&>*:first-child]:absolute [&>*:first-child]:delay-[500ms]',
       this.class()
     )
   );
