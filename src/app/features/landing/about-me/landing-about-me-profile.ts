@@ -4,7 +4,7 @@ import { ZardIconComponent } from '@shared/components/icon/icon.component';
 import { LandingAboutMeAvatarComponent, Postures, postures } from './me-avatar';
 import { environment } from '@environments/environment';
 import { avatarSrcPath } from '@features/landing/about-me/me-avatar';
-import { LandingEmailIconComponent } from '@features/landing/icons/landing-email-icon';
+import { LandingEmailIconDirective } from '@features/landing/icons/landing-email-icon.directive';
 import { LandingGithubIconComponent } from '@features/landing/icons/landing-github-icon';
 
 @Component({
@@ -14,7 +14,7 @@ import { LandingGithubIconComponent } from '@features/landing/icons/landing-gith
     ZardButtonComponent,
     ZardIconComponent,
     LandingAboutMeAvatarComponent,
-    LandingEmailIconComponent,
+    LandingEmailIconDirective,
     LandingGithubIconComponent,
   ],
   template: `
@@ -82,7 +82,8 @@ import { LandingGithubIconComponent } from '@features/landing/icons/landing-gith
           (focus)="emailIcon.open()"
           (focusout)="emailIcon.close()"
         >
-          <landing-about-me-email-icon #emailIcon />
+          <i z-icon animate-email-icon #emailIcon="animateEmailIcon" zSize="lg" [zType]="emailIcon.zType()">
+          </i>
           {{ email }}
         </a>
         <a
