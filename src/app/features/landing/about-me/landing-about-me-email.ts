@@ -23,7 +23,7 @@ import { ZardIconComponent } from '@shared/components/icon/icon.component';
   `,
   styles: ``
 })
-export default class LandingAboutMeEmailComponent {
+export class LandingAboutMeEmailComponent {
 
 
   /**
