@@ -6,8 +6,10 @@ summary: Developed their job platform to connect skilled construction workers wh
 from: Oct 2023
 to: Apr 2024
 skills:
-  - Typescript
-  - React Native
+  - name: Typescript
+    logoImg: /assets/icons/ts-logo-512.svg
+  - name: React Native
+    logoImg: /assets/icons/reactjs.svg
 ---
 Migrated their <span class="on-bg-color-accent">Javascript</span> codebase to <span class="on-bg-color-accent">Typescript</span>
 <br/>
