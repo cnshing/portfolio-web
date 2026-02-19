@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, viewChild } from '@angular/core';
 import {
   OptimizedLottieComponent,
   PreviewLottieComponent,
@@ -31,10 +31,16 @@ import {
         #wave
         src="/assets/graphics/waving.lottie"
         loop
-        (mouseenter)="wave.play()"
-        (mouseleave)="wave.pause()"
       />
     </ng-template>
   `,
 })
-export class LandingWaveIconComponent {}
+export class LandingWaveIconComponent {
+  /**
+   * Control playback mechanism for the animation.
+   *
+   * @readonly
+   * @type {OptimizedLottieComponent}
+   */
+  readonly animation = viewChild<OptimizedLottieComponent>('wave');
+}
