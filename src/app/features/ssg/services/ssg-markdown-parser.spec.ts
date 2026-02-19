@@ -52,12 +52,29 @@ ${body}`;
       summary: 'Ensured system-wide stability.',
       from: 'Jan 2020' as MMMYYYY,
       to: 'Dec 2024' as MMMYYYY,
-      skills: ['Angular', 'TypeScript', 'Testing'],
+      skills: [
+        { name: 'Angular' },
+        { name: 'TypeScript' },
+        { name: 'Testing' }
+      ],
       highlights: 'Performed extensive test automation and tooling.',
     };
 
-    const { highlights, ...frontmatter } = dummyCareer;
-    const markdown = generateMarkdown(frontmatter, highlights);
+    const markdown = `---
+company: "DummyCorp"
+companyLogoImg: "/assets/logo.svg"
+position: "QA Lead"
+description: "Testing everything thoroughly."
+summary: "Ensured system-wide stability."
+from: "Jan 2020"
+to: "Dec 2024"
+skills:
+  - name: Angular
+  - name: TypeScript
+  - name: Testing
+---
+Performed extensive test automation and tooling.`;
+
     const result = service.parseMarkdown<LandingCareerExperienceInput>(markdown, {
       bodyKey: 'highlights',
     });
