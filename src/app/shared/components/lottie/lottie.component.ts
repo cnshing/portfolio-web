@@ -110,12 +110,19 @@ export class OptimizedLottieComponent {
     this.dotLottie = dotLottie;
   }
 
+  protected readonly getIs = (key: "Frozen" | "Loaded" | "Paused" | "Playing" | "Ready" | "Stopped") => {
+    return this.ngZone.runOutsideAngular(() => {
+      return this.dotLottie ? this.dotLottie[`is${key}`] : false
+    });
+  }
+
+
   get isPlaying(): boolean {
-    return this.dotLottie?.isPlaying ?? false;
+    return this.getIs("Playing")
   }
 
   get isPaused(): boolean {
-    return this.dotLottie?.isPaused ?? false;
+    return this.getIs("Paused")
   }
 
   /** Plays animation. */
