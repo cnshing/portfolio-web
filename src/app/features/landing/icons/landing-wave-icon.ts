@@ -8,11 +8,11 @@ import {
  * Animated Hand Wave component.
  *
  * @export
- * @class LandingAboutMeWaveComponent
- * @typedef {LandingAboutMeWaveComponent}
+ * @class LandingWaveIconComponent
+ * @typedef {LandingWaveIconComponent}
  */
 @Component({
-  selector: 'landing-about-me-wave',
+  selector: 'landing-wave-icon',
   imports: [OptimizedLottieComponent, PreviewLottieComponent],
   template: `
     <lottie-with-poster
@@ -37,4 +37,4 @@ import {
     </ng-template>
   `,
 })
-export class LandingAboutMeWaveComponent {}
+export class LandingWaveIconComponent {}

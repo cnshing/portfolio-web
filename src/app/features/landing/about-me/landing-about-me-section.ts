@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { environment } from '@environments/environment';
-import { LandingAboutMeWaveComponent } from '@features/landing/about-me/landing-about-me-wave';
+import { LandingWaveIconComponent } from '@features/landing/icons/landing-wave-icon';
 import LandingAboutMeProfileComponent from '@features/landing/about-me/landing-about-me-profile';
 
 @Component({
   selector: 'landing-about-me',
   standalone: true,
-  imports: [LandingAboutMeProfileComponent, LandingAboutMeWaveComponent],
+  imports: [LandingAboutMeProfileComponent, LandingWaveIconComponent],
   template: `
     <section class="grid auto-grid-line-length">
       <div class="m-auto">
         <h2>
-          Hi — <span class="text-color-accent">{{ name }}</span> here! <landing-about-me-wave />
+          Hi — <span class="text-color-accent">{{ name }}</span> here! <landing-wave-icon />
         </h2>
         <br />
         <br />
