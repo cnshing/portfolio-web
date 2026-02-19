@@ -1,8 +1,8 @@
-import { Component, computed, input, TemplateRef, NgZone, booleanAttribute } from '@angular/core';
+import { Component, computed, input, TemplateRef, NgZone, booleanAttribute, output } from '@angular/core';
 import type { ClassValue } from 'clsx';
 import { mergeClasses } from '@shared/utils/merge-classes';
 import { NgTemplateOutlet } from '@angular/common';
-import { DotLottieWorker } from '@lottiefiles/dotlottie-web';
+import { DotLottieWorker, PlayEvent } from '@lottiefiles/dotlottie-web';
 import { DotLottieComponent, DotLottieWorkerComponent } from 'ngx-lottie/dotlottie-web';
 
 /**
@@ -85,6 +85,8 @@ export class PreviewLottieComponent {
       [loop]="loop()"
       [speed]="speed()"
       [mode]="mode()"
+      [autoplay]="autoplay()"
+      (play)="onPlay($event)"
       (dotLottieCreated)="onCreated($event)"
     />
   `,
@@ -96,16 +98,24 @@ export class OptimizedLottieComponent {
   readonly src = input<string>();
   readonly loop = input(false, { transform: booleanAttribute });
   readonly speed = input<number>(1.0);
+  readonly autoplay = input(false, { transform: booleanAttribute });
   readonly mode = input<'forward' | 'reverse' | 'bounce' | 'reverse-bounce'>('forward')
+  readonly onPlayEvent = output<PlayEvent>({alias: 'play'})
+
+  onPlay(event: PlayEvent) {
+    this.onPlayEvent.emit(event)
+  }
 
   onCreated(dotLottie: DotLottieWorker): void {
     this.dotLottie = dotLottie;
   }
 
-  isPaused(): boolean {
-    return this.ngZone.runOutsideAngular(() => {
-      return this.dotLottie ? this.dotLottie.isPaused : false
-    });
+  get isPlaying(): boolean {
+    return this.dotLottie?.isPlaying ?? false;
+  }
+
+  get isPaused(): boolean {
+    return this.dotLottie?.isPaused ?? false;
   }
 
   /** Plays animation. */
