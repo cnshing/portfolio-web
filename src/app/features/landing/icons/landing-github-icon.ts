@@ -13,7 +13,7 @@ import {
  * @typedef {LandingGithubIconComponent}
  */
 @Component({
-  selector: 'landing-about-me-github-icon',
+  selector: 'landing-github-icon',
   standalone: true,
   imports: [ZardIconComponent, PreviewLottieComponent, OptimizedLottieComponent],
   template: `

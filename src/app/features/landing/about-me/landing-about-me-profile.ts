@@ -105,7 +105,7 @@ import { LandingGithubIconComponent } from '@features/landing/icons/landing-gith
           (focus)="githubIcon.animation()?.play()"
           (focusout)="githubIcon.animation()?.pause()"
         >
-          <landing-about-me-github-icon #githubIcon />
+          <landing-github-icon #githubIcon />
           {{ github }}
         </a>
         <a
