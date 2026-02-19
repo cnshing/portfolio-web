@@ -31,7 +31,7 @@ import {
         #wave
         src="/assets/graphics/waving.lottie"
         autoplay
-        [loop]="loop()"
+        loop
         [speed]="0.75"
       />
     </ng-template>
@@ -64,15 +64,6 @@ export class LandingWaveIconComponent {
    */
   protected readonly interacted = signal<boolean>(false)
 
-  /**
-   * Control mechanism for `initialPlayDuration`
-   *
-   * @protected
-   * @readonly
-   * @type {*}
-   */
-  protected readonly loop = signal<boolean>(true)
-
   protected readonly destroyRef = inject(DestroyRef);
 
   /**
@@ -94,7 +85,6 @@ export class LandingWaveIconComponent {
   }
 
   readonly play = () => {
-    this.loop.set(true)
     this.interacted.set(true)
     this.wave()?.play()
 
