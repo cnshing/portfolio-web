@@ -60,3 +60,10 @@ export class AltFromSrcPipe implements PipeTransform {
       .replace(/\b\w/g, c => c.toUpperCase());
   }
 }
+
+/**
+ * Does the device primarly use a touch screen?
+ *
+ * @returns {bool}
+ */
+export const isTouchDevice = () => matchMedia('(pointer:coarse)').matches // https://stackoverflow.com/a/14457567
