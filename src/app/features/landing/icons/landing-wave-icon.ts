@@ -71,7 +71,7 @@ export class LandingWaveIconComponent {
    *
    * @constructor
    */
-  constructor() {
+  constructor() { // TODO: This code couples special playback behavior to all instances of `LandingWaveIconComponent`. Figure out a way to parameterize this
     const timeoutId = window.setTimeout(() => {
       if (!this.interacted()) {
         this.pause()
