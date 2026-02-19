@@ -110,6 +110,13 @@ export class OptimizedLottieComponent {
     this.dotLottie = dotLottie;
   }
 
+
+  /**
+   * Helper to retrieve dotLottie state.
+   *
+   * @param {("Frozen" | "Loaded" | "Paused" | "Playing" | "Ready" | "Stopped")} key
+   * @returns {*}
+   */
   protected readonly getIs = (key: "Frozen" | "Loaded" | "Paused" | "Playing" | "Ready" | "Stopped") => {
     return this.ngZone.runOutsideAngular(() => {
       return this.dotLottie ? this.dotLottie[`is${key}`] : false
