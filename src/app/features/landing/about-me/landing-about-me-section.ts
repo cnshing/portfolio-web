@@ -11,7 +11,12 @@ import LandingAboutMeProfileComponent from '@features/landing/about-me/landing-a
     <section class="grid auto-grid-line-length">
       <div class="m-auto">
         <h2>
-          Hi — <span class="text-color-accent">{{ name }}</span> here! <landing-wave-icon />
+          Hi — <span class="text-color-accent">{{ name }}</span> here!
+          <landing-wave-icon
+            #wave
+            (mouseenter)="wave.animation()?.play()"
+            (mouseleave)="wave.animation()?.pause()"
+          />
         </h2>
         <br />
         <br />
