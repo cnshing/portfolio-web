@@ -102,6 +102,12 @@ export class OptimizedLottieComponent {
     this.dotLottie = dotLottie;
   }
 
+  isPaused(): boolean {
+    return this.ngZone.runOutsideAngular(() => {
+      return this.dotLottie ? this.dotLottie.isPaused : false
+    });
+  }
+
   /** Plays animation. */
   play(): void {
     this.ngZone.runOutsideAngular(() => {

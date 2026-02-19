@@ -14,6 +14,7 @@ import LandingAboutMeProfileComponent from '@features/landing/about-me/landing-a
           Hi — <span class="text-color-accent">{{ name }}</span> here!
           <landing-wave-icon
             #wave
+            (click)="wave.animation()?.isPaused() ? wave.animation()?.play() : wave.animation()?.pause()"
             (mouseenter)="wave.animation()?.play()"
             (mouseleave)="wave.animation()?.pause()"
           />
