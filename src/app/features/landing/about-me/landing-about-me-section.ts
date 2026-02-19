@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { environment } from '@environments/environment';
 import { LandingWaveIconComponent } from '@features/landing/icons/landing-wave-icon';
 import LandingAboutMeProfileComponent from '@features/landing/about-me/landing-about-me-profile';
+import { isTouchDevice } from '@shared/utils/accessibility';
 
 @Component({
   selector: 'landing-about-me',
@@ -14,9 +15,9 @@ import LandingAboutMeProfileComponent from '@features/landing/about-me/landing-a
           Hi — <span class="text-color-accent">{{ name }}</span> here!
           <landing-wave-icon
             #wave
-            (click)="wave.animation()?.isPaused() ? wave.animation()?.play() : wave.animation()?.pause()"
-            (mouseenter)="wave.animation()?.play()"
-            (mouseleave)="wave.animation()?.pause()"
+            (click)="isTouchDevice ? wave.flip() : null"
+            (mouseenter)="wave.play()"
+            (mouseleave)="wave.pause()"
           />
         </h2>
         <br />
@@ -53,4 +54,5 @@ import LandingAboutMeProfileComponent from '@features/landing/about-me/landing-a
 })
 export default class LandingAboutMeComponent {
   protected readonly name = environment.name;
+  protected readonly isTouchDevice = isTouchDevice()
 }

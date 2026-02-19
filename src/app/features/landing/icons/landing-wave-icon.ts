@@ -1,4 +1,4 @@
-import { Component, viewChild } from '@angular/core';
+import { Component, DestroyRef, inject, signal, viewChild } from '@angular/core';
 import {
   OptimizedLottieComponent,
   PreviewLottieComponent,
@@ -30,7 +30,9 @@ import {
       <optimized-lottie
         #wave
         src="/assets/graphics/waving.lottie"
-        loop
+        autoplay
+        [loop]="loop()"
+        [speed]="0.75"
       />
     </ng-template>
   `,
@@ -42,5 +44,75 @@ export class LandingWaveIconComponent {
    * @readonly
    * @type {OptimizedLottieComponent}
    */
-  readonly animation = viewChild<OptimizedLottieComponent>('wave');
+  readonly wave = viewChild<OptimizedLottieComponent>('wave');
+
+  /**
+   * The minimium amount of animation playback on first load, in milliseconds.
+   *
+   * @readonly
+   * @type {*}
+   */
+  protected readonly initialPlayDuration = 5000
+
+
+  /**
+   * Has this animation been interacted yet?
+   *
+   * @protected
+   * @readonly
+   * @type {boolean}
+   */
+  protected readonly interacted = signal<boolean>(false)
+
+  /**
+   * Control mechanism for `initialPlayDuration`
+   *
+   * @protected
+   * @readonly
+   * @type {*}
+   */
+  protected readonly loop = signal<boolean>(true)
+
+  protected readonly destroyRef = inject(DestroyRef);
+
+  /**
+   * Disables autoplay to let users interact with the animation manually
+   *
+   * @constructor
+   */
+  constructor() {
+    const timeoutId = window.setTimeout(() => {
+      if (!this.interacted()) {
+        this.pause()
+      }
+
+    }, this.initialPlayDuration);
+
+    this.destroyRef.onDestroy(() => {
+      clearTimeout(timeoutId);
+    });
+  }
+
+  readonly play = () => {
+    this.loop.set(true)
+    this.interacted.set(true)
+    this.wave()?.play()
+
+  }
+
+  readonly pause = () => {
+    this.wave()?.pause()
+  }
+
+
+  /** Standard video play/pause button mechanism. */
+  readonly flip = () => {
+    if (!this.wave()?.isPlaying || this.wave()?.isPaused) {
+      this.wave()?.play()
+    }
+    else {
+      this.pause()
+    }
+  }
+
 }
