@@ -21,6 +21,10 @@ type Year =
 
 export type MMMYYYY = `${Month} ${Year}}`;
 
+export interface Skills {
+  name: string
+  logoImg?: string
+}
 
 /**
  * Convert a `MMMYYYY` datestring to a Date() object.
@@ -46,7 +50,7 @@ export interface LandingCareerExperienceInput {
   summary?: string
   from: MMMYYYY
   to: MMMYYYY | "Present"
-  skills?: string[]
+  skills?: Skills[]
   highlights?: string
   aboutURL?: string
 }

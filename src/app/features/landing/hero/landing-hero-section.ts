@@ -19,9 +19,9 @@ import { LandingHeroMotorcyclistComponent } from '@features/landing/hero/landing
           rel="noopener noreferrer"
           [href]="'resumes/' + name.replace(' ', '_') + '_Resume.pdf'"
           z-button
-          class="w-min z-[3]"
+          class="w-min z-[3] group"
         >
-          <i z-icon zSize="lg" zType="resume"></i>
+          <i class="-rotate-9 group-hover:-rotate-19 group-focus:-rotate-19 transition-transform duration-250" z-icon zSize="lg" zType="resume"></i>
           View Resume
         </a>
       </div>

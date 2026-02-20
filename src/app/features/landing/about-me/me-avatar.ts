@@ -1,6 +1,6 @@
 import { Component, computed, ElementRef, input, viewChild } from '@angular/core';
 import { ZardAvatarContainerComponent } from '@shared/components/avatar/avatar.component';
-import { AutoplayOnVisibleDirective, VideoAutoplayDirective } from '@shared/directives/autoplay.directive';
+import { VideoAutoplayDirective } from '@shared/directives/autoplay.directive';
 
 
 export const postures = [
@@ -28,7 +28,7 @@ export const avatarSrcPath = (posture: Postures) => `/assets/avatars/me-${postur
 @Component({
   selector: 'me-avatar',
   standalone: true,
-  imports: [ZardAvatarContainerComponent, VideoAutoplayDirective, AutoplayOnVisibleDirective],
+  imports: [ZardAvatarContainerComponent, VideoAutoplayDirective],
   template: `
     <z-avatar-container
       class="rounded-full aspect-square overflow-hidden"
@@ -40,7 +40,7 @@ export const avatarSrcPath = (posture: Postures) => `/assets/avatars/me-${postur
       [content]="videoTemplate"
     >
       <ng-template #videoTemplate>
-        <video disableRemotePlayback  playsinline autoplay autoplayOnVisible [poster]="avatarSrc()+'@0.75x.avif'" class="size-full" #avatarVideo>
+        <video disableRemotePlayback  playsinline autoplay [poster]="avatarSrc()+'@0.75x.avif'" class="size-full" #avatarVideo>
           <source type="video/quicktime; codecs=hvc1.1.6.H120.b0" [src] = "avatarSrc() + '.mp4'" />
           <source type="video/webm; codecs=vp09.00.41.08" [src] = "avatarSrc() + '.webm'" />
         </video>

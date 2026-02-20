@@ -1,0 +1,29 @@
+:host
+  a:hover .animate-phone, a:focus .animate-phone
+    animation: phone-ring 300ms ease-in-out infinite
+
+  a:hover .animate-location, a:focus .animate-location
+    animation: location-bounce 600ms ease-in-out
+
+  a:hover .animate-linkedin, a:focus .animate-linkedin
+    animation: linkedin-pulse 1000ms
+
+@keyframes phone-ring
+  0%, 100%
+    transform: rotate(0deg)
+  25%
+    transform: rotate(-5deg)
+  75%
+    transform: rotate(15deg)
+
+@keyframes location-bounce
+  0%, 100%
+    transform: translateY(0)
+  50%
+    transform: translateY(-15%)
+
+@keyframes linkedin-pulse
+  0%, 100%
+    transform: scale(1)
+  50%
+    transform: scale(1.07)

@@ -4,11 +4,19 @@ import { ZardIconComponent } from '@shared/components/icon/icon.component';
 import { LandingAboutMeAvatarComponent, Postures, postures } from './me-avatar';
 import { environment } from '@environments/environment';
 import { avatarSrcPath } from '@features/landing/about-me/me-avatar';
+import { LandingEmailIconDirective } from '@features/landing/icons/landing-email-icon.directive';
+import { LandingGithubIconComponent } from '@features/landing/icons/landing-github-icon';
 
 @Component({
   selector: 'landing-about-me-profile',
   standalone: true,
-  imports: [ZardButtonComponent, ZardIconComponent, LandingAboutMeAvatarComponent],
+  imports: [
+    ZardButtonComponent,
+    ZardIconComponent,
+    LandingAboutMeAvatarComponent,
+    LandingEmailIconDirective,
+    LandingGithubIconComponent,
+  ],
   template: `
     <div class="flex flex-col gap-xl">
       <div class="relative">
@@ -49,8 +57,9 @@ import { avatarSrcPath } from '@features/landing/about-me/me-avatar';
           href="tel:{{ phone }}"
           z-button
           zType="outline"
+          class="group"
         >
-          <i z-icon zSize="lg" zType="phone"></i>
+          <i class="group-hover:animate-(--animate-phone) group-focus:animate-(--animate-phone)" z-icon zSize="lg" zType="phone"></i>
           {{ phone }}
         </a>
         <a
@@ -59,8 +68,9 @@ import { avatarSrcPath } from '@features/landing/about-me/me-avatar';
           href="https://www.openstreetmap.org/search?query={{ location }}"
           z-button
           zType="outline"
+          class="group"
         >
-          <i z-icon zSize="lg" zType="location"></i>
+          <i class="group-hover:animate-(--animate-location) group-focus:animate-(--animate-location)" z-icon zSize="lg" zType="location"></i>
           {{ location }}
         </a>
         <a
@@ -69,8 +79,19 @@ import { avatarSrcPath } from '@features/landing/about-me/me-avatar';
           href="mailto:{{ email }}"
           z-button
           zType="outline"
+          (mouseenter)="emailIcon.open()"
+          (mouseleave)="emailIcon.close()"
+          (focus)="emailIcon.open()"
+          (focusout)="emailIcon.close()"
         >
-          <i z-icon zSize="lg" zType="email"></i>
+          <i
+            z-icon
+            animate-email-icon
+            #emailIcon="animateEmailIcon"
+            zSize="lg"
+            [zType]="emailIcon.zType()"
+          >
+          </i>
           {{ email }}
         </a>
         <a
@@ -79,8 +100,13 @@ import { avatarSrcPath } from '@features/landing/about-me/me-avatar';
           href="https://github.com/{{ github }}"
           z-button
           zType="outline"
+          (mouseenter)="githubIcon.animation()?.play()"
+          (mouseleave)="githubIcon.animation()?.pause()"
+          (focus)="githubIcon.animation()?.play()"
+          (focusout)="githubIcon.animation()?.pause()"
         >
-          <i z-icon zSize="lg" zType="githubICO"></i>{{ github }}
+          <landing-github-icon #githubIcon       class="inline-flex align-top size-(--text-xl) text-xl"/>
+          {{ github }}
         </a>
         <a
           target="_blank"
@@ -88,8 +114,9 @@ import { avatarSrcPath } from '@features/landing/about-me/me-avatar';
           href="https://linkedin.com/in/{{ linkedin }}"
           z-button
           zType="outline"
+          class="group"
         >
-          <i z-icon zSize="lg" zType="linkedinICO"></i>
+          <i class="group-hover:animate-(--animate-linkedin) group-focus:animate-(--animate-linkedin)" z-icon zSize="lg" zType="linkedinICO"></i>
           {{ linkedin }}
         </a>
       </div>
@@ -106,9 +133,13 @@ import { avatarSrcPath } from '@features/landing/about-me/me-avatar';
     --mobile-arrow-x-offset: calc(var(--avatar-width)*0.5*cos(45deg))
     --mobile-arrow-y-offset: calc(var(--avatar-width)*0.5*sin(45deg))
   `,
+  styleUrls: [
+    '../icons/landing-icons-animate-linkedin.sass',
+    '../icons/landing-icons-animate-location.sass',
+    '../icons/landing-icons-animate-phone.sass',
+  ],
 })
 export default class LandingAboutMeProfileComponent {
-
   protected readonly location = environment.location;
   protected readonly email = environment.email;
   protected readonly github = environment.githubUsername;
@@ -143,7 +174,7 @@ export default class LandingAboutMeProfileComponent {
   protected readonly selectRandomPosture = (exclude: Postures): Postures => {
     const availablePostures = postures.filter((p) => p !== exclude);
     return availablePostures[Math.floor(Math.random() * availablePostures.length)]!;
-  }
+  };
 
   /**
    * The next avatar posture to play when requested.
@@ -178,7 +209,7 @@ export default class LandingAboutMeProfileComponent {
 
       this.loadedAvatars.add(posture);
     }
-  }
+  };
 
   protected readonly onHoverload = () => {
     this.loadAvatar(this.nextPosture());

@@ -9,6 +9,7 @@ import { ZardBlockQuoteComponent } from '@shared/components/blockquote/blockquot
 import {
   MMMYYYY,
   mmmYYYYToDate,
+  Skills,
 } from '@features/landing/career/experience/landing-career-experience.types';
 import { MarkdownComponent, provideMarkdown } from 'ngx-markdown';
 import { ZardDividerComponent } from '@shared/components/divider/divider.component';
@@ -34,8 +35,8 @@ import { AltFromSrcPipe } from '@shared/utils/accessibility';
     ZardBlockQuoteComponent,
     MarkdownComponent,
     ZardDividerComponent,
-    AltFromSrcPipe
-],
+    AltFromSrcPipe,
+  ],
   template: `
     <z-card
       [zTitle]="this.company()"
@@ -46,9 +47,10 @@ import { AltFromSrcPipe } from '@shared/utils/accessibility';
       <ng-template #companyIcon>
         <a
           class="focus-visible:ring-white-0/50 focus-visible:ring-[0.46875rem] focus-visible:outline-none rounded-sm"
-          [aria-label]="aboutURL() ? 'Learn more about '+ company() : undefined"
+          [aria-label]="aboutURL() ? 'Learn more about ' + company() : undefined"
           [attr.href]="aboutURL() ? aboutURL() : undefined"
-        > <!-- NOTE: Do not render accessibility styles if no link exists -->
+        >
+          <!-- NOTE: Do not render accessibility styles if no link exists -->
           <z-avatar
             class="bg-white-0 rounded-sm p-sm *:[&_img]:p-[5%] pointer-events-none"
             zFallback="CMP"
@@ -72,11 +74,9 @@ import { AltFromSrcPipe } from '@shared/utils/accessibility';
       <div class="flex flex-col gap-md">
         <p class="m-b-auto text-color-default">{{ summary() }}</p>
         <blockquote z-blockquote class="text-lg">
-          <div
-            markdown
-            class="max-w-line-length text-color-default"
-            ngPreserveWhitespace
-          >{{ highlights() }}</div>
+          <div markdown class="max-w-line-length text-color-default" ngPreserveWhitespace>
+            {{ highlights() }}
+          </div>
         </blockquote>
       </div>
       <z-divider
@@ -85,7 +85,12 @@ import { AltFromSrcPipe } from '@shared/utils/accessibility';
       />
       <div class="flex flex-wrap justify-start gap-md m-t-auto">
         @for (skill of skills(); track $index) {
-        <z-badge zShape="square" zType="secondary" class="text-md">{{ skill }}</z-badge>
+        <z-badge zShape="square" zType="secondary" class="flex gap-[calc(var(--spacing-2xs)*1.25)] items-center justify-center text-md">
+          @if ("logoImg" in skill) {
+            <img [src]="skill.logoImg" class="h-sm" [alt]="skill.name" />
+          }
+          {{ skill.name }}</z-badge
+        >
         }
       </div>
     </z-card>
@@ -119,7 +124,7 @@ export default class LandingCareerPositionComponent {
    * @readonly
    * @type {*}
    */
-  readonly skills = input<string[]>([]);
+  readonly skills = input<Skills[]>([]);
   /**
    *
    *

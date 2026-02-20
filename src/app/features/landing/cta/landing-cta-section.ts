@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ZardButtonComponent } from '@shared/components/button/button.component';
 import { environment } from '@environments/environment';
+import { LandingEmailIconDirective } from '@features/landing/icons/landing-email-icon.directive';
 import { ZardIconComponent } from '@shared/components/icon/icon.component';
 
 /**
@@ -14,7 +15,7 @@ import { ZardIconComponent } from '@shared/components/icon/icon.component';
   selector: 'landing-cta',
   standalone: true,
   providers: [],
-  imports: [ZardButtonComponent, ZardIconComponent],
+  imports: [ZardButtonComponent, ZardIconComponent, LandingEmailIconDirective],
   template: `
     <section>
       <div class="m-auto text-center py-3xl">
@@ -25,8 +26,12 @@ import { ZardIconComponent } from '@shared/components/icon/icon.component';
           href="mailto:{{ email }}"
           z-button
           class="w-min"
+          (mouseenter)="icon.open()"
+          (mouseleave)="icon.close()"
+          (focus)="icon.open()"
+          (focusout)="icon.close()"
         >
-          <i z-icon zSize="lg" zType="email"></i>
+          <i z-icon animate-email-icon #icon="animateEmailIcon" zSize="lg" [zType]="icon.zType()"></i>
           {{ email }}
         </a>
       </div>
