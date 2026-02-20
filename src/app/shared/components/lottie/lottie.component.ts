@@ -16,7 +16,7 @@ import { DotLottieWorker, PlayEvent } from '@lottiefiles/dotlottie-web';
 import { DotLottieComponent, DotLottieWorkerComponent } from 'ngx-lottie/dotlottie-web';
 
 /**
- * Shows a poster preview of the dotLottie component before the dotLottie is fully loaded. Helpful in reducing the bundle size when a dotLottie component is not immediately neccesary to render. Due to Angular implementation, dotlottie components are only able to be deferred on viewport.
+ * Shows a poster preview of the dotLottie component before the dotLottie is fully loaded. Helpful in reducing the bundle size when a dotLottie component is not immediately neccesary to render. Due to Angular implementation, dotlottie components are only able to be deferred on viewport. Do not under any circumstance make the host display not relative.
  *
  * @export
  * @class PreviewLottieComponent
