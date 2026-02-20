@@ -1,4 +1,14 @@
-import { Component, computed, input, TemplateRef, NgZone, booleanAttribute, output } from '@angular/core';
+import {
+  Component,
+  computed,
+  input,
+  TemplateRef,
+  NgZone,
+  booleanAttribute,
+  output,
+  ElementRef,
+  inject,
+} from '@angular/core';
 import type { ClassValue } from 'clsx';
 import { mergeClasses } from '@shared/utils/merge-classes';
 import { NgTemplateOutlet } from '@angular/common';
@@ -16,24 +26,25 @@ import { DotLottieComponent, DotLottieWorkerComponent } from 'ngx-lottie/dotlott
   selector: 'lottie-with-poster',
   exportAs: 'posterLottie',
   template: `
-    <ng-container *ngTemplateOutlet="poster()"></ng-container>
+    <div class="absolute size-full">
+      <ng-container *ngTemplateOutlet="poster()"></ng-container>
+    </div>
 
     @defer (on viewport) {
-    <div class="opacity-0 animate-(--animate-appear)">
-      <ng-container *ngTemplateOutlet="dotLottieTemplate()"></ng-container>
-    </div>
+    <div [attr.data-show-lottie-soon]="showLottie()" class="hidden"></div>
+    <ng-container *ngTemplateOutlet="dotLottieTemplate()"></ng-container>
+
     } @placeholder {
     <div class="absolute size-full"></div>
     }
   `,
   host: {
     '[class]': 'classes()',
-    '[style.--defer-transition]': "deferTransitionMS()+'ms'"
   },
   imports: [NgTemplateOutlet],
-  styleUrl: 'lottie.component.sass',
 })
 export class PreviewLottieComponent {
+  private host = inject<ElementRef<HTMLElement>>(ElementRef);
 
   readonly class = input<ClassValue>('');
   /**
@@ -50,7 +61,8 @@ export class PreviewLottieComponent {
    * @readonly
    * @type {*}
    */
-  readonly dotLottieTemplate = input.required<TemplateRef<DotLottieWorkerComponent | DotLottieComponent>>();
+  readonly dotLottieTemplate =
+    input.required<TemplateRef<DotLottieWorkerComponent | DotLottieComponent>>();
 
   /**
    * Minimium number of milliseconds to wait until it transitions to the dotLottie element once it is ready.
@@ -58,14 +70,19 @@ export class PreviewLottieComponent {
    * @readonly
    * @type {*}
    */
-  readonly deferTransitionMS = input<number>(375)
+  readonly deferTransitionMS = input<number>(375);
 
-  protected readonly classes = computed(() =>
-    mergeClasses(
-      'relative has-[ng-dotlottie-worker]:[&>*:first-child]:invisible has-[ng-dotlottie-worker]:[&>*:first-child]:absolute [&>*:first-child]:delay-(--defer-transition)',
-      this.class()
-    )
-  );
+  /** Swaps the placeholder with the lottie element. */
+  protected readonly showLottie = () => {
+    setTimeout(() => {
+      const poster = this.host.nativeElement.firstElementChild;
+      poster?.setAttribute('style', 'display:none ');
+      const lottie = this.host.nativeElement.lastElementChild;
+      lottie?.setAttribute('style', 'opacity: 1');
+    }, this.deferTransitionMS());
+  };
+
+  protected readonly classes = computed(() => mergeClasses('relative', this.class()));
 }
 
 /**
@@ -92,24 +109,22 @@ export class PreviewLottieComponent {
   `,
 })
 export class OptimizedLottieComponent {
-
   protected dotLottie: DotLottieWorker | null = null;
   constructor(private ngZone: NgZone) {}
   readonly src = input<string>();
   readonly loop = input(false, { transform: booleanAttribute });
   readonly speed = input<number>(1.0);
   readonly autoplay = input(false, { transform: booleanAttribute });
-  readonly mode = input<'forward' | 'reverse' | 'bounce' | 'reverse-bounce'>('forward')
-  readonly onPlayEvent = output<PlayEvent>({alias: 'play'})
+  readonly mode = input<'forward' | 'reverse' | 'bounce' | 'reverse-bounce'>('forward');
+  readonly onPlayEvent = output<PlayEvent>({ alias: 'play' });
 
   onPlay(event: PlayEvent) {
-    this.onPlayEvent.emit(event)
+    this.onPlayEvent.emit(event);
   }
 
   onCreated(dotLottie: DotLottieWorker): void {
     this.dotLottie = dotLottie;
   }
-
 
   /**
    * Helper to retrieve dotLottie state.
@@ -117,19 +132,20 @@ export class OptimizedLottieComponent {
    * @param {("Frozen" | "Loaded" | "Paused" | "Playing" | "Ready" | "Stopped")} key
    * @returns {*}
    */
-  protected readonly getIs = (key: "Frozen" | "Loaded" | "Paused" | "Playing" | "Ready" | "Stopped") => {
+  protected readonly getIs = (
+    key: 'Frozen' | 'Loaded' | 'Paused' | 'Playing' | 'Ready' | 'Stopped'
+  ) => {
     return this.ngZone.runOutsideAngular(() => {
-      return this.dotLottie ? this.dotLottie[`is${key}`] : false
+      return this.dotLottie ? this.dotLottie[`is${key}`] : false;
     });
-  }
-
+  };
 
   get isPlaying(): boolean {
-    return this.getIs("Playing")
+    return this.getIs('Playing');
   }
 
   get isPaused(): boolean {
-    return this.getIs("Paused")
+    return this.getIs('Paused');
   }
 
   /** Plays animation. */
