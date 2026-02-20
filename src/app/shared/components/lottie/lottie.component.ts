@@ -12,7 +12,7 @@ import {
 import type { ClassValue } from 'clsx';
 import { mergeClasses } from '@shared/utils/merge-classes';
 import { NgTemplateOutlet } from '@angular/common';
-import { DotLottieWorker, PlayEvent } from '@lottiefiles/dotlottie-web';
+import { DotLottieWorker, LoadEvent, PlayEvent } from '@lottiefiles/dotlottie-web';
 import { DotLottieComponent, DotLottieWorkerComponent } from 'ngx-lottie/dotlottie-web';
 
 /**
@@ -31,7 +31,6 @@ import { DotLottieComponent, DotLottieWorkerComponent } from 'ngx-lottie/dotlott
     </div>
 
     @defer (on viewport) {
-    <div [attr.data-show-lottie-soon]="showLottie()" class="hidden"></div>
     <ng-container *ngTemplateOutlet="dotLottieTemplate()"></ng-container>
 
     } @placeholder {
@@ -64,25 +63,15 @@ export class PreviewLottieComponent {
   readonly dotLottieTemplate =
     input.required<TemplateRef<DotLottieWorkerComponent | DotLottieComponent>>();
 
-  /**
-   * Minimium number of milliseconds to wait until it transitions to the dotLottie element once it is ready.
-   *
-   * @readonly
-   * @type {*}
-   */
-  readonly deferTransitionMS = input<number>(375);
-
   /** Swaps the placeholder with the lottie element. */
-  protected readonly showLottie = () => {
-    setTimeout(() => {
-      const poster = this.host.nativeElement.firstElementChild;
-      poster?.setAttribute('style', 'display:none ');
-      const lottie = this.host.nativeElement.lastElementChild;
-      lottie?.setAttribute('style', 'opacity: 1');
-    }, this.deferTransitionMS());
+  readonly onLoadShowLottie = () => {
+    const poster = this.host.nativeElement.firstElementChild;
+    const lottie = this.host.nativeElement.lastElementChild;
+    poster?.setAttribute('style', 'display:none ');
+    lottie?.setAttribute('style', 'opacity: 1');
   };
 
-  protected readonly classes = computed(() => mergeClasses('relative', this.class()));
+  protected readonly classes = computed(() => mergeClasses('relative size-full', this.class()));
 }
 
 /**
@@ -104,6 +93,7 @@ export class PreviewLottieComponent {
       [mode]="mode()"
       [autoplay]="autoplay()"
       (play)="onPlay($event)"
+      (load)="onLoad($event)"
       (dotLottieCreated)="onCreated($event)"
     />
   `,
@@ -117,9 +107,14 @@ export class OptimizedLottieComponent {
   readonly autoplay = input(false, { transform: booleanAttribute });
   readonly mode = input<'forward' | 'reverse' | 'bounce' | 'reverse-bounce'>('forward');
   readonly onPlayEvent = output<PlayEvent>({ alias: 'play' });
+  readonly onLoadEvent = output<LoadEvent>({ alias: 'load' });
 
   onPlay(event: PlayEvent) {
     this.onPlayEvent.emit(event);
+  }
+
+  onLoad(event: LoadEvent) {
+    this.onLoadEvent.emit(event);
   }
 
   onCreated(dotLottie: DotLottieWorker): void {

@@ -16,6 +16,7 @@ import {
   imports: [OptimizedLottieComponent, PreviewLottieComponent],
   template: `
     <lottie-with-poster
+      #preview
       [poster]="poster"
       [dotLottieTemplate]="animation"
     >
@@ -28,6 +29,7 @@ import {
     <ng-template #animation>
       <optimized-lottie
         #wave
+        (load)="preview.onLoadShowLottie()"
         src="/assets/graphics/waving.lottie"
         autoplay
         loop

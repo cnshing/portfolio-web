@@ -18,6 +18,7 @@ import {
   imports: [ZardIconComponent, PreviewLottieComponent, OptimizedLottieComponent],
   template: `
     <lottie-with-poster
+      #preview
       [poster]="poster"
       [dotLottieTemplate]="animation"
     >
@@ -28,7 +29,7 @@ import {
     </ng-template>
 
     <ng-template #animation>
-      <optimized-lottie #github src="/assets/icons/github.lottie" loop [speed]="0.9" mode="reverse-bounce" />
+      <optimized-lottie #github (load)="preview.onLoadShowLottie()" src="/assets/icons/github.lottie" loop [speed]="0.9" mode="reverse-bounce" />
     </ng-template>
   `,
 })
