@@ -6,7 +6,8 @@ summary: Certifications include CompTIA A+ and Network+ completed post-graduatio
 from: Aug 2018
 to: Jun 2022
 skills:
-  - Python
+  - name: Python
+    logoImg: /assets/icons/python-logo-only.svg
 aboutURL: https://engineering.ucsc.edu/departments/computer-science-and-engineering/
 ---
 Bachelor of Science (BS) in <span class="on-bg-color-accent">Computer Science</span>

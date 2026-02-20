@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { LandingProjectsCardComponent } from '@features/landing/projects/landing-projects-card';
-
+import { isTouchDevice } from '@shared/utils/accessibility';
 /**
  * Portfolio Bento Card.
  *
@@ -58,5 +58,5 @@ export class LandingPortfolioComponent {
   protected readonly highlightClasses =
     'rounded-sm px-2xs text-color-accent bg-color-page border border-color-strong';
 
-  protected readonly isTouchDevice = matchMedia('(pointer:coarse)').matches // https://stackoverflow.com/a/14457567
+  protected readonly isTouchDevice = isTouchDevice()
 }

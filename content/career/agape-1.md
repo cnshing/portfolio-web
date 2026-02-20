@@ -6,9 +6,12 @@ summary: Provided full-stack development and technical leadership in a startup e
 from: Apr 2024
 to: Jun 2025
 skills:
-  - Svelte
-  - Docker
-  - Python
+  - name: Svelte
+    logoImg: /assets/icons/svelte-logo-square.svg
+  - name: Docker
+    logoImg: /assets/icons/docker-mark-blue.svg
+  - name: Python
+    logoImg: /assets/icons/python-logo-only.svg
 aboutURL: https://agape-1.ai/
 ---
 Kick-started agile practices, code reviews, and CI/CD pipelines from scratch

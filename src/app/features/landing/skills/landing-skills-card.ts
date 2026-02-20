@@ -54,6 +54,9 @@ export interface LandingSkillCardInput {
     <p class="text-center m-xs flex items-center justify-center">{{ name() }}</p>
   `
   ,
+  host: {
+    'class': "hover:scale-105 focus:scale-105 ease-in-out duration-250"
+  }
 })
 export class LandingSkillCardComponent {
   /**
