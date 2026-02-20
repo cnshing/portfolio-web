@@ -16,7 +16,11 @@ import { DotLottieWorker, LoadEvent, PlayEvent } from '@lottiefiles/dotlottie-we
 import { DotLottieComponent, DotLottieWorkerComponent } from 'ngx-lottie/dotlottie-web';
 
 /**
- * Shows a poster preview of the dotLottie component before the dotLottie is fully loaded. Helpful in reducing the bundle size when a dotLottie component is not immediately neccesary to render. Due to Angular implementation, dotlottie components are only able to be deferred on viewport. Do not under any circumstance make the host display not relative.
+ * Shows a poster preview of the dotLottie component before the dotLottie is fully loaded. Helpful in reducing the bundle size when a dotLottie component is not immediately neccesary to render. Due to Angular implementation, dotlottie components are only able to be deferred on viewport.
+ *
+ * IMPORTANT: Do not under any circumstance make the host display not relative.
+ *
+ * IMPORTANT: You must bind to this component's `onLoadShowLottie` to the lottie's `(load)` for this component to work!
  *
  * @export
  * @class PreviewLottieComponent
@@ -31,7 +35,7 @@ import { DotLottieComponent, DotLottieWorkerComponent } from 'ngx-lottie/dotlott
     </div>
 
     @defer (on viewport) {
-    <ng-container *ngTemplateOutlet="dotLottieTemplate()"></ng-container>
+    <ng-container *ngTemplateOutlet="dotLottieTemplate()"></ng-container> <!-- TODO: Figure out how to implicitly bind output onLoadShowLottie to (load) within component scope. -->
 
     } @placeholder {
     <div class="absolute size-full"></div>
@@ -63,7 +67,7 @@ export class PreviewLottieComponent {
   readonly dotLottieTemplate =
     input.required<TemplateRef<DotLottieWorkerComponent | DotLottieComponent>>();
 
-  /** Swaps the placeholder with the lottie element. */
+  /** Swaps the placeholder with the lottie element. IMPORTANT: You must bind to the dotLottie's `(load)` for this component to work! */
   readonly onLoadShowLottie = () => {
     const poster = this.host.nativeElement.firstElementChild;
     const lottie = this.host.nativeElement.lastElementChild;
