@@ -16,7 +16,6 @@ import {
   imports: [OptimizedLottieComponent, PreviewLottieComponent],
   template: `
     <lottie-with-poster
-      class="align-top inline-flex size-[calc(var(--text-2xl)*1.35)]"
       [poster]="poster"
       [dotLottieTemplate]="animation"
     >

@@ -18,14 +18,13 @@ import {
   imports: [ZardIconComponent, PreviewLottieComponent, OptimizedLottieComponent],
   template: `
     <lottie-with-poster
-      class="inline-flex align-top size-(--text-xl)"
       [poster]="poster"
       [dotLottieTemplate]="animation"
     >
     </lottie-with-poster>
 
     <ng-template #poster>
-      <i z-icon zType="githubICO" zSize="lg"> </i>
+      <i z-icon zType="githubICO"> </i>
     </ng-template>
 
     <ng-template #animation>

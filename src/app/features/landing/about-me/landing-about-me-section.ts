@@ -15,6 +15,7 @@ import { isTouchDevice } from '@shared/utils/accessibility';
           Hi — <span class="text-color-accent">{{ name }}</span> here!
           <landing-wave-icon
             #wave
+            class="align-top inline-flex size-[calc(var(--text-2xl)*1.35)]"
             (click)="isTouchDevice ? wave.flip() : null"
             (mouseenter)="wave.play()"
             (mouseleave)="wave.pause()"
