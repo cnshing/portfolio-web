@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 import LandingHeroComponent from '@features/landing/hero/landing-hero-section';
 import {
@@ -30,7 +30,7 @@ import LandingCTAComponent from '@features/landing/cta/landing-cta-section';
   template: `
     <main class="flex flex-col w-full bg-color-page landing-page">
       <landing-hero class="min-h-custom-screen max-h-[calc(var(--spacing-3xl)*10)] " />
-      <landing-transition-racetrack />
+      <landing-transition-racetrack #racetrack/>
       <landing-about-me />
       <landing-transition-racetrack class="scale-y-[-1] scale-x-[-1]" />
       <landing-career-timeline />
@@ -44,12 +44,13 @@ import LandingCTAComponent from '@features/landing/cta/landing-cta-section';
     </footer>
   `,
   host: {
-    '[style.--screen-height.px]': 'needsVHFix ? screenHeight()*1.05: undefined', // 5% vh increase to compensate for iOS
+    '[style.--screen-height.px]': 'needsVHFix ? screenHeight(): undefined', // 5% vh increase to compensate for iOS
+    '[style.--racetrack-height.px]': 'this.racetrack().nativeElement.offsetHeight',
     '(window:resize)': 'needsVHFix ? onResize() : undefined',
   },
   styles: `
   .min-h-custom-screen
-    min-height: var(--screen-height, 102.5dvh) // Extra 2.5dvh due to y-overflow from landing-transition-racetrack, max-height restriction for zoomed-out views
+    min-height: calc(var(--screen-height, 100dvh) - (var(--racetrack-height)/2)) // Extra 2.5dvh due to y-overflow from landing-transition-racetrack, max-height restriction for zoomed-out views
 
 
   ::ng-deep .landing-page > :not(landing-transition-helmet, landing-transition-racetrack) > :first-child // NOTE: This fixes any landing sections with multiple siblings
@@ -66,6 +67,8 @@ export class LandingPageComponent {
   readonly needsVHFix =
     this.platform.IOS &&
     (!this.platform.SAFARI || navigator.userAgent.match('CriOS') || this.platform.EDGE); // For certain iOS browsers, scrolling down dynamically changes the viewport(by hiding the tab) resulting in landing-hero's being shifted during scroll, causing a negative experience
+
+  protected readonly racetrack = viewChild.required<ElementRef<HTMLElement>, ElementRef>('racetrack', {'read': ElementRef});
 
   readonly screenHeight = signal<number>(document.documentElement.clientHeight);
   readonly innerWidth = signal<number>(window.innerWidth);
