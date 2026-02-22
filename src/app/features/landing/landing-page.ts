@@ -29,8 +29,7 @@ import LandingCTAComponent from '@features/landing/cta/landing-cta-section';
   ],
   template: `
     <main class="flex flex-col w-full bg-color-page landing-page">
-      <landing-hero class="min-h-min h-custom-screen max-h-[calc(var(--spacing-3xl)*10)] " />
-      <!-- Extra 2.5dvh due to y-overflow from landing-transition-racetrack, max-height restriction for zoomed-out views -->
+      <landing-hero class="min-h-custom-screen max-h-[calc(var(--spacing-3xl)*10)] " />
       <landing-transition-racetrack />
       <landing-about-me />
       <landing-transition-racetrack class="scale-y-[-1] scale-x-[-1]" />
@@ -45,12 +44,13 @@ import LandingCTAComponent from '@features/landing/cta/landing-cta-section';
     </footer>
   `,
   host: {
-    '[style.--screen-height.px]': 'needsVHFix ? screenHeight()*1.025: undefined',
+    '[style.--screen-height.px]': 'needsVHFix ? screenHeight()*1.05: undefined', // 5% vh increase to compensate for iOS
     '(window:resize)': 'needsVHFix ? onResize() : undefined',
   },
   styles: `
-  .h-custom-screen
-    height: var(--screen-height, 102.5dvh)
+  .min-h-custom-screen
+    min-height: var(--screen-height, 102.5dvh) // Extra 2.5dvh due to y-overflow from landing-transition-racetrack, max-height restriction for zoomed-out views
+
 
   ::ng-deep .landing-page > :not(landing-transition-helmet, landing-transition-racetrack) > :first-child // NOTE: This fixes any landing sections with multiple siblings
     max-width: var(--spacing-max-width)
