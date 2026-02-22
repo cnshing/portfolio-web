@@ -44,14 +44,13 @@ import LandingCTAComponent from '@features/landing/cta/landing-cta-section';
     </footer>
   `,
   host: {
-    '[style.--screen-height.px]': 'needsVHFix ? screenHeight(): undefined', // 5% vh increase to compensate for iOS
+    '[style.--screen-height.px]': 'needsVHFix ? screenHeight(): undefined',
     '[style.--racetrack-height.px]': 'this.racetrack().nativeElement.offsetHeight',
     '(window:resize)': 'needsVHFix ? onResize() : undefined',
   },
   styles: `
   .min-h-custom-screen
-    min-height: calc(var(--screen-height, 100dvh) - (var(--racetrack-height)/2)) // Extra 2.5dvh due to y-overflow from landing-transition-racetrack, max-height restriction for zoomed-out views
-
+    min-height: calc(var(--screen-height, 100dvh) - (var(--racetrack-height)/2))
 
   ::ng-deep .landing-page > :not(landing-transition-helmet, landing-transition-racetrack) > :first-child // NOTE: This fixes any landing sections with multiple siblings
     max-width: var(--spacing-max-width)
