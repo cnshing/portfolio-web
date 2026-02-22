@@ -69,9 +69,10 @@ export class LandingPageComponent {
 
   readonly innerHeight = signal<number>(window.innerHeight);
   readonly innerWidth = signal<number>(window.innerWidth);
+  readonly initialScale = signal<number>(window.visualViewport? window.visualViewport.scale : 1);
 
   protected readonly onResize = () => {
-    if (this.innerWidth() != window.innerWidth) {
+    if (this.innerWidth() != window.innerWidth && this.initialScale() == window.visualViewport?.scale) { // If the inner width changes but the source of change isn't from a pinch zoom
       this.innerHeight.set(window.innerHeight);
       this.innerWidth.set(window.innerWidth);
     }
