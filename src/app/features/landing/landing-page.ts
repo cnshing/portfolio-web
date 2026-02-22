@@ -45,12 +45,12 @@ import LandingCTAComponent from '@features/landing/cta/landing-cta-section';
     </footer>
   `,
   host: {
-    '[style.--inner-height.px]': 'needsVHFix ? innerHeight()*1.05: undefined',
+    '[style.--screen-height.px]': 'needsVHFix ? screenHeight()*1.025: undefined',
     '(window:resize)': 'needsVHFix ? onResize() : undefined',
   },
   styles: `
   .h-custom-screen
-    height: var(--inner-height, 102.5dvh)
+    height: var(--screen-height, 102.5dvh)
 
   ::ng-deep .landing-page > :not(landing-transition-helmet, landing-transition-racetrack) > :first-child // NOTE: This fixes any landing sections with multiple siblings
     max-width: var(--spacing-max-width)
@@ -67,13 +67,13 @@ export class LandingPageComponent {
     this.platform.IOS &&
     (!this.platform.SAFARI || navigator.userAgent.match('CriOS') || this.platform.EDGE); // For certain iOS browsers, scrolling down dynamically changes the viewport(by hiding the tab) resulting in landing-hero's being shifted during scroll, causing a negative experience
 
-  readonly innerHeight = signal<number>(window.innerHeight);
+  readonly screenHeight = signal<number>(document.documentElement.clientHeight);
   readonly innerWidth = signal<number>(window.innerWidth);
   readonly initialScale = signal<number>(window.visualViewport? window.visualViewport.scale : 1);
 
   protected readonly onResize = () => {
     if (this.innerWidth() != window.innerWidth && this.initialScale() == window.visualViewport?.scale) { // If the inner width changes but the source of change isn't from a pinch zoom
-      this.innerHeight.set(window.innerHeight);
+      this.screenHeight.set(document.documentElement.clientHeight);
       this.innerWidth.set(window.innerWidth);
     }
   };
