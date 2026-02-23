@@ -39,7 +39,7 @@ export class LandingHeroAffordanceComponent {
   readonly idleTimeoutMS = input<number>(5000);
 
   /**
-   * Has the user scrolled, ever?
+   * Has the user scrolled since the affordance has appeared?
    *
    * @readonly
    * @type {boolean}
@@ -64,9 +64,9 @@ export class LandingHeroAffordanceComponent {
 
   constructor() {
     afterNextRender(() => {
-      window.addEventListener('scroll', this.scrollMoved, { once: true}) // NOTE: Use `addEventListener` instead of native angular scorll host binding for `once` option - scroll listener should not be active after the user no longer needs scroll affordance
 
       this.timeoutID = setTimeout(() => {
+        window.addEventListener('scroll', this.scrollMoved, { once: true}) // NOTE: Use `addEventListener` instead of native angular scorll host binding for `once` option - scroll listener should not be active after the user no longer needs scroll affordance
         this.isIdled.set(true);
       }, this.idleTimeoutMS());
 
