@@ -8,6 +8,7 @@ import {
 } from '@ng-icons/phosphor-icons/duotone'
 import {
   phosphorCode,
+  phosphorCaretDown
 } from '@ng-icons/phosphor-icons/regular'
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
@@ -22,7 +23,8 @@ export const RAW_ZARD_ICONS = {
   email: phosphorEnvelopeDuotone,
   emailOpen: phosphorEnvelopeOpenDuotone,
   code: phosphorCode,
-  arrowArcLeft: phosphorArrowArcLeftDuotone
+  arrowArcLeft: phosphorArrowArcLeftDuotone,
+  caretDown: phosphorCaretDown,
 } as const;
 
 export const DYNAMIC_ZARD_ICONS = {
@@ -39,7 +41,9 @@ export const DYNAMIC_ZARD_ICONS = {
   react: "reactjs",
   svelte: "svelte-logo-square",
   typescript: "ts-logo-512",
-  vscode: "vscode"
+  vscode: "vscode",
+  motorcycle: "motorcycle",
+  personMotorcycle: "person-motorcycle"
 } as const
 
 /**
