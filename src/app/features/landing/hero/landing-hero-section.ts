@@ -39,7 +39,8 @@ import { LandingHeroAccordanceComponent } from '@features/landing/hero/landing-h
     </section>
     <landing-hero-motorcyclist class="z-[2]" />
     <landing-hero-accordance
-      class="absolute bottom-0 translate-y-[calc(var(--racetrack-height)/2.5)] -translate-x-1/2 left-1/2 z-[4] text-color-accent brightness-75 animate-bounce *:data-motorcycle:text-[9vw] *:data-arrow:text-[7.5vw] *:md:data-motorcycle:text-2xl *:md:data-arrow:text-xl"
+      class="absolute bottom-0 -mb-[calc(var(--racetrack-height)/2.5)] -ml-1/2 left-1/2 z-[4] text-color-accent brightness-75 animate-bounce *:data-motorcycle:text-[9vw] *:data-arrow:text-[7.5vw] *:md:data-motorcycle:text-2xl *:md:data-arrow:text-xl
+      [animation-duration:2500ms]transition-opacity duration-1500 ease-in-out"
     />
   `,
   host: {
