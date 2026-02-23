@@ -3,7 +3,7 @@ import { environment } from '@environments/environment';
 import { ZardButtonComponent } from '@shared/components/button/button.component';
 import { ZardIconComponent } from '@shared/components/icon/icon.component';
 import { LandingHeroMotorcyclistComponent } from '@features/landing/hero/landing-hero-motorcyclist';
-import { LandingHeroAccordanceComponent } from '@features/landing/hero/landing-hero-accordance';
+import { LandingHeroAffordanceComponent } from '@features/landing/hero/landing-hero-affordance';
 @Component({
   selector: 'landing-hero',
   standalone: true,
@@ -11,7 +11,7 @@ import { LandingHeroAccordanceComponent } from '@features/landing/hero/landing-h
     ZardButtonComponent,
     ZardIconComponent,
     LandingHeroMotorcyclistComponent,
-    LandingHeroAccordanceComponent,
+    LandingHeroAffordanceComponent,
   ],
   template: `
     <section class="relative flex">
@@ -38,7 +38,7 @@ import { LandingHeroAccordanceComponent } from '@features/landing/hero/landing-h
       </div>
     </section>
     <landing-hero-motorcyclist class="z-[2]" />
-    <landing-hero-accordance
+    <landing-hero-affordance
       class="absolute bottom-0 -mb-[calc(var(--racetrack-height)/2.5)] -ml-1/2 left-1/2 z-[4] text-color-accent brightness-75 animate-bounce *:data-motorcycle:text-[9vw] *:data-arrow:text-[7.5vw] *:md:data-motorcycle:text-2xl *:md:data-arrow:text-xl
       [animation-duration:2500ms]transition-opacity duration-1500 ease-in-out"
     />

@@ -5,11 +5,11 @@ import { ZardIconComponent } from '@shared/components/icon/icon.component';
  * Scroll Hint with basic opacity trigger and idle detection.
  *
  * @export
- * @class LandingHeroAccordanceComponent
- * @typedef {LandingHeroAccordanceComponent}
+ * @class LandingHeroAffordanceComponent
+ * @typedef {LandingHeroAffordanceComponent}
  */
 @Component({
-  selector: 'landing-hero-accordance',
+  selector: 'landing-hero-affordance',
   imports: [ZardIconComponent],
   template: `
     <z-icon data-motorcycle class="" zType="motorcycle" />
@@ -21,7 +21,7 @@ import { ZardIconComponent } from '@shared/components/icon/icon.component';
     '[class.opacity-100]': "isIdled()"
   },
 })
-export class LandingHeroAccordanceComponent {
+export class LandingHeroAffordanceComponent {
   /**
    * Has it exceeded the idle timeout?
    *
