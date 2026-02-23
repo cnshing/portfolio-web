@@ -13,7 +13,7 @@ import { ZardIconComponent } from '@shared/components/icon/icon.component';
   imports: [ZardIconComponent],
   template: `
     <z-icon data-motorcycle class="" zType="motorcycle" />
-    <z-icon data-arrow class="-mb-1/4" zType="caretDown" />
+    <z-icon data-arrow class="-translate-y-1/5" zType="caretDown" />
   `,
   host: {
     '[class.opacity-0]':"!isIdled()",
