@@ -53,7 +53,7 @@ export class LandingWaveIconComponent {
    * @readonly
    * @type {*}
    */
-  protected readonly initialPlayDuration = 3500
+  protected readonly initialPlayDuration = 5000
 
 
   /**
