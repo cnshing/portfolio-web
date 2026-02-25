@@ -105,6 +105,7 @@ export class LandingHeroRainComponent {
     canvas.height = this.canvasHeight;
     canvas.width = this.canvasWidth;
     const offscreenCanvas = canvas.transferControlToOffscreen();
+    const rotationDeg = this.rotationDeg()
 
     // Initialize worker with canvas and configuration
     this.worker.postMessage(
@@ -113,7 +114,7 @@ export class LandingHeroRainComponent {
         data: {
           canvas: offscreenCanvas,
           raindropCount: this.raindrops(),
-          rotationDeg: this.rotationDeg(),
+          rotationDegRange: { min: rotationDeg-0.5, max: rotationDeg+0.5},
         },
       },
       [offscreenCanvas]

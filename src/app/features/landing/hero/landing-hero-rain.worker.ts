@@ -37,6 +37,12 @@ interface Raindrop {
   length: number;
   width: number;
   color: string;
+  /**
+   * Rotation in radians for this raindrop.
+   *
+   * @type {number}
+   */
+  rotation: number;
 }
 
 /**
@@ -58,9 +64,9 @@ export interface RainConfig {
   /**
    * Mathematical representation of rain "wind" effect
    *
-   * @type {number}
+   * @type {Range}
    */
-  rotationDeg: number;
+  rotationDegRange: Range;
   /**
    * Total available of raindrop colours to choose from
    *
@@ -97,7 +103,7 @@ const MAX_DELTA_TIME = 100;
 
 const DEFAULT_WORKER_CONFIG: Partial<RainConfig> = {
   raindropCount: 120,
-  rotationDeg: 17,
+  rotationDegRange: { min: 15, max: 18},
   availableColors: ['#374151', '#4b5563'],
 
   durationRange: { min: 2200, max: 2600 },
@@ -148,7 +154,7 @@ class RainEngine {
    */
   private lastTime = 0;
 
-  private rotationRad = degToRad(17);
+  private rotationDegRange!: Range;
   private durationRange!: Range;
   private widthRange!: Range;
   private lengthRange!: Range;
@@ -177,7 +183,7 @@ class RainEngine {
   }
 
   applyConfig(config: RainConfig) {
-    this.rotationRad = degToRad(config.rotationDeg);
+    this.rotationDegRange = config.rotationDegRange;
 
     this.durationRange = config.durationRange;
     this.widthRange = config.raindropWidthRange;
@@ -267,15 +273,15 @@ class RainEngine {
 
 
   private draw() {
-    const { ctx, width, height, rotationRad } = this;
+    const { ctx, width, height } = this;
 
     ctx.clearRect(0, 0, width, height);
 
-    // Precompute rotation matrix components once per frame
-    const cos = Math.cos(rotationRad);
-    const sin = Math.sin(rotationRad);
-
     for (const d of this.drops) {
+      // Each raindrop uses its own rotation value
+      const cos = Math.cos(d.rotation);
+      const sin = Math.sin(d.rotation);
+
       // Directly set full transform matrix:
       // [ cos  sin  -sin  cos  tx  ty ]
       ctx.setTransform(cos, sin, -sin, cos, d.x, d.y);
@@ -296,8 +302,12 @@ class RainEngine {
   private createDrop(randomY: boolean): Raindrop {
     const duration = randomBetween(this.durationRange.min, this.durationRange.max);
 
+    // Randomly select a rotation degree from the range for this raindrop
+    const rotationDeg = randomBetween(this.rotationDegRange.min, this.rotationDegRange.max);
+    const rotation = degToRad(rotationDeg);
+
     const speed = (this.height) / duration;
-    const xSpeed = Math.tan(-this.rotationRad) * speed;
+    const xSpeed = Math.tan(-rotation) * speed;
 
     const widthMultiplier = randomBetween(this.widthRange.min, this.widthRange.max);
 
@@ -306,7 +316,7 @@ class RainEngine {
     const width = Math.max(1, this.width * widthMultiplier);
     const length = this.height * lengthMultiplier;
 
-    const minX = -Math.cos(this.rotationRad) * this.width * 0.5; // We lower the minX even further to ensure the entrie space is covered
+    const minX = -Math.cos(rotation) * this.width * 0.5; // We lower the minX even further to ensure the entrie space is covered
     const x = randomBetween(minX, this.width);
 
     const y = randomY ? randomBetween(-this.height, this.height) : -length;
@@ -319,6 +329,7 @@ class RainEngine {
       width,
       length,
       color: chooseRandomlyFrom(this.colors),
+      rotation,
     };
   }
 }
