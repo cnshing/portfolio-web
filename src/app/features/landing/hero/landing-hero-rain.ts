@@ -1,51 +1,161 @@
-import { afterNextRender, Component, DestroyRef, inject, input, signal } from '@angular/core';
+import {
+  afterNextRender,
+  Component,
+  DestroyRef,
+  effect,
+  ElementRef,
+  inject,
+  input,
+  viewChild,
+} from '@angular/core';
 
+/**
+ * Falling Rain component.
+ *
+ * @export
+ * @class LandingHeroRainComponent
+ * @typedef {LandingHeroRainComponent}
+ */
 @Component({
   selector: 'landing-hero-rain',
   imports: [],
-  template: `
-    @for(drop of fuckyou; track $index; let last = $last) {
-      <div
-        class="absolute -rotate-17 rounded-full h-[2vh] w-[0.015vw] -translate-y-full animate-(--animate-rain) [animation-composition:add]"
-        [attr.data-last]="last ? '': null"
-        [class.opacity-0]="hidden()"
-        [class.opacity-100]="!hidden()"
-        [style.animation-duration]="randomDuration()"
-        [style.transform]="randomPosition()"
-        [style.background]="randomShade()"
-      ></div>
-
-    }
-  `,
+  template: ` <canvas #rainCanvas></canvas> `,
   host: {
-    'class': 'group [container-type:inline-size]',
-  },
-  styleUrl: './landing-hero-rain.sass',
+    class: 'absolute size-full',
+    '(window:resize)': 'onResize()',
+  } // TODO Use ResizeObserver
 })
 export class LandingHeroRainComponent {
-  readonly raindrops = input<number>(Math.max(Math.floor(window.innerWidth/(0.015+4)), 25));
+  /**
+   * How many individual raindrops particles should be animated?
+   *
+   * @readonly
+   * @type {*}
+   */
+  readonly raindrops = input<number>(Math.max(Math.floor(window.innerWidth / (0.015 + 4)), 25));
+  /**
+   * In a 2D enviornment, how should each raindrop be rotated?
+   *
+   * @protected
+   * @readonly
+   * @type {*}
+   */
+  protected readonly rotationDeg = input<number>(-17);
 
-  readonly fuckyou = Array(this.raindrops());
-  protected readonly hidden = signal<boolean>(true)
-  protected readonly randomShade = () => {
-    const colors = ["gray-700", "gray-600"]
-    return `var(--color-${colors[Math.floor(Math.random() * colors.length)]!})`;
+  private readonly host = inject(ElementRef<HTMLElement>);
+
+  private readonly canvasRef = viewChild.required<ElementRef<HTMLCanvasElement>>('rainCanvas');
+
+  private readonly destroyRef = inject(DestroyRef);
+
+  private worker: Worker | null = null;
+
+  /**
+   * Helper to ensure canvasWidth is always the same width as its parent.
+   *
+   * @protected
+   * @readonly
+   * @type {number}
+   */
+  protected get canvasWidth(): number {
+    return this.host.nativeElement.getBoundingClientRect().width;
   }
-  protected readonly randomDuration = (factor: number = 1): string => `${this.getRandomInt(2000, 2400)*factor}ms`;
 
-  protected getRandomInt(min: number, max: number) {
-    const minCeiled = Math.ceil(min);
-    const maxFloored = Math.floor(max);
-    return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
+  /**
+   * Helper to ensure canvasHeight is always the same height as its parent.
+   *
+   * @protected
+   * @readonly
+   * @type {number}
+   */
+  protected get canvasHeight(): number {
+    return this.host.nativeElement.getBoundingClientRect().height;
   }
 
-  protected readonly randomPosition = (): string => `translateX(${this.getRandomInt(-Math.cos(15*Math.PI/360)*50, 100)}vw)`;
-
+  /**
+   * Creates an instance of LandingHeroRainComponent.
+   *
+   * @constructor
+   */
   constructor() {
     afterNextRender(() => {
-      setTimeout(() => this.hidden.set(false), 5000)
+      this.initWorker();
+    });
+    effect(() => {
+      this.updateRaindrops();
     });
 
-    inject(DestroyRef).onDestroy(() => {});
+    this.destroyRef.onDestroy(() => {
+      this.cleanup();
+    });
+  }
+  /**
+   * Begin rain animation.
+   *
+   * @private
+   */
+  private initWorker(): void {
+    // Create the worker
+    this.worker = new Worker(new URL('./landing-hero-rain.worker.ts', import.meta.url), {
+      type: 'module',
+    });
+
+    // Transfer the canvas to the worker
+    const canvas = this.canvasRef().nativeElement;
+    canvas.height = this.canvasHeight;
+    canvas.width = this.canvasWidth;
+    const offscreenCanvas = canvas.transferControlToOffscreen();
+
+    // Initialize worker with canvas and configuration
+    this.worker.postMessage(
+      {
+        type: 'init',
+        data: {
+          canvas: offscreenCanvas,
+          raindropCount: this.raindrops(),
+          rotationDeg: this.rotationDeg(),
+        },
+      },
+      [offscreenCanvas]
+    );
+
+    // Start animation in worker
+    this.worker.postMessage({ type: 'start' });
+  }
+
+  /**
+   * In case the raindrop signal changes, this function will run.
+   *
+   * @private
+   */
+  private updateRaindrops(): void {
+    // Notify worker to reinitialize raindrops
+    if (this.worker) {
+      this.worker.postMessage({
+        type: 'update',
+        data: {
+          raindropCount: this.raindrops(),
+        },
+      });
+    }
+  }
+
+  /** Ensures Canvas width and height are accurate */
+  protected readonly onResize = () => {
+    this.worker?.postMessage({
+      type: 'resize',
+      data: {
+        width: this.canvasWidth,
+        height: this.canvasHeight,
+      },
+    });
+  };
+
+  private cleanup(): void {
+    if (this.worker) {
+      this.worker.postMessage({ type: 'stop' });
+      this.worker.terminate();
+      this.worker = null;
+    }
   }
 }
