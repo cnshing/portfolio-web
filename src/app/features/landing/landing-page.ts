@@ -50,7 +50,7 @@ import LandingCTAComponent from '@features/landing/cta/landing-cta-section';
   },
   styles: `
   .min-h-custom-screen
-    min-height: calc(var(--screen-height, 100dvh) - var(--racetrack-height))
+    min-height: calc(var(--screen-height, 100dvh) - var(--racetrack-height) - var(--spacing-2xs))
 
   ::ng-deep .landing-page > :not(landing-transition-helmet, landing-transition-racetrack) > :first-child // NOTE: This fixes any landing sections with multiple siblings
     max-width: var(--spacing-max-width)
@@ -64,8 +64,7 @@ import LandingCTAComponent from '@features/landing/cta/landing-cta-section';
 export class LandingPageComponent {
   readonly platform = inject(Platform);
   readonly needsVHFix =
-    this.platform.IOS &&
-    (!this.platform.SAFARI || navigator.userAgent.match('CriOS') || this.platform.EDGE); // For certain iOS browsers, scrolling down dynamically changes the viewport(by hiding the tab) resulting in landing-hero's being shifted during scroll, causing a negative experience
+    this.platform.WEBKIT // For certain iOS browsers, scrolling down dynamically changes the viewport(by hiding the tab) resulting in landing-hero's being shifted during scroll, causing a negative experience
 
   protected readonly racetrack = viewChild.required<ElementRef<HTMLElement>, ElementRef>('racetrack', {'read': ElementRef});
 
