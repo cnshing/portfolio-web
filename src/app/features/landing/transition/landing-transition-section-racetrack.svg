@@ -22,6 +22,14 @@
         <path d="M 1400 250 H 0" stroke="url(#tube-highlight)" stroke-width="0.24375rem" stroke-linecap="round" />
       </symbol>
     </defs>
+    <path d="M1920 0
+          L1700 0
+          L1400 250
+          L1920 250
+          Z"
+      stroke="none"
+      [attr.fill]="fillTransitionMask()"
+    />
     <g class="animate-glow">
       <use href="#tube-top" />
       <use href="#tube-diagonal" />
