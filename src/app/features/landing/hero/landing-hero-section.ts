@@ -4,6 +4,7 @@ import { ZardButtonComponent } from '@shared/components/button/button.component'
 import { ZardIconComponent } from '@shared/components/icon/icon.component';
 import { LandingHeroMotorcyclistComponent } from '@features/landing/hero/landing-hero-motorcyclist';
 import { LandingHeroAffordanceComponent } from '@features/landing/hero/landing-hero-affordance';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'landing-hero',
@@ -13,6 +14,7 @@ import { LandingHeroAffordanceComponent } from '@features/landing/hero/landing-h
     ZardIconComponent,
     LandingHeroMotorcyclistComponent,
     LandingHeroAffordanceComponent,
+    NgOptimizedImage
   ],
   template: `
     <section class="relative flex-1">
@@ -47,7 +49,14 @@ import { LandingHeroAffordanceComponent } from '@features/landing/hero/landing-h
     <img
       #landingHeroRoad
       class="absolute brightness-40 w-full h-[calc(33%+var(--racetrack-height))] z-[1] object-cover -bottom-(--racetrack-height) "
-      src="/assets/graphics/road.png"
+      ngSrc="/assets/graphics/road.png"
+      [loaderParams]="{baseWidth: 3382, stepDownOffset: 0}"
+      width="3382"
+      height="858"
+      sizes="auto"
+      decoding="async"
+      alt="Road Asphalt"
+      priority
     />
   `,
   host: {
