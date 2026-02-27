@@ -28,7 +28,7 @@ import LandingCTAComponent from '@features/landing/cta/landing-cta-section';
     PlatformModule,
   ],
   template: `
-    <main class="flex flex-col w-full bg-color-page landing-page">
+    <main class="flex flex-col w-full bg-color-page landing-page ">
       <landing-hero class="min-h-custom-screen max-h-[calc(var(--spacing-3xl)*10)] " />
       <landing-transition-racetrack #racetrack/>
       <landing-about-me />
@@ -46,11 +46,11 @@ import LandingCTAComponent from '@features/landing/cta/landing-cta-section';
   host: {
     '[style.--screen-height.px]': 'needsVHFix ? screenHeight(): undefined',
     '[style.--racetrack-height.px]': 'this.racetrack().nativeElement.offsetHeight',
-    '(window:resize)': 'needsVHFix ? onResize() : undefined',
+    '(window:resize)': 'needsVHFix ? onResize() : undefined'
   },
   styles: `
   .min-h-custom-screen
-    min-height: calc(var(--screen-height, 100dvh) - (var(--racetrack-height)/2))
+    min-height: calc(var(--screen-height, 100dvh) - var(--racetrack-height))
 
   ::ng-deep .landing-page > :not(landing-transition-helmet, landing-transition-racetrack) > :first-child // NOTE: This fixes any landing sections with multiple siblings
     max-width: var(--spacing-max-width)
