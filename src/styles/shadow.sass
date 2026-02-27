@@ -1,6 +1,7 @@
 @use './convert.sass'
 
-@theme
+@theme inline
   --shadow-sm: 0 0 #{convert.pxToRem(4)} 0 var(--color-shadow)
   --shadow-md: 0 0 #{convert.pxToRem(16)} 0 var(--color-shadow)
   --shadow-lg: 0 0 #{convert.pxToRem(24)} 0 var(--color-shadow)
+  --shadow-hero-button: 0 #{convert.pxToRem(0.75)} #{convert.pxToRem(2.25)} 0 color-mix(in srgb, var(--color-brand) 40%, transparent), 0 #{convert.pxToRem(1.5)} #{convert.pxToRem(4.5)} 0 color-mix(in srgb, var(--color-brand) 35%, transparent), 0 0 #{convert.pxToRem(6)} 0 color-mix(in srgb, var(--color-brand) 55%, transparent)
