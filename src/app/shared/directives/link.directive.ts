@@ -16,7 +16,8 @@ import { DomSanitizer } from '@angular/platform-browser';
     '[href]': 'sanitizedHref()',
   },
 })
-export class TransparentVideoLinkComponent {
+export class TransparentVideoLinkComponent { //     <link selectTransparent rel="preload" as="video" zWebkitSrc="/assets/videos/motorcycle.mp4" zFallbackSrc="/assets/videos/motorcycle.webm" fetchpriority="high"/> <!-- TODO: The following code for rel=preload doesn't work, but rel=prefetch does. Figure out why <link rel=preload> has an invalid href value -->
+
   /**
    * Transparent video asset for the webkit engine.
    *
