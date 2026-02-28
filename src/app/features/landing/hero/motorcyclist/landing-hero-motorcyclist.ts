@@ -32,9 +32,9 @@ import { VideoAutoplayDirective } from "@shared/directives/autoplay.directive";
     </video>
   `,
   host: {
+    '[style.--enter-duration]': "enterDurationSecs()", // Value must be unitless due to CSS animation implementation
     class:
       'absolute bottom-0 size-full flex flex-col justify-end pl-lg overflow-x-hidden overflow-y-hidden',
-    '[style.--enter-duration]': "enterDurationSecs()+'s'"
   },
   styleUrl: 'landing-hero-motorcyclist-animation.sass'
 })

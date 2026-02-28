@@ -1,9 +1,10 @@
 @use 'sass:math'
 @use 'gsap'
 
+// NOTE: var(--enter-duration) is unitless and manually converted to seconds
 $rough_power1_out_factor: 1.8
 :host
-  --animate-motorcyclist-enter: motorcyclist-enter var(--enter-duration) cubic-bezier(0.22, -1.2, #{math.div(0.18,$rough_power1_out_factor)}, #{math.div(2, $rough_power1_out_factor)}) 1 normal both, motorcycle-vibrate #{gsap.vibrate(12, var(--enter-duration))}
+  --animate-motorcyclist-enter: motorcyclist-enter calc(var(--enter-duration) * 1s) cubic-bezier(0.22, -1.2, #{math.div(0.18,$rough_power1_out_factor)}, #{math.div(2, $rough_power1_out_factor)}) 1 normal both, motorcycle-vibrate #{gsap.vibrate(12, var(--enter-duration))}
 
 @layer components
   @keyframes motorcyclist-enter
