@@ -60,12 +60,26 @@ import { LandingVinylIconComponent } from '@features/landing/icons/landing-vinyl
       alt="Road Asphalt"
       priority
     />
-    <button #landingHeroMusic class="absolute top-md right-md right-sm z-[6] aspect-square !size-lg !p-3xs !rounded-sm" aria-labelledby="musicPlayer" z-button zType="outline" (click)="music.paused ? music.play() : music.pause()">
+    <button #landingHeroMusic class="absolute top-md right-md right-sm z-[6] aspect-square !size-lg !p-3xs !rounded-sm animate-(--animate-fade-in)" aria-labelledby="musicPlayer" z-button zType="outline" (click)="music.paused ? music.play() : music.pause()">
       <audio loop disableRemotePlayback #music preload="none">
         <source src="/assets/music/background.mp3" type="audio/mp3" />
       </audio>
       <landing-vinyl-icon [paused]="music.paused" />
     </button>
+  `,
+  styles: `
+  :host
+    --animate-fade-in: fadein 8s linear
+  @layer components
+    @keyframes fadein
+      0%
+        opacity: 0
+        pointer-events: none
+      75%
+        opacity: 0
+      100%
+        opacity: 1
+        pointer-events: auto
   `,
   host: {
     class: 'relative flex flex-col',
