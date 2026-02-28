@@ -6,12 +6,12 @@ import { ZardIconComponent } from '@shared/components/icon/icon.component';
  * Music icon as a animated spinning vinyl.
  *
  * @export
- * @class LandingMusicIconComponent
- * @typedef {LandingMusicIconComponent}
+ * @class LandingVinylIconComponent
+ * @typedef {LandingVinylIconComponent}
  */
 @Component({
-  selector: 'landing-music-icon',
-  exportAs: 'landingMusicIcon',
+  selector: 'landing-vinyl-icon',
+  exportAs: 'landingVinylcIcon',
   imports: [ZardIconComponent],
   standalone: true,
   template:`
@@ -39,7 +39,7 @@ import { ZardIconComponent } from '@shared/components/icon/icon.component';
     'class': 'relative size-full *:absolute @container *:text-[100cqw] *:animate-spin *:[animation-duration:20000ms]'
   }
 })
-export class LandingMusicIconComponent {
+export class LandingVinylIconComponent {
 
 
   /**

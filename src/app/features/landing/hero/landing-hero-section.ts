@@ -5,7 +5,7 @@ import { ZardIconComponent } from '@shared/components/icon/icon.component';
 import { LandingHeroMotorcyclistComponent } from '@features/landing/hero/motorcyclist/landing-hero-motorcyclist';
 import { LandingHeroAffordanceComponent } from '@features/landing/hero/landing-hero-affordance';
 import { NgOptimizedImage } from '@angular/common';
-import { LandingMusicIconComponent } from '@features/landing/icons/landing-music-icon';
+import { LandingVinylIconComponent } from '@features/landing/icons/landing-vinyl-icon';
 
 @Component({
   selector: 'landing-hero',
@@ -16,7 +16,7 @@ import { LandingMusicIconComponent } from '@features/landing/icons/landing-music
     LandingHeroMotorcyclistComponent,
     LandingHeroAffordanceComponent,
     NgOptimizedImage,
-    LandingMusicIconComponent
+    LandingVinylIconComponent
 ],
   template: `
     <section class="relative flex-1">
@@ -64,7 +64,7 @@ import { LandingMusicIconComponent } from '@features/landing/icons/landing-music
       <audio loop disableRemotePlayback #music preload="none">
         <source src="/assets/music/background.mp3" type="audio/mp3" />
       </audio>
-      <landing-music-icon [paused]="music.paused" />
+      <landing-vinyl-icon [paused]="music.paused" />
     </button>
   `,
   host: {
