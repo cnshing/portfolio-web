@@ -49,12 +49,11 @@ export class LandingHeroMotorcyclistComponent {
       const vehcile = this.video().nativeElement;
       vehcile.load(); // TODO: When possible make a directive to fix Angular video loading with multiple sources
       vehcile.play();
-      vehcile.addEventListener('animationend', async (event: AnimationEvent) => {
-        if (event.animationName === 'motorcyclist-enter') {
-          const { animateMotorcycle } = await import('./landing-hero-motorcyclist-animation');
-          this.animationModuleReady.set(true);
-          this.animate.set(animateMotorcycle(vehcile, this.enterDurationSecs()));
-        }
+      vehcile.addEventListener('animationend', async (_: AnimationEvent) => { // NOTE: Event data in Safari only has `isTrusted` property
+        const { animateMotorcycle } = await import('./landing-hero-motorcyclist-animation');
+        this.animationModuleReady.set(true);
+        this.animate.set(animateMotorcycle(vehcile, this.enterDurationSecs()));
+
       }, { once: true });
 
       // Start loading the animation module (will be cached for later use)
