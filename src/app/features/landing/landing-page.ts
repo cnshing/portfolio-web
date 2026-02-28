@@ -1,5 +1,4 @@
-import { Component, ElementRef, inject, signal, viewChild } from '@angular/core';
-import { Platform, PlatformModule } from '@angular/cdk/platform';
+import { Component, ElementRef, signal, viewChild } from '@angular/core';
 import LandingHeroComponent from '@features/landing/hero/landing-hero-section';
 import {
   LandingTransitionRacetrackComponent,
@@ -25,7 +24,6 @@ import LandingCTAComponent from '@features/landing/cta/landing-cta-section';
     LandingFooterComponent,
     LandingCTAComponent,
     LandingTransitionHelmetComponent,
-    PlatformModule,
   ],
   template: `
     <main class="flex flex-col w-full bg-color-page landing-page ">
@@ -62,9 +60,7 @@ import LandingCTAComponent from '@features/landing/cta/landing-cta-section';
   `,
 })
 export class LandingPageComponent {
-  readonly platform = inject(Platform);
-  readonly needsVHFix =
-    this.platform.WEBKIT // For certain iOS browsers, scrolling down dynamically changes the viewport(by hiding the tab) resulting in landing-hero's being shifted during scroll, causing a negative experience
+  readonly needsVHFix = true // For certain iOS browsers, scrolling down dynamically changes the viewport(by hiding the tab) resulting in landing-hero's being shifted during scroll, causing a negative experience
 
   protected readonly racetrack = viewChild.required<ElementRef<HTMLElement>, ElementRef>('racetrack', {'read': ElementRef});
 

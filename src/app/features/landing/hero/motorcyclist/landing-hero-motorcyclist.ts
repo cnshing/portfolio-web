@@ -1,6 +1,5 @@
 import { afterNextRender, Component, computed, DestroyRef, ElementRef, inject, input, signal, viewChild } from "@angular/core";
 import { VideoAutoplayDirective } from "@shared/directives/autoplay.directive";
-import { TransparentVideoLinkComponent } from "@shared/directives/link.directive";
 
 /**
  * Motorcyclist element with built-in animations.
@@ -12,9 +11,8 @@ import { TransparentVideoLinkComponent } from "@shared/directives/link.directive
 @Component({
   selector: 'landing-hero-motorcyclist',
   standalone: true,
-  imports: [VideoAutoplayDirective, TransparentVideoLinkComponent],
+  imports: [VideoAutoplayDirective],
   template: `
-    <link selectTransparent rel="preload" as="video" zWebkitSrc="/assets/videos/motorcycle.mp4" zFallbackSrc="/assets/videos/motorcycle.webm" fetchpriority="high"/> <!-- TODO: The following code for rel=preload doesn't work, but rel=prefetch does. Figure out why <link rel=preload> has an invalid href value -->
     <video
       class="brightness-75 w-full ml-[50vw] origin-bottom scale-x-[-250%] scale-y-[250%] max-h-[min((100%-var(--spacing-2xl)+4.25%)/2.5,var(--spacing-2xl)*4)] overflow-x-hidden"
       [poster]="motorcyclePoster()"
