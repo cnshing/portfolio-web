@@ -26,9 +26,9 @@ import LandingCTAComponent from '@features/landing/cta/landing-cta-section';
     LandingTransitionHelmetComponent,
   ],
   template: `
-    <main class="flex flex-col w-full bg-color-page landing-page ">
-      <landing-hero class="min-h-custom-screen max-h-[calc(var(--spacing-3xl)*10)] " />
-      <landing-transition-racetrack #racetrack fillTransitionMask="var(--bg-color-page)"/>
+    <main class="flex flex-col w-full bg-color-page landing-page z-0">
+      <landing-hero class="min-h-custom-screen max-h-[calc(var(--spacing-3xl)*10)]" />
+      <landing-transition-racetrack class="z-[4]" #racetrack fillTransitionMask="var(--bg-color-page)"/>
       <landing-about-me />
       <landing-transition-racetrack class="scale-y-[-1] scale-x-[-1]" />
       <landing-career-timeline />
