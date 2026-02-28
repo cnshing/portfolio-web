@@ -60,7 +60,7 @@ import { NgOptimizedImage } from '@angular/common';
     />
   `,
   host: {
-    class: 'relative flex flex-col z-0',
+    class: 'relative flex flex-col',
   },
 })
 export default class LandingHeroComponent {
