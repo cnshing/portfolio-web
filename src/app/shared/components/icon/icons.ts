@@ -4,7 +4,8 @@ import {
   phosphorLinkedinLogoDuotone,
   phosphorEnvelopeDuotone,
   phosphorEnvelopeOpenDuotone,
-  phosphorArrowArcLeftDuotone
+  phosphorArrowArcLeftDuotone,
+  phosphorVinylRecordDuotone
 } from '@ng-icons/phosphor-icons/duotone'
 import {
   phosphorCode,
@@ -25,6 +26,7 @@ export const RAW_ZARD_ICONS = {
   code: phosphorCode,
   arrowArcLeft: phosphorArrowArcLeftDuotone,
   caretDown: phosphorCaretDown,
+  vinylRecord: phosphorVinylRecordDuotone,
 } as const;
 
 export const DYNAMIC_ZARD_ICONS = {
@@ -43,7 +45,8 @@ export const DYNAMIC_ZARD_ICONS = {
   typescript: "ts-logo-512",
   vscode: "vscode",
   motorcycle: "motorcycle",
-  personMotorcycle: "person-motorcycle"
+  personMotorcycle: "person-motorcycle",
+  vinylRecordSlash: "phosphor-vinyl-record-slash"
 } as const
 
 /**
