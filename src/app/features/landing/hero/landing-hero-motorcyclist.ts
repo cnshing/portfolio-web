@@ -5,6 +5,7 @@ import {
   DestroyRef,
   ElementRef,
   inject,
+  input,
   signal,
   viewChild,
 } from '@angular/core';
@@ -55,10 +56,10 @@ const vibrateVechile = (element: HTMLElement): gsap.core.Tween =>
  * Animate the motorcycle in the Hero Section.
  *
  * @param {HTMLElement} element Element to animate
- * @param {number} [enterDuration=2.5] The time it takes for the motorcycle to enter the hero section.
+ * @param {number} enterDuration The time it takes for the motorcycle to enter the hero section.
  * @returns {gsap.Context}
  */
-const animateMotorcycle = (element: HTMLElement, enterDuration: number = 2.5): gsap.Context =>
+const animateMotorcycle = (element: HTMLElement, enterDuration: number): gsap.Context =>
   gsap.context(() => {
     const flipVechile = vehcileFlipper(element);
     const vibrateTween = vibrateVechile(element);
@@ -175,7 +176,7 @@ const animateMotorcycle = (element: HTMLElement, enterDuration: number = 2.5): g
   template: `
     <link selectTransparent rel="preload" as="video" zWebkitSrc="/assets/videos/motorcycle.mp4" zFallbackSrc="/assets/videos/motorcycle.webm" fetchpriority="high"/> <!-- TODO: The following code for rel=preload doesn't work, but rel=prefetch does. Figure out why <link rel=preload> has an invalid href value -->
     <video
-      class="brightness-75 w-full ml-[50vw] origin-bottom scale-x-[-250%] scale-y-[250%] max-h-[min((100%-var(--spacing-2xl)+4.25%)/2.5,var(--spacing-2xl)*4)] overflow-x-hidden"
+      class="brightness-75 w-full ml-[50vw] origin-bottom scale-x-[-250%] scale-y-[250%] max-h-[min((100%-var(--spacing-2xl)+4.25%)/2.5,var(--spacing-2xl)*4)] overflow-x-hidden animate-(--animate-motorcyclist-enter) [animation-composition:add]"
       [poster]="motorcyclePoster()"
       disableRemotePlayback
       muted
@@ -193,7 +194,9 @@ const animateMotorcycle = (element: HTMLElement, enterDuration: number = 2.5): g
   host: {
     class:
       'absolute bottom-0 size-full flex flex-col justify-end pl-lg overflow-x-hidden overflow-y-hidden',
+    '[style.--enter-duration]': "enterDurationSecs()+'s'"
   },
+  styleUrl: 'landing-hero-motorcyclist.sass'
 })
 export class LandingHeroMotorcyclistComponent {
   /**
@@ -206,7 +209,8 @@ export class LandingHeroMotorcyclistComponent {
       const vehcile = this.video().nativeElement;
       vehcile.load(); // TODO: When possible make a directive to fix Angular video loading with multiple sources
       vehcile.play();
-      this.animate.set(animateMotorcycle(vehcile, 2.0));
+      console.log(animateMotorcycle)
+      //this.animate.set(animateMotorcycle(vehcile, this.enterDurationSecs()));
     });
 
     inject(DestroyRef).onDestroy(() => this.animate()?.revert()); // Do not evalute this.animate() directly
@@ -220,6 +224,15 @@ export class LandingHeroMotorcyclistComponent {
    * @type {*}
    */
   protected readonly animate = signal<gsap.Context | null>(null);
+
+
+  /**
+   * How long does it take for the motorcycle to enter in seconds?
+   *
+   * @readonly
+   * @type {*}
+   */
+  readonly enterDurationSecs = input<number>(2.0)
 
   /**
    * Motorcycle element to animate.
