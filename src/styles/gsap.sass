@@ -1,0 +1,50 @@
+@use 'sass:math';
+@use 'sass:meta'
+
+/// Remove the unit of a length from https://css-tricks.com/snippets/sass/strip-unit-function/
+/// @param {Number} $number - Number to remove unit from
+/// @return {Number} - Unitless number
+@function strip-unit($number)
+  @if meta.type-of($number) == 'number' and not unitless($number)
+    @return $number / ($number * 0 + 1);
+
+  @return $number
+
+/// `gsap.ts`'s `vibrate` CSS animation equivalent.
+///
+/// Replicates the behavior of:
+///   duration: 1 / frequency
+///   repeat: duration * frequency
+///   yoyo: true
+///   ease: rough({ strength: 10 })
+///
+/// This function returns animation shorthand values
+/// (excluding `animation-name`) so that keyframes
+/// can be defined separately and stacked with other animations.
+///
+/// The easing curve approximates `rough({ strength: 10 })`
+/// using a high-volatility cubic-bezier:
+///   cubic-bezier(0.68, -0.55, 0.32, 1.55)
+///
+/// @param {number} $frequency
+///   Oscillations per second.
+///
+/// @param {time} $durationSecs
+///   Total vibration duration in seconds.
+///
+/// @return {list}
+///   <duration> <timing-function> <iteration-count> <direction> <fill-mode>
+///
+/// @example scss
+///   .button {
+///     animation: vibrate-x vibrate(8, 2s);
+///   }
+///
+///   @keyframes vibrate-x {
+///     from { transform: translateX(0); }
+///     to   { transform: translateX(6px); }
+///   }
+///
+@function vibrate($frequency, $durationSecs)
+
+  @return math.div(1s, $frequency) cubic-bezier(0.68, -0.55, 0.32, 1.55) calc($frequency * strip-unit($durationSecs) / 1s) alternate both
