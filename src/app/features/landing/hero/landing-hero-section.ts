@@ -5,6 +5,7 @@ import { ZardIconComponent } from '@shared/components/icon/icon.component';
 import { LandingHeroMotorcyclistComponent } from '@features/landing/hero/motorcyclist/landing-hero-motorcyclist';
 import { LandingHeroAffordanceComponent } from '@features/landing/hero/landing-hero-affordance';
 import { NgOptimizedImage } from '@angular/common';
+import { LandingMusicIconComponent } from '@features/landing/icons/landing-music-icon';
 
 @Component({
   selector: 'landing-hero',
@@ -14,8 +15,9 @@ import { NgOptimizedImage } from '@angular/common';
     ZardIconComponent,
     LandingHeroMotorcyclistComponent,
     LandingHeroAffordanceComponent,
-    NgOptimizedImage
-  ],
+    NgOptimizedImage,
+    LandingMusicIconComponent
+],
   template: `
     <section class="relative flex-1">
       <div class="flex flex-col gap-lg">
@@ -58,6 +60,12 @@ import { NgOptimizedImage } from '@angular/common';
       alt="Road Asphalt"
       priority
     />
+    <button #landingHeroMusic class="absolute top-md right-md right-sm z-[6] aspect-square !size-lg !p-3xs !rounded-sm" aria-labelledby="musicPlayer" z-button zType="outline" (click)="music.paused ? music.play() : music.pause()">
+      <audio loop disableRemotePlayback #music preload="none">
+        <source src="/assets/music/background.mp3" type="audio/mp3" />
+      </audio>
+      <landing-music-icon [paused]="music.paused" />
+    </button>
   `,
   host: {
     class: 'relative flex flex-col',
