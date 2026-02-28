@@ -46,5 +46,4 @@
 ///   }
 ///
 @function vibrate($frequency, $durationSecs)
-
-  @return math.div(1s, $frequency) cubic-bezier(0.68, -0.55, 0.32, 1.55) calc($frequency * strip-unit($durationSecs) / 1s) alternate both
+  @return math.div(1s, $frequency) cubic-bezier(0.68, -0.55, 0.32, 1.55) calc($frequency * strip-unit($durationSecs)) alternate both
