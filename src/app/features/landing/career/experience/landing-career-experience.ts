@@ -87,7 +87,7 @@ import { AltFromSrcPipe } from '@shared/utils/accessibility';
         @for (skill of skills(); track $index) {
         <z-badge zShape="square" zType="secondary" class="flex gap-[calc(var(--spacing-2xs)*1.25)] items-center justify-center text-md">
           @if ("logoImg" in skill) {
-            <img [src]="skill.logoImg" class="h-sm" [alt]="skill.name" />
+            <img [src]="skill.logoImg" class="h-sm w-min" [alt]="skill.name" />
           }
           {{ skill.name }}</z-badge
         >
