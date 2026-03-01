@@ -2,7 +2,7 @@ import { Component, DestroyRef, inject, signal, viewChild } from '@angular/core'
 import {
   OptimizedLottieComponent,
   PreviewLottieComponent,
-} from '@shared/components/lottie/lottie.component';
+} from '@shared/components/animate/lottie.component';
 
 /**
  * Animated Hand Wave component.

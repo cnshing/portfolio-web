@@ -3,7 +3,7 @@ import { ZardIconComponent } from '@shared/components/icon/icon.component';
 import {
   PreviewLottieComponent,
   OptimizedLottieComponent,
-} from '@shared/components/lottie/lottie.component';
+} from '@shared/components/animate/lottie.component';
 
 /**
  * Animated Github Icon
