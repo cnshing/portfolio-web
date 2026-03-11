@@ -6,6 +6,7 @@ import { LandingHeroMotorcyclistComponent } from '@features/landing/hero/motorcy
 import { LandingHeroAffordanceComponent } from '@features/landing/hero/landing-hero-affordance';
 import { NgOptimizedImage } from '@angular/common';
 import { LandingVinylIconComponent } from '@features/landing/icons/landing-vinyl-icon';
+import { LandingHeroStarfieldComponent } from '@features/landing/hero/starfield/landing-hero-starfield';
 
 @Component({
   selector: 'landing-hero',
@@ -13,24 +14,25 @@ import { LandingVinylIconComponent } from '@features/landing/icons/landing-vinyl
   imports: [
     ZardButtonComponent,
     ZardIconComponent,
-    LandingHeroMotorcyclistComponent,
     LandingHeroAffordanceComponent,
     NgOptimizedImage,
-    LandingVinylIconComponent
+    LandingVinylIconComponent,
+    LandingHeroStarfieldComponent,
+    LandingHeroMotorcyclistComponent
 ],
   template: `
-    <section class="relative flex-1">
-      <div class="flex flex-col gap-lg">
+    <section class="relative">
+      <div class="flex flex-col gap-lg w-fit">
         <div>
           <h1 class="relative text-hero-accent z-[4]">Zooming</h1>
-          <h1 class="relative z-[2]">Full Stack Developer</h1>
+          <h1 class="relative z-[2] backdrop-blur-[0.5px]">Full Stack Developer</h1>
         </div>
         <a
           target="_blank"
           rel="noopener noreferrer"
           [href]="'resumes/' + name.replace(' ', '_') + '_Resume.pdf'"
           z-button
-          class="w-min z-[6] group !shadow-hero-button"
+          class="w-min z-[6] group !shadow-hero-button pointer-events-auto"
         >
           <i
             class="-rotate-9 group-hover:-rotate-19 group-focus:-rotate-19 transition-transform duration-250"
@@ -42,15 +44,18 @@ import { LandingVinylIconComponent } from '@features/landing/icons/landing-vinyl
         </a>
       </div>
     </section>
-    <landing-hero-motorcyclist class="z-[3]" />
+    <landing-hero-motorcyclist class="absolute z-[3] bottom-0 size-full flex flex-col justify-end pl-lg " />
     <landing-hero-affordance
       class="absolute bottom-0 translate-y-[calc(var(--racetrack-height)/2)] -translate-x-1/2 left-1/2 z-[7] text-color-accent brightness-75 animate-bounce *:data-motorcycle:text-[9vw] *:data-arrow:text-[7.5vw] *:md:data-motorcycle:text-2xl *:md:data-arrow:text-xl
       [animation-duration:2500ms]transition-opacity duration-1500 ease-in-out"
       [idleTimeoutMS]="3250"
     />
+    <div class="absolute size-full h-[calc(100%+var(--racetrack-height))] z-[1] flex flex-col">
+      <landing-hero-starfield class="grow min-h-0 -mb-sm pointer-events-auto" [starColors]="starColors" [stars]="innerWidth/2"/>
+      <!-- <img src="https://svs.gsfc.nasa.gov/vis/a000000/a004400/a004451/RandomizedSkymap.t4_04096x02048_print.jpg" class="brightness-75 grow min-h-0 -mb-sm" /> --> <!-- Backup space placeholder-->
     <img
       #landingHeroRoad
-      class="absolute brightness-40 w-full h-[calc(33%+var(--racetrack-height))] z-[1] object-cover -bottom-(--racetrack-height) "
+      class="brightness-40 w-full h-[calc(33%+var(--racetrack-height))] z-[1.5] object-cover shrink-0"
       ngSrc="/assets/graphics/road.png"
       [loaderParams]="{baseWidth: 3382, stepDownOffset: 0}"
       width="3382"
@@ -60,7 +65,8 @@ import { LandingVinylIconComponent } from '@features/landing/icons/landing-vinyl
       alt="Road Asphalt"
       priority
     />
-    <button #landingHeroMusic class="absolute top-md right-md right-sm z-[6] aspect-square !size-lg !p-3xs !rounded-sm animate-(--animate-fade-in)" aria-labelledby="musicPlayer" z-button zType="outline" (click)="music.paused ? music.play() : music.pause()">
+    </div>
+    <button #landingHeroMusic class="absolute top-md right-md right-sm z-[6] aspect-square !size-lg !p-3xs !rounded-sm animate-(--animate-fade-in) pointer-events-auto" aria-labelledby="musicPlayer" z-button zType="outline" (click)="music.paused ? music.play() : music.pause()">
       <audio loop disableRemotePlayback #music preload="none">
         <source src="/assets/music/background.mp3" type="audio/mp3" />
       </audio>
@@ -82,9 +88,12 @@ import { LandingVinylIconComponent } from '@features/landing/icons/landing-vinyl
         pointer-events: auto
   `,
   host: {
-    class: 'relative flex flex-col',
+    class: 'relative flex flex-col pointer-events-none',
   },
 })
 export default class LandingHeroComponent {
   protected readonly name = environment.name;
+  protected readonly starColors = ['#e5e6e3', '#cdcecb'] // NOTE: This is meant to be --text-color-secondary and --text-color-tertiary, respectively
+  protected readonly innerWidth = window.innerWidth
+
 }
