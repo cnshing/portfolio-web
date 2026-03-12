@@ -13,6 +13,10 @@ extend(
 
 interface StarfieldUniforms {
   time: IUniform<number>;
+  revealWidth: IUniform<number>;
+  revealSpeed: IUniform<number>;
+  fadeBias: IUniform<number>;
+  glowStrength: IUniform<number>;
 }
 
 /**
@@ -30,8 +34,8 @@ interface StarfieldUniforms {
         <ngts-custom-shader-material
                 [baseMaterial]="PointsMaterial"
                 [options]="{
-                  vertexShader: vertexShader(),
-                  fragmentShader: fragmentShader(),
+                  vertexShader: vertexShader,
+                  fragmentShader: fragmentShader,
                   uniforms: uniforms(),
                   transparent: true,
                   vertexColors: true,
@@ -111,13 +115,51 @@ export class LandingHeroStarfieldSceneGraph {
     readonly starFade = input.required<number>()
 
     /**
+     * Duration (in seconds) for the entire starfield to be revealed.
+     *
+     * @readonly
+     * @type {*}
+     */
+    readonly fieldEnterDuration = input.required<number>()
+
+    /**
+     * Duration (in seconds) for each individual star to grow from invisible to full size.
+     *
+     * @readonly
+     * @type {*}
+     */
+    readonly starEnterDuration = input.required<number>()
+
+    /**
+     * Calculated reveal speed: how fast the reveal sphere expands (units per second).
+     * Formula: fieldRadius / fieldEnterDuration
+     * This ensures the reveal sphere covers the entire starfield in the specified duration.
+     *
+     * @protected
+     * @readonly
+     * @type {*}
+     */
+    protected readonly revealSpeed = computed(() => this.fieldRadius() / this.fieldEnterDuration())
+
+    /**
+     * Calculated reveal width: the thickness of the reveal transition band.
+     * Formula: revealSpeed * starEnterDuration
+     * This determines how long each star takes to grow from invisible to full size.
+     *
+     * @protected
+     * @readonly
+     * @type {*}
+     */
+    protected readonly revealWidth = computed(() => this.revealSpeed() * this.starEnterDuration())
+
+    /**
      * Shader to handle sweep animation.
      *
      * @protected
      * @readonly
      * @type {*}
      */
-    protected readonly vertexShader = computed(() => vertexShader())
+    protected readonly vertexShader = vertexShader
 
     /**
      * Shader to handle star fade and glow.
@@ -126,7 +168,7 @@ export class LandingHeroStarfieldSceneGraph {
      * @readonly
      * @type {*}
      */
-    protected readonly fragmentShader = computed(() => fragmentShader(this.starFade(), this.starGlow()))
+    protected readonly fragmentShader = fragmentShader
 
     /**
      * Randomized star positions of starfield.
@@ -164,7 +206,11 @@ export class LandingHeroStarfieldSceneGraph {
     private materialRef = viewChild.required(NgtsCustomShaderMaterial);
 
     protected readonly uniforms = computed<StarfieldUniforms>(()=>({
-      time: {value: 0}
+      time: {value: 0},
+      revealSpeed: {value: this.revealSpeed()},
+      revealWidth: {value: this.revealWidth()},
+      fadeBias: {value: this.starFade()},
+      glowStrength: {value: this.starGlow()}
     }))
 
     /**

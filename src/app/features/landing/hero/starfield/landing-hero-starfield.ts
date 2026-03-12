@@ -14,7 +14,7 @@ import { LandingHeroStarfieldSceneGraph } from "@features/landing/hero/starfield
 	selector: 'landing-hero-starfield',
 	template: `
   <ngt-canvas [camera]="{ position: [0, 0, 0.25], fov: 155, near: 0.00125, far:0.5}">
-    <landing-hero-starfield-scene-graph [stars]="stars()" [starSize]="starSize()" [fieldRadius]="fieldRadius()" [starGlow]="starGlow()" [starFade]="starFade()" [fieldSpinX]="fieldSpinX()" [fieldSpinY]="fieldSpinY()" [fieldSpinZ]="fieldSpinZ()" [starColors]="starColors()" *canvasContent />
+    <landing-hero-starfield-scene-graph [stars]="stars()" [starSize]="starSize()" [fieldRadius]="fieldRadius()" [starGlow]="starGlow()" [starFade]="starFade()" [fieldSpinX]="fieldSpinX()" [fieldSpinY]="fieldSpinY()" [fieldSpinZ]="fieldSpinZ()" [starColors]="starColors()" [fieldEnterDuration]="fieldEnterDuration()" [starEnterDuration]="starEnterDuration()" *canvasContent />
   </ngt-canvas>
 
 	`,
@@ -88,5 +88,23 @@ export class LandingHeroStarfieldComponent {
    * @type {*}
    */
   readonly starColors = input<string[]>(['white'])
+
+  /**
+   * Duration (in seconds) for the entire starfield to be revealed.
+   * The reveal sphere expands from the camera to cover the entire fieldRadius in this time.
+   *
+   * @readonly
+   * @type {*}
+   */
+  readonly fieldEnterDuration = input<number>(0.75)
+
+  /**
+   * Duration (in seconds) for each individual star to grow from invisible to full size.
+   * Controls the width of the reveal transition band.
+   *
+   * @readonly
+   * @type {*}
+   */
+  readonly starEnterDuration = input<number>(2.25)
 }
 
