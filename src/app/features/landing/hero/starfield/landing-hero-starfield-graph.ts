@@ -3,12 +3,17 @@ import { beforeRender, extend } from 'angular-three';
 import { NgtsCustomShaderMaterial } from 'angular-three-soba/materials';
 import { NgtsPointsBuffer } from 'angular-three-soba/performances';
 import { random } from 'maath';
-import { Group, PointsMaterial, Color } from 'three';
+import { Group, PointsMaterial, Color, IUniform } from 'three';
 import { NgtsOrbitControls } from "angular-three-soba/controls";
-import { fragmentShader } from '@features/landing/hero/starfield/landing-hero-starfield-shaders';
+import { fragmentShader, vertexShader } from '@features/landing/hero/starfield/landing-hero-starfield-shaders';
+
 extend(
   Group
 )
+
+interface StarfieldUniforms {
+  time: IUniform<number>;
+}
 
 /**
  * Scene Graph for a Starfield. Based off https://angularthree.org/reference/soba/materials/point-material/#tab-panel-243
@@ -25,7 +30,9 @@ extend(
         <ngts-custom-shader-material
                 [baseMaterial]="PointsMaterial"
                 [options]="{
+                  vertexShader: vertexShader(),
                   fragmentShader: fragmentShader(),
+                  uniforms: uniforms(),
                   transparent: true,
                   vertexColors: true,
                   size: starSize(),
@@ -102,6 +109,16 @@ export class LandingHeroStarfieldSceneGraph {
      * @type {*}
      */
     readonly starFade = input.required<number>()
+
+    /**
+     * Shader to handle sweep animation.
+     *
+     * @protected
+     * @readonly
+     * @type {*}
+     */
+    protected readonly vertexShader = computed(() => vertexShader())
+
     /**
      * Shader to handle star fade and glow.
      *
@@ -143,6 +160,12 @@ export class LandingHeroStarfieldSceneGraph {
     readonly fieldSpinZ = input.required<number>()
 
     private pointsBufferRef = viewChild.required(NgtsPointsBuffer);
+
+    private materialRef = viewChild.required(NgtsCustomShaderMaterial);
+
+    protected readonly uniforms = computed<StarfieldUniforms>(()=>({
+      time: {value: 0}
+    }))
 
     /**
      * All possible colors a star can take.
@@ -205,6 +228,8 @@ export class LandingHeroStarfieldSceneGraph {
      */
     constructor() {
       beforeRender(({ delta }) => {
+        const uniforms = this.materialRef().material().uniforms as unknown as StarfieldUniforms
+        uniforms.time.value += delta
         const points = this.pointsBufferRef().pointsRef().nativeElement;
         points.rotation.x += delta * this.fieldSpinX();
         points.rotation.y += delta * this.fieldSpinY();
