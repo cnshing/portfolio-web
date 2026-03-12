@@ -275,7 +275,12 @@ export class LandingHeroStarfieldSceneGraph {
     constructor() {
       beforeRender(({ delta }) => {
         const uniforms = this.materialRef().material().uniforms as unknown as StarfieldUniforms
-        uniforms.time.value += delta
+
+        // Stop time increment once the entire starfield is fully revealed
+        const maxTime = this.fieldEnterDuration() + this.starEnterDuration()
+        if (uniforms.time.value < maxTime) {
+          uniforms.time.value += delta
+        }
         const points = this.pointsBufferRef().pointsRef().nativeElement;
         points.rotation.x += delta * this.fieldSpinX();
         points.rotation.y += delta * this.fieldSpinY();
