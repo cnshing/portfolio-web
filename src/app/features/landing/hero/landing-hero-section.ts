@@ -45,14 +45,18 @@ import { isTouchDevice } from '@shared/utils/accessibility';
         </a>
       </div>
     </section>
-    <landing-hero-motorcyclist class="absolute z-[3] bottom-0 size-full flex flex-col justify-end pl-lg " />
+    <landing-hero-motorcyclist [enterDurationSecs]="2.0" class="absolute z-[3] bottom-0 size-full flex flex-col justify-end pl-lg " />
     <landing-hero-affordance
       class="absolute bottom-0 translate-y-[calc(var(--racetrack-height)/2)] -translate-x-1/2 left-1/2 z-[7] text-color-accent brightness-75 animate-bounce *:data-motorcycle:text-[9vw] *:data-arrow:text-[7.5vw] *:md:data-motorcycle:text-2xl *:md:data-arrow:text-xl
       [animation-duration:2500ms]transition-opacity duration-1500 ease-in-out"
       [idleTimeoutMS]="3250"
     />
     <div class="absolute size-full h-[calc(100%+var(--racetrack-height))] z-[1] flex flex-col">
-      <landing-hero-starfield class="grow min-h-0 -mb-sm pointer-events-auto" [starColors]="starColors" [stars]="numStars" [starSize]="starSize" />
+      @defer (on immediate) {
+        <landing-hero-starfield class="grow min-h-0 -mb-sm pointer-events-auto" [starColors]="starColors" [stars]="numStars" [starSize]="starSize" [fieldEnterDuration]="2.85" [starEnterDuration]="2.5" />
+      } @placeholder (minimum 1s) {
+        <div data-landing-hero-starfield-placeholder class="grow min-h-0 -mb-sm"></div>
+      }
       <!-- <img src="https://svs.gsfc.nasa.gov/vis/a000000/a004400/a004451/RandomizedSkymap.t4_04096x02048_print.jpg" class="brightness-75 grow min-h-0 -mb-sm" /> --> <!-- Backup space placeholder-->
     <img
       #landingHeroRoad
