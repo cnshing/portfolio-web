@@ -51,7 +51,7 @@ import { LandingHeroStarfieldComponent } from '@features/landing/hero/starfield/
       [idleTimeoutMS]="3250"
     />
     <div class="absolute size-full h-[calc(100%+var(--racetrack-height))] z-[1] flex flex-col">
-      <landing-hero-starfield class="grow min-h-0 -mb-sm pointer-events-auto" [starColors]="starColors" [stars]="innerWidth/2"/>
+      <landing-hero-starfield class="grow min-h-0 -mb-sm pointer-events-auto" [starColors]="starColors" [stars]="innerWidth/2" [starEnterDuration]="2.25" [fieldEnterDuration]="0.75" />
       <!-- <img src="https://svs.gsfc.nasa.gov/vis/a000000/a004400/a004451/RandomizedSkymap.t4_04096x02048_print.jpg" class="brightness-75 grow min-h-0 -mb-sm" /> --> <!-- Backup space placeholder-->
     <img
       #landingHeroRoad
