@@ -7,6 +7,7 @@ import { LandingHeroAffordanceComponent } from '@features/landing/hero/landing-h
 import { NgOptimizedImage } from '@angular/common';
 import { LandingVinylIconComponent } from '@features/landing/icons/landing-vinyl-icon';
 import { LandingHeroStarfieldComponent } from '@features/landing/hero/starfield/landing-hero-starfield';
+import { isTouchDevice } from '@shared/utils/accessibility';
 
 @Component({
   selector: 'landing-hero',
@@ -25,7 +26,7 @@ import { LandingHeroStarfieldComponent } from '@features/landing/hero/starfield/
       <div class="flex flex-col gap-lg w-fit">
         <div>
           <h1 class="relative text-hero-accent z-[4]">Zooming</h1>
-          <h1 class="relative z-[2] backdrop-blur-[0.5px]">Full Stack Developer</h1>
+          <h1 class="relative z-[2] backdrop-blur-[1.25px]">Full Stack Developer</h1>
         </div>
         <a
           target="_blank"
@@ -51,7 +52,7 @@ import { LandingHeroStarfieldComponent } from '@features/landing/hero/starfield/
       [idleTimeoutMS]="3250"
     />
     <div class="absolute size-full h-[calc(100%+var(--racetrack-height))] z-[1] flex flex-col">
-      <landing-hero-starfield class="grow min-h-0 -mb-sm pointer-events-auto" [starColors]="starColors" [stars]="innerWidth/2" [starEnterDuration]="2.25" [fieldEnterDuration]="0.75" />
+      <landing-hero-starfield class="grow min-h-0 -mb-sm pointer-events-auto" [starColors]="starColors" [stars]="numStars" [starSize]="starSize" />
       <!-- <img src="https://svs.gsfc.nasa.gov/vis/a000000/a004400/a004451/RandomizedSkymap.t4_04096x02048_print.jpg" class="brightness-75 grow min-h-0 -mb-sm" /> --> <!-- Backup space placeholder-->
     <img
       #landingHeroRoad
@@ -94,6 +95,8 @@ import { LandingHeroStarfieldComponent } from '@features/landing/hero/starfield/
 export default class LandingHeroComponent {
   protected readonly name = environment.name;
   protected readonly starColors = ['#e5e6e3', '#cdcecb'] // NOTE: This is meant to be --text-color-secondary and --text-color-tertiary, respectively
-  protected readonly innerWidth = window.innerWidth
+  protected readonly numStars = window.innerWidth > window.innerHeight ? window.innerWidth/2.5: (window.innerHeight*0.77)/5 // 0.77 choosen here because road element is roughly 33% height of the window.
+
+  protected readonly starSize = isTouchDevice() ? window.innerHeight/3_000_00: 0.001
 
 }
