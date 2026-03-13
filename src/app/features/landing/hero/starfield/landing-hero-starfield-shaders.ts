@@ -1,5 +1,24 @@
+import {
+  cameraPosition,
+  smoothstep,
+  oneMinus,
+  time,
+  vec3,
+  mul,
+  rotate,
+  uv,
+  clamp,
+  float,
+  max,
+  dot,
+  fwidth,
+  pow,
+  exp,
+} from 'three/tsl';
+
 /**
- * GLSL shader equivalent of https://www.youtube.com/watch?v=XUtIzRkaQOE. Coupled with `vertexShader()`.
+ * TSL node function for fragment shader.
+ * Equivalent of https://www.youtube.com/watch?v=XUtIzRkaQOE.
  *
  * @param {number} [fadeBias=0.1]
  * Controls how quickly the particle fades from the center toward the edge.
@@ -10,28 +29,69 @@
  * Subtracted from the radial fade to control the softness of the glow.
  * Higher values reduce the visible glow and shrink the particle, while
  * lower values produce a softer and larger glow.
- *
- * @returns {string} GLSL fragment shader source.
  */
-export const fragmentShader =  /* glsl */ `
-varying float vReveal;
-uniform float fadeBias;
-uniform float glowStrength;
+export function createFragmentNode(
+  fadeBias: any,
+  glowStrength: any,
+  vReveal: any,
+) {
 
-void main() {
 
-    float d = max(length(gl_PointCoord - 0.5), 0.0001);
-    float alpha = clamp(fadeBias / d - glowStrength, 0.0, 1.0);
-    alpha *= vReveal;
-    csm_DiffuseColor = vec4(vColor, alpha);
+  const centered = uv().mul(2.0).sub(1.0);
 
+  const r = dot(centered, centered);
+  const delta = fwidth(r);
+
+  const d = max(r.sqrt(), float(0.0001));
+
+
+  const circleMask = float(1.0).sub(
+    smoothstep(
+      float(1.0).sub(delta),
+      float(1.0).add(delta),
+      d
+    )
+  );
+
+  const alpha = clamp(
+    fadeBias.div(d).sub(glowStrength),
+    0.0,
+    1.0
+  ).mul(vReveal);
+
+ const falloff = exp(r.mul(-4.0))
+  return pow(alpha, 2)
+    .mul(pow(circleMask, 8)).mul(falloff)
 }
-`;
-
-
 
 /**
- * Vertex shader that handles initial appear animation of the starfield.
+ * TSL node function for applying rotation to position based on time and spin velocities.
+ * Uses the rotate() TSL function with time instead of manual rotation updates.
+ *
+ * @param spinXUniform Rotation velocity around X axis
+ * @param spinYUniform Rotation velocity around Y axis
+ * @param spinZUniform Rotation velocity around Z axis
+ * @returns Rotated position node
+ */
+export function createRotationNode(
+  spinXUniform: any,
+  spinYUniform: any,
+  spinZUniform: any,
+  position: any
+) {
+  // Create rotation vector: spin velocities * time
+  const rotation = vec3(
+    mul(time, spinXUniform),
+    mul(time, spinYUniform),
+    mul(time, spinZUniform)
+  );
+
+  // Apply rotation to positionLocal using the rotate() TSL function
+  return rotate(position, rotation);
+}
+
+/**
+ * TSL node function for vertex shader that handles initial appear animation of the starfield.
  * Creates an expanding reveal sphere that grows from the camera position,
  * revealing stars as it passes over them with a smooth transition.
  *
@@ -47,28 +107,59 @@ void main() {
  * The thickness of the reveal transition band (in same units as fieldRadius).
  * Stars within this band smoothly grow from invisible to full size.
  * Controls how long each individual star takes to fully appear.
- *
- * @returns {string} GLSL vertex shader source.
  */
-export const vertexShader =  /* language:glsl glsl */ `
-uniform float time;
-uniform float revealSpeed;
-uniform float revealWidth;
+export function createVertexRevealNode(
+  revealSpeedUniform: any,
+  revealWidthUniform: any,
+  position: any
+) {
 
-varying float vReveal;
+  // expanding sphere radius
+  const radius = time.mul(revealSpeedUniform);
 
-void main() {
+  // distance from camera using rotated position
+  const dist = position.sub(cameraPosition).length();
 
-    float dist = length(position - cameraPosition);
+  // reveal factor
+  const reveal = oneMinus(
+    smoothstep(
+      radius.sub(revealWidthUniform),
+      radius,
+      dist
+    )
+  );
 
-    float radius = time * revealSpeed;
-
-    float reveal = 1.0 - smoothstep(radius - revealWidth, radius, dist);
-
-    vReveal = reveal;
-
-    float baseSize = csm_PointSize;
-    csm_PointSize = baseSize * vReveal;
+  return reveal;
 
 }
-`
+
+
+/**  const centered = uv().mul(2.0).sub(1.0);   // same as 2*gl_PointCoord - 1
+
+  const r = dot(centered, centered);         // radius squared
+  const delta = fwidth(r);                   // derivative for AA
+
+  const circleMask = float(1.0).sub(
+    smoothstep(
+      float(1.0).sub(delta),
+      float(1.0).add(delta),
+      r
+    )
+  );
+
+  const d = max(centered.length(), float(0.0001));
+
+  const alpha = clamp(
+    fadeBias.div(d).sub(glowStrength),
+    0.0,
+    1.0
+  ).mul(vReveal);
+
+  const flicker = sin(
+    time.mul(6.0).add(d.mul(20.0))
+  ).mul(0.05).add(1.0);
+
+  return pow(alpha, 2)
+    .mul(circleMask)
+    .mul(flicker);
+ */
