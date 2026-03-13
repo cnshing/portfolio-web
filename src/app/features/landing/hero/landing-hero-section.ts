@@ -53,7 +53,7 @@ import { isTouchDevice } from '@shared/utils/accessibility';
     />
     <div class="absolute size-full h-[calc(100%+var(--racetrack-height))] z-[1] flex flex-col">
       @defer (on immediate) {
-        <landing-hero-starfield class="grow min-h-0 -mb-sm pointer-events-auto" [starColors]="starColors" [stars]="numStars" [starSize]="starSize" [fieldEnterDuration]="2.85" [starEnterDuration]="2.5" />
+        <landing-hero-starfield class="grow min-h-0 -mb-sm pointer-events-auto" [starColors]="starColors" [stars]="numStars" [starSize]="starSize" [fieldEnterDuration]="2.85" [starEnterDuration]="2.5" [starGlow]="0.0125"/>
       } @placeholder (minimum 1s) {
         <div data-landing-hero-starfield-placeholder class="grow min-h-0 -mb-sm"></div>
       }
@@ -99,8 +99,8 @@ import { isTouchDevice } from '@shared/utils/accessibility';
 export default class LandingHeroComponent {
   protected readonly name = environment.name;
   protected readonly starColors = ['#e5e6e3', '#cdcecb'] // NOTE: This is meant to be --text-color-secondary and --text-color-tertiary, respectively
-  protected readonly numStars = window.innerWidth > window.innerHeight ? window.innerWidth/2.5: (window.innerHeight*0.77)/5 // 0.77 choosen here because road element is roughly 33% height of the window.
+  protected readonly numStars = window.innerWidth > window.innerHeight ? window.innerWidth/2.5: (window.innerHeight*0.77)/2.5 // 0.77 choosen here because road element is roughly 33% height of the window.
 
-  protected readonly starSize = isTouchDevice() ? window.innerHeight/3_000_00: 0.001
+  protected readonly starSize = isTouchDevice() ? window.innerHeight/3_000_00: 0.00125
 
 }

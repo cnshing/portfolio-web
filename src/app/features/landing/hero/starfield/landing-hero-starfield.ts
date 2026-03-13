@@ -1,110 +1,167 @@
-import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, input} from '@angular/core';
-import { NgtCanvas } from 'angular-three/dom';
-import { LandingHeroStarfieldSceneGraph } from "@features/landing/hero/starfield/landing-hero-starfield-graph";
-
+import {
+  afterNextRender,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  DestroyRef,
+  ElementRef,
+  inject,
+  input,
+  signal,
+  ViewChild
+} from '@angular/core';
+import { wrap, type Remote, transfer } from 'comlink';
+import { syncToThreeCanvas } from '@shared/utils/three';
+import { StarfieldRenderer } from "./landing-hero-starfield.worker";
+import { StarfieldConfig } from './landing-hero-starfield-core';
 
 /**
- * Three.JS animated starfield, with simple animation support and bindable star sizes.
+ * Three.JS animated starfield using Web Worker with OffscreenCanvas for maximum performance.
+ * Uses Comlink for type-safe communication and syncToThreeCanvas for automatic Signal synchronization.
  *
  * @export
  * @class LandingHeroStarfieldComponent
  * @typedef {LandingHeroStarfieldComponent}
  */
 @Component({
-	selector: 'landing-hero-starfield',
-	template: `
-  <ngt-canvas [camera]="{ position: [0, 0, 0.25], fov: 155, near: 0.00125, far:0.5}">
-    <landing-hero-starfield-scene-graph [stars]="stars()" [starSize]="starSize()" [fieldRadius]="fieldRadius()" [starGlow]="starGlow()" [starFade]="starFade()" [fieldSpinX]="fieldSpinX()" [fieldSpinY]="fieldSpinY()" [fieldSpinZ]="fieldSpinZ()" [starColors]="starColors()" [fieldEnterDuration]="fieldEnterDuration()" [starEnterDuration]="starEnterDuration()" *canvasContent />
-  </ngt-canvas>
-
-	`,
-	schemas: [CUSTOM_ELEMENTS_SCHEMA],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [NgtCanvas, LandingHeroStarfieldSceneGraph],
+  selector: 'landing-hero-starfield',
+  template: `
+    <canvas #starfieldCanvas
+            style="display: block; width: 100%; height: 100%;">
+    </canvas>
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true
 })
 export class LandingHeroStarfieldComponent {
+  @ViewChild('starfieldCanvas', { static: false })
+  private canvasRef!: ElementRef<HTMLCanvasElement>;
+  private canvasWorker = signal<Remote<StarfieldRenderer> | undefined>(undefined);
+  private resizeObserver?: ResizeObserver;
+  private destroyRef = inject(DestroyRef);
+
   /**
    * How many stars in the starfield.
-   *
-   * @readonly
-   * @type {*}
    */
-  readonly stars = input<number>(100)
+  readonly stars = input<number>(100);
+
   /**
    * How big each stars are.
-   *
-   * @readonly
-   * @type {*}
    */
-  readonly starSize = input<number>(0.001)
+  readonly starSize = input<number>(0.001);
+
   /**
    * Size of the actual starfield.
-   *
-   * @readonly
-   * @type {*}
    */
-  readonly fieldRadius = input<number>(0.5)
+  readonly fieldRadius = input<number>(0.5);
+
   /**
    * Small decimal value to control glow softness and size, increases as starGlow gets bigger.
-   *
-   * @readonly
-   * @type {*}
    */
-  readonly starGlow = input<number>(0.2)
+  readonly starGlow = input<number>(0.2);
+
   /**
    * Small decimal value to control fade sharpness for star glow, where the falloff gets sharper as starFade gets lower.
-   *
-   * @readonly
-   * @type {*}
    */
-  readonly starFade = input<number>(0.1)
+  readonly starFade = input<number>(0.1);
+
   /**
    * Spins the starfield in X direction, as constant velocity.
-   *
-   * @readonly
-   * @type {*}
    */
-  readonly fieldSpinX = input<number>(-1/1024)
+  readonly fieldSpinX = input<number>(-1/1024);
 
   /**
    * Spins the starfield in Y direction, as constant velocity.
-   *
-   * @readonly
-   * @type {*}
    */
-  readonly fieldSpinY = input<number>(1/512)
+  readonly fieldSpinY = input<number>(1/512);
+
   /**
    * Spins the starfield in Z direction, as constant velocity.
-   *
-   * @readonly
-   * @type {*}
    */
-  readonly fieldSpinZ = input<number>(1/256)
+  readonly fieldSpinZ = input<number>(1/256);
 
   /**
    * Any individual star will select from any of the following colors.
-   *
-   * @readonly
-   * @type {*}
    */
-  readonly starColors = input<string[]>(['white'])
+  readonly starColors = input<string[]>(['white']);
 
   /**
    * Duration (in seconds) for the entire starfield to be revealed.
    * The reveal sphere expands from the camera to cover the entire fieldRadius in this time.
-   *
-   * @readonly
-   * @type {*}
    */
-  readonly fieldEnterDuration = input<number>(0.75)
+  readonly fieldEnterDuration = input<number>(0.75);
 
   /**
    * Duration (in seconds) for each individual star to grow from invisible to full size.
    * Controls the width of the reveal transition band.
-   *
-   * @readonly
-   * @type {*}
    */
-  readonly starEnterDuration = input<number>(2.25)
-}
+  readonly starEnterDuration = input<number>(2.25);
 
+  /**
+   * Creates the component and sets up Signal bindings to worker.
+   */
+
+  protected readonly config = computed<StarfieldConfig>(() => ({
+    stars: this.stars(),
+    starSize: this.starSize(),
+    fieldRadius: this.fieldRadius(),
+    starGlow: this.starGlow(),
+    starFade: this.starFade(),
+    fieldSpinX: this.fieldSpinX(),
+    fieldSpinY: this.fieldSpinY(),
+    fieldSpinZ: this.fieldSpinZ(),
+    starColors: this.starColors(),
+    fieldEnterDuration: this.fieldEnterDuration(),
+    starEnterDuration: this.starEnterDuration()
+  }));
+
+  constructor() {
+    // Initialize the promise and store the resolver
+
+    // Setup Signal bindings with the promise
+    syncToThreeCanvas(this, [
+      "stars",
+      "starSize",
+      "fieldRadius",
+      "starGlow",
+      "starFade",
+      "fieldSpinX",
+      "fieldSpinY",
+      "fieldSpinZ",
+      "starColors",
+      "fieldEnterDuration",
+      "starEnterDuration"
+    ] as const, this.canvasWorker)
+
+    afterNextRender(async () => {
+      const canvas = this.canvasRef.nativeElement;
+      const rect = canvas.getBoundingClientRect();
+
+      // Check for OffscreenCanvas support
+      if (!('transferControlToOffscreen' in canvas)) {
+        console.warn('OffscreenCanvas not supported in this browser. Starfield will not render.');
+        return;
+      }
+      const offscreen = canvas.transferControlToOffscreen();
+      const StarfieldRenderers = wrap<typeof StarfieldRenderer>(new Worker(
+        new URL('./landing-hero-starfield.worker', import.meta.url),
+        { type: 'module' }
+      ));
+      this.canvasWorker.set(await new StarfieldRenderers(transfer(offscreen, [offscreen]), rect.width, rect.height, this.config()))
+
+      await this.canvasWorker()!.render()
+    })
+    this.destroyRef.onDestroy(async () => {
+      await this.cleanup();
+    });
+  }
+
+
+  /**
+   * Cleans up worker and resize observer.
+   */
+  private async cleanup()  {
+    this.resizeObserver?.disconnect();
+    await this.canvasWorker()?.destroy()
+  }
+}
