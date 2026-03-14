@@ -23,26 +23,26 @@ import {
   int,
   floor,
 } from 'three/tsl';
-import type { UniformNode, Node, IndexNode, UniformArrayNode} from 'three/webgpu';
+import type { UniformNode, Node, IndexNode, UniformArrayNode, VaryingNode} from 'three/webgpu';
 
 /**
  * TSL node function for fragment shader.
  * Based on https://www.youtube.com/watch?v=XUtIzRkaQOE and the points material shader from https://github.com/angular-threejs/angular-three/blob/main/libs/soba/shaders/src/lib/point-material.ts.
  *
  * @export
- * @param {UniformNode<number>} fadeBias Controls how quickly the particle fades from the center toward the edge.
+ * @param {UniformNode<"float", number>} fadeBias Controls how quickly the particle fades from the center toward the edge.
  * Higher values slows and reduces the overall fade,
  * while lower values produce a sharper falloff and creating an visual effect of shrinking the particle core.
- * @param {UniformNode<number>} glowStrength Subtracted from the radial fade to control the softness of the glow.
+ * @param {UniformNode<"float", number>} glowStrength Subtracted from the radial fade to control the softness of the glow.
  * Higher values increases the glow radius,
  * lower values makes the glow shorter.
- * @param {UniformNode<number>} offsetFactor Multiplies the intermediary star shader
+ * @param {VaryingNode<"float">} offsetFactor Multiplies the intermediary star shader
  * @returns {*}
  */
 export function createGlowOpacityNode(
-  fadeBias: UniformNode<number>,
-  glowStrength: UniformNode<number>,
-  offsetFactor: Node,
+  fadeBias: UniformNode<"float", number>,
+  glowStrength: UniformNode<"float", number>,
+  offsetFactor: VaryingNode<"float">,
 ) {
 
 
@@ -79,17 +79,17 @@ export function createGlowOpacityNode(
  *
  *
  * @export
- * @param {UniformNode<number>} spinXUniform Rotation velocity around X axis
- * @param {UniformNode<number>} spinYUniform Rotation velocity around Y axis
- * @param {UniformNode<number>} spinZUniform Rotation velocity around Z axis
- * @param {Node} position Position of the node to rotate around from
+ * @param {UniformNode<"float", number>} spinXUniform Rotation velocity around X axis
+ * @param {UniformNode<"float", number>} spinYUniform Rotation velocity around Y axis
+ * @param {UniformNode<"float", number>} spinZUniform Rotation velocity around Z axis
+ * @param {Node<"vec3">} position Position of the node to rotate around from
  * @returns {*}
  */
 export function createRotationNode(
-  spinXUniform: UniformNode<number>,
-  spinYUniform: UniformNode<number>,
-  spinZUniform: UniformNode<number>,
-  position: Node
+  spinXUniform: UniformNode<"float", number>,
+  spinYUniform: UniformNode<"float", number>,
+  spinZUniform: UniformNode<"float", number>,
+  position: Node<"vec3">
 ) {
 
   const rotation = vec3(
@@ -107,18 +107,18 @@ export function createRotationNode(
  * revealing stars as it passes over them with a smooth transition.
  *
  * @export
- * @param {UniformNode<number>} revealSpeedUniform The rate at which the reveal sphere expands outward from the camera
+ * @param {UniformNode<"float", number>} revealSpeedUniform The rate at which the reveal sphere expands outward from the camera
  * (in units per second).
- * @param {UniformNode<number>} revealWidthUniform The thickness of the reveal transition band (in same units as fieldRadius).
+ * @param {UniformNode<"float", number>} revealWidthUniform The thickness of the reveal transition band (in same units as fieldRadius).
  * Stars within this band smoothly grow from invisible to full size.
  * Controls how long each individual star takes to fully appear.
- * @param {Node} origin The center position of the reveal sphere.
+ * @param {Node<"vec3">} origin The center position of the reveal sphere.
  * @returns {*}
  */
 export function createVertexRevealNode(
-  revealSpeedUniform: UniformNode<number>,
-  revealWidthUniform: UniformNode<number>,
-  origin: Node
+  revealSpeedUniform: UniformNode<"float", number>,
+  revealWidthUniform: UniformNode<"float", number>,
+  origin: Node<"vec3">
 ) {
 
 
@@ -141,11 +141,11 @@ export function createVertexRevealNode(
  * Generate random various points that resemble a sphere of radius `radius`.
  *
  * @export
- * @param {UniformNode<number>} radius Radius of the sphere.
+ * @param {UniformNode<"float", number>} radius Radius of the sphere.
  * @param {IndexNode} index The instanceIndex.
  * @returns {*} A Position Node
  */
-export function randomInSphereTSL(radius: UniformNode<number>, index: IndexNode)  {
+export function randomInSphereTSL(radius: UniformNode<"float", number>, index: IndexNode)  {
 
   const r1 = hash(index);
   const r2 = hash(index.add(1.0));
@@ -171,10 +171,10 @@ export function randomInSphereTSL(radius: UniformNode<number>, index: IndexNode)
  *
  * @export
  * @param {IndexNode} index The instanceIndex.
- * @param {UniformArrayNode} palette An array of colors.
+ * @param {UniformArrayNode<"color">} palette An array of colors.
  * @returns {*}
  */
-export function randomPaletteColorTSL(index: IndexNode, palette: UniformArrayNode) {
+export function randomPaletteColorTSL(index: IndexNode, palette: UniformArrayNode<"color">) {
   const r = hash(index.add(1));
   const paletteIndex = int(floor(r.mul(int(palette.array.length))));
   return palette.element(paletteIndex).rgb
