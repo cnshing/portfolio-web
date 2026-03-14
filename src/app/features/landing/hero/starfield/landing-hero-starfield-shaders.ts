@@ -14,9 +14,16 @@ import {
   fwidth,
   pow,
   exp,
-  reciprocal
+  reciprocal,
+  hash,
+  acos,
+  cos,
+  sin,
+  TWO_PI,
+  int,
+  floor,
 } from 'three/tsl';
-import type { UniformNode, Node } from 'three/webgpu';
+import type { UniformNode, Node, IndexNode, UniformArrayNode} from 'three/webgpu';
 
 /**
  * TSL node function for fragment shader.
@@ -127,4 +134,48 @@ export function createVertexRevealNode(
 
   return reveal;
 
+}
+
+
+/**
+ * Generate random various points that resemble a sphere of radius `radius`.
+ *
+ * @export
+ * @param {UniformNode<number>} radius Radius of the sphere.
+ * @param {IndexNode} index The instanceIndex.
+ * @returns {*} A Position Node
+ */
+export function randomInSphereTSL(radius: UniformNode<number>, index: IndexNode)  {
+
+  const r1 = hash(index);
+  const r2 = hash(index.add(1.0));
+  const r3 = hash(index.add(2.0));
+
+  const theta = r1.mul(TWO_PI); // 2π
+  const phi = acos(r2.mul(2.0).sub(1.0));
+
+  const r = pow(r3, float(1.0 / 3.0)).mul(radius);
+
+  const sinPhi = sin(phi);
+
+  return vec3(
+    r.mul(sinPhi).mul(cos(theta)),
+    r.mul(sinPhi).mul(sin(theta)),
+    r.mul(cos(phi))
+  );
+}
+
+
+/**
+ * Randomly selects a color from `pallete`
+ *
+ * @export
+ * @param {IndexNode} index The instanceIndex.
+ * @param {UniformArrayNode} palette An array of colors.
+ * @returns {*}
+ */
+export function randomPaletteColorTSL(index: IndexNode, palette: UniformArrayNode) {
+  const r = hash(index.add(1));
+  const paletteIndex = int(floor(r.mul(int(palette.array.length))));
+  return palette.element(paletteIndex).rgb
 }
