@@ -2,18 +2,16 @@ import {
   afterNextRender,
   ChangeDetectionStrategy,
   Component,
-  computed,
   DestroyRef,
   ElementRef,
   inject,
   input,
   signal,
-  ViewChild
+  viewChild,
 } from '@angular/core';
 import { wrap, type Remote, transfer } from 'comlink';
-import { syncToThreeCanvas } from '@shared/utils/three';
-import { StarfieldRenderer } from "./landing-hero-starfield.worker";
-import { StarfieldConfig } from './landing-hero-starfield-core';
+import { StarfieldRenderer } from "@features/landing/hero/starfield/landing-hero-starfield.worker";
+import { ThreeJSComponent, ResizeWorkerDirective, ResizableWorker, bindSignalsThreeWorkerDirective, provideThreeJSDirective } from '@shared/directives/three.directive';
 
 /**
  * Three.JS animated starfield using Web Worker with OffscreenCanvas for maximum performance.
@@ -31,12 +29,38 @@ import { StarfieldConfig } from './landing-hero-starfield-core';
     </canvas>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true
+  standalone: true,
+  providers: [
+    provideThreeJSDirective(LandingHeroStarfieldComponent)
+  ],
+  hostDirectives: [
+    {
+      directive: ResizeWorkerDirective
+    },
+    {
+      directive: bindSignalsThreeWorkerDirective
+    }
+  ]
 })
-export class LandingHeroStarfieldComponent {
-  @ViewChild('starfieldCanvas', { static: false })
-  private canvasRef!: ElementRef<HTMLCanvasElement>;
-  private canvasWorker = signal<Remote<StarfieldRenderer> | undefined>(undefined);
+export class LandingHeroStarfieldComponent extends ThreeJSComponent<ResizableWorker> {
+
+
+  private canvasRef = viewChild.required<ElementRef<HTMLCanvasElement>>('starfieldCanvas')
+
+  threeWorker = signal<Remote<StarfieldRenderer> | undefined>(undefined);
+  threeBindings = [
+    "stars",
+    "starSize",
+    "fieldRadius",
+    "starGlow",
+    "starFade",
+    "fieldSpinX",
+    "fieldSpinY",
+    "fieldSpinZ",
+    "starColors",
+    "fieldEnterDuration",
+    "starEnterDuration"
+  ]
   private resizeObserver?: ResizeObserver;
   private destroyRef = inject(DestroyRef);
 
@@ -97,59 +121,19 @@ export class LandingHeroStarfieldComponent {
    */
   readonly starEnterDuration = input<number>(2.25);
 
-  /**
-   * Creates the component and sets up Signal bindings to worker.
-   */
-
-  protected readonly config = computed<StarfieldConfig>(() => ({
-    stars: this.stars(),
-    starSize: this.starSize(),
-    fieldRadius: this.fieldRadius(),
-    starGlow: this.starGlow(),
-    starFade: this.starFade(),
-    fieldSpinX: this.fieldSpinX(),
-    fieldSpinY: this.fieldSpinY(),
-    fieldSpinZ: this.fieldSpinZ(),
-    starColors: this.starColors(),
-    fieldEnterDuration: this.fieldEnterDuration(),
-    starEnterDuration: this.starEnterDuration()
-  }));
-
   constructor() {
-    // Initialize the promise and store the resolver
-
-    // Setup Signal bindings with the promise
-    syncToThreeCanvas(this, [
-      "stars",
-      "starSize",
-      "fieldRadius",
-      "starGlow",
-      "starFade",
-      "fieldSpinX",
-      "fieldSpinY",
-      "fieldSpinZ",
-      "starColors",
-      "fieldEnterDuration",
-      "starEnterDuration"
-    ] as const, this.canvasWorker)
+    super()
 
     afterNextRender(async () => {
-      const canvas = this.canvasRef.nativeElement;
+      const canvas = this.canvasRef().nativeElement;
       const rect = canvas.getBoundingClientRect();
-
-      // Check for OffscreenCanvas support
-      if (!('transferControlToOffscreen' in canvas)) {
-        console.warn('OffscreenCanvas not supported in this browser. Starfield will not render.');
-        return;
-      }
       const offscreen = canvas.transferControlToOffscreen();
       const StarfieldRenderers = wrap<typeof StarfieldRenderer>(new Worker(
         new URL('./landing-hero-starfield.worker', import.meta.url),
         { type: 'module' }
       ));
-      this.canvasWorker.set(await new StarfieldRenderers(transfer(offscreen, [offscreen]), rect.width, rect.height, this.config()))
-
-      await this.canvasWorker()!.render()
+      this.threeWorker.set(await new StarfieldRenderers(transfer(offscreen, [offscreen]), rect.width, rect.height))
+      await this.threeWorker()!.render()
     })
     this.destroyRef.onDestroy(async () => {
       await this.cleanup();
@@ -162,6 +146,6 @@ export class LandingHeroStarfieldComponent {
    */
   private async cleanup()  {
     this.resizeObserver?.disconnect();
-    await this.canvasWorker()?.destroy()
+    await this.threeWorker()?.destroy()
   }
 }
