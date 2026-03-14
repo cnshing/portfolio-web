@@ -104,5 +104,3 @@ export default class LandingHeroComponent {
   protected readonly starSize = isTouchDevice() ? window.innerHeight/3_000_00: 0.001
 
 }
-
-// 0.0125

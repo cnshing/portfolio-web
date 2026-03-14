@@ -2,8 +2,7 @@
  * Core starfield logic shared between angular-three implementation and Web Worker.
  * Extracted from the original scene graph to ensure consistency.
  */
-import { random } from 'maath';
-import { Color } from 'three';
+import { Color } from 'three/webgpu';
 
 /**
  * Configuration interface for starfield parameters.
@@ -57,77 +56,19 @@ export function calculateRevealWidth(
   return revealSpeed * starEnterDuration;
 }
 
-/**
- * Generates random star positions within a sphere.
- */
-export function generateStarPositions(
-  count: StarfieldConfig['stars'],
-  radius: StarfieldConfig['fieldRadius']
-): Float32Array {
-  return random.inSphere(new Float32Array(count * 3), { radius }) as Float32Array;
-}
 
 /**
- * Converts color strings to a Float32Array palette.
+ * Converts color strings to a ThreeJS color palette.
  */
 export function generateColorPalette(
   colorStrings: StarfieldConfig['starColors']
-): Float32Array {
-  const palette = new Float32Array(colorStrings.length * 3);
+): Color[] {
+
+  const palette: Color[] = new Array(colorStrings.length);
 
   for (let i = 0; i < colorStrings.length; i++) {
-    const c = new Color(colorStrings[i]);
-    const idx = i * 3;
-
-    palette[idx] = c.r;
-    palette[idx + 1] = c.g;
-    palette[idx + 2] = c.b;
+    palette[i] = new Color(colorStrings[i]);
   }
 
   return palette;
-}
-
-/**
- * Assigns random colors from palette to each star.
- * Matches the original color assignment logic from the graph component.
- */
-export function generateStarColors(
-  count: StarfieldConfig['stars'],
-  palette: Float32Array
-): Float32Array {
-  const paletteCount = palette.length / 3;
-  const colors = new Float32Array(count * 3);
-
-  for (let i = 0; i < count; i++) {
-    const p = ((Math.random() * paletteCount) | 0) * 3;
-    const idx = i * 3;
-
-    colors[idx] = palette[p]!;
-    colors[idx + 1] = palette[p + 1]!;
-    colors[idx + 2] = palette[p + 2]!;
-  }
-
-  return colors;
-}
-
-/**
- * Creates shader uniforms for the starfield.
- */
-export function createStarfieldUniforms(
-  fieldRadius: StarfieldConfig['fieldRadius'],
-  fieldEnterDuration: StarfieldConfig['fieldEnterDuration'],
-  starEnterDuration: StarfieldConfig['starEnterDuration'],
-  starFade: StarfieldConfig['starFade'],
-  starGlow: StarfieldConfig['starGlow']
-) {
-  const revealSpeed = calculateRevealSpeed(fieldRadius, fieldEnterDuration);
-  const revealWidth = calculateRevealWidth(revealSpeed, starEnterDuration);
-
-  return {
-    time: { value: 0 },
-    revealSpeed: { value: revealSpeed },
-    revealWidth: { value: revealWidth },
-    fadeBias: { value: starFade },
-    glowStrength: { value: starGlow },
-  };
 }
