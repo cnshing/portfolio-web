@@ -44,16 +44,16 @@ let scene: Scene;
 let camera: PerspectiveCamera;
 let points: Sprite;
 let animationId: number;
-let paletteUniform: UniformArrayNode;
-let fieldRadiusUniform: UniformNode<number>;
-let revealSpeedUniform: UniformNode<number>;
-let revealWidthUniform: UniformNode<number>;
-let fadeBiasUniform: UniformNode<number>;
-let glowStrengthUniform: UniformNode<number>;
-let starSizeUniform: UniformNode<number>;
-let spinXUniform: UniformNode<number>;
-let spinYUniform: UniformNode<number>;
-let spinZUniform: UniformNode<number>;
+let paletteUniform: UniformArrayNode<"color">;
+let fieldRadiusUniform: UniformNode<"float", number>;
+let revealSpeedUniform: UniformNode<"float", number>;
+let revealWidthUniform: UniformNode<"float", number>;
+let fadeBiasUniform: UniformNode<"float", number>;
+let glowStrengthUniform: UniformNode<"float", number>;
+let starSizeUniform: UniformNode<"float", number>;
+let spinXUniform: UniformNode<"float", number>;
+let spinYUniform: UniformNode<"float", number>;
+let spinZUniform: UniformNode<"float", number>;
 
 let resizeCanvas: ReturnType<typeof resizeCanvasFactory>;
 let resizeRenderer: ReturnType<typeof resizeRendererFactory>;
@@ -131,7 +131,7 @@ export class StarfieldRenderer {
 
     private createPalette() {
       const palette = generateColorPalette(this.config.starColors);
-      return uniformArray(palette, 'color')
+      return uniformArray<'color'>(palette, 'color')
     }
 
   /**
@@ -176,7 +176,7 @@ export class StarfieldRenderer {
       paletteUniform,
     );
 
-    return varying(color);
+    return varying<"vec3">(color);
   }
 
   /**
