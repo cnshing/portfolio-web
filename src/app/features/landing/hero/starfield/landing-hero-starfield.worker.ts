@@ -5,87 +5,86 @@
  */
 import * as THREE from 'three/webgpu';
 import { expose } from 'comlink';
-import { resizeCanvasFactory, resizeRendererFactory, resizePrespectiveCameraFactory } from '@shared/utils/three';
+import {
+  resizeCanvasFactory,
+  resizeRendererFactory,
+  resizePrespectiveCameraFactory,
+} from '@shared/utils/three';
 import {
   DefaultStarfieldConfig,
-  StarfieldConfig,
   calculatePointCount,
   calculateRevealSpeed,
   calculateRevealWidth,
   generateColorPalette,
   generateStarColors,
-  generateStarPositions
-} from './landing-hero-starfield-core';
-import {  instancedArray, instanceIndex, uniform, varying } from 'three/tsl';
-import { createFragmentNode, createVertexRevealNode, createRotationNode } from './landing-hero-starfield-shaders';
+  generateStarPositions,
+} from '@features/landing/hero/starfield/landing-hero-starfield-core';
+import { instancedArray, instanceIndex, uniform, varying } from 'three/tsl';
+import {
+  createGlowOpacityNode,
+  createVertexRevealNode,
+  createRotationNode,
+} from '@features/landing/hero/starfield/landing-hero-starfield-shaders';
 
+let renderer: THREE.WebGPURenderer;
+let scene: THREE.Scene;
+let camera: THREE.PerspectiveCamera;
+let points: THREE.Sprite;
+let animationId: number;
+let revealSpeedUniform: THREE.UniformNode<number>;
+let revealWidthUniform: THREE.UniformNode<number>;
+let fadeBiasUniform: THREE.UniformNode<number>;
+let glowStrengthUniform: THREE.UniformNode<number>;
+let starSizeUniform: THREE.UniformNode<number>;
+let spinXUniform: THREE.UniformNode<number>;
+let spinYUniform: THREE.UniformNode<number>;
+let spinZUniform: THREE.UniformNode<number>;
 
-let renderer: THREE.WebGPURenderer
-let scene: THREE.Scene
-let camera: THREE.PerspectiveCamera
-let points: THREE.Sprite
-let animationId: number
-let revealSpeedUniform: THREE.UniformNode<number>
-let revealWidthUniform: THREE.UniformNode<number>
-let fadeBiasUniform: THREE.UniformNode<number>
-let glowStrengthUniform: THREE.UniformNode<number>
-let starSizeUniform: THREE.UniformNode<number>
-let spinXUniform: THREE.UniformNode<number>
-let spinYUniform: THREE.UniformNode<number>
-let spinZUniform: THREE.UniformNode<number>
-
-let resizeCanvas: ReturnType<typeof resizeCanvasFactory>
-let resizeRenderer: ReturnType<typeof resizeRendererFactory>
-let resizeCamera: ReturnType<typeof resizePrespectiveCameraFactory>
+let resizeCanvas: ReturnType<typeof resizeCanvasFactory>;
+let resizeRenderer: ReturnType<typeof resizeRendererFactory>;
+let resizeCamera: ReturnType<typeof resizePrespectiveCameraFactory>;
 
 /**
  * Starfield renderer class exposed via Comlink.
  * Property setters automatically apply side effects to the Three.js scene.
  */
 export class StarfieldRenderer {
+  private canvas: OffscreenCanvas;
+  private config = { ...DefaultStarfieldConfig };
 
-  private canvas: OffscreenCanvas
-  private config = {...DefaultStarfieldConfig}
-
-  constructor(canvas: OffscreenCanvas, width: number, height: number, config: StarfieldConfig) {
-    this.canvas = canvas
-    resizeCanvas = resizeCanvasFactory(this.canvas)
-    resizeCanvas(width, height)
-    this.config = {
-      ...config
-    }
-    this.init()
+  constructor(canvas: OffscreenCanvas, width: number, height: number) {
+    this.canvas = canvas;
+    resizeCanvas = resizeCanvasFactory(this.canvas);
+    resizeCanvas(width, height);
+    this.initScene();
   }
 
-  init() {
+  /** Setups the scene. */
+  initScene() {
     renderer = new THREE.WebGPURenderer({
       canvas: this.canvas,
-      alpha: true
-    })
-    resizeRenderer = resizeRendererFactory(renderer)
+      alpha: true,
+    });
+    resizeRenderer = resizeRendererFactory(renderer);
     camera = new THREE.PerspectiveCamera(
       155, // fov
       1, // aspect (will be updated on first resize)
-      0.00125, // near
-      0.45 // far
+      0.0025, // near
+      0.5 // far
     );
     camera.position.set(0, 0, 0.05);
     resizeCamera = resizePrespectiveCameraFactory(camera);
+    scene = new THREE.Scene();
   }
 
   /**
-   * Initializes the renderer with canvas and configuration
+   * Renders the scene.
    */
   async render() {
-
-    // Setup scene
-    scene = new THREE.Scene();
-
     // Create starfield
     this.createStarfield();
 
-
-    await renderer.init()
+    await renderer.init();
     // Start animation loop
     this.animate();
   }
@@ -106,6 +105,21 @@ export class StarfieldRenderer {
     if (!scene || !camera) return;
 
     const count = calculatePointCount(this.config.stars);
+
+    const arrays = this.createStarArrays(count);
+    const uniforms = this.createStarUniforms();
+    const nodes = this.createStarNodes(arrays, uniforms);
+
+    const material = this.createStarMaterial(nodes, uniforms);
+    points = this.createStarObject(material, count);
+
+    scene.add(points);
+  }
+
+  /**
+   * Create star position + color arrays
+   */
+  private createStarArrays(count: number) {
     const positions = generateStarPositions(count, this.config.fieldRadius);
     const palette = generateColorPalette(this.config.starColors);
     const colors = generateStarColors(count, palette);
@@ -116,8 +130,21 @@ export class StarfieldRenderer {
     starPositionArray.value.set(positions);
     starColorArray.value.set(colors);
 
-    // Create TSL uniforms
-    const revealSpeed = calculateRevealSpeed(this.config.fieldRadius, this.config.fieldEnterDuration);
+    return {
+      starPositionArray,
+      starColorArray,
+    };
+  }
+
+  /**
+   * Create all shader uniforms
+   */
+  private createStarUniforms() {
+    const revealSpeed = calculateRevealSpeed(
+      this.config.fieldRadius,
+      this.config.fieldEnterDuration
+    );
+
     const revealWidth = calculateRevealWidth(revealSpeed, this.config.starEnterDuration);
 
     revealSpeedUniform = uniform(revealSpeed);
@@ -129,54 +156,92 @@ export class StarfieldRenderer {
     spinYUniform = uniform(this.config.fieldSpinY);
     spinZUniform = uniform(this.config.fieldSpinZ);
 
-    const basePosition = starPositionArray.element(instanceIndex);
-    const rotatedPosition = createRotationNode(
+    return {
+      revealSpeedUniform,
+      revealWidthUniform,
+      fadeBiasUniform,
+      glowStrengthUniform,
+      starSizeUniform,
       spinXUniform,
       spinYUniform,
       spinZUniform,
+    };
+  }
+
+  /**
+   * Build all shader nodes
+   */
+  private createStarNodes(arrays: any, uniforms: any) {
+    const basePosition = arrays.starPositionArray.element(instanceIndex);
+
+    const rotatedPosition = createRotationNode(
+      uniforms.spinXUniform,
+      uniforms.spinYUniform,
+      uniforms.spinZUniform,
       basePosition
     );
 
-    // Create reveal node using TSL with rotated position
     const vReveal = varying(
       createVertexRevealNode(
-        revealSpeedUniform,
-        revealWidthUniform,
+        uniforms.revealSpeedUniform,
+        uniforms.revealWidthUniform,
         rotatedPosition
       )
     );
-    console.log(vReveal)
-    const baseColor = starColorArray.element(instanceIndex);
+
+    const baseColor = arrays.starColorArray.element(instanceIndex);
 
     const vColor = varying(baseColor);
 
-    const material = new THREE.PointsNodeMaterial({
-      transparent: true
-    });
-
-    material.positionNode = rotatedPosition;
-    material.colorNode = vColor;
-    material.opacityNode = createFragmentNode(fadeBiasUniform, glowStrengthUniform, vReveal)
-    material.depthWrite = false
-    material.transparent = true;
-    material.sizeNode = starSizeUniform.mul(vReveal)
-    material.sizeAttenuation = true;
-
-    console.log(createFragmentNode)
-
-    points = new THREE.Sprite(material);
-    points.count = count;
-    points.frustumCulled = false;
-
-    scene.add(points);
+    return {
+      rotatedPosition,
+      vReveal,
+      vColor,
+    };
   }
 
+  /**
+   * Build the PointsNodeMaterial
+   */
+  private createStarMaterial(nodes: any, uniforms: any) {
+    const material = new THREE.PointsNodeMaterial({
+      transparent: true,
+    });
+
+    material.positionNode = nodes.rotatedPosition;
+    material.colorNode = nodes.vColor;
+
+    material.opacityNode = createGlowOpacityNode(
+      uniforms.fadeBiasUniform,
+      uniforms.glowStrengthUniform,
+      nodes.vReveal
+    );
+
+    material.depthWrite = false;
+    material.transparent = true;
+    material.sizeNode = uniforms.starSizeUniform.mul(nodes.vReveal);
+    material.sizeAttenuation = true;
+
+    return material;
+  }
+
+  /**
+   * Create the star render object
+   */
+  private createStarObject(material: THREE.PointsNodeMaterial, count: number) {
+    const sprite = new THREE.Sprite(material);
+
+    sprite.count = count;
+    sprite.frustumCulled = false;
+
+    return sprite;
+  }
   /**
    * Recreates the starfield when major parameters change
    */
   private recreateStarfield() {
     if (points) {
-      (points.material as THREE.Material).dispose();
+      points.material.dispose();
       scene?.remove(points);
     }
     this.createStarfield();
@@ -291,7 +356,10 @@ export class StarfieldRenderer {
    */
   private updateRevealParameters() {
     if (revealSpeedUniform && revealWidthUniform) {
-      const revealSpeed = calculateRevealSpeed(this.config.fieldRadius, this.config.fieldEnterDuration);
+      const revealSpeed = calculateRevealSpeed(
+        this.config.fieldRadius,
+        this.config.fieldEnterDuration
+      );
       const revealWidth = calculateRevealWidth(revealSpeed, this.config.starEnterDuration);
 
       revealSpeedUniform.value = revealSpeed;
