@@ -92,12 +92,12 @@ export class LandingHeroStarfieldComponent extends ThreeJSComponent<ResizableWor
   /**
    * Spins the starfield in X direction, as constant velocity.
    */
-  readonly fieldSpinX = input<number>(-1/1024);
+  readonly fieldSpinX = input<number>(1/128);
 
   /**
    * Spins the starfield in Y direction, as constant velocity.
    */
-  readonly fieldSpinY = input<number>(1/512);
+  readonly fieldSpinY = input<number>(1/128);
 
   /**
    * Spins the starfield in Z direction, as constant velocity.
