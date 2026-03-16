@@ -1,0 +1,4 @@
+motorcycle.glb.bak filter=lfs diff=lfs merge=lfs -text
+motorcycle_900k.glb.bak filter=lfs diff=lfs merge=lfs -text
+motorcycle_900k_pbr.glb.bak filter=lfs diff=lfs merge=lfs -text
+motorcycle.blend.bak filter=lfs diff=lfs merge=lfs -text
