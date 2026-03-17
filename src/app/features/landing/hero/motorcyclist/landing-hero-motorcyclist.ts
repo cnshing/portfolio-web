@@ -7,9 +7,10 @@ import {
   inject,
   input,
   signal,
-  viewChild,
+  viewChild
 } from '@angular/core';
-import { VideoAutoplayDirective } from '@shared/directives/autoplay.directive';
+import { NgOptimizedImage } from '@angular/common';
+
 
 /**
  * Motorcyclist element with built-in animations.
@@ -21,25 +22,20 @@ import { VideoAutoplayDirective } from '@shared/directives/autoplay.directive';
 @Component({
   selector: 'landing-hero-motorcyclist',
   standalone: true,
-  imports: [VideoAutoplayDirective],
+  imports: [NgOptimizedImage],
   template: `
-    <video
-      class="brightness-75 w-full ml-[50vw] origin-bottom scale-x-[-250%] scale-y-[250%] max-h-[min((100%-var(--spacing-2xl)+4.25%)/2.5,var(--spacing-2xl)*4)] overflow-x-hidden"
-      [poster]="motorcyclePoster()"
-      disableRemotePlayback
-      muted
-      playsinline
-      loop
-      fetchpriority="high"
-      preload="metadata"
-      autoplay
-      #heroMotorcyclist
-      [class.animate-(--animate-motorcyclist-enter)]="!animationModuleReady()"
-      [style.animation-composition]="animationModuleReady() ? null : 'add'"
-    >
-      <source type="video/quicktime; codecs=hvc1.1.6.H120.b0" [src]="motorcycleSrc() + '.mp4'" />
-      <source type="video/webm; codecs=vp09.00.41.08" [src]="motorcycleSrc() + '.webm'" />
-    </video>
+    <div class="w-full ml-[50vw] origin-bottom scale-x-[-250%] scale-y-[250%] max-h-[min((100%-var(--spacing-2xl)+4.25%)/2.5,var(--spacing-2xl)*4)] overflow-x-hidden" #heroMotorcyclist [class.animate-(--animate-motorcyclist-enter)]="!animationModuleReady()"
+    [style.animation-composition]="animationModuleReady() ? null : 'add'" >
+      <img class="brightness-75 object-contain size-full" [ngSrc]="motorcycleSrc()+'.png'"
+      [loaderParams]="{baseWidth: 3840, stepDownOffset: 1}"
+      width="3840"
+      height="2112"
+      sizes="auto"
+      decoding="async"
+      alt="Motorcyclist"
+      priority
+      />
+    </div>
   `,
   host: {
     '[style.--enter-duration]': 'enterDurationSecs()', // Value must be unitless due to CSS animation implementation
@@ -56,9 +52,7 @@ export class LandingHeroMotorcyclistComponent {
    */
   constructor() {
     afterNextRender(async () => {
-      const vehcile = this.video().nativeElement;
-      vehcile.load(); // TODO: When possible make a directive to fix Angular video loading with multiple sources
-      vehcile.play();
+      const vehcile = this.motorcyclist().nativeElement;
       vehcile.addEventListener(
         'animationend',
         async (_: AnimationEvent) => {
@@ -110,7 +104,7 @@ export class LandingHeroMotorcyclistComponent {
    * @readonly
    * @type {*}
    */
-  protected readonly video = viewChild.required<ElementRef<HTMLVideoElement>>('heroMotorcyclist');
+  protected readonly motorcyclist = viewChild.required<ElementRef<HTMLVideoElement>>('heroMotorcyclist');
 
   /**
    * Src string of the motorcycle asset.
@@ -121,12 +115,4 @@ export class LandingHeroMotorcyclistComponent {
    */
   protected readonly motorcycleSrc = signal<string>('/assets/videos/motorcycle');
 
-  /**
-   * Src string of the motorcycle image preview.
-   *
-   * @protected
-   * @readonly
-   * @type {str}
-   */
-  protected readonly motorcyclePoster = computed(() => this.motorcycleSrc() + '@0.25x.avif');
 }
