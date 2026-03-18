@@ -50,9 +50,8 @@ import { isTouchDevice } from '@shared/utils/accessibility';
   ],
   host: {
     'class': 'pointer-events-auto',
-    // Prevent orbitcontrols from scroll jacking mobile users
     '[class.touch-pan-y]': 'isTouchDevice'
-  }
+  }     // Prevent orbitcontrols from scroll jacking mobile users from https://github.com/pmndrs/drei/issues/1233#issuecomment-2331351711
 })
 export class LandingHeroStarfieldComponent extends ThreeJSComponent<ResizableWorker & OrbitProxyWorker> {
 
