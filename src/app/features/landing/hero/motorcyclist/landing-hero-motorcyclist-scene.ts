@@ -40,10 +40,7 @@ import { bindSignalsThreeWorkerDirective } from '@shared/directives/three/bindin
     {
       directive: bindSignalsThreeWorkerDirective
     }
-  ],
-  host: {
-    'class': 'pointer-events-auto'
-  }
+  ]
 })
 export class LandingMotorcyclistSceneComponent extends ThreeJSComponent<ResizableWorker> {
 

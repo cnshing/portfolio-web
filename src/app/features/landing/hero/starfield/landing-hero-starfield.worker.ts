@@ -38,6 +38,8 @@ import {
   randomInSphereTSL,
   randomPaletteColorTSL,
 } from '@features/landing/hero/starfield/landing-hero-starfield-shaders';
+import { DeclareOrbitProxy, installOrbitControlsProxy } from '@shared/directives/three/orbitproxy.directive';
+import { OrbitControls } from 'three/addons';
 
 let renderer: WebGPURenderer;
 let scene: Scene;
@@ -54,7 +56,7 @@ let starSizeUniform: UniformNode<"float", number>;
 let spinXUniform: UniformNode<"float", number>;
 let spinYUniform: UniformNode<"float", number>;
 let spinZUniform: UniformNode<"float", number>;
-
+let controls: OrbitControls
 let resizeCanvas: ReturnType<typeof resizeCanvasFactory>;
 let resizeRenderer: ReturnType<typeof resizeRendererFactory>;
 let resizeCamera: ReturnType<typeof resizePrespectiveCameraFactory>;
@@ -63,11 +65,12 @@ let resizeCamera: ReturnType<typeof resizePrespectiveCameraFactory>;
  * Starfield renderer class exposed via Comlink.
  * Property setters automatically apply side effects to the Three.js scene.
  */
-export class StarfieldRenderer {
+export class StarfieldRenderer extends DeclareOrbitProxy {
   private canvas: OffscreenCanvas;
   private config = { ...DefaultStarfieldConfig };
 
   constructor(canvas: OffscreenCanvas, width: number, height: number) {
+    super()
     this.canvas = canvas;
     resizeCanvas = resizeCanvasFactory(this.canvas);
     resizeCanvas(width, height);
@@ -90,6 +93,10 @@ export class StarfieldRenderer {
     camera.position.set(0, 0, 0.05);
     resizeCamera = resizePrespectiveCameraFactory(camera);
     scene = new Scene();
+    controls = installOrbitControlsProxy(this, this.canvas, camera)
+    controls.enablePan = false
+    controls.enableZoom = false
+    controls.enableDamping = true
   }
 
   /**
@@ -107,7 +114,7 @@ export class StarfieldRenderer {
   /**
    * Resize handler using utils/three.ts functions
    */
-  onResize(rect: DOMRectReadOnly) {
+  override onResize(rect: DOMRectReadOnly) {
     const {width, height} = rect
     resizeCanvas(width, height);
     resizeRenderer(width, height, false);
@@ -240,6 +247,7 @@ export class StarfieldRenderer {
     if (!renderer || !scene || !camera || !points) return;
 
     // Rotation is now handled by TSL rotation node using time
+    controls.update()
     renderer.render(scene, camera);
     animationId = self.requestAnimationFrame(this.animate);
   };
