@@ -107,7 +107,8 @@ export class StarfieldRenderer {
   /**
    * Resize handler using utils/three.ts functions
    */
-  resize(width: number, height: number) {
+  onResize(rect: DOMRectReadOnly) {
+    const {width, height} = rect
     resizeCanvas(width, height);
     resizeRenderer(width, height, false);
     resizeCamera(width, height);
