@@ -30,7 +30,7 @@ import { LandingMotorcyclistSceneComponent } from './landing-hero-motorcyclist-s
       [style.animation-composition]="animationModuleReady() ? null : 'add'"
     >
       <!-- NOTE: The CSS is very brittle. You must ensure the placeholder's brightness, layout, and sizing is visually identical to the  the three.js's world equivalent.-->
-      @defer (when animationModuleReady(); prefetch on immediate) {
+      @defer (on immediate) {
 
       <landing-hero-motorcyclist-scene
         class="h-full w-[calc(100%+100rem)] mt-[4.25%] max-h-[calc(var(--spacing-2xl)*10)]"
