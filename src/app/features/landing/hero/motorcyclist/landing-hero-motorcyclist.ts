@@ -1,16 +1,15 @@
 import {
   afterNextRender,
   Component,
-  computed,
   DestroyRef,
   ElementRef,
   inject,
   input,
   signal,
-  viewChild
+  viewChild,
 } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
-
+import { LandingMotorcyclistSceneComponent } from './landing-hero-motorcyclist-scene';
 
 /**
  * Motorcyclist element with built-in animations.
@@ -22,25 +21,38 @@ import { NgOptimizedImage } from '@angular/common';
 @Component({
   selector: 'landing-hero-motorcyclist',
   standalone: true,
-  imports: [NgOptimizedImage],
+  imports: [NgOptimizedImage, LandingMotorcyclistSceneComponent],
   template: `
-    <div class="w-full ml-[50vw] origin-bottom scale-x-[-250%] scale-y-[250%] max-h-[min((100%-var(--spacing-2xl)+4.25%)/2.5,var(--spacing-2xl)*4)] overflow-x-hidden" #heroMotorcyclist [class.animate-(--animate-motorcyclist-enter)]="!animationModuleReady()"
-    [style.animation-composition]="animationModuleReady() ? null : 'add'" >
-      <img class="brightness-75 object-contain size-full" [ngSrc]="motorcycleSrc()+'.png'"
-      [loaderParams]="{baseWidth: 3840, stepDownOffset: 1}"
-      width="3840"
-      height="2112"
-      sizes="auto"
-      decoding="async"
-      alt="Motorcyclist"
-      priority
+    <div
+      class="relative size-full origin-center overflow-x-visible ml-[50vw] flex flex-col justify-end items-center"
+      #scrollHero
+      [class.animate-(--animate-motorcyclist-enter)]="!animationModuleReady()"
+      [style.animation-composition]="animationModuleReady() ? null : 'add'"
+    >
+      <!-- NOTE: The CSS is very brittle. You must look at the world three.js positioning in landing-hero-motorcyclist.worker.ts and manually adjust all layout sizes and postioning of the placeholder to the three.js equivalent.-->
+      @defer (when animationModuleReady(); prefetch on immediate) {
+
+      <landing-hero-motorcyclist-scene
+        class="h-full w-[calc(100%+100rem)] mt-[4.25%] max-h-[calc(var(--spacing-2xl)*10)] border border-blue-500"
       />
+      } @placeholder {
+      <img
+        class="brightness-75 origin-bottom object-contain  scale-x-[-250%] scale-y-[250%] max-h-[min((100%-var(--spacing-2xl)+17%)/2.5,var(--spacing-2xl)*4)] border border-red-500"
+        ngSrc="/assets/videos/motorcycle.png"
+        [loaderParams]="{ baseWidth: 3840, stepDownOffset: 1 }"
+        width="3840"
+        height="2112"
+        sizes="auto"
+        decoding="async"
+        alt="Motorcyclist"
+        priority
+      />
+      }
     </div>
   `,
   host: {
     '[style.--enter-duration]': 'enterDurationSecs()', // Value must be unitless due to CSS animation implementation
-    class:
-      'absolute bottom-0 size-full flex flex-col justify-end pl-lg overflow-x-hidden overflow-y-hidden',
+    class: 'overflow-x-hidden overflow-y-hidden',
   },
   styleUrl: 'landing-hero-motorcyclist-animation.sass',
 })
@@ -104,15 +116,5 @@ export class LandingHeroMotorcyclistComponent {
    * @readonly
    * @type {*}
    */
-  protected readonly motorcyclist = viewChild.required<ElementRef<HTMLVideoElement>>('heroMotorcyclist');
-
-  /**
-   * Src string of the motorcycle asset.
-   *
-   * @protected
-   * @readonly
-   * @type {str}
-   */
-  protected readonly motorcycleSrc = signal<string>('/assets/videos/motorcycle');
-
+  protected readonly motorcyclist = viewChild.required<ElementRef<HTMLElement>>('scrollHero');
 }
