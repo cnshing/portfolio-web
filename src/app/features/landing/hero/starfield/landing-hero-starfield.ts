@@ -11,7 +11,9 @@ import {
 } from '@angular/core';
 import { wrap, type Remote, transfer } from 'comlink';
 import { StarfieldRenderer } from "@features/landing/hero/starfield/landing-hero-starfield.worker";
-import { ThreeJSComponent, ResizeWorkerDirective, ResizableWorker, bindSignalsThreeWorkerDirective, provideThreeJSDirective } from '@shared/directives/three.directive';
+import { provideThreeJSDirective, ThreeJSComponent } from '@shared/directives/three/core.directive';
+import { ResizableWorker, ResizeWorkerDirective } from '@shared/directives/three/resizes.directive';
+import { bindSignalsThreeWorkerDirective } from '@shared/directives/three/binding.directive';
 
 /**
  * Three.JS animated starfield using Web Worker with OffscreenCanvas for maximum performance.
