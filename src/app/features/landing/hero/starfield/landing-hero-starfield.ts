@@ -14,6 +14,8 @@ import { StarfieldRenderer } from "@features/landing/hero/starfield/landing-hero
 import { provideThreeJSDirective, ThreeJSComponent } from '@shared/directives/three/core.directive';
 import { ResizableWorker, ResizeWorkerDirective } from '@shared/directives/three/resizes.directive';
 import { bindSignalsThreeWorkerDirective } from '@shared/directives/three/binding.directive';
+import { OffscreenOrbitControlsDirective, OrbitProxyWorker } from '@shared/directives/three/orbitproxy.directive';
+import { isTouchDevice } from '@shared/utils/accessibility';
 
 /**
  * Three.JS animated starfield using Web Worker with OffscreenCanvas for maximum performance.
@@ -41,10 +43,18 @@ import { bindSignalsThreeWorkerDirective } from '@shared/directives/three/bindin
     },
     {
       directive: bindSignalsThreeWorkerDirective
+    },
+    {
+      directive: OffscreenOrbitControlsDirective
     }
-  ]
+  ],
+  host: {
+    'class': 'pointer-events-auto',
+    // Prevent orbitcontrols from scroll jacking mobile users
+    '[class.touch-pan-y]': 'isTouchDevice'
+  }
 })
-export class LandingHeroStarfieldComponent extends ThreeJSComponent<ResizableWorker> {
+export class LandingHeroStarfieldComponent extends ThreeJSComponent<ResizableWorker & OrbitProxyWorker> {
 
 
   private canvasRef = viewChild.required<ElementRef<HTMLCanvasElement>>('starfieldCanvas')
@@ -142,6 +152,7 @@ export class LandingHeroStarfieldComponent extends ThreeJSComponent<ResizableWor
     });
   }
 
+  protected readonly isTouchDevice = isTouchDevice()
 
   /**
    * Cleans up worker and resize observer.
