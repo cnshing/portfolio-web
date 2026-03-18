@@ -65,7 +65,6 @@ export class LandingMotorcyclistSceneComponent extends ThreeJSComponent<Resizabl
       this.threeWorker.set(await new MotorcyclistRenderers(transfer(offscreen, [offscreen]), rect.width, rect.height))
 
       await this.threeWorker()!.render()
-      console.log("this thing fucking running or?")
     })
     this.destroyRef.onDestroy(async () => {
       await this.cleanup();
