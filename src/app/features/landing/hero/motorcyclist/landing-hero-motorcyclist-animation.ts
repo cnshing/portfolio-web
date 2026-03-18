@@ -33,7 +33,7 @@ export const vehcileFlipper = (element: HTMLElement) => {
  */
 export const vibrateVechile = (element: HTMLElement): gsap.core.Tween =>
   gsap.to(element, {
-    yPercent: '+=0.5',
+    yPercent: '+=0.4',
     id: 'vibrate',
     ...vibrate(12, -1 / 12),
   });
@@ -107,8 +107,7 @@ export const animateMotorcycle = (element: HTMLElement, enterDuration: number): 
           self.disable(true);
           flipVechile(-1);
           gsap.to(element, {
-            xPercent: '-30',
-            x: window.innerWidth - element.getBoundingClientRect().left,
+            x: '100vw',
             duration: enterDuration,
             overwrite: 'auto',
             ease: 'rough({strength: 25, template:power1.in, randomize: true})',
