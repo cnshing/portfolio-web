@@ -4,6 +4,7 @@ import {
   DestroyRef,
   ElementRef,
   inject,
+  output,
   signal,
   viewChild,
 } from '@angular/core';
@@ -44,6 +45,14 @@ export class LandingMotorcyclistSceneComponent extends ThreeJSComponent<Resizabl
 
   private canvasRef = viewChild.required<ElementRef<HTMLCanvasElement>>('motorcyclistCanvas')
 
+
+  /**
+   * When the Three.JS world is completely loaded.
+   *
+   * @type {*}
+   */
+  onLoad = output<void>()
+
   threeWorker = signal<Remote<MotorcyclistRenderer> | undefined>(undefined);
   threeBindings = [
     ""
@@ -65,6 +74,7 @@ export class LandingMotorcyclistSceneComponent extends ThreeJSComponent<Resizabl
       this.threeWorker.set(await new MotorcyclistRenderers(transfer(offscreen, [offscreen]), rect.width, rect.height))
 
       await this.threeWorker()!.render()
+      this.onLoad.emit()
     })
     this.destroyRef.onDestroy(async () => {
       await this.cleanup();

@@ -80,7 +80,7 @@ export class MotorcyclistRenderer {
    * Renders the scene.
    */
   async render() {
-    this.loadMotorcyclist()
+    await this.loadMotorcyclist()
     await renderer.init()
     // Start animation loop
     this.animate();
@@ -96,13 +96,12 @@ export class MotorcyclistRenderer {
   }
 
 
-  loadMotorcyclist() {
+  async loadMotorcyclist() {
     this.clearMotorcyclist()
-    gltf.load(motorcyclistSrc,(data)=>{
-    motorcyclist=data.scene
+    const data = await gltf.loadAsync(motorcyclistSrc)
+    motorcyclist = data.scene
     scene.add(motorcyclist)
     this.lookAtMotorcyclist()
-    })
   }
 
 
