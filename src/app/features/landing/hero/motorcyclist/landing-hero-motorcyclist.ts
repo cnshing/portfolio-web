@@ -30,14 +30,8 @@ import { LandingMotorcyclistSceneComponent } from './landing-hero-motorcyclist-s
       [style.animation-composition]="animationModuleReady() ? null : 'add'"
     >
       <!-- NOTE: The CSS is very brittle. You must ensure the placeholder's brightness, layout, and sizing is visually identical to the  the three.js's world equivalent.-->
-      @defer (on immediate) {
-
-      <landing-hero-motorcyclist-scene
-        class="h-full w-[calc(100%+100rem)] mt-[4.25%] max-h-[calc(var(--spacing-2xl)*10)]"
-      />
-      } @placeholder {
       <img
-        class="brightness-59 origin-bottom object-contain  scale-x-[-250%] scale-y-[250%] max-h-[min((100%-var(--spacing-2xl)+17%)/2.5,var(--spacing-2xl)*4)]"
+        class="absolute size-full brightness-59 origin-bottom object-contain  scale-x-[-250%] scale-y-[250%] max-h-[min((100%-var(--spacing-2xl)+17%)/2.5,var(--spacing-2xl)*4)]"
         ngSrc="/assets/videos/motorcycle.png"
         [loaderParams]="{ baseWidth: 3840, stepDownOffset: 1 }"
         width="3840"
@@ -46,7 +40,16 @@ import { LandingMotorcyclistSceneComponent } from './landing-hero-motorcyclist-s
         decoding="async"
         alt="Motorcyclist"
         priority
+        [class.opacity-100]="!SceneReady()"
+        [class.hidden]="SceneReady()"
       />
+      @defer (on immediate) {
+      <!-- We use the defference pattern from lottie.component.ts to stack both elements in the same layout and conditionally turn on/off both elements simulatenously for a flicker-free transition -->
+      <landing-hero-motorcyclist-scene
+        class="absolute h-full w-[calc(100%+100rem)] mt-[4.25%] max-h-[calc(var(--spacing-2xl)*10)]" (onLoad)="SceneReady.set(true)" [class.opacity-0]="!SceneReady()" [class.opacity-100]="SceneReady()"
+      />
+      } @placeholder {
+        <div class="absolute size-full"></div>
       }
     </div>
   `,
@@ -108,6 +111,16 @@ export class LandingHeroMotorcyclistComponent {
    * @type {*}
    */
   protected readonly animationModuleReady = signal<boolean>(false);
+
+  /**
+   * Is the lazy-loaded Three.JS motorcyclist ready to show?
+   *
+   * @protected
+   * @readonly
+   * @type {*}
+   */
+  protected readonly SceneReady = signal<boolean>(false);
+
 
   /**
    * Motorcycle element to animate.
