@@ -3,6 +3,13 @@ import { EventProxyDirective, EventPreprocessors } from "@shared/directives/thre
 import { OrbitControls } from "three/addons";
 import { type Camera } from "three/webgpu";
 
+/**
+ * A subset of PointerEvent neccesary for OrbitControl
+ *
+ * @export
+ * @interface OrbitPointerEvent
+ * @typedef {OrbitPointerEvent}
+ */
 export interface OrbitPointerEvent {
   clientX: number;
   clientY: number;
@@ -16,6 +23,13 @@ export interface OrbitPointerEvent {
   pageY: number;
 }
 
+/**
+ * A subset of PointerEvent neccesary for OrbitControl zoom.
+ *
+ * @export
+ * @interface OrbitWheelEvent
+ * @typedef {OrbitWheelEvent}
+ */
 export interface OrbitWheelEvent {
   clientX: number;
   clientY: number;
@@ -25,6 +39,13 @@ export interface OrbitWheelEvent {
   ctrlKey: boolean;
 }
 
+/**
+ * A subset of KeyEvent neccesary for OrbitControl.
+ *
+ * @export
+ * @interface OrbitKeyEvent
+ * @typedef {OrbitKeyEvent}
+ */
 export interface OrbitKeyEvent {
   code: string;
   key: string;
@@ -33,45 +54,60 @@ export interface OrbitKeyEvent {
   shiftKey: boolean;
 }
 
+/**
+ * For the orbit control directive to work, the following functions must be declared.
+ *
+ * @export
+ * @interface OrbitProxyWorker
+ * @typedef {OrbitProxyWorker}
+ */
 export interface OrbitProxyWorker {
+
   onPointerdown(event: OrbitPointerEvent): void;
   onPointermove(event: OrbitPointerEvent): void;
   onPointerup(event: OrbitPointerEvent): void;
   onPointercancel(event: OrbitPointerEvent): void;
-
   onMousedown?(event: OrbitPointerEvent): void;
   onMousemove?(event: OrbitPointerEvent): void;
   onMouseup?(event: OrbitPointerEvent): void;
-
   onWheel(event: OrbitWheelEvent): void;
-
   onKeydown(event: OrbitKeyEvent): void;
-
   onResize(rect: DOMRectReadOnly): void;
   onContextmenu(event: OrbitPointerEvent): void;
 }
 
 
-export class DummyOrbitWorker implements OrbitProxyWorker {
+
+/**
+ * Automatically defines all neccesary orbit proxy methods for the worker.
+ *
+ * @export
+ * @class DeclareOrbitProxy
+ * @typedef {DeclareOrbitProxy}
+ * @implements {OrbitProxyWorker}
+ */
+export class DeclareOrbitProxy implements OrbitProxyWorker {
 
   onPointerdown(_: OrbitPointerEvent): void {}
   onPointermove(_: OrbitPointerEvent): void {}
   onPointerup(_: OrbitPointerEvent): void {}
   onPointercancel(_: OrbitPointerEvent): void {}
-
   onMousedown?(_: OrbitPointerEvent): void {}
   onMousemove?(_: OrbitPointerEvent): void {}
   onMouseup?(_: OrbitPointerEvent): void {}
-
   onWheel(_: OrbitWheelEvent): void {}
-
   onKeydown(_: OrbitKeyEvent): void {}
-
   onResize(_: DOMRectReadOnly): void {}
-
   onContextmenu(_: OrbitPointerEvent): void {}
 }
 
+/**
+ * A psuedo element for OrbitControl containing all the methods for OrbitControl(... DOMElement) to function properly.
+ *
+ * @export
+ * @class OrbitElement
+ * @typedef {OrbitElement}
+ */
 export class OrbitElement {
   constructor(private canvas: OffscreenCanvas) {}
 
@@ -83,6 +119,7 @@ export class OrbitElement {
   get ownerDocument() {
     return this.canvas
   }
+
 
   left = 0
   top = 0
@@ -144,6 +181,7 @@ function pointerPreprocessor(event: PointerEvent): OrbitPointerEvent {
   };
 }
 
+
 function wheelPreprocessor(event: WheelEvent): OrbitWheelEvent {
   return {
     clientX: event.clientX,
@@ -172,6 +210,11 @@ function keydownPreprocessor(event: KeyboardEvent): OrbitKeyEvent {
 }
 
 
+/**
+ * All required events for OrbitControl to operate under Offscreen Canvas.
+ *
+ * @type {readonly ["pointerdown", "pointermove", "pointerup", "pointercancel", "wheel", "keydown", "contextmenu"]}
+ */
 const ORBIT_EVENTS = [
   'pointerdown',
   'pointermove',
@@ -182,8 +225,18 @@ const ORBIT_EVENTS = [
   'contextmenu'
 ] as const;
 
+
 export type OrbitEvent = typeof ORBIT_EVENTS[number];
 
+/**
+ * Using this directive along with `DeclareOrbitProxy`, `ThreeJSComponent`, and `installOrbitControlsProxy` to allow for OrbitControls in an offscreen context. Specifically, this directive automatically forwards any events as well as mantaining the required DOMElement for OrbitControl, given you follow the convention for `ThreeJSComponent` and declare the orbit proxy and use our helper function to automatically forward the events via `installOrbitControlsProxy`.
+ *
+ *
+ * @export
+ * @class OffscreenOrbitControlsDirective
+ * @typedef {OffscreenOrbitControlsDirective}
+ * @extends {EventProxyDirective<OrbitEvent>}
+ */
 @Directive({
   selector: '[offscreen-orbit-controls]',
   standalone: true,
@@ -191,7 +244,9 @@ export type OrbitEvent = typeof ORBIT_EVENTS[number];
 export class OffscreenOrbitControlsDirective
   extends EventProxyDirective<OrbitEvent> {
 
+
   override events = input<readonly OrbitEvent[]>(ORBIT_EVENTS);
+
 
   override preprocessors = input<EventPreprocessors<OrbitEvent>>({
     pointerdown: pointerPreprocessor,
@@ -203,11 +258,21 @@ export class OffscreenOrbitControlsDirective
     contextmenu: (_: PointerEvent) => {return {}}
   });
 
+
   override eventOptions = input<Partial<Record<OrbitEvent, AddEventListenerOptions | boolean>>>({
     wheel: { passive: false },
   });
 }
 
+/**
+ * Manually defining the required methods to proxy forward evemts for OrbitControl is mundane. This function handles all of the work on the Worker side.
+ *
+ * @export
+ * @param {OrbitProxyWorker} worker Your underlying class must extend OrbitProxyWorker, or more preferably `DeclareOrbitProxy` so that you don't have to manually code each function individually.
+ * @param {OffscreenCanvas} canvas The OffScreen canvas element.
+ * @param {Camera} camera OrbitControl's camera.
+ * @returns {OrbitControls}
+ */
 export function installOrbitControlsProxy(
   worker: OrbitProxyWorker,
   canvas: OffscreenCanvas,
