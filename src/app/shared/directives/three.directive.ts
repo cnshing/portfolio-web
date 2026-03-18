@@ -127,7 +127,7 @@ export class ResizeWorkerDirective {
       const entry = entries[0];
       if (!entry) return;
 
-      const { width, height } = entry.contentRect;
+      const { width, height } = entry.target.getBoundingClientRect();
       await worker.resize(width, height);
     });
 
