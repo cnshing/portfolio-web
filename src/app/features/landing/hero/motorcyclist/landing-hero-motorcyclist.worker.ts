@@ -68,8 +68,6 @@ export class MotorcyclistRenderer {
       0.1,
       100
     );
-    camera.position.set(0,0,IMG_Z_CAM_ADJUSTMENT
-    );
     resizeCamera = resizePrespectiveCameraFactory(camera);
     scene = new Scene();
     scene.add(new AmbientLight(0xffffff,.7))
