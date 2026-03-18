@@ -31,9 +31,9 @@ import { LandingMotorcyclistSceneComponent } from './landing-hero-motorcyclist-s
     >
       <!-- NOTE: The CSS is very brittle. You must ensure the placeholder's brightness, layout, and sizing is visually identical to the  the three.js's world equivalent.-->
       <img
-        class="absolute size-full brightness-59 origin-bottom object-contain  scale-x-[-250%] scale-y-[250%] max-h-[min((100%-var(--spacing-2xl)+17%)/2.5,var(--spacing-2xl)*4)]"
+        class="absolute size-full brightness-75 origin-bottom object-contain  scale-x-[-250%] scale-y-[250%] max-h-[min((100%-var(--spacing-2xl)+17%)/2.5,var(--spacing-2xl)*4)]"
         ngSrc="/assets/videos/motorcycle.png"
-        [loaderParams]="{ baseWidth: 3840, stepDownOffset: 1 }"
+        [loaderParams]="{ baseWidth: 3840, stepDownOffset: 0 }"
         width="3840"
         height="2112"
         sizes="auto"

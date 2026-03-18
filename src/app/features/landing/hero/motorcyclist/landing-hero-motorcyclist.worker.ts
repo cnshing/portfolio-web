@@ -76,8 +76,8 @@ export class MotorcyclistRenderer {
     camera = new PerspectiveCamera(45, 1, 0.1, 100);
     resizeCamera = resizePrespectiveCameraFactory(camera);
     scene = new Scene();
-    scene.add(new AmbientLight(0xffffff, 0.5));
-    light = new DirectionalLight(0xffffff, 1);
+    scene.add(new AmbientLight(0xffffff, 1.5));
+    light = new DirectionalLight(0xffffff, 1.5);
     light.position.set(-2, 4.5, IMG_Z_CAM_ADJUSTMENT);
     scene.add(light);
   }
