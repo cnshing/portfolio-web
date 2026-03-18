@@ -29,7 +29,7 @@ import { LandingMotorcyclistSceneComponent } from './landing-hero-motorcyclist-s
       [class.animate-(--animate-motorcyclist-enter)]="!animationModuleReady()"
       [style.animation-composition]="animationModuleReady() ? null : 'add'"
     >
-      <!-- NOTE: The CSS is very brittle. You must look at the world three.js positioning in landing-hero-motorcyclist.worker.ts and manually adjust all layout sizes and postioning of the placeholder to the three.js equivalent.-->
+      <!-- NOTE: The CSS is very brittle. You must ensure the placeholder's brightness, layout, and sizing is visually identical to the  the three.js's world equivalent.-->
       @defer (when animationModuleReady(); prefetch on immediate) {
 
       <landing-hero-motorcyclist-scene
@@ -37,7 +37,7 @@ import { LandingMotorcyclistSceneComponent } from './landing-hero-motorcyclist-s
       />
       } @placeholder {
       <img
-        class="brightness-75 origin-bottom object-contain  scale-x-[-250%] scale-y-[250%] max-h-[min((100%-var(--spacing-2xl)+17%)/2.5,var(--spacing-2xl)*4)] border border-red-500"
+        class="brightness-59 origin-bottom object-contain  scale-x-[-250%] scale-y-[250%] max-h-[min((100%-var(--spacing-2xl)+17%)/2.5,var(--spacing-2xl)*4)] border border-red-500"
         ngSrc="/assets/videos/motorcycle.png"
         [loaderParams]="{ baseWidth: 3840, stepDownOffset: 1 }"
         width="3840"
