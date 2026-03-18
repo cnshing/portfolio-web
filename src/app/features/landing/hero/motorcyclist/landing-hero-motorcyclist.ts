@@ -24,7 +24,7 @@ import { LandingMotorcyclistSceneComponent } from './landing-hero-motorcyclist-s
   imports: [NgOptimizedImage, LandingMotorcyclistSceneComponent],
   template: `
     <div
-      class="relative size-full origin-center overflow-x-visible ml-[50vw] flex flex-col justify-end items-center"
+      class="relative size-full origin-center overflow-x-visible ml-[50vw] flex flex-col justify-end items-center *:duration-400 *:ease-in"
       #scrollHero
       [class.animate-(--animate-motorcyclist-enter)]="!animationModuleReady()"
       [style.animation-composition]="animationModuleReady() ? null : 'add'"
@@ -41,7 +41,8 @@ import { LandingMotorcyclistSceneComponent } from './landing-hero-motorcyclist-s
         alt="Motorcyclist"
         priority
         [class.opacity-100]="!SceneReady()"
-        [class.hidden]="SceneReady()"
+        [class.opacity-0]="SceneReady()"
+        [class.pointer-events-none]="SceneReady()"
       />
       @defer (on immediate) {
       <!-- We use the defference pattern from lottie.component.ts to stack both elements in the same layout and conditionally turn on/off both elements simulatenously for a flicker-free transition -->
