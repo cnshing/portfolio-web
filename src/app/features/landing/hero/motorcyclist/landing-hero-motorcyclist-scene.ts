@@ -10,15 +10,17 @@ import {
 } from '@angular/core';
 import { wrap, type Remote, transfer } from 'comlink';
 import { type MotorcyclistRenderer } from '@features/landing/hero/motorcyclist/landing-hero-motorcyclist.worker';
-import { ThreeJSComponent, ResizeWorkerDirective, ResizableWorker, bindSignalsThreeWorkerDirective, provideThreeJSDirective } from '@shared/directives/three.directive';
+import { provideThreeJSDirective, ThreeJSComponent } from '@shared/directives/three/core.directive';
+import { ResizableWorker, ResizeWorkerDirective } from '@shared/directives/three/resizes.directive';
+import { bindSignalsThreeWorkerDirective } from '@shared/directives/three/binding.directive';
 
 /**
  * Three.JS animated starfield using Web Worker with OffscreenCanvas for maximum performance.
  * Uses Comlink for type-safe communication and syncToThreeCanvas for automatic Signal synchronization.
  *
  * @export
- * @class LandingHeroStarfieldComponent
- * @typedef {LandingHeroStarfieldComponent}
+ * @class LandingMotorcyclistSceneComponent
+ * @typedef {LandingHeroMotorcyclistSceneComponent}
  */
 @Component({
   selector: 'landing-hero-motorcyclist-scene',
@@ -38,7 +40,10 @@ import { ThreeJSComponent, ResizeWorkerDirective, ResizableWorker, bindSignalsTh
     {
       directive: bindSignalsThreeWorkerDirective
     }
-  ]
+  ],
+  host: {
+    'class': 'pointer-events-auto'
+  }
 })
 export class LandingMotorcyclistSceneComponent extends ThreeJSComponent<ResizableWorker> {
 
