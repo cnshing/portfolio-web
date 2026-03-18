@@ -24,7 +24,7 @@ import { LandingMotorcyclistSceneComponent } from './landing-hero-motorcyclist-s
   imports: [NgOptimizedImage, LandingMotorcyclistSceneComponent],
   template: `
     <div
-      class="relative size-full origin-center overflow-x-visible ml-[50vw] flex flex-col justify-end items-center *:duration-400 *:ease-in"
+      class="relative size-full origin-center overflow-x-visible ml-[50vw] flex flex-col justify-end items-center *:duration-250 *:ease-in"
       #scrollHero
       [class.animate-(--animate-motorcyclist-enter)]="!animationModuleReady()"
       [style.animation-composition]="animationModuleReady() ? null : 'add'"
