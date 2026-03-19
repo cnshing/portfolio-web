@@ -26,7 +26,7 @@ import { isTouchDevice } from '@shared/utils/accessibility';
       <div class="flex flex-col gap-lg w-fit">
         <div>
           <h1 class="relative text-hero-accent z-[4]">Zooming</h1>
-          <h1 class="relative z-[2] backdrop-blur-[0.5px]">Full Stack Developer</h1>
+          <h1 class="relative z-[4] backdrop-blur-[0.5px]">Full Stack Developer</h1>
         </div>
         <a
           target="_blank"
