@@ -26,5 +26,6 @@ export const environment = {
   landingSkillsContentMDs: [
     Docker, NextJS, Svelte, GithubActions, Python, Typescript, Proxmox, React, Angular, Figma, GSAP, ThreeJS
   ],
-  legalPrivacyPolicyMD: PrivacyPolicy
+  legalPrivacyPolicyMD: PrivacyPolicy,
+  enableMusic: false,
 } as const;

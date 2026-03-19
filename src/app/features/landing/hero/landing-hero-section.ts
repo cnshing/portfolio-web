@@ -71,12 +71,14 @@ import { isTouchDevice } from '@shared/utils/accessibility';
       priority
     />
     </div>
-    <button #landingHeroMusic class="absolute top-md right-md right-sm z-[6] aspect-square !size-lg !p-3xs !rounded-sm animate-(--animate-fade-in) pointer-events-auto" aria-labelledby="musicPlayer" z-button zType="outline" (click)="music.paused ? music.play() : music.pause()">
+    @if (enableMusic) {
+      <button #landingHeroMusic class="absolute top-md right-md right-sm z-[6] aspect-square !size-lg !p-3xs !rounded-sm animate-(--animate-fade-in) pointer-events-auto" aria-labelledby="musicPlayer" z-button zType="outline" (click)="music.paused ? music.play() : music.pause()">
       <audio loop disableRemotePlayback #music preload="none">
         <source src="/assets/music/background.mp3" type="audio/mp3" />
       </audio>
       <landing-vinyl-icon [paused]="music.paused" />
     </button>
+    }
   `,
   styles: `
   :host
@@ -105,5 +107,6 @@ export default class LandingHeroComponent {
 
 
   protected readonly isReduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  protected readonly enableMusic = environment.enableMusic
 
 }
