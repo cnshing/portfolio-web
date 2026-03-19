@@ -26,7 +26,7 @@ import { isTouchDevice } from '@shared/utils/accessibility';
       <div class="flex flex-col gap-lg w-fit">
         <div>
           <h1 class="relative text-hero-accent z-[4]">Zooming</h1>
-          <h1 class="relative z-[2] backdrop-blur-[1.25px]">Full Stack Developer</h1>
+          <h1 class="relative z-[2] backdrop-blur-[0.5px]">Full Stack Developer</h1>
         </div>
         <a
           target="_blank"
@@ -45,7 +45,7 @@ import { isTouchDevice } from '@shared/utils/accessibility';
         </a>
       </div>
     </section>
-    <landing-hero-motorcyclist [enterDurationSecs]="2.0" class="absolute pt-2xl z-[3] bottom-0 size-full" />
+    <landing-hero-motorcyclist [enterDurationSecs]="isReduceMotion ? 4.0 : 2.0" class="absolute pt-2xl z-[3] bottom-0 size-full" />
     <landing-hero-affordance
       class="absolute bottom-0 translate-y-[calc(var(--racetrack-height)/2)] -translate-x-1/2 left-1/2 z-[7] text-color-accent brightness-75 animate-bounce *:data-motorcycle:text-[9vw] *:data-arrow:text-[7.5vw] *:md:data-motorcycle:text-2xl *:md:data-arrow:text-xl
       [animation-duration:2500ms]transition-opacity duration-1500 ease-in-out"
