@@ -13,6 +13,7 @@ import { type MotorcyclistRenderer } from '@features/landing/hero/motorcyclist/l
 import { provideThreeJSDirective, ThreeJSComponent } from '@shared/directives/three/core.directive';
 import { ResizableWorker, ResizeWorkerDirective } from '@shared/directives/three/resizes.directive';
 import { bindSignalsThreeWorkerDirective } from '@shared/directives/three/binding.directive';
+import { DPRChangeWorker, DPRChangeDirective } from '@shared/directives/three/dpr.directive';
 
 /**
  * Three.JS animated starfield using Web Worker with OffscreenCanvas for maximum performance.
@@ -39,10 +40,13 @@ import { bindSignalsThreeWorkerDirective } from '@shared/directives/three/bindin
     },
     {
       directive: bindSignalsThreeWorkerDirective
+    },
+    {
+      directive: DPRChangeDirective
     }
   ]
 })
-export class LandingMotorcyclistSceneComponent extends ThreeJSComponent<ResizableWorker> {
+export class LandingMotorcyclistSceneComponent extends ThreeJSComponent<ResizableWorker & DPRChangeWorker> {
 
 
   private canvasRef = viewChild.required<ElementRef<HTMLCanvasElement>>('motorcyclistCanvas')
