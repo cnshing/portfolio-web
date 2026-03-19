@@ -40,8 +40,8 @@ let IMG_X_ADJUSTMENT = 0;
 let IMG_Y_ADJUSTMENT = 0;
 let IMG_Z_CAM_ADJUSTMENT = 1.5;
 let orbitCenter = new Vector3();
-let minPolar = 78.5;
-let maxPolar = 82.5;
+let minPolar = 76.75;
+let maxPolar = 84.25;
 let minAzimuth = -2;
 let maxAzimuth = 2;
 let radius = IMG_Z_CAM_ADJUSTMENT;
@@ -66,7 +66,6 @@ export class MotorcyclistRenderer {
     renderer = new WebGPURenderer({
       canvas: this.canvas,
       alpha: true,
-      antialias: true,
     });
 
     resizeRenderer = resizeRendererFactory(renderer);
