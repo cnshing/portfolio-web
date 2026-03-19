@@ -61,7 +61,7 @@ let controls: OrbitControls
 let resizeCanvas: ReturnType<typeof resizeCanvasFactory>;
 let resizeRenderer: ReturnType<typeof resizeRendererFactory>;
 let resizeCamera: ReturnType<typeof resizePrespectiveCameraFactory>;
-let onDPRChange: ReturnType<typeof onDPRChangeFactory>;
+let redprRenderer: ReturnType<typeof onDPRChangeFactory>;
 
 /**
  * Starfield renderer class exposed via Comlink.
@@ -92,7 +92,7 @@ export class StarfieldRenderer extends DeclareOrbitProxy {
       0.0025, // near
       0.5 // far
     );
-    onDPRChange = onDPRChangeFactory(renderer)
+    redprRenderer = onDPRChangeFactory(renderer)
     camera.position.set(0, 0, 0.05);
     resizeCamera = resizePrespectiveCameraFactory(camera);
     scene = new Scene();
@@ -103,7 +103,7 @@ export class StarfieldRenderer extends DeclareOrbitProxy {
   }
 
   onDPRChange(dpr: number) {
-    onDPRChange(dpr) // ???
+    redprRenderer(dpr) // ???
   }
   /**
    * Renders the scene.
