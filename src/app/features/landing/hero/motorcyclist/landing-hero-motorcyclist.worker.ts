@@ -35,7 +35,7 @@ let motorcyclistSrc: string = '/assets/models/motorcycle/motorcycle-opt.glb';
 let resizeCanvas: ReturnType<typeof resizeCanvasFactory>;
 let resizeRenderer: ReturnType<typeof resizeRendererFactory>;
 let resizeCamera: ReturnType<typeof resizePrespectiveCameraFactory>;
-let onDPRChange: ReturnType<typeof onDPRChangeFactory>
+let redprRenderer:  ReturnType<typeof onDPRChangeFactory>
 let IMG_X_ADJUSTMENT = 0;
 let IMG_Y_ADJUSTMENT = 0;
 let IMG_Z_CAM_ADJUSTMENT = 1.5;
@@ -69,7 +69,7 @@ export class MotorcyclistRenderer {
     });
 
     resizeRenderer = resizeRendererFactory(renderer);
-    onDPRChange = onDPRChangeFactory(renderer)
+    redprRenderer = onDPRChangeFactory(renderer)
     const draco = new DRACOLoader();
     draco.setDecoderPath('/runtimes/three/draco/');
 
@@ -94,8 +94,7 @@ export class MotorcyclistRenderer {
   }
 
   onDPRChange(dpr: number) {
-    console.log('working')
-    onDPRChange(dpr) // ???
+    redprRenderer(dpr)
   }
 
   /**
