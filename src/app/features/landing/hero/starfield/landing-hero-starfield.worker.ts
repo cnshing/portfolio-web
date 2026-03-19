@@ -40,6 +40,7 @@ import {
 } from '@features/landing/hero/starfield/landing-hero-starfield-shaders';
 import { DeclareOrbitProxy, installOrbitControlsProxy } from '@shared/directives/three/orbitproxy.directive';
 import { OrbitControls } from 'three/addons';
+import { onDPRChangeFactory } from '@shared/directives/three/dpr.directive';
 
 let renderer: WebGPURenderer;
 let scene: Scene;
@@ -60,6 +61,7 @@ let controls: OrbitControls
 let resizeCanvas: ReturnType<typeof resizeCanvasFactory>;
 let resizeRenderer: ReturnType<typeof resizeRendererFactory>;
 let resizeCamera: ReturnType<typeof resizePrespectiveCameraFactory>;
+let onDPRChange: ReturnType<typeof onDPRChangeFactory>;
 
 /**
  * Starfield renderer class exposed via Comlink.
@@ -90,6 +92,7 @@ export class StarfieldRenderer extends DeclareOrbitProxy {
       0.0025, // near
       0.5 // far
     );
+    onDPRChange = onDPRChangeFactory(renderer)
     camera.position.set(0, 0, 0.05);
     resizeCamera = resizePrespectiveCameraFactory(camera);
     scene = new Scene();
@@ -99,6 +102,9 @@ export class StarfieldRenderer extends DeclareOrbitProxy {
     controls.enableDamping = true
   }
 
+  onDPRChange(dpr: number) {
+    onDPRChange(dpr) // ???
+  }
   /**
    * Renders the scene.
    */

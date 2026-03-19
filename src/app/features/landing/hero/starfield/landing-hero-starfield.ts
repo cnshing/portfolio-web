@@ -16,6 +16,7 @@ import { ResizableWorker, ResizeWorkerDirective } from '@shared/directives/three
 import { bindSignalsThreeWorkerDirective } from '@shared/directives/three/binding.directive';
 import { OffscreenOrbitControlsDirective, OrbitProxyWorker } from '@shared/directives/three/orbitproxy.directive';
 import { isTouchDevice } from '@shared/utils/accessibility';
+import { DPRChangeWorker, DPRChangeDirective } from '@shared/directives/three/dpr.directive';
 
 /**
  * Three.JS animated starfield using Web Worker with OffscreenCanvas for maximum performance.
@@ -46,6 +47,9 @@ import { isTouchDevice } from '@shared/utils/accessibility';
     },
     {
       directive: OffscreenOrbitControlsDirective
+    },
+    {
+      directive: DPRChangeDirective
     }
   ],
   host: {
@@ -53,7 +57,7 @@ import { isTouchDevice } from '@shared/utils/accessibility';
     '[class.touch-pan-y]': 'isTouchDevice'
   }     // Prevent orbitcontrols from scroll jacking mobile users from https://github.com/pmndrs/drei/issues/1233#issuecomment-2331351711
 })
-export class LandingHeroStarfieldComponent extends ThreeJSComponent<ResizableWorker & OrbitProxyWorker> {
+export class LandingHeroStarfieldComponent extends ThreeJSComponent<ResizableWorker & OrbitProxyWorker & DPRChangeWorker> {
 
 
   private canvasRef = viewChild.required<ElementRef<HTMLCanvasElement>>('starfieldCanvas')

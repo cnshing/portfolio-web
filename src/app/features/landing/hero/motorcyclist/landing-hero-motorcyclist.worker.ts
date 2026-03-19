@@ -22,6 +22,7 @@ import {
 } from '@shared/utils/three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
+import { onDPRChangeFactory } from '@shared/directives/three/dpr.directive';
 
 let renderer: WebGPURenderer;
 let scene: Scene;
@@ -34,6 +35,7 @@ let motorcyclistSrc: string = '/assets/models/motorcycle/motorcycle-opt.glb';
 let resizeCanvas: ReturnType<typeof resizeCanvasFactory>;
 let resizeRenderer: ReturnType<typeof resizeRendererFactory>;
 let resizeCamera: ReturnType<typeof resizePrespectiveCameraFactory>;
+let onDPRChange: ReturnType<typeof onDPRChangeFactory>
 let IMG_X_ADJUSTMENT = 0;
 let IMG_Y_ADJUSTMENT = 0;
 let IMG_Z_CAM_ADJUSTMENT = 1.5;
@@ -64,10 +66,11 @@ export class MotorcyclistRenderer {
     renderer = new WebGPURenderer({
       canvas: this.canvas,
       alpha: true,
+      antialias: true,
     });
 
     resizeRenderer = resizeRendererFactory(renderer);
-
+    onDPRChange = onDPRChangeFactory(renderer)
     const draco = new DRACOLoader();
     draco.setDecoderPath('/runtimes/three/draco/');
 
@@ -89,6 +92,11 @@ export class MotorcyclistRenderer {
     await this.loadMotorcyclist();
     await renderer.init();
     this.animate();
+  }
+
+  onDPRChange(dpr: number) {
+    console.log('working')
+    onDPRChange(dpr) // ???
   }
 
   /**
