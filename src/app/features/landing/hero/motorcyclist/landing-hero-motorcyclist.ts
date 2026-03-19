@@ -11,6 +11,7 @@ import {
 import { NgOptimizedImage } from '@angular/common';
 import { LandingMotorcyclistSceneComponent } from './landing-hero-motorcyclist-scene';
 
+
 /**
  * Motorcyclist element with built-in animations.
  *
@@ -24,30 +25,31 @@ import { LandingMotorcyclistSceneComponent } from './landing-hero-motorcyclist-s
   imports: [NgOptimizedImage, LandingMotorcyclistSceneComponent],
   template: `
     <div
-      class="relative size-full origin-center overflow-x-visible ml-[50vw] flex flex-col justify-end items-center *:duration-500 *:ease-in"
+      class="relative size-full origin-center overflow-x-visible ml-[50vw] flex flex-col justify-end items-center *:duration-0 *:ease-in"
       #scrollHero
       [class.animate-(--animate-motorcyclist-enter)]="!animationModuleReady()"
       [style.animation-composition]="animationModuleReady() ? null : 'add'"
     >
       <!-- NOTE: The CSS is very brittle. You must ensure the placeholder's brightness, layout, and sizing is visually identical to the  the three.js's world equivalent.-->
       <img
-        class="absolute size-full brightness-82 origin-bottom object-contain  scale-x-[-250%] scale-y-[250%] max-h-[min((100%-var(--spacing-2xl)+17%)/2.5,var(--spacing-2xl)*4)]"
-        ngSrc="/assets/videos/motorcycle.png"
-        [loaderParams]="{ baseWidth: 3840, stepDownOffset: 0 }"
-        width="3840"
-        height="2112"
+        class="absolute size-full origin-bottom object-contain  scale-x-[250%] scale-y-[250%] max-h-[min((100%-var(--spacing-2xl)+17%)/2.5,var(--spacing-2xl)*4)]"
+        ngSrc="/assets/models/motorcycle/motorcycle-opt.png"
+        [loaderParams]="{ baseWidth: 4096, stepDownOffset: 0 }"
+        width="4096"
+        height="2160"
         sizes="auto"
         decoding="async"
         alt="Motorcyclist"
         priority
         [class.opacity-100]="!SceneReady()"
-        [class.opacity-0]="SceneReady()"
-        [class.pointer-events-none]="SceneReady()"
+        [class.hidden]="SceneReady()"
       />
       @defer (on immediate) {
       <!-- We use the defference pattern from lottie.component.ts to stack both elements in the same layout and conditionally turn on/off both elements simulatenously for a flicker-free transition -->
       <landing-hero-motorcyclist-scene
-        class="absolute h-full w-[calc(100%+100rem)] mt-[4.25%] max-h-[calc(var(--spacing-2xl)*10)]" (onLoad)="SceneReady.set(true)" [class.opacity-0]="!SceneReady()" [class.opacity-100]="SceneReady()"
+        class="absolute h-full w-[calc(100%+100rem)] mt-[4.25%] max-h-[min(117%-var(--spacing-2xl),var(--spacing-2xl)*10)]" (onLoad)="SceneReady.set(true)"
+        [class.opacity-0]="!SceneReady()"
+        [class.opacity-100]="SceneReady()"
       />
       } @placeholder {
         <div class="absolute size-full"></div>
