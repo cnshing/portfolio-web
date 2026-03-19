@@ -72,7 +72,7 @@ import { isTouchDevice } from '@shared/utils/accessibility';
     />
     </div>
     @if (enableMusic) {
-      <button #landingHeroMusic class="absolute top-md right-md right-sm z-[6] aspect-square !size-lg !p-3xs !rounded-sm animate-(--animate-fade-in) pointer-events-auto" aria-labelledby="musicPlayer" z-button zType="outline" (click)="music.paused ? music.play() : music.pause()">
+      <button #landingHeroMusic class="absolute top-md right-md right-sm z-[6] aspect-square !size-lg !p-3xs !rounded-sm animate-(--animate-fade-in) pointer-events-auto" aria-label="musicPlayer" z-button zType="outline" (click)="music.paused ? music.play() : music.pause()">
       <audio loop disableRemotePlayback #music preload="none">
         <source src="/assets/music/background.mp3" type="audio/mp3" />
       </audio>
