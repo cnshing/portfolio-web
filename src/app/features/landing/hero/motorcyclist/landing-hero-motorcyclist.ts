@@ -30,7 +30,7 @@ import { LandingMotorcyclistSceneComponent } from './landing-hero-motorcyclist-s
       [class.animate-(--animate-motorcyclist-enter)]="!animationModuleReady()"
       [style.animation-composition]="animationModuleReady() ? null : 'add'"
     >
-      <!-- NOTE: The CSS is very brittle. You must ensure the placeholder's brightness, layout, and sizing is visually identical to the  the three.js's world equivalent.-->
+      <!-- NOTE: The CSS is very brittle. You must ensure the placeholder's layout, and sizing is visually identical to the  the three.js's world equivalent.-->
       <img
         class="absolute size-full origin-bottom object-contain  scale-x-[250%] scale-y-[250%] max-h-[min((100%-var(--spacing-2xl)+17%)/2.5,var(--spacing-2xl)*4)]"
         ngSrc="/assets/models/motorcycle/motorcycle-opt.png"
@@ -45,7 +45,7 @@ import { LandingMotorcyclistSceneComponent } from './landing-hero-motorcyclist-s
         [class.hidden]="SceneReady()"
       />
       @defer (on immediate) {
-      <!-- We use the defference pattern from lottie.component.ts to stack both elements in the same layout and conditionally turn on/off both elements simulatenously for a flicker-free transition -->
+      <!-- We use the defer pattern from lottie.component.ts to stack both elements in the same layout and conditionally turn on/off both elements simulatenously for a flicker-free transition. It is much easier to make the img placeholder an identical first frame snapshot of the motorcyclist render model.-->
       <landing-hero-motorcyclist-scene
         class="absolute h-full w-[calc(100%+100rem)] mt-[4.25%] max-h-[min(117%-var(--spacing-2xl),var(--spacing-2xl)*10)]" (onLoad)="SceneReady.set(true)"
         [class.opacity-0]="!SceneReady()"
