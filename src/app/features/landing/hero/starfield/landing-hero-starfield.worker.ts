@@ -9,7 +9,8 @@ import {
   PerspectiveCamera,
   PointsNodeMaterial,
   Sprite,
-  Material
+  Material,
+  Vector3
 } from 'three/webgpu';
 import type { UniformNode,  UniformArrayNode } from 'three/webgpu';
 import { expose } from 'comlink';
@@ -57,6 +58,7 @@ let starSizeUniform: UniformNode<"float", number>;
 let spinXUniform: UniformNode<"float", number>;
 let spinYUniform: UniformNode<"float", number>;
 let spinZUniform: UniformNode<"float", number>;
+let devicePixelRatio: number = 1.0
 let controls: OrbitControls
 let resizeCanvas: ReturnType<typeof resizeCanvasFactory>;
 let resizeRenderer: ReturnType<typeof resizeRendererFactory>;
@@ -69,11 +71,13 @@ let redprRenderer: ReturnType<typeof onDPRChangeFactory>;
  */
 export class StarfieldRenderer extends DeclareOrbitProxy {
   private canvas: OffscreenCanvas;
+  private devicePixelRatio: number;
   private config = { ...DefaultStarfieldConfig };
 
-  constructor(canvas: OffscreenCanvas, width: number, height: number) {
+  constructor(canvas: OffscreenCanvas, width: number, height: number, devicePixelRatio: number) {
     super()
     this.canvas = canvas;
+    this.devicePixelRatio = devicePixelRatio
     resizeCanvas = resizeCanvasFactory(this.canvas);
     resizeCanvas(width, height);
     this.initScene();
@@ -93,8 +97,10 @@ export class StarfieldRenderer extends DeclareOrbitProxy {
       0.5 // far
     );
     redprRenderer = onDPRChangeFactory(renderer)
+    this.onDPRChange(this.devicePixelRatio)
     camera.position.set(0, 0, 0.05);
     resizeCamera = resizePrespectiveCameraFactory(camera);
+    this.onResize(new DOMRect(0, 0, this.canvas.width, this.canvas.height))
     scene = new Scene();
     controls = installOrbitControlsProxy(this, this.canvas, camera)
     controls.enablePan = false
@@ -103,6 +109,7 @@ export class StarfieldRenderer extends DeclareOrbitProxy {
   }
 
   onDPRChange(dpr: number) {
+    devicePixelRatio = dpr
     redprRenderer(dpr) // ???
   }
   /**
@@ -133,8 +140,7 @@ export class StarfieldRenderer extends DeclareOrbitProxy {
   private createStarfield() {
     if (!scene || !camera) return;
 
-    const count = calculatePointCount(this.config.stars);
-
+    const count = calculatePointCount(this.config.stars, this.config.fieldRadius, camera.fov, camera.aspect, devicePixelRatio, camera.position.distanceTo(new Vector3(0, 0, 0)));
     this.initStarUniforms();
 
     const material = this.createStarMaterial();

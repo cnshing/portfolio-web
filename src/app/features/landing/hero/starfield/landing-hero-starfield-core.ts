@@ -24,16 +24,46 @@ export const DefaultStarfieldConfig = {
 export type StarfieldConfig = typeof DefaultStarfieldConfig;
 
 /**
- * This factor ensures there is actually roughly `stars` stars visually on screen.
- * Matches the original STAR_TO_COUNT_FACTOR from the graph implementation.
+ * The number of stars visually seen on the 2D viewport is not exactly identical to the number of star instances in the 3D world. This function adjusts the number of instances required based off what is being perceived.
+ * @param stars The requested number of stars
+ * @param fieldRadius The radius of the sphere geometry point material
+ * @param fov The FOV of the camera
+ * @param aspect The width/height aspect ratio of the camera.
+ * @param devicePixelRatio Window's devicePixelRatio.
+ * @param cameraOffset The distance between the camera and the origin of the sphere geometry point material.
+ * @returns
  */
-export const STAR_TO_COUNT_FACTOR = 11;
+export function calculatePointCount(
+  stars: StarfieldConfig['stars'],
+  fieldRadius: StarfieldConfig['fieldRadius'],
+  fov: number,
+  aspect: number,
+  devicePixelRatio: number,
+  cameraOffset: number
+): number {
 
-/**
- * Calculates the actual point count from desired star count.
- */
-export function calculatePointCount(stars: StarfieldConfig['stars']): number {
-  return stars * STAR_TO_COUNT_FACTOR;
+  // Manual adjustment of stars to ensure number of stars match what is being seen on the screen
+  const STAR_TO_COUNT_FACTOR = 3
+  const base = stars * STAR_TO_COUNT_FACTOR;
+
+  // Adjust number of stars based off FOV, which does affect star spread.
+  const fovRad = (fov * Math.PI) / 180;
+  const tanY = Math.tan(fovRad / 2);
+  const tanX = tanY * aspect;
+  const angularFactor = tanX * tanY;
+
+  // Adjust number of stars based off geometric shape of the underlying sphere
+  const avgDepth = Math.max(0, fieldRadius - cameraOffset);
+  const volumeFactor = fieldRadius * fieldRadius * avgDepth;
+
+  // Adjust for device Pixel Ratio
+  const dprFactor = Math.sqrt(devicePixelRatio);
+  const count =
+    base *
+    angularFactor *
+    volumeFactor *
+    dprFactor;
+  return Math.max(1, Math.round(count));
 }
 
 /**

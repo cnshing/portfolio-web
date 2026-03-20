@@ -147,7 +147,7 @@ export class LandingHeroStarfieldComponent extends ThreeJSComponent<ResizableWor
         new URL('./landing-hero-starfield.worker', import.meta.url),
         { type: 'module' }
       ));
-      this.threeWorker.set(await new StarfieldRenderers(transfer(offscreen, [offscreen]), rect.width, rect.height))
+      this.threeWorker.set(await new StarfieldRenderers(transfer(offscreen, [offscreen]), rect.width, rect.height, window.devicePixelRatio))
       await this.threeWorker()!.render()
     })
     this.destroyRef.onDestroy(async () => {
