@@ -308,7 +308,6 @@ export function installOrbitControlsProxy(
   const prevMousedown = worker.onMousedown;
   worker.onMousedown = (event) => {
     prevMousedown?.(event);
-    console.log(event)
     Object.assign(new Event('mousedown'), event) as PointerEvent
   };
 

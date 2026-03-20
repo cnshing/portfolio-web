@@ -8,7 +8,6 @@ import {
   sin,
   cos,
   smoothstep,
-  time,
   uv,
   vec2,
   vec3,
@@ -39,9 +38,10 @@ function rand1(seed: Node<'float'>) {
 
 /**
  * Normalized life [0,1]
+ * Cached age calculation to avoid recomputation
  */
-export function createConfettiAgeNode(spawnTime: Node<'float'>, life: Node<'float'>) {
-  return remap01(time.sub(spawnTime), float(0.0), life);
+export function createConfettiAgeNode(age: Node<'float'>, life: Node<'float'>) {
+  return remap01(age, float(0.0), life);
 }
 
 /**
@@ -57,7 +57,7 @@ export function createConfettiPositionNode(
   localPosition: Node<'vec3'>,
   origin: Node<'vec3'>,
   destination: Node<'vec3'>,
-  spawnTime: Node<'float'>,
+  age: Node<'float'>,
   life: Node<'float'>,
   size: Node<'float'>,
   fallingSpeed: UniformNode<'float', number>,
@@ -66,8 +66,7 @@ export function createConfettiPositionNode(
   explodeDuration: UniformNode<'float', number>,
   index: IndexNode | Node<'float'>
 ) {
-  const age = time.sub(spawnTime);
-  const tLife = createConfettiAgeNode(spawnTime, life);
+  const tLife = createConfettiAgeNode(age, life);
   const seed = float(index);
 
   /**
@@ -77,14 +76,16 @@ export function createConfettiPositionNode(
    * Approximated here as a continuous downward drift over time.
    */
   const destinationDropSpeed = mix(6.0, 18.0, rand1(seed.add(81.3)));
-  const jitter = sin(age.mul(12.0).add(seed.mul(9.7))).mul(fallingSpeed.mul(0.1));
 
-const movingDestination = vec3(
-  destination.x,
-  destination.y.sub(destinationDropSpeed.mul(age)).add(jitter),
-  destination.z
-);
+  // Pre-compute seed offsets to avoid redundant additions
+  const seedOffset1 = seed.mul(9.7);
+  const jitter = sin(age.mul(12.0).add(seedOffset1)).mul(fallingSpeed.mul(0.1));
 
+  const movingDestination = vec3(
+    destination.x,
+    destination.y.sub(destinationDropSpeed.mul(age)).add(jitter),
+    destination.z
+  );
 
   /**
    * Original JS does exponential-ish movement:
@@ -99,10 +100,12 @@ const movingDestination = vec3(
   /**
    * Small side-to-side flutter to preserve the lively feel.
    */
+  const seedOffset2 = seed.mul(1.37);
+  const seedOffset3 = seed.mul(2.11);
   const flutter = vec3(
-    sin(age.mul(8.3).add(seed.mul(1.37))).mul(0.08),
+    sin(age.mul(8.3).add(seedOffset2)).mul(0.08),
     0.0,
-    cos(age.mul(6.7).add(seed.mul(2.11))).mul(0.08)
+    cos(age.mul(6.7).add(seedOffset3)).mul(0.08)
   ).mul(oneMinus(tLife.mul(0.35)));
 
   /**
@@ -127,9 +130,8 @@ export function createConfettiRotationNode(
   localPosition: Node<'vec3'>,
   euler0: Node<'vec3'>,
   spin: Node<'vec3'>,
-  spawnTime: Node<'float'>
+  age: Node<'float'>
 ) {
-  const age = time.sub(spawnTime);
   const euler = euler0.add(spin.mul(age));
 
   return rotate(localPosition, euler);
@@ -139,11 +141,11 @@ export function createConfettiRotationNode(
  * OPACITY NODE
  */
 export function createConfettiOpacityNode(
-  spawnTime: Node<'float'>,
+  age: Node<'float'>,
   life: Node<'float'>,
   rotatedNormal: Node<'vec3'>
 ) {
-  const t = createConfettiAgeNode(spawnTime, life);
+  const t = createConfettiAgeNode(age, life);
 
   const baseFade = oneMinus(smoothstep(0.0, 1.0, t));
   const tumble = abs(rotatedNormal.z).mul(0.25).add(0.75);
