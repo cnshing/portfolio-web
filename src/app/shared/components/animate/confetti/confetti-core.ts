@@ -8,7 +8,7 @@ import { Color } from 'three/webgpu';
  * Configuration interface for confetti parameters.
  */
 export const DefaultConfettiConfig = {
-  isExploding: true as boolean,
+  isExploding: false as boolean,
   amount: 100 as number,
   rate: 3 as number,
   radius: 15 as number,
@@ -16,10 +16,16 @@ export const DefaultConfettiConfig = {
   areaHeight: 1 as number,
   fallingHeight: 10 as number,
   fallingSpeed: 8 as number,
-  colors: ['#0000ff', '#ff0000', '#ffff00'] as string[],
+  colors: [
+    '#D4AF37', '#D9A92E', '#C9B14A',
+    '#C0C0C0', '#B8C2CC', '#C8C0B5',
+    '#B76E79', '#C06F86', '#AD5F6B',
+    '#DCDCE6', '#D6D6EA', '#E2DED8'
+  ] as string[],
   pieceSize: 0.03 as number,
   pieceSpin: 1 as number,
   opacityFade: 1 as number,
+  explodeDuration: 0.35 as number,
 } as const;
 
 export type ConfettiConfig = typeof DefaultConfettiConfig;

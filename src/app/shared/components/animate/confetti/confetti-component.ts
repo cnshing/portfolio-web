@@ -25,7 +25,6 @@ import {
   DPRChangeWorker,
   DPRChangeDirective,
 } from '@shared/directives/three/dpr.directive';
-import { OffscreenOrbitControlsDirective, OrbitProxyWorker } from '@shared/directives/three/orbitproxy.directive';
 
 /**
  * Three.JS animated confetti using Web Worker with OffscreenCanvas for maximum performance.
@@ -57,9 +56,6 @@ import { OffscreenOrbitControlsDirective, OrbitProxyWorker } from '@shared/direc
     },
     {
       directive: DPRChangeDirective
-    },
-    {
-      directive: OffscreenOrbitControlsDirective
     }
   ],
   host: {
@@ -86,6 +82,7 @@ export class ConfettiComponent extends ThreeJSComponent<
     'pieceSize',
     'pieceSpin',
     'opacityFade',
+    'explodeDuration',
   ];
 
   private destroyRef = inject(DestroyRef);
@@ -93,7 +90,7 @@ export class ConfettiComponent extends ThreeJSComponent<
   /**
    * Enables looping explosions.
    */
-  readonly isExploding = input<boolean>(true);
+  readonly isExploding = input<boolean>(false);
 
   /**
    * Semantic number of confetti particles.
@@ -131,9 +128,14 @@ export class ConfettiComponent extends ThreeJSComponent<
   readonly fallingSpeed = input<number>(8);
 
   /**
-   * Color palette for confetti pieces.
+   * Color palette for confetti pieces. NOTE: Currently, a bug makes inputting a custom color lag.
    */
-  readonly colors = input<string[]>(['#0000ff', '#ff0000', '#ffff00']);
+  readonly colors = input<string[]>([
+    '#D4AF37', '#D9A92E', '#C9B14A',
+    '#C0C0C0', '#B8C2CC', '#C8C0B5',
+    '#B76E79', '#C06F86', '#AD5F6B',
+    '#DCDCE6', '#D6D6EA', '#E2DED8'
+  ] );
 
   /**
    * Visual size of each confetti piece.
@@ -149,6 +151,11 @@ export class ConfettiComponent extends ThreeJSComponent<
    * Global opacity fade multiplier.
    */
   readonly opacityFade = input<number>(1);
+
+  /**
+   * How long it takes for the burst to finish.
+   */
+    readonly explodeDuration = input<number>(0.35);
 
   constructor() {
     super();

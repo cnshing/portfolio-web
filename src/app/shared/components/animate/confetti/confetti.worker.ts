@@ -109,12 +109,12 @@ export class ConfettiRenderer {
     });
 
     resizeRenderer = resizeRendererFactory(renderer);
-    camera = new PerspectiveCamera(45, 1, 0.0001, 200000);
-    camera.position.set(-0.5, 7.5,-2);
+    camera = new PerspectiveCamera(45, 1, 0.0001, 10);
+    camera.position.set(0, 6.5,-1);
     scene = new Scene();
     dprRenderer = onDPRChangeFactory(renderer);
     resizeCamera = resizePrespectiveCameraFactory(camera);
-    camera.lookAt(-0.5,19.5,5);
+    camera.lookAt(0,18.5,5);
   }
 
   onDPRChange(dpr: number) {
@@ -182,7 +182,7 @@ export class ConfettiRenderer {
     fallingSpeedUniform = uniform(this.config.fallingSpeed);
     gravityMinUniform = uniform(gravityMin);
     gravityMaxUniform = uniform(gravityMax);
-    explodeDurationUniform = uniform(0.35);
+    explodeDurationUniform = uniform(this.config.explodeDuration);
 
     particleLifeUniform = uniform(
       calculateParticleLife(
@@ -237,18 +237,19 @@ export class ConfettiRenderer {
     return baseOffset.add(currentCycle.mul(cycleDuration));
   }
 
-  private createOriginNode(boomId: Node<"float">) {
+  private createOriginNode(boomId: Node<"float">, spawnTime: Node<"float">) {
+    // Incorporate spawn time into hash to get unique positions per cycle
     return vec3(
       mix(
         areaWidthUniform.mul(-0.5),
         areaWidthUniform.mul(0.5),
-        hash(boomId.add(11.1))
+        hash(boomId.add(spawnTime).add(11.1))
       ),
       emitterHeightUniform,
       mix(
         areaWidthUniform.mul(-0.5),
         areaWidthUniform.mul(0.5),
-        hash(boomId.add(17.3))
+        hash(boomId.add(spawnTime).add(17.3))
       )
     );
   }
@@ -299,7 +300,7 @@ export class ConfettiRenderer {
     const localId = this.createLocalParticleIdNode();
 
     const spawnTimeNode = this.createSpawnTimeNode(boomId);
-    const originNode = this.createOriginNode(boomId);
+    const originNode = this.createOriginNode(boomId, spawnTimeNode);
     const destinationNode = this.createDestinationNode(localId);
     const euler0Node = this.createEuler0Node(localId);
     const spinNode = this.createSpinNode(localId);
@@ -446,6 +447,11 @@ export class ConfettiRenderer {
       this.config.amount = value;
       this.recreateConfetti();
     }
+  }
+
+  set explodeDuration(value: number) {
+    this.config.explodeDuration = value
+    explodeDurationUniform.value = value
   }
 
   set rate(value: number) {
