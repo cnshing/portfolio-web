@@ -59,7 +59,9 @@ import {
     }
   ],
   host: {
-    'class': 'pointer-events-none block'
+    'class': 'pointer-events-none block transition-opacity duration-750',
+    '[class.opacity-0]': '!isExploding()',
+    '[class.opacity-100]': 'isExploding()'
   }
 })
 export class ConfettiComponent extends ThreeJSComponent<

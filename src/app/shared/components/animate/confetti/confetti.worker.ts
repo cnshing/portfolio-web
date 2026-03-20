@@ -66,7 +66,6 @@ let scene: Scene;
 let camera: PerspectiveCamera;
 let particles: InstancedMesh;
 let animationId: number | null = null;
-
 let paletteUniform: UniformArrayNode<'color'>;
 let isExplodingUniform: UniformNode<'float', number>;
 let radiusUniform: UniformNode<'float', number>;
@@ -414,7 +413,7 @@ export class ConfettiRenderer {
   }
 
   private animate = () => {
-    if (!renderer || !scene || !camera || !particles) return;
+    if (!renderer || !scene || !camera || !particles || !this.config.isExploding) return;
     renderer.render(scene, camera);
     animationId = self.requestAnimationFrame(this.animate);
   };
@@ -435,11 +434,15 @@ export class ConfettiRenderer {
   }
 
   set isExploding(value: boolean) {
-    this.config.isExploding = value;
-
     if (isExplodingUniform) {
       isExplodingUniform.value = value ? 1 : 0;
     }
+    const prev = this.config.isExploding
+    this.config.isExploding = value;
+    if (!prev && this.config.isExploding) {
+      this.animate()
+    }
+
   }
 
   set amount(value: number) {
@@ -460,7 +463,7 @@ export class ConfettiRenderer {
       if (spawnWindowUniform) {
         spawnWindowUniform.value = calculateSpawnWindow(value);
       }
-      this.recreateConfetti()
+      // this.recreateConfetti()
     }
   }
 
