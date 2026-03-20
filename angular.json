@@ -43,6 +43,12 @@
               },
               {
                 "glob": "**/*",
+                "input": "node_modules/three/examples/jsm/libs",
+                "output": "runtimes/three/",
+                "ignore": ["**/*.md"]
+              },
+              {
+                "glob": "**/*",
                 "input": "node_modules/@fontsource",
                 "output": "assets/fonts"
               }

@@ -1,9 +1,13 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
+import {
+  ApplicationConfig,
+  provideBrowserGlobalErrorListeners,
+  provideZonelessChangeDetection,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { IMAGE_LOADER_PROVIDER } from '@core/providers/image-loader.provider';
-import { provideDotLottie } from 'ngx-lottie/dotlottie-web'
+import { provideDotLottie } from 'ngx-lottie/dotlottie-web';
 import { provideCacheableAnimationLoader } from 'ngx-lottie';
 
 export const appConfig: ApplicationConfig = {
@@ -15,7 +19,7 @@ export const appConfig: ApplicationConfig = {
     IMAGE_LOADER_PROVIDER,
     provideCacheableAnimationLoader(),
     provideDotLottie({
-      player: () => import('@lottiefiles/dotlottie-web').then(m => m.DotLottie),
-    }),
-  ]
+      player: () => import('@lottiefiles/dotlottie-web').then((m) => m.DotLottie),
+    })
+  ],
 };
