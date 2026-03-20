@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, input } from "@angular/core";
 
 /**
  * A small section with glowing neon 2D "race tracks".
@@ -15,6 +15,14 @@ import { Component } from "@angular/core";
   styleUrl: './landing-transition-section.sass',
 })
 export class LandingTransitionRacetrackComponent {
+  /**
+   * The resulting implicit shape created from the racetrack component is filled by this value. Useful for when elements are overflowing into this component and you want a clean visual seperation between the top and bottom of this component.
+   *
+   * @protected
+   * @readonly
+   * @type {*}
+   */
+  readonly fillTransitionMask = input<string>("transparent")
 }
 
 

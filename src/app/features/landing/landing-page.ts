@@ -1,5 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
-import { Platform, PlatformModule } from '@angular/cdk/platform';
+import { Component, ElementRef, signal, viewChild } from '@angular/core';
 import LandingHeroComponent from '@features/landing/hero/landing-hero-section';
 import {
   LandingTransitionRacetrackComponent,
@@ -25,13 +24,11 @@ import LandingCTAComponent from '@features/landing/cta/landing-cta-section';
     LandingFooterComponent,
     LandingCTAComponent,
     LandingTransitionHelmetComponent,
-    PlatformModule,
   ],
   template: `
-    <main class="flex flex-col w-full bg-color-page landing-page">
-      <landing-hero class="min-h-min h-custom-screen max-h-[calc(var(--spacing-3xl)*10)] " />
-      <!-- Extra 2.5dvh due to y-overflow from landing-transition-racetrack, max-height restriction for zoomed-out views -->
-      <landing-transition-racetrack />
+    <main class="flex flex-col w-full bg-color-page landing-page z-0">
+      <landing-hero class="min-h-custom-screen max-h-[calc(var(--spacing-3xl)*10)]" />
+      <landing-transition-racetrack class="z-[4]" #racetrack fillTransitionMask="var(--bg-color-page)"/>
       <landing-about-me />
       <landing-transition-racetrack class="scale-y-[-1] scale-x-[-1]" />
       <landing-career-timeline />
@@ -45,12 +42,13 @@ import LandingCTAComponent from '@features/landing/cta/landing-cta-section';
     </footer>
   `,
   host: {
-    '[style.--inner-height.px]': 'needsVHFix ? innerHeight()*1.05: undefined',
-    '(window:resize)': 'needsVHFix ? onResize() : undefined',
+    '[style.--screen-height.px]': 'needsVHFix ? screenHeight(): undefined',
+    '[style.--racetrack-height.px]': 'this.racetrack().nativeElement.offsetHeight',
+    '(window:resize)': 'needsVHFix ? onResize() : undefined'
   },
   styles: `
-  .h-custom-screen
-    height: var(--inner-height, 102.5dvh)
+  .min-h-custom-screen
+    min-height: calc(var(--screen-height, 100dvh) - var(--racetrack-height) - var(--spacing-2xs))
 
   ::ng-deep .landing-page > :not(landing-transition-helmet, landing-transition-racetrack) > :first-child // NOTE: This fixes any landing sections with multiple siblings
     max-width: var(--spacing-max-width)
@@ -62,17 +60,17 @@ import LandingCTAComponent from '@features/landing/cta/landing-cta-section';
   `,
 })
 export class LandingPageComponent {
-  readonly platform = inject(Platform);
-  readonly needsVHFix =
-    this.platform.IOS &&
-    (!this.platform.SAFARI || navigator.userAgent.match('CriOS') || this.platform.EDGE); // For certain iOS browsers, scrolling down dynamically changes the viewport(by hiding the tab) resulting in landing-hero's being shifted during scroll, causing a negative experience
+  readonly needsVHFix = true // For certain iOS browsers, scrolling down dynamically changes the viewport(by hiding the tab) resulting in landing-hero's being shifted during scroll, causing a negative experience
 
-  readonly innerHeight = signal<number>(window.innerHeight);
+  protected readonly racetrack = viewChild.required<ElementRef<HTMLElement>, ElementRef>('racetrack', {'read': ElementRef});
+
+  readonly screenHeight = signal<number>(document.documentElement.clientHeight);
   readonly innerWidth = signal<number>(window.innerWidth);
+  readonly initialScale = signal<number>(window.visualViewport? window.visualViewport.scale : 1);
 
   protected readonly onResize = () => {
-    if (this.innerWidth() != window.innerWidth) {
-      this.innerHeight.set(window.innerHeight);
+    if (this.innerWidth() != window.innerWidth && this.initialScale() == window.visualViewport?.scale) { // If the inner width changes but the source of change isn't from a pinch zoom
+      this.screenHeight.set(document.documentElement.clientHeight);
       this.innerWidth.set(window.innerWidth);
     }
   };

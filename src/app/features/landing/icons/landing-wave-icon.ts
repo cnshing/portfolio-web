@@ -2,7 +2,7 @@ import { Component, DestroyRef, inject, signal, viewChild } from '@angular/core'
 import {
   OptimizedLottieComponent,
   PreviewLottieComponent,
-} from '@shared/components/lottie/lottie.component';
+} from '@shared/components/animate/lottie.component';
 
 /**
  * Animated Hand Wave component.
@@ -23,7 +23,7 @@ import {
     </lottie-with-poster>
 
     <ng-template #poster>
-      <img alt="Hand Waving" src="/assets/graphics/waving.svg" />
+      <img class="size-full" alt="Hand Waving" src="/assets/graphics/waving.svg" />
     </ng-template>
 
     <ng-template #animation>
@@ -53,7 +53,7 @@ export class LandingWaveIconComponent {
    * @readonly
    * @type {*}
    */
-  protected readonly initialPlayDuration = 3500
+  protected readonly initialPlayDuration = 5000
 
 
   /**
