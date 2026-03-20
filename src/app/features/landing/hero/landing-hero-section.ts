@@ -101,9 +101,8 @@ import { isTouchDevice } from '@shared/utils/accessibility';
 export default class LandingHeroComponent {
   protected readonly name = environment.name;
   protected readonly starColors = ['#e5e6e3', '#cdcecb'] // NOTE: This is meant to be --text-color-secondary and --text-color-tertiary, respectively
-  protected readonly numStars = window.innerWidth > window.innerHeight ? window.innerWidth/3.5: (window.innerHeight*0.77)/3 // 0.77 choosen here because road element is roughly 33% height of the window.
-
-  protected readonly starSize = isTouchDevice() ? window.innerHeight/2_000_00: 0.001
+  protected readonly numStars = 187
+  protected readonly starSize = isTouchDevice() ? 0.001*2.125: 0.001
 
 
   protected readonly isReduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
