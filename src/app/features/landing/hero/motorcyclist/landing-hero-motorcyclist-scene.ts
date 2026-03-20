@@ -77,7 +77,7 @@ export class LandingMotorcyclistSceneComponent extends ThreeJSComponent<Resizabl
         new URL('./landing-hero-motorcyclist.worker', import.meta.url),
         { type: 'module' }
       ));
-      this.threeWorker.set(await new MotorcyclistRenderers(transfer(offscreen, [offscreen]), rect.width, rect.height))
+      this.threeWorker.set(await new MotorcyclistRenderers(transfer(offscreen, [offscreen]), rect.width, rect.height, window.devicePixelRatio))
 
       await this.threeWorker()!.render()
       this.onLoad.emit()

@@ -51,10 +51,10 @@ let radius = IMG_Z_CAM_ADJUSTMENT;
  */
 export class MotorcyclistRenderer {
   private canvas: OffscreenCanvas;
-
-  constructor(canvas: OffscreenCanvas, width: number, height: number) {
+  private devicePixelRatio: number
+  constructor(canvas: OffscreenCanvas, width: number, height: number, devicePixelRatio: number) {
     this.canvas = canvas;
-
+    this.devicePixelRatio = devicePixelRatio
     resizeCanvas = resizeCanvasFactory(this.canvas);
     resizeCanvas(width, height);
 
@@ -70,6 +70,7 @@ export class MotorcyclistRenderer {
 
     resizeRenderer = resizeRendererFactory(renderer);
     redprRenderer = onDPRChangeFactory(renderer)
+    this.onDPRChange(this.devicePixelRatio)
     const draco = new DRACOLoader();
     draco.setDecoderPath('/runtimes/three/draco/');
 
@@ -77,6 +78,7 @@ export class MotorcyclistRenderer {
     gltf.setDRACOLoader(draco);
     camera = new PerspectiveCamera(45, 1, 0.1, 100);
     resizeCamera = resizePrespectiveCameraFactory(camera);
+    this.onResize(new DOMRectReadOnly(0, 0, this.canvas.width, this.canvas.height))
     scene = new Scene();
     scene.add(new AmbientLight(0xffffff, 1.5));
     light = new DirectionalLight(0xffffff, 1.5);
@@ -100,7 +102,7 @@ export class MotorcyclistRenderer {
   /**
    * Resize handler
    */
-  onResize(rect: DOMRect) {
+  onResize(rect: DOMRectReadOnly) {
     const { width, height } = rect;
     resizeCanvas(width, height);
     resizeRenderer(width, height, false);
