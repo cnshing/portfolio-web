@@ -110,11 +110,11 @@ export class ConfettiRenderer {
 
     resizeRenderer = resizeRendererFactory(renderer);
     camera = new PerspectiveCamera(45, 1, 0.0001, 200000);
-    camera.position.set(-0.5, 5,-1);
+    camera.position.set(-0.5, 7.5,-2);
     scene = new Scene();
     dprRenderer = onDPRChangeFactory(renderer);
     resizeCamera = resizePrespectiveCameraFactory(camera);
-    camera.lookAt(-0.5,17,5);
+    camera.lookAt(-0.5,19.5,5);
   }
 
   onDPRChange(dpr: number) {
