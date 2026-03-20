@@ -104,7 +104,7 @@ export class ConfettiRenderer {
   initScene() {
     renderer = new WebGPURenderer({
       canvas: this.canvas,
-      alpha: true,
+      alpha: true
     });
 
     resizeRenderer = resizeRendererFactory(renderer);
@@ -299,6 +299,10 @@ export class ConfettiRenderer {
     const localId = this.createLocalParticleIdNode();
 
     const spawnTimeNode = this.createSpawnTimeNode(boomId);
+
+    // Calculate age once and reuse it - major performance optimization
+    const ageNode = time.sub(spawnTimeNode);
+
     const originNode = this.createOriginNode(boomId, spawnTimeNode);
     const destinationNode = this.createDestinationNode(localId);
     const euler0Node = this.createEuler0Node(localId);
@@ -308,19 +312,19 @@ export class ConfettiRenderer {
       positionLocal,
       euler0Node,
       spinNode,
-      spawnTimeNode
+      ageNode
     );
 
     const rotatedNormal = rotate(
       vec3(0.0, 0.0, 1.0),
-      euler0Node.add(spinNode.mul(time.sub(spawnTimeNode)))
+      euler0Node.add(spinNode.mul(ageNode))
     );
 
     const positionNode = createConfettiPositionNode(
       rotatedLocal,
       originNode,
       destinationNode,
-      spawnTimeNode,
+      ageNode,
       particleLifeUniform,
       pieceSizeUniform,
       fallingSpeedUniform,
@@ -333,7 +337,7 @@ export class ConfettiRenderer {
     material.positionNode = positionNode;
     material.colorNode = this.createColorNode(localId);
     material.opacityNode = createConfettiOpacityNode(
-      spawnTimeNode,
+      ageNode,
       particleLifeUniform,
       rotatedNormal
     )
@@ -348,16 +352,21 @@ export class ConfettiRenderer {
     material: MeshBasicNodeMaterial,
     count: number
   ) {
+    // Use minimal geometry complexity for maximum performance
     const geometry = new PlaneGeometry(1, 1, 1, 1);
     const mesh = new InstancedMesh(geometry, material, count);
 
+    // Set all matrices once with a pre-created identity matrix
     const identity = new Matrix4();
+    const instanceMatrix = mesh.instanceMatrix;
+
     for (let i = 0; i < count; i++) {
       mesh.setMatrixAt(i, identity);
     }
 
-    mesh.instanceMatrix.needsUpdate = true;
-    mesh.frustumCulled = false;
+    instanceMatrix.needsUpdate = true;
+    mesh.frustumCulled = false; // Disable frustum culling since particles are constantly moving
+    mesh.matrixAutoUpdate = false; // Disable automatic matrix updates - we handle this in shaders
 
     return mesh;
   }
@@ -414,7 +423,11 @@ export class ConfettiRenderer {
 
   private animate = () => {
     if (!renderer || !scene || !camera || !particles || !this.config.isExploding) return;
+
+    // Render the scene
     renderer.render(scene, camera);
+
+    // Continue animation loop
     animationId = self.requestAnimationFrame(this.animate);
   };
 
@@ -434,15 +447,17 @@ export class ConfettiRenderer {
   }
 
   set isExploding(value: boolean) {
+    const prev = this.config.isExploding;
+    this.config.isExploding = value;
+
     if (isExplodingUniform) {
       isExplodingUniform.value = value ? 1 : 0;
     }
-    const prev = this.config.isExploding
-    this.config.isExploding = value;
-    if (!prev && this.config.isExploding) {
-      this.animate()
-    }
 
+    // Start animation loop only when transitioning from false to true
+    if (!prev && value) {
+      this.animate();
+    }
   }
 
   set amount(value: number) {
@@ -453,17 +468,18 @@ export class ConfettiRenderer {
   }
 
   set explodeDuration(value: number) {
-    this.config.explodeDuration = value
-    explodeDurationUniform.value = value
+    this.config.explodeDuration = value;
+    if (explodeDurationUniform) {
+      explodeDurationUniform.value = value;
+    }
   }
 
   set rate(value: number) {
-    if(this.config.rate !== value) {
+    if (this.config.rate !== value) {
       this.config.rate = value;
       if (spawnWindowUniform) {
         spawnWindowUniform.value = calculateSpawnWindow(value);
       }
-      // this.recreateConfetti()
     }
   }
 

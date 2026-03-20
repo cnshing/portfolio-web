@@ -30,6 +30,8 @@ import {
  * Three.JS animated confetti using Web Worker with OffscreenCanvas for maximum performance.
  * Uses Comlink for type-safe communication and syncToThreeCanvas for automatic Signal synchronization.
  *
+ * Modified from https://github.com/ektogamat/r3f-confetti-component/blob/main/src/components/Confetti.js by Anderson Mancini and Romain Herault
+ *
  * @export
  * @class ConfettiComponent
  * @typedef {ConfettiComponent}
@@ -155,7 +157,7 @@ export class ConfettiComponent extends ThreeJSComponent<
   readonly opacityFade = input<number>(1);
 
   /**
-   * How long it takes for the burst to finish.
+   * How long it until the confetti burst occurs.
    */
     readonly explodeDuration = input<number>(0.35);
 
