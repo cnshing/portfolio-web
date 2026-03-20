@@ -10,7 +10,6 @@ import {
   MeshBasicNodeMaterial,
   Material,
   PlaneGeometry,
-  Vector3,
   DoubleSide,
   Matrix4
 } from 'three/webgpu';
@@ -51,6 +50,7 @@ import {
   calculateSpawnWindow,
   calculateTotalParticleCount,
   calculateGravityRange,
+  calculateBoomCount,
 } from '@shared/components/animate/confetti/confetti-physics';
 
 import {
@@ -60,12 +60,6 @@ import {
   createConfettiRotationNode,
   randomPaletteColorTSL,
 } from '@shared/components/animate/confetti/confetti-shaders';
-
-import {
-  DeclareOrbitProxy,
-  installOrbitControlsProxy,
-} from '@shared/directives/three/orbitproxy.directive';
-import { OrbitControls } from 'three/addons';
 
 let renderer: WebGPURenderer;
 let scene: Scene;
@@ -89,19 +83,16 @@ let gravityMaxUniform: UniformNode<'float', number>;
 let explodeDurationUniform: UniformNode<'float', number>;
 let particleLifeUniform: UniformNode<'float', number>;
 let spawnWindowUniform: UniformNode<'float', number>;
-
-let controls: OrbitControls;
 let resizeCanvas: ReturnType<typeof resizeCanvasFactory>;
 let resizeRenderer: ReturnType<typeof resizeRendererFactory>;
 let resizeCamera: ReturnType<typeof resizePrespectiveCameraFactory>;
 let dprRenderer: ReturnType<typeof onDPRChangeFactory>;
 
-export class ConfettiRenderer extends DeclareOrbitProxy {
+export class ConfettiRenderer {
   private canvas: OffscreenCanvas;
   private config = { ...DefaultConfettiConfig };
 
   constructor(canvas: OffscreenCanvas, width: number, height: number) {
-    super();
 
     this.canvas = canvas;
 
@@ -118,21 +109,12 @@ export class ConfettiRenderer extends DeclareOrbitProxy {
     });
 
     resizeRenderer = resizeRendererFactory(renderer);
-
     camera = new PerspectiveCamera(45, 1, 0.0001, 200000);
-    camera.position.set(0, 0, 0);
-
+    camera.position.set(-0.5, 5,-1);
     scene = new Scene();
-
     dprRenderer = onDPRChangeFactory(renderer);
     resizeCamera = resizePrespectiveCameraFactory(camera);
-
-    controls = installOrbitControlsProxy(this, this.canvas, camera);
-    controls.target.copy(new Vector3(0, 5, 0));
-    controls.enableZoom = true;
-    controls.update();
-
-    camera.lookAt(0, 48, 0);
+    camera.lookAt(-0.5,17,5);
   }
 
   onDPRChange(dpr: number) {
@@ -145,7 +127,7 @@ export class ConfettiRenderer extends DeclareOrbitProxy {
     this.animate();
   }
 
-  override onResize(rect: DOMRectReadOnly) {
+  onResize(rect: DOMRectReadOnly) {
     const { width, height } = rect;
     resizeCanvas(width, height);
     resizeRenderer(width, height, false);
@@ -229,10 +211,30 @@ export class ConfettiRenderer extends DeclareOrbitProxy {
   }
 
   private createSpawnTimeNode(boomId: Node<"float">) {
-    const cycleDuration = particleLifeUniform.add(spawnWindowUniform);
-    const phase = hash(boomId.add(91.731)).mul(cycleDuration);
+    // Each boom spawns at sequential intervals: boomId * spawnWindow
+    // This makes rate directly control explosion frequency
+    const baseOffset = boomId.mul(spawnWindowUniform);
 
-    return time.sub(mod(time.add(phase), cycleDuration));
+    // Total number of booms in the pool
+    const boomCount = float(
+      calculateBoomCount(
+        this.config.rate,
+        this.config.fallingHeight,
+        this.config.areaHeight,
+        this.config.fallingSpeed,
+        this.config.radius
+      )
+    );
+
+    // Cycle duration: time for all booms to spawn once
+    const cycleDuration = boomCount.mul(spawnWindowUniform);
+
+    // Calculate which cycle we're in (0, 1, 2, ...) for this boom
+    const timeSinceStart = time.sub(baseOffset);
+    const currentCycle = floor(timeSinceStart.div(cycleDuration));
+
+    // Return the most recent spawn time for this boom
+    return baseOffset.add(currentCycle.mul(cycleDuration));
   }
 
   private createOriginNode(boomId: Node<"float">) {
@@ -412,8 +414,6 @@ export class ConfettiRenderer extends DeclareOrbitProxy {
 
   private animate = () => {
     if (!renderer || !scene || !camera || !particles) return;
-
-    controls.update();
     renderer.render(scene, camera);
     animationId = self.requestAnimationFrame(this.animate);
   };
@@ -449,10 +449,12 @@ export class ConfettiRenderer extends DeclareOrbitProxy {
   }
 
   set rate(value: number) {
-    this.config.rate = value;
-
-    if (spawnWindowUniform) {
-      spawnWindowUniform.value = calculateSpawnWindow(value);
+    if(this.config.rate !== value) {
+      this.config.rate = value;
+      if (spawnWindowUniform) {
+        spawnWindowUniform.value = calculateSpawnWindow(value);
+      }
+      this.recreateConfetti()
     }
   }
 

@@ -63,11 +63,11 @@ import { OffscreenOrbitControlsDirective, OrbitProxyWorker } from '@shared/direc
     }
   ],
   host: {
-    'class': 'pointer-events-auto block'
+    'class': 'pointer-events-none block'
   }
 })
 export class ConfettiComponent extends ThreeJSComponent<
-  ResizableWorker & DPRChangeWorker & OrbitProxyWorker
+  ResizableWorker & DPRChangeWorker
 > {
   private canvasRef = viewChild.required<ElementRef<HTMLCanvasElement>>('confettiCanvas');
 
