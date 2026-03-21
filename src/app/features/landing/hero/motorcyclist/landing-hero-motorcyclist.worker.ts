@@ -19,7 +19,7 @@ import {
   resizeCanvasFactory,
   resizeRendererFactory,
   resizePrespectiveCameraFactory,
-} from '@shared/utils/three';
+} from '@shared/directives/three/resizes.directive';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { onDPRChangeFactory } from '@shared/directives/three/dpr.directive';
