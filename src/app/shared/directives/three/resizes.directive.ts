@@ -1,12 +1,40 @@
-import {
-  Directive,
-  inject,
-  ElementRef,
-  DestroyRef,
-  effect,
-} from '@angular/core';
+import { Directive, inject, ElementRef, DestroyRef, effect } from '@angular/core';
 import { Remote } from 'comlink';
 import { ThreeJSComponent } from '@shared/directives/three/core.directive';
+import type { WebGLRenderer, PerspectiveCamera } from 'three';
+import type { WebGPURenderer } from 'three/webgpu';
+
+export type resizeParameters = [width: number, height: number, updateStyle?: boolean];
+
+export function resizeCanvasFactory(canvas?: OffscreenCanvas) {
+  function resize(...args: resizeParameters) {
+    const [width, height] = args;
+    if (canvas) {
+      canvas.width = width;
+      canvas.height = height;
+    }
+  }
+  return resize;
+}
+
+export function resizeRendererFactory(renderer?: WebGLRenderer | WebGPURenderer) {
+  function resize(...args: resizeParameters) {
+    const [width, height, updateStyle] = args;
+    renderer?.setSize(width, height, updateStyle);
+  }
+  return resize;
+}
+
+export function resizePrespectiveCameraFactory(camera?: PerspectiveCamera) {
+  function resize(...args: resizeParameters) {
+    const [width, height] = args;
+    if (camera) {
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+    }
+  }
+  return resize;
+}
 
 /**
  * A Three.JS worker with a resize function
@@ -24,8 +52,6 @@ export interface ResizableWorker {
    */
   onResize(rect: DOMRectReadOnly): Promise<void> | void;
 }
-
-
 
 /**
  * Automatically resizes the offscreen canvas component based off the size of the host component.
