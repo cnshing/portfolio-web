@@ -180,7 +180,8 @@ export class ConfettiComponent extends ThreeJSComponent<
         await new ConfettiRenderers(
           transfer(offscreen, [offscreen]),
           rect.width,
-          rect.height
+          rect.height,
+          window.devicePixelRatio
         )
       );
 

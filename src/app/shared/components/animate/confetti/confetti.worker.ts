@@ -75,7 +75,6 @@ let emitterHeightUniform: UniformNode<'float', number>;
 let pieceSizeUniform: UniformNode<'float', number>;
 let pieceSpinUniform: UniformNode<'float', number>;
 let opacityFadeUniform: UniformNode<'float', number>;
-
 let fallingSpeedUniform: UniformNode<'float', number>;
 let gravityMinUniform: UniformNode<'float', number>;
 let gravityMaxUniform: UniformNode<'float', number>;
@@ -86,7 +85,7 @@ let resizeCanvas: ReturnType<typeof resizeCanvasFactory>;
 let resizeRenderer: ReturnType<typeof resizeRendererFactory>;
 let resizeCamera: ReturnType<typeof resizePrespectiveCameraFactory>;
 let dprRenderer: ReturnType<typeof onDPRChangeFactory>;
-
+let devicePixelRatio: number;
 
 /**
  * Renderer to explode various confetti via Three.JS
@@ -99,10 +98,11 @@ export class ConfettiRenderer {
   private canvas: OffscreenCanvas;
   private config = { ...DefaultConfettiConfig };
 
-  constructor(canvas: OffscreenCanvas, width: number, height: number) {
+  constructor(canvas: OffscreenCanvas, width: number, height: number, dpr: number) {
     this.canvas = canvas;
     resizeCanvas = resizeCanvasFactory(this.canvas);
     resizeCanvas(width, height);
+    devicePixelRatio = dpr
     this.initScene();
   }
 
@@ -116,11 +116,13 @@ export class ConfettiRenderer {
     camera.position.set(0, 2.5,-2.5);
     scene = new Scene();
     dprRenderer = onDPRChangeFactory(renderer);
+    this.onDPRChange(devicePixelRatio)
     resizeCamera = resizePrespectiveCameraFactory(camera);
     camera.lookAt(0,14.5,5);
   }
 
   onDPRChange(dpr: number) {
+    devicePixelRatio = dpr
     dprRenderer(dpr);
   }
 
