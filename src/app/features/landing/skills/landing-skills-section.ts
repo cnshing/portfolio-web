@@ -70,7 +70,7 @@ import { ConfettiComponent } from '@shared/components/animate/confetti/confetti-
         [explodeDuration]="isReduceMotion ? 1.0 : 1.0"
       />
       } @placeholder {
-      <div class="absolute size-full"></div>
+      <div class="absolute size-full pointer-events-none"></div>
       }
     </section>
   `,
