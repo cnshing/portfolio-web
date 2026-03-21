@@ -36,7 +36,7 @@ import { ConfettiComponent } from '@shared/components/animate/confetti/confetti-
       <div class="grid grid-cols-[repeat(auto-fit,var(--spacing-2xl))] gap-lg justify-evenly">
         @for (skill of skills(); track skill.name) { @if (skill.name === 'Three.JS') {
         <landing-skill-card
-          class="[&>z-card]:brightness-140"
+          class="[&>z-card]:brightness-177"
           [name]="skill.name"
           [logoImg]="skill.logoImg"
           [description]="skill.description"
