@@ -1,7 +1,7 @@
 import { Component, WritableSignal, signal } from '@angular/core';
 import { ZardButtonComponent } from '@shared/components/button/button.component';
 import { ZardIconComponent } from '@shared/components/icon/icon.component';
-import { LandingAboutMeAvatarComponent, Postures, postures } from './me-avatar';
+import { LandingAboutMeAvatarComponent, Postures, postures } from '@features/landing/about-me/me-avatar';
 import { environment } from '@environments/environment';
 import { avatarSrcPath } from '@features/landing/about-me/me-avatar';
 import { LandingEmailIconDirective } from '@features/landing/icons/landing-email-icon.directive';
