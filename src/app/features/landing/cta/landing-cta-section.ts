@@ -17,7 +17,7 @@ import { ZardIconComponent } from '@shared/components/icon/icon.component';
   providers: [],
   imports: [ZardButtonComponent, ZardIconComponent, LandingEmailIconDirective],
   template: `
-    <section>
+    <section class="min-h-screen flex items-center">
       <div class="m-auto text-center py-3xl">
         <h1 class="mb-xl">Any questions? I’d be happy to answer any inquiries.</h1>
         <a
