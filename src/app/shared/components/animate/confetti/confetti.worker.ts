@@ -87,17 +87,22 @@ let resizeRenderer: ReturnType<typeof resizeRendererFactory>;
 let resizeCamera: ReturnType<typeof resizePrespectiveCameraFactory>;
 let dprRenderer: ReturnType<typeof onDPRChangeFactory>;
 
+
+/**
+ * Renderer to explode various confetti via Three.JS
+ *
+ * @export
+ * @class ConfettiRenderer
+ * @typedef {ConfettiRenderer}
+ */
 export class ConfettiRenderer {
   private canvas: OffscreenCanvas;
   private config = { ...DefaultConfettiConfig };
 
   constructor(canvas: OffscreenCanvas, width: number, height: number) {
-
     this.canvas = canvas;
-
     resizeCanvas = resizeCanvasFactory(this.canvas);
     resizeCanvas(width, height);
-
     this.initScene();
   }
 
@@ -106,14 +111,13 @@ export class ConfettiRenderer {
       canvas: this.canvas,
       alpha: true
     });
-
     resizeRenderer = resizeRendererFactory(renderer);
     camera = new PerspectiveCamera(45, 1, 0.0001, 10);
-    camera.position.set(0, 6.5,-1);
+    camera.position.set(0, 2.5,-2.5);
     scene = new Scene();
     dprRenderer = onDPRChangeFactory(renderer);
     resizeCamera = resizePrespectiveCameraFactory(camera);
-    camera.lookAt(0,18.5,5);
+    camera.lookAt(0,14.5,5);
   }
 
   onDPRChange(dpr: number) {
