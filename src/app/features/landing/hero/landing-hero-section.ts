@@ -7,7 +7,7 @@ import { LandingHeroAffordanceComponent } from '@features/landing/hero/landing-h
 import { NgOptimizedImage } from '@angular/common';
 import { LandingVinylIconComponent } from '@features/landing/icons/landing-vinyl-icon';
 import { LandingHeroStarfieldComponent } from '@features/landing/hero/starfield/landing-hero-starfield';
-import { isTouchDevice } from '@shared/utils/accessibility';
+import { isReduceMotion, isTouchDevice } from '@shared/utils/accessibility';
 
 @Component({
   selector: 'landing-hero',
@@ -105,7 +105,7 @@ export default class LandingHeroComponent {
   protected readonly starSize = isTouchDevice() ? 0.001*2.125: 0.001
 
 
-  protected readonly isReduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  protected readonly isReduceMotion = isReduceMotion()
   protected readonly enableMusic = environment.enableMusic
 
 }
