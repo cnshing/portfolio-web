@@ -24,7 +24,7 @@ export const environment = {
   phoneNumber: "+14155552671",
   landingCareerContentMDs: [AgapeOne, Intelcon, UCSC],
   landingSkillsContentMDs: [
-    Docker, NextJS, Svelte, GithubActions, Python, Typescript, Proxmox, React, Angular, Figma, GSAP, ThreeJS
+    NextJS, Svelte, Typescript, React, Angular, ThreeJS, GSAP, GithubActions, Docker, Proxmox, Python, Figma
   ],
   legalPrivacyPolicyMD: PrivacyPolicy,
   enableMusic: false,
