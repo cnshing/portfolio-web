@@ -18,7 +18,7 @@ import {
   resizeCanvasFactory,
   resizeRendererFactory,
   resizePrespectiveCameraFactory,
-} from '@shared/utils/three';
+} from '@shared/directives/three/resizes.directive';
 import {
   DefaultStarfieldConfig,
   calculatePointCount,

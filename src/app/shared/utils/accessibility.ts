@@ -67,3 +67,10 @@ export class AltFromSrcPipe implements PipeTransform {
  * @returns {bool}
  */
 export const isTouchDevice = () => matchMedia('(pointer:coarse)').matches // https://stackoverflow.com/a/14457567
+
+/**
+ * Does the user prefer to reduce or have no animations?
+ *
+ * @returns {bool}
+ */
+export const isReduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;

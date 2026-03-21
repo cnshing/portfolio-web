@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { LandingFooterNavComponent } from './landing-footer-nav';
-import { LandingFooterAdComponent } from './landing-footer-ad';
+import { LandingFooterNavComponent } from '@features/landing/footer/landing-footer-nav';
+import { LandingFooterAdComponent } from '@features/landing/footer/landing-footer-ad';
 import { LandingFooterDisclaimerComponent } from "./landing-footer-disclaimer";
 
 /**

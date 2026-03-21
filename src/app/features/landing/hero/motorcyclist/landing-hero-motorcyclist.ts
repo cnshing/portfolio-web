@@ -9,7 +9,7 @@ import {
   viewChild,
 } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
-import { LandingMotorcyclistSceneComponent } from './landing-hero-motorcyclist-scene';
+import { LandingMotorcyclistSceneComponent } from '@features/landing/hero/motorcyclist/landing-hero-motorcyclist-scene';
 
 
 /**
