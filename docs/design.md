@@ -17,4 +17,4 @@ This choice was made to adhere to the initial design while allowing developer fl
 
 ## Figma
 
-The Figma files are available in the `figma` folder. Unfortunately, the design looks nowhere close to the final version you see today. I hope it can serve as some form of insightful progression as you attempt to design your own site and bring it to production.
+The Figma files are available as a local importable copy under the `design` folder. Unfortunately, the design looks nowhere close to the final version you see today. I hope it can serve as some form of insightful progression as you attempt to design your own site and bring it to production.
