@@ -1,6 +1,21 @@
-# PortfolioWeb
+# portfolio-web
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.2.
+This project contains everything I did to create this [portfolio site](http://chansh.ing/). Everything from the source code to the design files are open sourced and free to modify as you see fit.
+
+## Documentation
+This README contains what you need to get started. For more specifics on the project, visit the [docs](https://github.com/cnshing/portfolio-web/tree/main/docs) folder.
+
+## Tech Stack
+The following tools were used:
+* [ZardUI](http://zardui.com/)
+* [Three.JS](https://threejs.org/manual/#en/fundamentals)
+* [GSAP](https://gsap.com/)
+* [Angular](https://angular.dev/)
+* [Vitest](https://vitest.dev/)
+* [Github Actions](https://github.com/features/actions)
+* [Cloudflare Pages](https://pages.cloudflare.com/)
+* [ngx-markdown](https://www.npmjs.com/package/ngx-markdown)
+* [ngx-lottie](https://www.npmjs.com/package/ngx-lottie)
 
 ## Development server
 
@@ -12,21 +27,7 @@ ng serve --ssl
 
 Once the server is running, open your browser and navigate to `https://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-SSL must be enabled in order the any 3D related functionality to work.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
+SSL must be enabled in order for any 3D related functionality to work.
 
 ## Building
 
@@ -40,22 +41,8 @@ This will compile your project and store the build artifacts in the `dist/` dire
 
 ## Running unit tests
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Testing is done with [Vitest](https://vitest.dev/) officially supported in Angular 21:
 
 ```bash
 ng test
 ```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
