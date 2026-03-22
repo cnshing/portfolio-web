@@ -71,7 +71,7 @@ import { OnViewportLeaveDirective } from '@shared/directives/interesctions.direc
         [explodeDuration]="isReduceMotion ? 1.0 : 1.0"
       />
       } @placeholder {
-      <div class="absolute size-full pointer-events-none"></div>
+      <div class="absolute pointer-events-none"></div> <!-- NOTE: Do not use size-full here-->
       }
     </section>
   `,
