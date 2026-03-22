@@ -74,3 +74,9 @@ export const isTouchDevice = () => matchMedia('(pointer:coarse)').matches // htt
  * @returns {bool}
  */
 export const isReduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/**
+ * Is the device running Chrome on iOS?
+ * @returns {bool}
+ */
+export const isCriOS = () => navigator.userAgent.match('CriOS')
