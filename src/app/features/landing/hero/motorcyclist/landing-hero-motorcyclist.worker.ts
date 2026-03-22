@@ -23,6 +23,7 @@ import {
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { onDPRChangeFactory } from '@shared/directives/three/dpr.directive';
+import { isCriOS } from '@shared/utils/accessibility';
 
 let renderer: WebGPURenderer;
 let scene: Scene;
@@ -45,6 +46,21 @@ let maxPolar = 84.25;
 let minAzimuth = -2;
 let maxAzimuth = 2;
 let radius = IMG_Z_CAM_ADJUSTMENT;
+
+/**
+ * This fakes the userAgent to ensure that Chrome IOS devices will use the right texture loader for offscreen canvas support. Fixed agaisnt https://github.com/mrdoob/three.js/blob/1939c35f2d92a4c870568da011aab54dabdfdd30/examples/jsm/loaders/GLTFLoader.js#L2573-L2602
+ */
+function forceCriOSImageBitmapLoader() {
+  const origUA = navigator.userAgent;
+  const criOS = isCriOS();
+  Object.defineProperty(navigator, 'userAgent', {
+    get() {
+      if (criOS) return 'Mozilla/5.0 Chrome/120.0.0.0 Safari/537.36'
+      return origUA
+    }
+  });
+}
+forceCriOSImageBitmapLoader()
 
 /**
  * Motorcyclist component with slow rotation and panning to help create depth.
