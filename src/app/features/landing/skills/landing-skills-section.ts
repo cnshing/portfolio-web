@@ -22,9 +22,9 @@ import { OnViewportLeaveDirective } from '@shared/directives/interesctions.direc
   selector: 'landing-skills',
   standalone: true,
   providers: [],
-  imports: [LandingSkillCardComponent, ConfettiComponent, OnViewportLeaveDirective ],
+  imports: [LandingSkillCardComponent, ConfettiComponent, OnViewportLeaveDirective],
   template: `
-    <section class="relative flex flex-col gap-2xl">
+    <section class="flex flex-col gap-2xl">
       <div
         class="flex flex-wrap gap-x-2xl gap-y-xs text-center justify-center min-[27rem]:justify-between min-[27rem]:text-left items-center"
       >
@@ -71,10 +71,13 @@ import { OnViewportLeaveDirective } from '@shared/directives/interesctions.direc
         [explodeDuration]="isReduceMotion ? 1.0 : 1.0"
       />
       } @placeholder {
-      <div class="absolute pointer-events-none"></div> <!-- NOTE: Do not use size-full here-->
+      <div class="absolute size-full top-0 left-0 pointer-events-none"></div> <!-- NOTE: Do not use size-full here-->
       }
     </section>
   `,
+  host: {
+    class: 'relative',
+  },
 })
 export default class LandingSkillsComponent {
   /**
