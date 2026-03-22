@@ -60,7 +60,7 @@ export class AutoplayOnVisibleDirective {
    *
    * @private
    */
-  private initObserver(): void {
+  private initObserver(): void { // TODO: Refactor duplicate code from `viewportintersections.directive.ts`
     const video = this.el.nativeElement;
     this.observer = new IntersectionObserver(
       ([entry]) => {
