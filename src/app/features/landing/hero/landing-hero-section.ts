@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { environment } from '@environments/environment';
 import { ZardButtonComponent } from '@shared/components/button/button.component';
 import { ZardIconComponent } from '@shared/components/icon/icon.component';
@@ -7,7 +7,7 @@ import { LandingHeroAffordanceComponent } from '@features/landing/hero/landing-h
 import { NgOptimizedImage } from '@angular/common';
 import { LandingVinylIconComponent } from '@features/landing/icons/landing-vinyl-icon';
 import { LandingHeroStarfieldComponent } from '@features/landing/hero/starfield/landing-hero-starfield';
-import { isReduceMotion, isTouchDevice } from '@shared/utils/accessibility';
+import { isReduceMotion } from '@shared/utils/accessibility';
 
 @Component({
   selector: 'landing-hero',
@@ -80,7 +80,10 @@ import { isReduceMotion, isTouchDevice } from '@shared/utils/accessibility';
     </button>
     }
   `,
+  encapsulation: ViewEncapsulation.None,
   styles: `
+  html
+    overscroll-behavior-y: none;
   :host
     --animate-fade-in: fadein 8s linear
   @layer components
@@ -101,8 +104,9 @@ import { isReduceMotion, isTouchDevice } from '@shared/utils/accessibility';
 export default class LandingHeroComponent {
   protected readonly name = environment.name;
   protected readonly starColors = ['#e5e6e3', '#cdcecb'] // NOTE: This is meant to be --text-color-secondary and --text-color-tertiary, respectively
+  protected readonly isLargeDevice = matchMedia('(min-width: 40rem)')
   protected readonly numStars = 187
-  protected readonly starSize = isTouchDevice() ? 0.001*2.125: 0.001
+  protected readonly starSize = this.isLargeDevice ? 0.001: 0.001*2.125
 
 
   protected readonly isReduceMotion = isReduceMotion()
