@@ -10,6 +10,7 @@ import {
 import { SSGMarkdownParser } from '@features/ssg/services/ssg-markdown-parser.service';
 import { isReduceMotion, isTouchDevice } from '@shared/utils/accessibility';
 import { ConfettiComponent } from '@shared/components/animate/confetti/confetti-component';
+import { OnViewportLeaveDirective } from '@shared/directives/interesctions.directive';
 /**
  * Section containing user's career experience.
  *
@@ -21,9 +22,9 @@ import { ConfettiComponent } from '@shared/components/animate/confetti/confetti-
   selector: 'landing-skills',
   standalone: true,
   providers: [],
-  imports: [LandingSkillCardComponent, ConfettiComponent],
+  imports: [LandingSkillCardComponent, ConfettiComponent, OnViewportLeaveDirective],
   template: `
-    <section class="relative flex flex-col gap-2xl">
+    <section class="flex flex-col gap-2xl">
       <div
         class="flex flex-wrap gap-x-2xl gap-y-xs text-center justify-center min-[27rem]:justify-between min-[27rem]:text-left items-center"
       >
@@ -36,14 +37,14 @@ import { ConfettiComponent } from '@shared/components/animate/confetti/confetti-
       <div class="grid grid-cols-[repeat(auto-fit,var(--spacing-2xl))] gap-lg justify-evenly">
         @for (skill of skills(); track skill.name) { @if (skill.name === 'Three.JS') {
         <landing-skill-card
-          class="[&>z-card]:brightness-177"
+          class="[&>z-card]:brightness-177 [&>z-card]:duration-1000"
+          onViewportLeave
+          (viewportleave)="this.confettiExploding.set(false)"
           [name]="skill.name"
           [logoImg]="skill.logoImg"
           [description]="skill.description"
-          (mouseenter)="isTouchDevice ? null : this.confettiExploding.set(true)"
-          (mouseleave)="isTouchDevice ? null : this.confettiExploding.set(false)"
-          (touchstart)="this.confettiExploding.set(true)"
-          (touchend)="this.confettiExploding.set(false)"
+          [class.[&>z-card]:animate-bounce]="confettiExploding()"
+          (pointerdown)="this.confettiExploding.set(!this.confettiExploding())"
         />
         } @else {
         <landing-skill-card
@@ -70,10 +71,13 @@ import { ConfettiComponent } from '@shared/components/animate/confetti/confetti-
         [explodeDuration]="isReduceMotion ? 1.0 : 1.0"
       />
       } @placeholder {
-      <div class="absolute size-full pointer-events-none"></div>
+      <div class="absolute size-full top-0 left-0 pointer-events-none"></div> <!-- NOTE: Do not use size-full here-->
       }
     </section>
   `,
+  host: {
+    class: 'relative',
+  },
 })
 export default class LandingSkillsComponent {
   /**

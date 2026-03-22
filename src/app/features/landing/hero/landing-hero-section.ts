@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { environment } from '@environments/environment';
 import { ZardButtonComponent } from '@shared/components/button/button.component';
 import { ZardIconComponent } from '@shared/components/icon/icon.component';
@@ -7,7 +7,7 @@ import { LandingHeroAffordanceComponent } from '@features/landing/hero/landing-h
 import { NgOptimizedImage } from '@angular/common';
 import { LandingVinylIconComponent } from '@features/landing/icons/landing-vinyl-icon';
 import { LandingHeroStarfieldComponent } from '@features/landing/hero/starfield/landing-hero-starfield';
-import { isReduceMotion, isTouchDevice } from '@shared/utils/accessibility';
+import { isReduceMotion } from '@shared/utils/accessibility';
 
 @Component({
   selector: 'landing-hero',
@@ -48,7 +48,7 @@ import { isReduceMotion, isTouchDevice } from '@shared/utils/accessibility';
     <landing-hero-motorcyclist [enterDurationSecs]="isReduceMotion ? 4.0 : 2.0" class="absolute pl-lg pt-2xl z-[3] bottom-0 size-full" />
     <landing-hero-affordance
       class="absolute bottom-0 translate-y-[calc(var(--racetrack-height)/2)] -translate-x-1/2 left-1/2 z-[7] text-color-accent brightness-75 animate-bounce *:data-motorcycle:text-[9vw] *:data-arrow:text-[7.5vw] *:md:data-motorcycle:text-2xl *:md:data-arrow:text-xl
-      [animation-duration:2500ms]transition-opacity duration-1500 ease-in-out"
+      [animation-duration:2500ms] transition-opacity duration-1500 ease-in-out"
       [idleTimeoutMS]="3250"
     />
     <div class="absolute size-full h-[calc(100%+var(--racetrack-height))] z-[1] flex flex-col">
@@ -80,7 +80,10 @@ import { isReduceMotion, isTouchDevice } from '@shared/utils/accessibility';
     </button>
     }
   `,
+  encapsulation: ViewEncapsulation.None,
   styles: `
+  html
+    overscroll-behavior-y: none;
   :host
     --animate-fade-in: fadein 8s linear
   @layer components
@@ -101,8 +104,9 @@ import { isReduceMotion, isTouchDevice } from '@shared/utils/accessibility';
 export default class LandingHeroComponent {
   protected readonly name = environment.name;
   protected readonly starColors = ['#e5e6e3', '#cdcecb'] // NOTE: This is meant to be --text-color-secondary and --text-color-tertiary, respectively
+  protected readonly isLargeDevice = matchMedia('(min-width: 40rem)')
   protected readonly numStars = 187
-  protected readonly starSize = isTouchDevice() ? 0.001*2.125: 0.001
+  protected readonly starSize = this.isLargeDevice ? 0.001: 0.001*2.125
 
 
   protected readonly isReduceMotion = isReduceMotion()
