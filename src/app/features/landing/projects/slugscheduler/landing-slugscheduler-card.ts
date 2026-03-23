@@ -15,6 +15,8 @@ import { NgOptimizedImage } from '@angular/common';
   imports: [LandingProjectsCardComponent, NgOptimizedImage],
   template: `
     <a
+      target="_blank"
+      rel="noopener noreferrer"
       landing-projects-card
       class="bg-white-0 overflow-hidden flex flex-col"
       href="https://github.com/yang0613/Ultimate-Course-Scheduler"
