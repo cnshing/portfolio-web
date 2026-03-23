@@ -15,6 +15,8 @@ import { LandingProjectsCardComponent } from '@features/landing/projects/landing
   imports: [LandingProjectsCardComponent],
   template: `
     <a
+      target="_blank"
+      rel="noopener noreferrer"
       landing-projects-card
       class="bg-[#FFCC33] p-md flex flex-col justify-center border border-color-[#202020]"
       href="https://github.com/cnshing/debian-livecd"

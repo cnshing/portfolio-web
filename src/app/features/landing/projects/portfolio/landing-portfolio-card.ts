@@ -15,6 +15,8 @@ import { isTouchDevice } from '@shared/utils/accessibility';
   imports: [LandingProjectsCardComponent],
   template: `
     <a
+      target="_blank"
+      rel="noopener noreferrer"
       landing-projects-card
       class="relative border border-color-strong overflow-hidden z-0"
       href="https://github.com/cnshing/portfolio-web"

@@ -46,6 +46,8 @@ import { AltFromSrcPipe } from '@shared/utils/accessibility';
     >
       <ng-template #companyIcon>
         <a
+          target="_blank"
+          rel="noopener noreferrer"
           class="focus-visible:ring-white-0/50 focus-visible:ring-[0.46875rem] focus-visible:outline-none rounded-sm"
           [aria-label]="aboutURL() ? 'Learn more about ' + company() : undefined"
           [attr.href]="aboutURL() ? aboutURL() : undefined"

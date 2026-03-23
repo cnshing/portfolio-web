@@ -15,6 +15,8 @@ import { VideoAutoplayDirective } from '@shared/directives/autoplay.directive';
   imports: [LandingProjectsCardComponent, VideoAutoplayDirective],
   template: `
     <a
+      target="_blank"
+      rel="noopener noreferrer"
       landing-projects-card
       class="relative border border-color-default z-0"
       href="https://github.com/cnshing/code-server-lan"
