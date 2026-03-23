@@ -15,6 +15,8 @@ import { LandingSnoobotComponent } from '@features/landing/projects/snoospoof/sn
   imports: [LandingProjectsCardComponent, LandingSnoobotComponent],
   template: `
     <a
+      target="_blank"
+      rel="noopener noreferrer"
       landing-projects-card
       class="bg-linear-to-b from-bg-surface2 from-0% to-bg-surface1 to-100% overflow-hidden flex flex-col justify-between"
       href="https://snoospoof.app/"
